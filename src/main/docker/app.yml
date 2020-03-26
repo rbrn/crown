@@ -1,0 +1,30 @@
+version: '2'
+services:
+  crown-app:
+    image: crown
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATA_MONGODB_URI=mongodb://crown-mongodb:27017
+      - SPRING_DATA_MONGODB_DATABASE=crown
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=web_app
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=web_app
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+      - SPRING_DATA_JEST_URI=http://crown-elasticsearch:9200
+      - SPRING_ELASTICSEARCH_REST_URIS=http://crown-elasticsearch:9200
+    ports:
+      - 8080:8080
+  crown-mongodb:
+    extends:
+      file: mongodb.yml
+      service: crown-mongodb
+  crown-elasticsearch:
+    extends:
+      file: elasticsearch.yml
+      service: crown-elasticsearch
+  keycloak:
+    extends:
+      file: keycloak.yml
+      service: keycloak
