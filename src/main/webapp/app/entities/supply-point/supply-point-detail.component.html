@@ -1,0 +1,82 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="supplyPoint">
+            <h2><span jhiTranslate="crownApp.supplyPoint.detail.title">Supply Point</span> {{ supplyPoint.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="crownApp.supplyPoint.name">Name</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.address">Address</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.address }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.primaryContactName">Primary Contact Name</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.primaryContactName }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.zip">Zip</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.zip }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.phonenumber">Phonenumber</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.phonenumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.latx">Latx</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.latx }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.longy">Longy</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.longy }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.city">City</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.city }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.state">State</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.state }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.isDistributor">Is Distributor</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.isDistributor }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.isHealthcare">Is Healthcare</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.isHealthcare }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.hasSterilization">Has Sterilization</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.hasSterilization }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.priority">Priority</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.priority }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.supplyPoint.notes">Notes</span></dt>
+                <dd>
+                    <span>{{ supplyPoint.notes }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/supply-point', supplyPoint.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

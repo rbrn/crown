@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="resource">
+            <h2><span jhiTranslate="crownApp.resource.detail.title">Resource</span> {{ resource.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="crownApp.resource.name">Name</span></dt>
+                <dd>
+                    <span>{{ resource.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.resource.notes">Notes</span></dt>
+                <dd>
+                    <span>{{ resource.notes }}</span>
+                </dd>
+                <dt><span jhiTranslate="crownApp.resource.supplyPointResource">Supply Point Resource</span></dt>
+                <dd>
+                    <div *ngIf="resource.supplyPointResource">
+                        <a [routerLink]="['/supply-point-resource', resource.supplyPointResource?.id, 'view']">{{ resource.supplyPointResource?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/resource', resource.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

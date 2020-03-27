@@ -1,0 +1,36 @@
+entity SupplyPoint {
+    name String required unique,
+    address String,
+    primaryContactName String required,
+    zip String required,
+    phonenumber String
+    latx Float,
+    longy Float,
+    city String,
+    state String,
+    isDistributor Boolean,
+    isHealthcare Boolean,
+    hasSterilization Boolean,
+    priority Integer,
+    notes String
+}
+entity Resource {
+	name String required,
+	notes String
+}
+entity SupplyPointResource {
+    numRequested Integer,
+    canProduce Integer,
+    numinStock Integer
+}
+relationship OneToMany {
+    SupplyPoint{resourceLocation} to SupplyPointResource
+}
+
+relationship OneToMany {
+    SupplyPointResource{resource} to Resource
+}
+
+// Set pagination options
+paginate SupplyPoint, Resource, SupplyPointResource with infinite-scroll
+
