@@ -1,17 +1,8 @@
 package org.crown.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.crown.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_MAX_LENGTH;
-
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpSession;
 import org.crown.CrownApp;
+
 import org.crown.config.Constants;
-import org.crown.config.TestSecurityConfiguration;
 import org.crown.config.audit.AuditEventConverter;
 import org.crown.domain.PersistentAuditEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,11 +14,22 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
+import javax.servlet.http.HttpSession;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.crown.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_MAX_LENGTH;
+
 /**
  * Integration tests for {@link CustomAuditEventRepository}.
  */
-@SpringBootTest(classes = { CrownApp.class, TestSecurityConfiguration.class })
+@SpringBootTest(classes = CrownApp.class)
 public class CustomAuditEventRepositoryIT {
+
     @Autowired
     private PersistenceAuditEventRepository persistenceAuditEventRepository;
 
@@ -150,4 +152,5 @@ public class CustomAuditEventRepositoryIT {
         List<PersistentAuditEvent> persistentAuditEvents = persistenceAuditEventRepository.findAll();
         assertThat(persistentAuditEvents).hasSize(0);
     }
+
 }

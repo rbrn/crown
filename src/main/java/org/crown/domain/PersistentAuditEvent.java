@@ -1,13 +1,13 @@
 package org.crown.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
-import javax.validation.constraints.NotNull;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * Persist AuditEvent managed by the Spring Boot actuator.
@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document(collection = "jhi_persistent_audit_event")
 public class PersistentAuditEvent implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -90,17 +91,10 @@ public class PersistentAuditEvent implements Serializable {
 
     @Override
     public String toString() {
-        return (
-            "PersistentAuditEvent{" +
-            "principal='" +
-            principal +
-            '\'' +
-            ", auditEventDate=" +
-            auditEventDate +
-            ", auditEventType='" +
-            auditEventType +
-            '\'' +
-            '}'
-        );
+        return "PersistentAuditEvent{" +
+            "principal='" + principal + '\'' +
+            ", auditEventDate=" + auditEventDate +
+            ", auditEventType='" + auditEventType + '\'' +
+            '}';
     }
 }

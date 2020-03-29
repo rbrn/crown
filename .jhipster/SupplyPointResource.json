@@ -25,7 +25,7 @@
             "relationshipType": "many-to-one",
             "otherEntityName": "supplyPoint",
             "otherEntityRelationshipName": "resourceLocation",
-            "relationshipName": "supplyPoint",
+            "relationshipName": "supplypoint",
             "otherEntityField": "id"
         }
     ],

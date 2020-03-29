@@ -145,6 +145,3 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
-/okta.env
-/.checkstyle
-/package-lock.json

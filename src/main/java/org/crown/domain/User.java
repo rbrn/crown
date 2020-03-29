@@ -1,20 +1,23 @@
 package org.crown.domain;
 
+import org.crown.config.Constants;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.apache.commons.lang3.StringUtils;
-import org.crown.config.Constants;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Field;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * A user.
@@ -22,6 +25,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @org.springframework.data.mongodb.core.mapping.Document(collection = "jhi_user")
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "user")
 public class User extends AbstractAuditingEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -33,6 +37,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Size(min = 1, max = 50)
     @Indexed
     private String login;
+
+    @JsonIgnore
+    @NotNull
+    @Size(min = 60, max = 60)
+    private String password;
 
     @Size(max = 50)
     @Field("first_name")
@@ -57,6 +66,20 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Field("image_url")
     private String imageUrl;
 
+    @Size(max = 20)
+    @Field("activation_key")
+    @JsonIgnore
+    private String activationKey;
+
+    @Size(max = 20)
+    @Field("reset_key")
+
+    @JsonIgnore
+    private String resetKey;
+
+    @Field("reset_date")
+    private Instant resetDate = null;
+
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
 
@@ -75,6 +98,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     // Lowercase the login before saving it in database
     public void setLogin(String login) {
         this.login = StringUtils.lowerCase(login, Locale.ENGLISH);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -117,6 +148,30 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.activated = activated;
     }
 
+    public String getActivationKey() {
+        return activationKey;
+    }
+
+    public void setActivationKey(String activationKey) {
+        this.activationKey = activationKey;
+    }
+
+    public String getResetKey() {
+        return resetKey;
+    }
+
+    public void setResetKey(String resetKey) {
+        this.resetKey = resetKey;
+    }
+
+    public Instant getResetDate() {
+        return resetDate;
+    }
+
+    public void setResetDate(Instant resetDate) {
+        this.resetDate = resetDate;
+    }
+
     public String getLangKey() {
         return langKey;
     }
@@ -151,30 +206,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public String toString() {
-        return (
-            "User{" +
-            "login='" +
-            login +
-            '\'' +
-            ", firstName='" +
-            firstName +
-            '\'' +
-            ", lastName='" +
-            lastName +
-            '\'' +
-            ", email='" +
-            email +
-            '\'' +
-            ", imageUrl='" +
-            imageUrl +
-            '\'' +
-            ", activated='" +
-            activated +
-            '\'' +
-            ", langKey='" +
-            langKey +
-            '\'' +
-            "}"
-        );
+        return "User{" +
+            "login='" + login + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", imageUrl='" + imageUrl + '\'' +
+            ", activated='" + activated + '\'' +
+            ", langKey='" + langKey + '\'' +
+            ", activationKey='" + activationKey + '\'' +
+            "}";
     }
 }

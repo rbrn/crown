@@ -23,8 +23,15 @@ entity SupplyPointResource {
     canProduce Integer,
     numinStock Integer
 }
+
+entity Delivery {
+    deliveryContact String required,
+    phoneNumber String required,
+	notes String
+}
+
 relationship OneToMany {
-    SupplyPoint{resourceLocation} to SupplyPointResource
+    SupplyPoint{resourceLocation} to SupplyPointResource{supplypoint}
 }
 
 relationship OneToMany {

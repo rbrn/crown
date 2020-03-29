@@ -1,16 +1,8 @@
 package org.crown.config;
 
-import static java.net.URLDecoder.decode;
-
 import io.github.jhipster.config.JHipsterConstants;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.web.filter.CachingHttpHeadersFilter;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
-import java.util.*;
-import javax.servlet.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.server.*;
@@ -25,11 +17,21 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.servlet.*;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.util.*;
+
+import static java.net.URLDecoder.decode;
+
 /**
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
 public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
+
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
     private final Environment env;
@@ -110,12 +112,12 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
     /**
      * Initializes the caching HTTP Headers Filter.
      */
-    private void initCachingHttpHeadersFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+    private void initCachingHttpHeadersFilter(ServletContext servletContext,
+                                              EnumSet<DispatcherType> disps) {
         log.debug("Registering Caching HTTP Headers Filter");
-        FilterRegistration.Dynamic cachingHttpHeadersFilter = servletContext.addFilter(
-            "cachingHttpHeadersFilter",
-            new CachingHttpHeadersFilter(jHipsterProperties)
-        );
+        FilterRegistration.Dynamic cachingHttpHeadersFilter =
+            servletContext.addFilter("cachingHttpHeadersFilter",
+                new CachingHttpHeadersFilter(jHipsterProperties));
 
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/i18n/*");
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/content/*");
@@ -135,4 +137,5 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         }
         return new CorsFilter(source);
     }
+
 }

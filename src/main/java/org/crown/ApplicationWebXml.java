@@ -1,6 +1,7 @@
 package org.crown;
 
 import io.github.jhipster.config.DefaultProfileUtil;
+
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

@@ -1,12 +1,14 @@
 package org.crown.web.rest.errors;
 
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 import org.zalando.problem.AbstractThrowableProblem;
 import org.zalando.problem.Status;
 
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+
 public class BadRequestAlertException extends AbstractThrowableProblem {
+
     private static final long serialVersionUID = 1L;
 
     private final String entityName;

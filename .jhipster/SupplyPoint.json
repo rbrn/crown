@@ -72,7 +72,7 @@
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "supplyPointResource",
-            "otherEntityRelationshipName": "supplyPoint",
+            "otherEntityRelationshipName": "supplypoint",
             "relationshipName": "resourceLocation"
         }
     ],

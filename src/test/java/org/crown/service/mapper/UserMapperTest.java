@@ -1,20 +1,23 @@
 package org.crown.service.mapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.crown.domain.User;
+import org.crown.service.dto.UserDTO;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.crown.domain.User;
-import org.crown.service.dto.UserDTO;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Unit tests for {@link UserMapper}.
  */
 public class UserMapperTest {
+
     private static final String DEFAULT_LOGIN = "johndoe";
     private static final String DEFAULT_ID = "id1";
 
@@ -27,6 +30,7 @@ public class UserMapperTest {
         userMapper = new UserMapper();
         user = new User();
         user.setLogin(DEFAULT_LOGIN);
+        user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
         user.setEmail("johndoe@localhost");
         user.setFirstName("john");

@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class UserSearchRepositoryMockConfiguration {
+
     @MockBean
     private UserSearchRepository mockUserSearchRepository;
+
 }

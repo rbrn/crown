@@ -1,10 +1,10 @@
 package org.crown.config;
 
 import com.github.mongobee.Mongobee;
+
 import io.github.jhipster.config.JHipsterConstants;
 import io.github.jhipster.domain.util.JSR310DateConverters.*;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.Cloud;
@@ -21,10 +21,15 @@ import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventL
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 @Configuration
 @EnableMongoRepositories("org.crown.repository")
 @Profile(JHipsterConstants.SPRING_PROFILE_CLOUD)
 public class CloudDatabaseConfiguration extends AbstractCloudConfig {
+
     private final Logger log = LoggerFactory.getLogger(CloudDatabaseConfiguration.class);
 
     @Bean
@@ -57,7 +62,8 @@ public class CloudDatabaseConfiguration extends AbstractCloudConfig {
         List<ServiceInfo> matchingServiceInfos = cloud.getServiceInfos(MongoDbFactory.class);
 
         if (matchingServiceInfos.size() != 1) {
-            throw new CloudException("No unique service matching MongoDbFactory found. Expected 1, found " + matchingServiceInfos.size());
+            throw new CloudException("No unique service matching MongoDbFactory found. Expected 1, found "
+                + matchingServiceInfos.size());
         }
         MongoServiceInfo info = (MongoServiceInfo) matchingServiceInfos.get(0);
         Mongobee mongobee = new Mongobee(info.getUri());
