@@ -4,8 +4,8 @@ entity SupplyPoint {
     primaryContactName String required,
     zip String required,
     phoneNumber String required
-    lat Float,
-    long Float,
+    latitude Float,
+    longitude Float,
     city String required,
     state String required,
     email String,
@@ -37,19 +37,19 @@ relationship OneToMany {
     SupplyPoint{donatesfordelivery} to Delivery{acceptsfordelivery}
 }
 relationship ManyToOne {
-    Delivery{donatesfromdelivery} to SupplyPoint{acceptsfromdelivery}
+    Delivery{donatesfromdelivery} to SupplyPoint
 }
 relationship ManyToOne {
-	SupplyPointResource{deliveryinfo} to Delivery{doesdelivery}
+	SupplyPointResource{deliveryinfo} to Delivery
 }
 relationship OneToMany {
     Resource{needed} to SupplyPointResource{relation}
 }
 relationship ManyToOne {
-    SupplyPointResource{relation} to SupplyPoint{required}
+    SupplyPointResource{relation} to SupplyPoint
 }
 relationship ManyToOne {
-    SupplyPointResource{relation} to Resource{needs}
+    SupplyPointResource{relation} to Resource
 }
 relationship ManyToMany {
 	SupplyPoint{supplies} to SupplyPoint{acceptsfrom}
