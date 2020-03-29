@@ -11,7 +11,11 @@
         },
         {
             "fieldName": "address",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "unique"
+            ]
         },
         {
             "fieldName": "primaryContactName",
@@ -28,23 +32,36 @@
             ]
         },
         {
-            "fieldName": "phonenumber",
-            "fieldType": "String"
+            "fieldName": "phoneNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
-            "fieldName": "latx",
+            "fieldName": "latitude",
             "fieldType": "Float"
         },
         {
-            "fieldName": "longy",
+            "fieldName": "longitude",
             "fieldType": "Float"
         },
         {
             "fieldName": "city",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "state",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "email",
             "fieldType": "String"
         },
         {
@@ -68,19 +85,12 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "supplyPointResource",
-            "otherEntityRelationshipName": "supplypoint",
-            "relationshipName": "resourceLocation"
-        }
-    ],
+    "relationships": [],
     "changelogDate": "20200326081800",
     "entityTableName": "supply_point",
-    "dto": "no",
-    "pagination": "infinite-scroll",
-    "service": "no",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "readOnly": false,

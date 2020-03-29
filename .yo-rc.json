@@ -38,6 +38,8 @@
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": ["en", "fr", "es"],
-    "blueprints": []
+    "blueprints": [],
+    "herokuAppName": "crown-dev",
+    "herokuDeployType": "git"
   }
 }

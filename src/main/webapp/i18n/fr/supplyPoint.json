@@ -1,0 +1,37 @@
+{
+  "crownApp": {
+    "supplyPoint": {
+      "home": {
+        "title": "SupplyPoints",
+        "createLabel": "Créer un nouveau Supply Point",
+        "createOrEditLabel": "Créer ou éditer un Supply Point",
+        "search": "Recherche pour Supply Point",
+        "notFound": "Aucun Supply Point trouvé"
+      },
+      "created": "Un nouveau Supply Point a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Supply Point avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Supply Point avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Supply Point {{ id }} ?"
+      },
+      "detail": {
+        "title": "Supply Point"
+      },
+      "name": "Name",
+      "address": "Address",
+      "primaryContactName": "Primary Contact Name",
+      "zip": "Zip",
+      "phoneNumber": "Phone Number",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "city": "City",
+      "state": "State",
+      "email": "Email",
+      "isDistributor": "Is Distributor",
+      "isHealthcare": "Is Healthcare",
+      "hasSterilization": "Has Sterilization",
+      "priority": "Priority",
+      "notes": "Notes"
+    }
+  }
+}
