@@ -15,10 +15,47 @@ entity SupplyPoint {
     priority Integer,
     notes String
 }
-
-dto SupplyPoint with mapstruct
-
-paginate SupplyPoint with pagination
-
-service SupplyPoint with serviceClass
-
+entity Delivery {
+    deliveryContact String required,
+    phoneNumber String required,
+	notes String
+}
+entity Resource {
+	name String required,
+	notes String
+}
+entity SupplyPointResource {
+    numRequested Integer,
+    canProduce Integer,
+    numinStock Integer,
+    notes String
+}
+relationship OneToMany {
+    SupplyPoint{requires} to SupplyPointResource{relation}
+}
+relationship OneToMany {
+    SupplyPoint{donatesfordelivery} to Delivery{acceptsfordelivery}
+}
+relationship ManyToOne {
+    Delivery{donatesfromdelivery} to SupplyPoint
+}
+relationship ManyToOne {
+	SupplyPointResource{deliveryinfo} to Delivery
+}
+relationship OneToMany {
+    Resource{needed} to SupplyPointResource{relation}
+}
+relationship ManyToOne {
+    SupplyPointResource{relation} to SupplyPoint
+}
+relationship ManyToOne {
+    SupplyPointResource{relation} to Resource
+}
+relationship ManyToMany {
+	SupplyPoint{supplies} to SupplyPoint{acceptsfrom}
+}
+// defining multiple OneToMany relationships with comments
+// Set pagination options
+paginate SupplyPoint, Resource, SupplyPointResource with infinite-scroll
+// Set an angular suffix
+// angularSuffix * with mySuffix
