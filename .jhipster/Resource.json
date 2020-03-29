@@ -22,7 +22,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200326081900",
+    "changelogDate": "20200329202900",
     "entityTableName": "resource",
     "dto": "no",
     "pagination": "infinite-scroll",

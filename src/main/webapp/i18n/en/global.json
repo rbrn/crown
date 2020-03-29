@@ -7,6 +7,10 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "supplyPoint": "Supply Point",
+        "resource": "Resource",
+        "supplyPointResource": "Supply Point Resource",
+        "delivery": "Delivery",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

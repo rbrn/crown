@@ -1,0 +1,27 @@
+{
+  "crownApp": {
+    "supplyPointResource": {
+      "home": {
+        "title": "Supply Point Resources",
+        "createLabel": "Create a new Supply Point Resource",
+        "createOrEditLabel": "Create or edit a Supply Point Resource",
+        "search": "Search for Supply Point Resource",
+        "notFound": "No Supply Point Resources found"
+      },
+      "created": "A new Supply Point Resource is created with identifier {{ param }}",
+      "updated": "A Supply Point Resource is updated with identifier {{ param }}",
+      "deleted": "A Supply Point Resource is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Supply Point Resource {{ id }}?"
+      },
+      "detail": {
+        "title": "Supply Point Resource"
+      },
+      "numRequested": "Num Requested",
+      "canProduce": "Can Produce",
+      "numinStock": "Numin Stock",
+      "resource": "Resource",
+      "supplypoint": "Supplypoint"
+    }
+  }
+}
