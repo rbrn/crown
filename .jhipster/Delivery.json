@@ -21,7 +21,7 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20200329062000",
+    "changelogDate": "20200329203100",
     "entityTableName": "delivery",
     "dto": "no",
     "pagination": "no",

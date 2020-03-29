@@ -13,6 +13,22 @@ import password, { PasswordState } from 'app/modules/account/password/password.r
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 import sessions, { SessionsState } from 'app/modules/account/sessions/sessions.reducer';
+// prettier-ignore
+import supplyPoint, {
+  SupplyPointState
+} from 'app/entities/supply-point/supply-point.reducer';
+// prettier-ignore
+import resource, {
+  ResourceState
+} from 'app/entities/resource/resource.reducer';
+// prettier-ignore
+import supplyPointResource, {
+  SupplyPointResourceState
+} from 'app/entities/supply-point-resource/supply-point-resource.reducer';
+// prettier-ignore
+import delivery, {
+  DeliveryState
+} from 'app/entities/delivery/delivery.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -27,6 +43,10 @@ export interface IRootState {
   readonly password: PasswordState;
   readonly settings: SettingsState;
   readonly sessions: SessionsState;
+  readonly supplyPoint: SupplyPointState;
+  readonly resource: ResourceState;
+  readonly supplyPointResource: SupplyPointResourceState;
+  readonly delivery: DeliveryState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -43,6 +63,10 @@ const rootReducer = combineReducers<IRootState>({
   password,
   settings,
   sessions,
+  supplyPoint,
+  resource,
+  supplyPointResource,
+  delivery,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

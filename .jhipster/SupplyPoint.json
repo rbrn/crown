@@ -76,7 +76,7 @@
             "relationshipName": "resourceLocation"
         }
     ],
-    "changelogDate": "20200326081800",
+    "changelogDate": "20200329202800",
     "entityTableName": "supply_point",
     "dto": "no",
     "pagination": "infinite-scroll",

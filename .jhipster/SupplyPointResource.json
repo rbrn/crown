@@ -29,7 +29,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200326082000",
+    "changelogDate": "20200329203000",
     "entityTableName": "supply_point_resource",
     "dto": "no",
     "pagination": "infinite-scroll",
