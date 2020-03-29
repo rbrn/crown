@@ -19,4 +19,4 @@ eureka:
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URI}?authMode=scram-sha1
+      uri: ${MONGODB_URI}?authMode=scram-sha1&retryWrites=false
