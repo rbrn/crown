@@ -42,8 +42,8 @@ spring:
       indent-output: true
   data:
     mongodb:
-      uri: mongodb://localhost:27017
-      database: crown
+      uri: mongodb://heroku_w6hp324b:aug41d79i4maqj0leap7o3v7ba@ds141631.mlab.com:41631/heroku_w6hp324b
+      database: heroku_w6hp324b
     elasticsearch:
       properties:
         path:

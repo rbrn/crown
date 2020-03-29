@@ -10,7 +10,7 @@ entity SupplyPoint {
     state String required,
     email String,
     isDistributor Boolean,
-    isHealthcare Boolean,
+    isHealthcare Boheroku config:get MONGODB_URIolean,
     hasSterilization Boolean,
     priority Integer,
     notes String
