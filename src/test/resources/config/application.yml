@@ -24,10 +24,6 @@ spring:
       host: localhost
       port: 0
       database: crown
-    elasticsearch:
-      properties:
-        path:
-          home: target/elasticsearch
   mail:
     host: localhost
   main:

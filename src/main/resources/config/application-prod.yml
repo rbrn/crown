@@ -35,12 +35,6 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017
       database: crown
-    jest:
-      uri: http://localhost:9200
-  # see https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-nosql.html#boot-features-connecting-to-elasticsearch-jest
-  elasticsearch:
-    rest:
-      uris: http://localhost:9200
   mail:
     host: localhost
     port: 25

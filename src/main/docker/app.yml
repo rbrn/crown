@@ -9,15 +9,9 @@ services:
       - SPRING_DATA_MONGODB_URI=mongodb://crown-mongodb:27017
       - SPRING_DATA_MONGODB_DATABASE=crown
       - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
-      - SPRING_DATA_JEST_URI=http://crown-elasticsearch:9200
-      - SPRING_ELASTICSEARCH_REST_URIS=http://crown-elasticsearch:9200
     ports:
       - 8080:8080
   crown-mongodb:
     extends:
       file: mongodb.yml
       service: crown-mongodb
-  crown-elasticsearch:
-    extends:
-      file: elasticsearch.yml
-      service: crown-elasticsearch

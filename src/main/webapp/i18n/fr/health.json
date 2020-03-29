@@ -14,7 +14,6 @@
       "diskSpace": "Espace disque",
       "mail": "Email",
       "ping": "Application",
-      "elasticsearch": "Elasticsearch",
       "mongo": "MongoDB"
     },
     "table": {

@@ -19,11 +19,6 @@ logging:
     io.github.jhipster: DEBUG
     org.crown: DEBUG
 
-management:
-  health:
-    elasticsearch:
-      enabled: false
-
 spring:
   profiles:
     active: dev
@@ -44,10 +39,6 @@ spring:
     mongodb:
       uri: mongodb://heroku_w6hp324b:aug41d79i4maqj0leap7o3v7ba@ds141631.mlab.com:41631/heroku_w6hp324b?retryWrites=false
       database: heroku_w6hp324b
-    elasticsearch:
-      properties:
-        path:
-          home: target/elasticsearch
   mail:
     host: localhost
     port: 25

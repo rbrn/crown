@@ -20,5 +20,3 @@ spring:
   data:
     mongodb:
       uri: ${MONGODB_URI}?authMode=scram-sha1
-    jest:
-      uri: ${BONSAI_URL}
