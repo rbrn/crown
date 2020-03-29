@@ -78,6 +78,24 @@ Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
 Refer to [Using JHipster in production][] for more details.
 
+Running the frontend with remote heroku backend
+
+Remote backend link here: http://crown-dev.herokuapp.com
+
+Steps
+
+1. proxy.conf.json replace target and secure with these values
+
+   "target": "https://crown-dev.herokuapp.com",
+   "secure": true,
+
+2. webpack.dev.js
+   target: `http${options.tls ? 's' : ''}://crown-dev.herokuapp.com`,
+   secure: true,
+
+run
+npm run start-tls
+
 ### Packaging as war
 
 To package your application as a war in order to deploy it to an application server, run:
