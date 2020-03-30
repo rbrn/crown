@@ -8,6 +8,8 @@ import SupplyPoint from './supply-point';
 import Resource from './resource';
 import SupplyPointResource from './supply-point-resource';
 import Delivery from './delivery';
+import RequestPoint from './request-point';
+import Request from './request';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -18,6 +20,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}resource`} component={Resource} />
       <ErrorBoundaryRoute path={`${match.url}supply-point-resource`} component={SupplyPointResource} />
       <ErrorBoundaryRoute path={`${match.url}delivery`} component={Delivery} />
+      <ErrorBoundaryRoute path={`${match.url}request-point`} component={RequestPoint} />
+      <ErrorBoundaryRoute path={`${match.url}request`} component={Request} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

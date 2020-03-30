@@ -1,0 +1,37 @@
+{
+  "crownApp": {
+    "requestPoint": {
+      "home": {
+        "title": "Request Points",
+        "createLabel": "Crear nuevo Request Point",
+        "createOrEditLabel": "Crear o editar Request Point",
+        "search": "Buscar Request Point",
+        "notFound": "Ningún Request Points encontrado"
+      },
+      "created": "Un nuevo Request Point ha sido creado con el identificador {{ param }}",
+      "updated": "Un Request Point ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Request Point ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Request Point {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Point"
+      },
+      "name": "Name",
+      "address": "Address",
+      "primaryContactName": "Primary Contact Name",
+      "zip": "Zip",
+      "phonenumber": "Phonenumber",
+      "latx": "Latx",
+      "longy": "Longy",
+      "city": "City",
+      "state": "State",
+      "isDistributor": "Is Distributor",
+      "isHealthcare": "Is Healthcare",
+      "hasSterilization": "Has Sterilization",
+      "priority": "Priority",
+      "notes": "Notes",
+      "request": "Request"
+    }
+  }
+}

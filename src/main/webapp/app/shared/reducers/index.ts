@@ -29,6 +29,14 @@ import supplyPointResource, {
 import delivery, {
   DeliveryState
 } from 'app/entities/delivery/delivery.reducer';
+// prettier-ignore
+import requestPoint, {
+  RequestPointState
+} from 'app/entities/request-point/request-point.reducer';
+// prettier-ignore
+import request, {
+  RequestState
+} from 'app/entities/request/request.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -47,6 +55,8 @@ export interface IRootState {
   readonly resource: ResourceState;
   readonly supplyPointResource: SupplyPointResourceState;
   readonly delivery: DeliveryState;
+  readonly requestPoint: RequestPointState;
+  readonly request: RequestState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -67,6 +77,8 @@ const rootReducer = combineReducers<IRootState>({
   resource,
   supplyPointResource,
   delivery,
+  requestPoint,
+  request,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
