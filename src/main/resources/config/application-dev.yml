@@ -44,6 +44,8 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017
       database: crown
+    jest:
+      uri: https://qtzr4ow9ti:6651g2vfxz@azalea-597624215.us-east-1.bonsaisearch.net:443
     elasticsearch:
       properties:
         path:
