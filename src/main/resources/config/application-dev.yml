@@ -42,6 +42,7 @@ spring:
       indent-output: true
   data:
     mongodb:
+      #mongodb://heroku_b1h959zd:2d2kf426eb886nkc56l2ta4jsb@ds125481.mlab.com:25481/heroku_b1h959zd
       uri: mongodb://localhost:27017
       database: crown
 #    jest:
