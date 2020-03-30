@@ -4,6 +4,35 @@ This application was generated using JHipster 6.8.0, you can find documentation 
 
 ## Development
 
+## FRONTEND WITH REMOTE BACKEND
+
+Running the frontend with remote heroku backend
+
+Remote backend link here: http://crown-dev.herokuapp.com
+
+Steps
+
+1. proxy.conf.json replace target and secure with these values
+
+   "target": "https://crown-dev.herokuapp.com",
+   "secure": true,
+
+2. webpack.dev.js
+   target: `http${options.tls ? 's' : ''}://crown-dev.herokuapp.com`,
+   secure: true,
+
+    run
+    npm run start-tls
+
+## FRONTEND WITH local backend 
+
+run from the command line
+
+    ./mvnw
+    npm start
+
+### Packaging as war
+
 Before you can build this project, you must install and configure the following dependencies on your machine:
 
 1. [Node.js][]: We use Node to run a development web server and build the project.
