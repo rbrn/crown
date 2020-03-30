@@ -11,6 +11,8 @@
         "resource": "Resource",
         "supplyPointResource": "Supply Point Resource",
         "delivery": "Delivery",
+        "requestPoint": "Request Point",
+        "request": "Request",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
