@@ -58,9 +58,10 @@ public class RequestListService {
     public List<RequestPoint> nearby(SupplyPoint supplyPoint) {
         /*
         Code to retrieve requestPoints within a certain radius of SupplyPoint
-        will return requestPoints
+        should be implemented here - currently returning all request points
          */
-       return new ArrayList<RequestPoint>();  // stub
+       return requestPointRepository.findAll();
+
     }
 
     private static class NeedComparator implements Comparator<Request> {
