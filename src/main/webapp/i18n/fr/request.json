@@ -1,0 +1,28 @@
+{
+  "crownApp": {
+    "request": {
+      "home": {
+        "title": "Requests",
+        "createLabel": "Créer un nouveau Request",
+        "createOrEditLabel": "Créer ou éditer un Request",
+        "search": "Recherche pour Request",
+        "notFound": "Aucun Request trouvé"
+      },
+      "created": "Un nouveau Request a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Request avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Request avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Request {{ id }} ?"
+      },
+      "detail": {
+        "title": "Request"
+      },
+      "itemType": "Item Type",
+      "numRequested": "Num Requested",
+      "dailyNeed": "Daily Need",
+      "numinStock": "Numin Stock",
+      "daysLeft": "Days Left",
+      "requestPoint": "Request Point"
+    }
+  }
+}
