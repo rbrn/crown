@@ -6,6 +6,7 @@ import org.crown.domain.SupplyPoint;
 import org.crown.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -33,26 +34,29 @@ public class RequestListService {
         // scalable solution but should do as initial implementation i think
 
         List<RequestPoint> nearbyRequestPoints = nearby(supplyPoint);
+        log.debug("Nearby Requests Size:" + nearbyRequestPoints.size());
         if (nearbyRequestPoints.isEmpty())
             return new ArrayList<Request>();
 
         List<Request> requests = getRequestsForItem(itemId, nearbyRequestPoints);
-
         Collections.sort(requests, new NeedComparator());
-
         return requests;
 
     }
 
-    private List<Request> getRequestsForItem(String itemId, List<RequestPoint> nearbyRequestPoints) {
-        List<Request> requests = new ArrayList<Request>();
-        for (RequestPoint requestPoint: nearbyRequestPoints) {
-            for (Request request: requestPoint.getRequests()) {
-                if (request.getItemType().equals(itemId))
-                    requests.add(request);
-            }
-        }
-        return requests;
+    private List<Request> getRequestsForItem(String itemType, List<RequestPoint> nearbyRequestPoints) {
+        List<Request> result = new ArrayList<Request>();
+        for (RequestPoint requestPoint: nearbyRequestPoints)
+                result.addAll(getRequests(itemType, requestPoint));
+        return result;
+    }
+
+    private List<Request> getRequests(String itemType, RequestPoint requestPoint) {
+        Request requestExample = new Request();
+        requestExample.setItemType(itemType);
+        requestExample.setRequestPoint(requestPoint);
+        Example<Request> example = Example.of(requestExample);
+        return requestRepository.findAll(example);
     }
 
     public List<RequestPoint> nearby(SupplyPoint supplyPoint) {
