@@ -3,7 +3,6 @@ package org.crown.repository;
 import java.util.List;
 
 import org.crown.domain.ReceiverResource;
-import org.crown.domain.SupplierResource;
 
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.geo.Box;
@@ -14,24 +13,25 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data MongoDB repository for the SupplierResource entity.
+ * Spring Data MongoDB repository for the ReceiverResource entity.
  */
 @SuppressWarnings("unused")
 @Repository
-public interface SupplierResourceRepository extends MongoRepository<SupplierResource, String> {
+public interface ReceiverResourceRepository extends MongoRepository<ReceiverResource, String> {
+	
 	/**
 	 * Finds ReceiverResource within circle shape.
 	 * @param circle
 	 * @return
 	 */
-	List<SupplierResource> findByPositionWithin(Circle circle);
+	List<ReceiverResource> findByPositionWithin(Circle circle);
 
 	/**
 	 * Finds ReceiverResource within box shape.
 	 * @param box
 	 * @return
 	 */
-	List<SupplierResource> findByPositionWithin(Box box);
+	List<ReceiverResource> findByPositionWithin(Box box);
 
 	/**
 	 * Finds ReceiverResource near a point within a distance.
@@ -39,5 +39,6 @@ public interface SupplierResourceRepository extends MongoRepository<SupplierReso
 	 * @param distance
 	 * @return
 	 */
-	List<SupplierResource> findByPositionNear(Point point, Distance distance);
+	List<ReceiverResource> findByPositionNear(Point point, Distance distance);
+	
 }

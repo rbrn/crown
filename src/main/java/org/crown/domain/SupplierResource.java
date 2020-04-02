@@ -1,6 +1,7 @@
 package org.crown.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.*;
@@ -23,12 +24,14 @@ public class SupplierResource implements Serializable {
 
     @NotNull
     @Field("quantity")
-    private Integer quantity;
+    private Integer quantity = 0;
 
     @NotNull
     @Field("cost")
-    private Integer cost;
+    private Double cost = 0.0;
 
+    GeoJsonPoint position;
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -51,20 +54,28 @@ public class SupplierResource implements Serializable {
         this.quantity = quantity;
     }
 
-    public Integer getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public SupplierResource cost(Integer cost) {
+    public SupplierResource cost(Double cost) {
         this.cost = cost;
         return this;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+    public GeoJsonPoint getPosition() {
+		return position;
+	}
+
+	public void setPosition(GeoJsonPoint pos) {
+		this.position = pos;
+	}
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {

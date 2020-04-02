@@ -31,11 +31,11 @@ export const EntitiesMenu = props => (
     <MenuItem icon="asterisk" to="/request">
       <Translate contentKey="global.menu.entities.request" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/reciever-supplier">
-      <Translate contentKey="global.menu.entities.recieverSupplier" />
+    <MenuItem icon="asterisk" to="/receiver-supplier">
+      <Translate contentKey="global.menu.entities.receiverSupplier" />
     </MenuItem>
-    <MenuItem icon="asterisk" to="/reciever-resource">
-      <Translate contentKey="global.menu.entities.recieverResource" />
+    <MenuItem icon="asterisk" to="/receiver-resource">
+      <Translate contentKey="global.menu.entities.receiverResource" />
     </MenuItem>
     <MenuItem icon="asterisk" to="/supplier-resource">
       <Translate contentKey="global.menu.entities.supplierResource" />

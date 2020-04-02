@@ -1,12 +1,16 @@
 package org.crown.config.dbmigrations;
 
 import org.crown.domain.Authority;
+import org.crown.domain.ReceiverResource;
+import org.crown.domain.SupplierResource;
 import org.crown.domain.User;
 import org.crown.security.AuthoritiesConstants;
 
 import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.GeospatialIndex;
+import org.springframework.data.repository.init.ResourceReader;
 
 import java.time.Instant;
 
@@ -89,5 +93,9 @@ public class InitialSetupMigration {
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(userUser);
+                
+    	mongoTemplate.indexOps(SupplierResource.class).ensureIndex(new GeospatialIndex("position"));
+    	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(new GeospatialIndex("position"));
+    	
     }
 }

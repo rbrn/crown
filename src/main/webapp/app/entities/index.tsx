@@ -10,8 +10,8 @@ import SupplyPointResource from './supply-point-resource';
 import Delivery from './delivery';
 import RequestPoint from './request-point';
 import Request from './request';
-import RecieverSupplier from './reciever-supplier';
-import RecieverResource from './reciever-resource';
+import ReceiverSupplier from './receiver-supplier';
+import ReceiverResource from './receiver-resource';
 import SupplierResource from './supplier-resource';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
@@ -25,8 +25,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}delivery`} component={Delivery} />
       <ErrorBoundaryRoute path={`${match.url}request-point`} component={RequestPoint} />
       <ErrorBoundaryRoute path={`${match.url}request`} component={Request} />
-      <ErrorBoundaryRoute path={`${match.url}reciever-supplier`} component={RecieverSupplier} />
-      <ErrorBoundaryRoute path={`${match.url}reciever-resource`} component={RecieverResource} />
+      <ErrorBoundaryRoute path={`${match.url}receiver-supplier`} component={ReceiverSupplier} />
+      <ErrorBoundaryRoute path={`${match.url}receiver-resource`} component={ReceiverResource} />
       <ErrorBoundaryRoute path={`${match.url}supplier-resource`} component={SupplierResource} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>

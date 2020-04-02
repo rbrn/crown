@@ -42,8 +42,8 @@ public class SupplierResourceResourceIT {
     private static final Integer DEFAULT_QUANTITY = 1;
     private static final Integer UPDATED_QUANTITY = 2;
 
-    private static final Integer DEFAULT_COST = 1;
-    private static final Integer UPDATED_COST = 2;
+    private static final Double DEFAULT_COST = 1.0;
+    private static final Double UPDATED_COST = 2.0;
 
     @Autowired
     private SupplierResourceRepository supplierResourceRepository;

@@ -1,4 +1,4 @@
-entity RecieverSupplier {
+entity ReceiverSupplier {
     name String required unique,
     address String required,
     email String required,
@@ -17,7 +17,7 @@ entity RecieverSupplier {
     priority Integer,
     notes String
 }
-entity RecieverResource {
+entity ReceiverResource {
 	name String required,
     quantity Integer required,
     dailyUse Integer required,
@@ -38,4 +38,4 @@ entity Delivery {
 
 
 // Set pagination options
-paginate RecieverSupplier, RecieverResource, SupplierResource, Delivery with infinite-scroll
+paginate ReceiverSupplier, ReceiverResource, SupplierResource, Delivery with infinite-scroll

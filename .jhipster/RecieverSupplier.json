@@ -1,5 +1,5 @@
 {
-    "name": "RecieverSupplier",
+    "name": "ReceiverSupplier",
     "fields": [
         {
             "fieldName": "name",
@@ -100,7 +100,7 @@
     ],
     "relationships": [],
     "changelogDate": "20200402072700",
-    "entityTableName": "reciever_supplier",
+    "entityTableName": "receiver_supplier",
     "dto": "no",
     "pagination": "infinite-scroll",
     "service": "no",

@@ -13,8 +13,8 @@
         "delivery": "Delivery",
         "requestPoint": "Request Point",
         "request": "Request",
-        "recieverSupplier": "Reciever Supplier",
-        "recieverResource": "Reciever Resource",
+        "receiverSupplier": "Receiver Supplier",
+        "receiverResource": "Receiver Resource",
         "supplierResource": "Supplier Resource",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
