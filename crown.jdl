@@ -1,6 +1,7 @@
 entity RecieverSupplier {
     name String required unique,
     address String required,
+    email String required,
     primaryContactName String required,
     zip String required,
     phonenumber String required,
