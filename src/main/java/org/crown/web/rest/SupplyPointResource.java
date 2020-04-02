@@ -167,7 +167,7 @@ public class SupplyPointResource {
      * @param itemId the item id of the item urgent list to retrieve
      * @return a list of requests
      */
-    @GetMapping("/supply-point/{id}/itemid/{id}/urgent")
+    @GetMapping("/supply-point/{supplyPointId}/itemid/{itemId}/urgent")
     public ResponseEntity<List<Request>> supplyPointUrgentRequests(@PathVariable String supplyPointId, @PathVariable String itemId) {
         log.debug("REST request to retrieve most urgent requests for a supply point {}, item {}", supplyPointId, itemId);
 
