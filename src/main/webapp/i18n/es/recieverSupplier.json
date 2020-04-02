@@ -1,0 +1,39 @@
+{
+  "crownApp": {
+    "recieverSupplier": {
+      "home": {
+        "title": "Reciever Suppliers",
+        "createLabel": "Crear nuevo Reciever Supplier",
+        "createOrEditLabel": "Crear o editar Reciever Supplier",
+        "search": "Buscar Reciever Supplier",
+        "notFound": "Ningún Reciever Suppliers encontrado"
+      },
+      "created": "Un nuevo Reciever Supplier ha sido creado con el identificador {{ param }}",
+      "updated": "Un Reciever Supplier ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Reciever Supplier ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Reciever Supplier {{ id }}?"
+      },
+      "detail": {
+        "title": "Reciever Supplier"
+      },
+      "name": "Name",
+      "address": "Address",
+      "email": "Email",
+      "primaryContactName": "Primary Contact Name",
+      "zip": "Zip",
+      "phonenumber": "Phonenumber",
+      "latx": "Latx",
+      "longy": "Longy",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "npi": "Npi",
+      "isReceiver": "Is Receiver",
+      "isSupplier": "Is Supplier",
+      "hasSterilization": "Has Sterilization",
+      "priority": "Priority",
+      "notes": "Notes"
+    }
+  }
+}

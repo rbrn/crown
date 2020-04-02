@@ -1,0 +1,27 @@
+{
+  "crownApp": {
+    "recieverResource": {
+      "home": {
+        "title": "RecieverResources",
+        "createLabel": "Créer un nouveau Reciever Resource",
+        "createOrEditLabel": "Créer ou éditer un Reciever Resource",
+        "search": "Recherche pour Reciever Resource",
+        "notFound": "Aucun Reciever Resource trouvé"
+      },
+      "created": "Un nouveau Reciever Resource a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Reciever Resource avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Reciever Resource avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Reciever Resource {{ id }} ?"
+      },
+      "detail": {
+        "title": "Reciever Resource"
+      },
+      "name": "Name",
+      "quantity": "Quantity",
+      "dailyUse": "Daily Use",
+      "currentStock": "Current Stock",
+      "notes": "Notes"
+    }
+  }
+}

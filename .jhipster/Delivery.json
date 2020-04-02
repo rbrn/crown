@@ -21,10 +21,10 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20200329203100",
+    "changelogDate": "20200402073000",
     "entityTableName": "delivery",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "infinite-scroll",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

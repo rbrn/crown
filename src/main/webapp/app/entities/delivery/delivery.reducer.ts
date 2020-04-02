@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { ICrudSearchAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import {
+  ICrudSearchAction,
+  parseHeaderForLinks,
+  loadMoreDataWhenScrolled,
+  ICrudGetAction,
+  ICrudGetAllAction,
+  ICrudPutAction,
+  ICrudDeleteAction
+} from 'react-jhipster';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
@@ -21,7 +29,9 @@ const initialState = {
   errorMessage: null,
   entities: [] as ReadonlyArray<IDelivery>,
   entity: defaultValue,
+  links: { next: 0 },
   updating: false,
+  totalItems: 0,
   updateSuccess: false
 };
 
@@ -63,12 +73,17 @@ export default (state: DeliveryState = initialState, action): DeliveryState => {
         errorMessage: action.payload
       };
     case SUCCESS(ACTION_TYPES.SEARCH_DELIVERIES):
-    case SUCCESS(ACTION_TYPES.FETCH_DELIVERY_LIST):
+    case SUCCESS(ACTION_TYPES.FETCH_DELIVERY_LIST): {
+      const links = parseHeaderForLinks(action.payload.headers.link);
+
       return {
         ...state,
         loading: false,
-        entities: action.payload.data
+        links,
+        entities: loadMoreDataWhenScrolled(state.entities, action.payload.data, links),
+        totalItems: parseInt(action.payload.headers['x-total-count'], 10)
       };
+    }
     case SUCCESS(ACTION_TYPES.FETCH_DELIVERY):
       return {
         ...state,
@@ -106,13 +121,16 @@ const apiSearchUrl = 'api/_search/deliveries';
 
 export const getSearchEntities: ICrudSearchAction<IDelivery> = (query, page, size, sort) => ({
   type: ACTION_TYPES.SEARCH_DELIVERIES,
-  payload: axios.get<IDelivery>(`${apiSearchUrl}?query=${query}`)
+  payload: axios.get<IDelivery>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`)
 });
 
-export const getEntities: ICrudGetAllAction<IDelivery> = (page, size, sort) => ({
-  type: ACTION_TYPES.FETCH_DELIVERY_LIST,
-  payload: axios.get<IDelivery>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
-});
+export const getEntities: ICrudGetAllAction<IDelivery> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_DELIVERY_LIST,
+    payload: axios.get<IDelivery>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
 
 export const getEntity: ICrudGetAction<IDelivery> = id => {
   const requestUrl = `${apiUrl}/${id}`;
@@ -127,7 +145,6 @@ export const createEntity: ICrudPutAction<IDelivery> = entity => async dispatch 
     type: ACTION_TYPES.CREATE_DELIVERY,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
   return result;
 };
 

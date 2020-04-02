@@ -1,37 +1,108 @@
 import React, { useState, useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, ICrudGetAllAction } from 'react-jhipster';
+import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities } from './delivery.reducer';
+import { getSearchEntities, getEntities, reset } from './delivery.reducer';
 import { IDelivery } from 'app/shared/model/delivery.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IDeliveryProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export const Delivery = (props: IDeliveryProps) => {
   const [search, setSearch] = useState('');
+  const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
+  const [sorting, setSorting] = useState(false);
+
+  const getAllEntities = () => {
+    if (search) {
+      props.getSearchEntities(
+        search,
+        paginationState.activePage - 1,
+        paginationState.itemsPerPage,
+        `${paginationState.sort},${paginationState.order}`
+      );
+    } else {
+      props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
+    }
+  };
+
+  const resetAll = () => {
+    props.reset();
+    setPaginationState({
+      ...paginationState,
+      activePage: 1
+    });
+  };
 
   useEffect(() => {
-    props.getEntities();
+    resetAll();
   }, []);
 
   const startSearching = () => {
     if (search) {
-      props.getSearchEntities(search);
+      props.reset();
+      setPaginationState({
+        ...paginationState,
+        activePage: 1
+      });
+      props.getSearchEntities(
+        search,
+        paginationState.activePage - 1,
+        paginationState.itemsPerPage,
+        `${paginationState.sort},${paginationState.order}`
+      );
     }
   };
 
   const clear = () => {
+    props.reset();
     setSearch('');
+    setPaginationState({
+      ...paginationState,
+      activePage: 1
+    });
     props.getEntities();
   };
 
   const handleSearch = event => setSearch(event.target.value);
+
+  useEffect(() => {
+    getAllEntities();
+  }, [paginationState.activePage]);
+
+  const handleLoadMore = () => {
+    if (window.pageYOffset > 0) {
+      setPaginationState({
+        ...paginationState,
+        activePage: paginationState.activePage + 1
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (sorting) {
+      getAllEntities();
+      setSorting(false);
+    }
+  }, [sorting, search]);
+
+  const sort = p => () => {
+    props.reset();
+    setPaginationState({
+      ...paginationState,
+      activePage: 1,
+      order: paginationState.order === 'asc' ? 'desc' : 'asc',
+      sort: p
+    });
+    setSorting(true);
+  };
 
   const { deliveryList, match, loading } = props;
   return (
@@ -68,69 +139,78 @@ export const Delivery = (props: IDeliveryProps) => {
         </Col>
       </Row>
       <div className="table-responsive">
-        {deliveryList && deliveryList.length > 0 ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="crownApp.delivery.deliveryContact">Delivery Contact</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="crownApp.delivery.phoneNumber">Phone Number</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="crownApp.delivery.notes">Notes</Translate>
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {deliveryList.map((delivery, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${delivery.id}`} color="link" size="sm">
-                      {delivery.id}
-                    </Button>
-                  </td>
-                  <td>{delivery.deliveryContact}</td>
-                  <td>{delivery.phoneNumber}</td>
-                  <td>{delivery.notes}</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${delivery.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${delivery.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${delivery.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
-                    </div>
-                  </td>
+        <InfiniteScroll
+          pageStart={paginationState.activePage}
+          loadMore={handleLoadMore}
+          hasMore={paginationState.activePage - 1 < props.links.next}
+          loader={<div className="loader">Loading ...</div>}
+          threshold={0}
+          initialLoad={false}
+        >
+          {deliveryList && deliveryList.length > 0 ? (
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th className="hand" onClick={sort('id')}>
+                    <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('deliveryContact')}>
+                    <Translate contentKey="crownApp.delivery.deliveryContact">Delivery Contact</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('phoneNumber')}>
+                    <Translate contentKey="crownApp.delivery.phoneNumber">Phone Number</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('notes')}>
+                    <Translate contentKey="crownApp.delivery.notes">Notes</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th />
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        ) : (
-          !loading && (
-            <div className="alert alert-warning">
-              <Translate contentKey="crownApp.delivery.home.notFound">No Deliveries found</Translate>
-            </div>
-          )
-        )}
+              </thead>
+              <tbody>
+                {deliveryList.map((delivery, i) => (
+                  <tr key={`entity-${i}`}>
+                    <td>
+                      <Button tag={Link} to={`${match.url}/${delivery.id}`} color="link" size="sm">
+                        {delivery.id}
+                      </Button>
+                    </td>
+                    <td>{delivery.deliveryContact}</td>
+                    <td>{delivery.phoneNumber}</td>
+                    <td>{delivery.notes}</td>
+                    <td className="text-right">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${delivery.id}`} color="info" size="sm">
+                          <FontAwesomeIcon icon="eye" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.view">View</Translate>
+                          </span>
+                        </Button>
+                        <Button tag={Link} to={`${match.url}/${delivery.id}/edit`} color="primary" size="sm">
+                          <FontAwesomeIcon icon="pencil-alt" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.edit">Edit</Translate>
+                          </span>
+                        </Button>
+                        <Button tag={Link} to={`${match.url}/${delivery.id}/delete`} color="danger" size="sm">
+                          <FontAwesomeIcon icon="trash" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.delete">Delete</Translate>
+                          </span>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            !loading && (
+              <div className="alert alert-warning">
+                <Translate contentKey="crownApp.delivery.home.notFound">No Deliveries found</Translate>
+              </div>
+            )
+          )}
+        </InfiniteScroll>
       </div>
     </div>
   );
@@ -138,12 +218,17 @@ export const Delivery = (props: IDeliveryProps) => {
 
 const mapStateToProps = ({ delivery }: IRootState) => ({
   deliveryList: delivery.entities,
-  loading: delivery.loading
+  loading: delivery.loading,
+  totalItems: delivery.totalItems,
+  links: delivery.links,
+  entity: delivery.entity,
+  updateSuccess: delivery.updateSuccess
 });
 
 const mapDispatchToProps = {
   getSearchEntities,
-  getEntities
+  getEntities,
+  reset
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
