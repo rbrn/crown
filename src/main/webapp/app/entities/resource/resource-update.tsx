@@ -106,7 +106,7 @@ export const ResourceUpdate = (props: IResourceUpdateProps) => {
                   {supplyPointResources
                     ? supplyPointResources.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
+                          {otherEntity.supplypoint.name}
                         </option>
                       ))
                     : null}

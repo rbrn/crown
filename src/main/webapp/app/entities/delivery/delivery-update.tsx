@@ -24,9 +24,7 @@ export const DeliveryUpdate = (props: IDeliveryUpdateProps) => {
   };
 
   useEffect(() => {
-    if (isNew) {
-      props.reset();
-    } else {
+    if (!isNew) {
       props.getEntity(props.match.params.id);
     }
   }, []);

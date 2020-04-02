@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -285,8 +287,8 @@ public class DeliveryResourceIT {
     public void searchDelivery() throws Exception {
         // Initialize the database
         deliveryRepository.save(delivery);
-        when(mockDeliverySearchRepository.search(queryStringQuery("id:" + delivery.getId())))
-            .thenReturn(Collections.singletonList(delivery));
+        when(mockDeliverySearchRepository.search(queryStringQuery("id:" + delivery.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(delivery), PageRequest.of(0, 1), 1));
         // Search the delivery
         restDeliveryMockMvc.perform(get("/api/_search/deliveries?query=id:" + delivery.getId()))
             .andExpect(status().isOk())

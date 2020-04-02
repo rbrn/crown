@@ -8,7 +8,7 @@ This application was generated using JHipster 6.8.0, you can find documentation 
 
 Running the frontend with remote heroku backend
 
-Remote backend link here: http://crown-dev.herokuapp.com
+Remote backend link here: https://crown-dev.herokuapp.com
 
 Steps
 
@@ -21,10 +21,10 @@ Steps
    target: `http${options.tls ? 's' : ''}://crown-dev.herokuapp.com`,
    secure: true,
 
-    run
-    npm run start-tls
+   run
+   npm run start-tls
 
-## FRONTEND WITH local backend 
+## FRONTEND WITH local backend
 
 run from the command line
 

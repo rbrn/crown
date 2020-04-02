@@ -1,5 +1,5 @@
 {
-    "name": "SupplyPoint",
+    "name": "ReceiverSupplier",
     "fields": [
         {
             "fieldName": "name",
@@ -11,7 +11,17 @@
         },
         {
             "fieldName": "address",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "primaryContactName",
@@ -29,7 +39,10 @@
         },
         {
             "fieldName": "phonenumber",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "latx",
@@ -41,18 +54,35 @@
         },
         {
             "fieldName": "city",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "state",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
-            "fieldName": "isDistributor",
+            "fieldName": "country",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "npi",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "isReceiver",
             "fieldType": "Boolean"
         },
         {
-            "fieldName": "isHealthcare",
+            "fieldName": "isSupplier",
             "fieldType": "Boolean"
         },
         {
@@ -68,16 +98,9 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "supplyPointResource",
-            "otherEntityRelationshipName": "supplypoint",
-            "relationshipName": "resourceLocation"
-        }
-    ],
-    "changelogDate": "20200329202800",
-    "entityTableName": "supply_point",
+    "relationships": [],
+    "changelogDate": "20200402072700",
+    "entityTableName": "receiver_supplier",
     "dto": "no",
     "pagination": "infinite-scroll",
     "service": "no",
