@@ -2,6 +2,7 @@ package org.crown.service;
 
 import org.crown.domain.Request;
 import org.crown.domain.RequestPoint;
+import org.crown.domain.Resource;
 import org.crown.domain.SupplyPoint;
 import org.crown.repository.*;
 import org.slf4j.Logger;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+import static org.crown.service.InvalidIdException.*;
+import static org.crown.service.InvalidIdException.SUPPLY_POINT;
+
 /**
  * Service class for managing users.
  */
@@ -19,47 +23,82 @@ public class RequestListService {
 
     private final Logger log = LoggerFactory.getLogger(RequestListService.class);
 
+    private final SupplyPointRepository supplyPointRepository;
+
+    private final ResourceRepository resourceRepository;
+
     private final RequestPointRepository requestPointRepository;
 
     private final RequestRepository requestRepository;
 
-    public RequestListService(RequestPointRepository requestPointRepository, RequestRepository requestRepository) {
+    public RequestListService(SupplyPointRepository supplyPointRepository, ResourceRepository resourceRepository, RequestPointRepository requestPointRepository, RequestRepository requestRepository) {
+        this.supplyPointRepository = supplyPointRepository;
+        this.resourceRepository = resourceRepository;
         this.requestPointRepository = requestPointRepository;
         this.requestRepository = requestRepository;}
 
-    public List<Request> mostUrgentRequests(SupplyPoint supplyPoint, String itemId) {
-        log.debug("Requesting Most Ugent Request - supplyPoint {}, Item {}", supplyPoint.getName(), itemId);
+        /*
+            @GetMapping("/requests/urgent")
+    public ResponseEntity<List<Request>> supplyPointUrgentRequests(@RequestParam String supplypoint, @RequestParam String resource, @RequestParam Integer radius) {
 
-        // All nearby requests brought into memory and sorted so maybe not
-        // scalable solution but should do as initial implementation i think
+        log.debug("REST request to retrieve most urgent requests for a supply point {}, resource {}, radius {}", supplypoint, resource, radius);
 
-        List<RequestPoint> nearbyRequestPoints = nearby(supplyPoint);
-        log.debug("Nearby Requests Size:" + nearbyRequestPoints.size());
+        Optional<SupplyPoint> optionalSupplyPoint = supplyPointRepository.findById(supplypoint);
+        if (!optionalSupplyPoint.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        Optional<SupplyPoint> optionalSupplyPoint = supplyPointRepository.findById(supplyPointId);
+        if (!optionalSupplyPoint.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        try {
+            return ResponseEntity.ok().body(requestListService.mostUrgentRequests(supplypoint, resource, radius));
+        }
+    }
+         */
+
+    public List<Request> mostUrgentRequests(String supplyPointId, String resourceId, Integer radius) {
+
+        Optional<SupplyPoint> optionalSupplyPoint = supplyPointRepository.findById(supplyPointId);
+        if (!optionalSupplyPoint.isPresent())
+            throw new InvalidIdException(SUPPLY_POINT, supplyPointId);
+
+        Optional<Resource> optionalResource = resourceRepository.findById(resourceId);
+        if (!optionalResource.isPresent())
+            throw new InvalidIdException(RESOURCE, resourceId);
+
+        return mostUrgentRequests(optionalSupplyPoint.get(), optionalResource.get(), radius);
+
+    }
+
+    private List<Request> mostUrgentRequests(SupplyPoint supplyPoint, Resource resource, Integer radius) {
+
+        List<RequestPoint> nearbyRequestPoints = nearby(supplyPoint, radius);
         if (nearbyRequestPoints.isEmpty())
             return new ArrayList<Request>();
 
-        List<Request> requests = getRequestsForItem(itemId, nearbyRequestPoints);
+        List<Request> requests = getRequestsForItem(resource, nearbyRequestPoints);
         Collections.sort(requests, new NeedComparator());
         return requests;
 
     }
 
-    private List<Request> getRequestsForItem(String itemType, List<RequestPoint> nearbyRequestPoints) {
+    private List<Request> getRequestsForItem(Resource resource, List<RequestPoint> nearbyRequestPoints) {
         List<Request> result = new ArrayList<Request>();
         for (RequestPoint requestPoint: nearbyRequestPoints)
-                result.addAll(getRequests(itemType, requestPoint));
+                result.addAll(getRequests(resource, requestPoint));
         return result;
     }
 
-    private List<Request> getRequests(String itemType, RequestPoint requestPoint) {
+    private List<Request> getRequests(Resource resource, RequestPoint requestPoint) {
         Request requestExample = new Request();
-        requestExample.setItemType(itemType);
+        requestExample.setResource(resource);
         requestExample.setRequestPoint(requestPoint);
         Example<Request> example = Example.of(requestExample);
         return requestRepository.findAll(example);
     }
 
-    public List<RequestPoint> nearby(SupplyPoint supplyPoint) {
+    public List<RequestPoint> nearby(SupplyPoint supplyPoint, int radius) {
         /*
         Code to retrieve requestPoints within a certain radius of SupplyPoint
         should be implemented here - currently returning all request points

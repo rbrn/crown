@@ -13,7 +13,6 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -52,12 +51,9 @@ public class SupplyPointResource {
 
     private final SupplyPointSearchRepository supplyPointSearchRepository;
 
-    private final RequestListService requestListService;
-
-    public SupplyPointResource(SupplyPointRepository supplyPointRepository, SupplyPointSearchRepository supplyPointSearchRepository, RequestListService requestListService) {
+    public SupplyPointResource(SupplyPointRepository supplyPointRepository, SupplyPointSearchRepository supplyPointSearchRepository) {
         this.supplyPointRepository = supplyPointRepository;
         this.supplyPointSearchRepository = supplyPointSearchRepository;
-        this.requestListService = requestListService;
     }
 
     /**
@@ -158,25 +154,5 @@ public class SupplyPointResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-
-    /**
-     * {@code SEARCH  /supply-point/{id}/itemid/{id}/urgent} : return the most urgent requests
-     * to the query.
-     *
-     * @param supplyPointId the id of the supplyPoint to retrieve.
-     * @param itemId the item id of the item urgent list to retrieve
-     * @return a list of requests
-     */
-    @GetMapping("/supply-point/{supplyPointId}/itemid/{itemId}/urgent")
-    public ResponseEntity<List<Request>> supplyPointUrgentRequests(@PathVariable String supplyPointId, @PathVariable String itemId) {
-        log.debug("REST request to retrieve most urgent requests for a supply point {}, item {}", supplyPointId, itemId);
-
-        Optional<SupplyPoint> optionalSupplyPoint = supplyPointRepository.findById(supplyPointId);
-        if (!optionalSupplyPoint.isPresent())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-        return ResponseEntity.ok().body(requestListService.mostUrgentRequests(optionalSupplyPoint.get(), itemId));
-    }
-
 
 }

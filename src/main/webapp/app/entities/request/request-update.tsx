@@ -7,6 +7,8 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IResource } from 'app/shared/model/resource.model';
+import { getEntities as getResources } from 'app/entities/resource/resource.reducer';
 import { IRequestPoint } from 'app/shared/model/request-point.model';
 import { getEntities as getRequestPoints } from 'app/entities/request-point/request-point.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './request.reducer';
@@ -17,10 +19,11 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IRequestUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const RequestUpdate = (props: IRequestUpdateProps) => {
+  const [resourceId, setResourceId] = useState('0');
   const [requestPointId, setRequestPointId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { requestEntity, requestPoints, loading, updating } = props;
+  const { requestEntity, resources, requestPoints, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/request');
@@ -33,6 +36,7 @@ export const RequestUpdate = (props: IRequestUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
 
+    props.getResources();
     props.getRequestPoints();
   }, []);
 
@@ -111,6 +115,21 @@ export const RequestUpdate = (props: IRequestUpdateProps) => {
                 <AvField id="request-daysLeft" type="string" className="form-control" name="daysLeft" />
               </AvGroup>
               <AvGroup>
+                <Label for="request-resource">
+                  <Translate contentKey="crownApp.request.resource">Resource</Translate>
+                </Label>
+                <AvInput id="request-resource" type="select" className="form-control" name="resource.id">
+                  <option value="" key="0" />
+                  {resources
+                    ? resources.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
                 <Label for="request-requestPoint">
                   <Translate contentKey="crownApp.request.requestPoint">Request Point</Translate>
                 </Label>
@@ -147,6 +166,7 @@ export const RequestUpdate = (props: IRequestUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  resources: storeState.resource.entities,
   requestPoints: storeState.requestPoint.entities,
   requestEntity: storeState.request.entity,
   loading: storeState.request.loading,
@@ -155,6 +175,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getResources,
   getRequestPoints,
   getEntity,
   updateEntity,
