@@ -1,27 +1,32 @@
-entity SupplyPoint {
+entity RecieverSupplier {
     name String required unique,
-    address String,
+    address String required,
     primaryContactName String required,
     zip String required,
-    phonenumber String
+    phonenumber String required,
     latx Float,
     longy Float,
-    city String,
-    state String,
-    isDistributor Boolean,
-    isHealthcare Boolean,
+    city String required,
+    state String required,
+    country String required,
+    npi Integer,
+    isReceiver Boolean,
+    isSupplier Boolean,
     hasSterilization Boolean,
     priority Integer,
     notes String
 }
-entity Resource {
+entity RecieverResource {
 	name String required,
+    quantity Integer required,
+    dailyUse Integer required,
+    currentStock Integer,
 	notes String
 }
-entity SupplyPointResource {
-    numRequested Integer,
-    canProduce Integer,
-    numinStock Integer
+
+entity SupplierResource {
+    quantity Integer required,
+    cost Integer required,
 }
 
 entity Delivery {
@@ -30,43 +35,6 @@ entity Delivery {
 	notes String
 }
 
-entity RequestPoint {
-    name String required unique,
-    address String,
-    primaryContactName String required,
-    zip String required,
-    phonenumber String
-    latx Float,
-    longy Float,
-    city String,
-    state String,
-    isDistributor Boolean,
-    isHealthcare Boolean,
-    hasSterilization Boolean,
-    priority Integer,
-    notes String
-}
-
-entity Request {
-    itemType String,
-    numRequested Integer,
-    dailyNeed Integer,
-    numinStock Integer,
-    daysLeft Integer
-}
-
-relationship OneToMany {
-    SupplyPoint{resourceLocation} to SupplyPointResource{supplypoint}
-}
-
-relationship OneToMany {
-    SupplyPointResource{resource} to Resource
-}
-
-relationship OneToMany {
-    RequestPoint{request} to Request{requestPoint}
-}
 
 // Set pagination options
-paginate SupplyPoint, Resource, SupplyPointResource with infinite-scroll
-
+paginate RecieverSupplier, RecieverResource, SupplierResource, Delivery with infinite-scroll
