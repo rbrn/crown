@@ -56,6 +56,10 @@ export const RequestDetail = (props: IRequestDetailProps) => {
           </dt>
           <dd>{requestEntity.daysLeft}</dd>
           <dt>
+            <Translate contentKey="crownApp.request.resource">Resource</Translate>
+          </dt>
+          <dd>{requestEntity.resource ? requestEntity.resource.id : ''}</dd>
+          <dt>
             <Translate contentKey="crownApp.request.requestPoint">Request Point</Translate>
           </dt>
           <dd>{requestEntity.requestPoint ? requestEntity.requestPoint.id : ''}</dd>

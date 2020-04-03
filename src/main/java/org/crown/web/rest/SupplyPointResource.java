@@ -3,6 +3,7 @@ package org.crown.web.rest;
 import org.crown.domain.Request;
 import org.crown.domain.SupplyPoint;
 import org.crown.repository.SupplyPointRepository;
+import org.crown.repository.search.SupplyPointSearchRepository;
 import org.crown.service.RequestListService;
 import org.crown.web.rest.errors.BadRequestAlertException;
 
@@ -12,7 +13,6 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +30,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
+
 /**
  * REST controller for managing {@link org.crown.domain.SupplyPoint}.
  */
@@ -46,12 +49,11 @@ public class SupplyPointResource {
 
     private final SupplyPointRepository supplyPointRepository;
 
+    private final SupplyPointSearchRepository supplyPointSearchRepository;
 
-    private final RequestListService requestListService;
-
-    public SupplyPointResource(SupplyPointRepository supplyPointRepository,  RequestListService requestListService) {
+    public SupplyPointResource(SupplyPointRepository supplyPointRepository, SupplyPointSearchRepository supplyPointSearchRepository) {
         this.supplyPointRepository = supplyPointRepository;
-        this.requestListService = requestListService;
+        this.supplyPointSearchRepository = supplyPointSearchRepository;
     }
 
     /**
@@ -68,6 +70,7 @@ public class SupplyPointResource {
             throw new BadRequestAlertException("A new supplyPoint cannot already have an ID", ENTITY_NAME, "idexists");
         }
         SupplyPoint result = supplyPointRepository.save(supplyPoint);
+        supplyPointSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/supply-points/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -89,6 +92,7 @@ public class SupplyPointResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         SupplyPoint result = supplyPointRepository.save(supplyPoint);
+        supplyPointSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, supplyPoint.getId().toString()))
             .body(result);
@@ -131,27 +135,24 @@ public class SupplyPointResource {
     public ResponseEntity<Void> deleteSupplyPoint(@PathVariable String id) {
         log.debug("REST request to delete SupplyPoint : {}", id);
         supplyPointRepository.deleteById(id);
+        supplyPointSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
 
     /**
-     * {@code SEARCH  /supply-point/{id}/itemid/{id}/urgent} : return the most urgent requests
+     * {@code SEARCH  /_search/supply-points?query=:query} : search for the supplyPoint corresponding
      * to the query.
      *
-     * @param supplyPointId the id of the supplyPoint to retrieve.
-     * @param itemId the item id of the item urgent list to retrieve
-     * @return a list of requests
+     * @param query the query of the supplyPoint search.
+     * @param pageable the pagination information.
+     * @return the result of the search.
      */
-    @GetMapping("/supply-point/{supplyPointId}/itemid/{itemId}/urgent")
-    public ResponseEntity<List<Request>> supplyPointUrgentRequests(@PathVariable String supplyPointId, @PathVariable String itemId) {
-        log.debug("REST request to retrieve most urgent requests for a supply point {}, item {}", supplyPointId, itemId);
-
-        Optional<SupplyPoint> optionalSupplyPoint = supplyPointRepository.findById(supplyPointId);
-        if (!optionalSupplyPoint.isPresent())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-        return ResponseEntity.ok().body(requestListService.mostUrgentRequests(optionalSupplyPoint.get(), itemId));
+    @GetMapping("/_search/supply-points")
+    public ResponseEntity<List<SupplyPoint>> searchSupplyPoints(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of SupplyPoints for query {}", query);
+        Page<SupplyPoint> page = supplyPointSearchRepository.search(queryStringQuery(query), pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-
 
 }

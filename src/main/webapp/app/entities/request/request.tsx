@@ -91,6 +91,9 @@ export const Request = (props: IRequestProps) => {
                   <Translate contentKey="crownApp.request.daysLeft">Days Left</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="crownApp.request.resource">Resource</Translate>
+                </th>
+                <th>
                   <Translate contentKey="crownApp.request.requestPoint">Request Point</Translate>
                 </th>
                 <th />
@@ -109,6 +112,7 @@ export const Request = (props: IRequestProps) => {
                   <td>{request.dailyNeed}</td>
                   <td>{request.numinStock}</td>
                   <td>{request.daysLeft}</td>
+                  <td>{request.resource ? <Link to={`resource/${request.resource.id}`}>{request.resource.id}</Link> : ''}</td>
                   <td>
                     {request.requestPoint ? <Link to={`request-point/${request.requestPoint.id}`}>{request.requestPoint.id}</Link> : ''}
                   </td>

@@ -22,6 +22,7 @@
       "dailyNeed": "Daily Need",
       "numinStock": "Numin Stock",
       "daysLeft": "Days Left",
+      "resource": "Resource",
       "requestPoint": "Request Point"
     }
   }

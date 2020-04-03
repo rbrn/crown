@@ -2,6 +2,7 @@ package org.crown.web.rest;
 
 import org.crown.CrownApp;
 import org.crown.domain.Request;
+import org.crown.domain.Resource;
 import org.crown.repository.RequestRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -73,6 +74,11 @@ public class RequestResourceIT {
             .dailyNeed(DEFAULT_DAILY_NEED)
             .numinStock(DEFAULT_NUMIN_STOCK)
             .daysLeft(DEFAULT_DAYS_LEFT);
+        // Add required entity
+        Resource resource;
+        resource = ResourceResourceIT.createEntity();
+        resource.setId("fixed-id-for-tests");
+        request.setResource(resource);
         return request;
     }
     /**
@@ -88,6 +94,11 @@ public class RequestResourceIT {
             .dailyNeed(UPDATED_DAILY_NEED)
             .numinStock(UPDATED_NUMIN_STOCK)
             .daysLeft(UPDATED_DAYS_LEFT);
+        // Add required entity
+        Resource resource;
+        resource = ResourceResourceIT.createUpdatedEntity();
+        resource.setId("fixed-id-for-tests");
+        request.setResource(resource);
         return request;
     }
 

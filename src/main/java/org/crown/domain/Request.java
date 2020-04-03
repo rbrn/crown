@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -34,6 +35,10 @@ public class Request implements Serializable {
 
     @Field("days_left")
     private Integer daysLeft;
+
+    @DBRef
+    @Field("resource")
+    private Resource resource;
 
     @DBRef
     @Field("requestPoint")
@@ -112,6 +117,19 @@ public class Request implements Serializable {
 
     public void setDaysLeft(Integer daysLeft) {
         this.daysLeft = daysLeft;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public Request resource(Resource resource) {
+        this.resource = resource;
+        return this;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public RequestPoint getRequestPoint() {

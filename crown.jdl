@@ -37,5 +37,9 @@ entity Delivery {
 }
 
 
+relationship OneToOne {
+    Request{resource required} to Resource
+}
+
 // Set pagination options
 paginate ReceiverSupplier, ReceiverResource, SupplierResource, Delivery with infinite-scroll

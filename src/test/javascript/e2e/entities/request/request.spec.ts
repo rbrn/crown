@@ -21,7 +21,7 @@ describe('Request e2e test', () => {
   let signInPage: SignInPage;
   let requestComponentsPage: RequestComponentsPage;
   let requestUpdatePage: RequestUpdatePage;
-  let requestDeleteDialog: RequestDeleteDialog;
+  /* let requestDeleteDialog: RequestDeleteDialog; */
   let beforeRecordsCount = 0;
 
   before(async () => {
@@ -57,50 +57,53 @@ describe('Request e2e test', () => {
     await requestUpdatePage.cancel();
   });
 
-  it('should create and save Requests', async () => {
-    await requestComponentsPage.createButton.click();
-    await requestUpdatePage.setItemTypeInput('itemType');
-    expect(await requestUpdatePage.getItemTypeInput()).to.match(/itemType/);
-    await requestUpdatePage.setNumRequestedInput('5');
-    expect(await requestUpdatePage.getNumRequestedInput()).to.eq('5');
-    await requestUpdatePage.setDailyNeedInput('5');
-    expect(await requestUpdatePage.getDailyNeedInput()).to.eq('5');
-    await requestUpdatePage.setNuminStockInput('5');
-    expect(await requestUpdatePage.getNuminStockInput()).to.eq('5');
-    await requestUpdatePage.setDaysLeftInput('5');
-    expect(await requestUpdatePage.getDaysLeftInput()).to.eq('5');
-    await requestUpdatePage.requestPointSelectLastOption();
-    await waitUntilDisplayed(requestUpdatePage.saveButton);
-    await requestUpdatePage.save();
-    await waitUntilHidden(requestUpdatePage.saveButton);
-    expect(await isVisible(requestUpdatePage.saveButton)).to.be.false;
+  /*  it('should create and save Requests', async () => {
+        await requestComponentsPage.createButton.click();
+        await requestUpdatePage.setItemTypeInput('itemType');
+        expect(await requestUpdatePage.getItemTypeInput()).to.match(/itemType/);
+        await requestUpdatePage.setNumRequestedInput('5');
+        expect(await requestUpdatePage.getNumRequestedInput()).to.eq('5');
+        await requestUpdatePage.setDailyNeedInput('5');
+        expect(await requestUpdatePage.getDailyNeedInput()).to.eq('5');
+        await requestUpdatePage.setNuminStockInput('5');
+        expect(await requestUpdatePage.getNuminStockInput()).to.eq('5');
+        await requestUpdatePage.setDaysLeftInput('5');
+        expect(await requestUpdatePage.getDaysLeftInput()).to.eq('5');
+        await requestUpdatePage.resourceSelectLastOption();
+        await requestUpdatePage.requestPointSelectLastOption();
+        await waitUntilDisplayed(requestUpdatePage.saveButton);
+        await requestUpdatePage.save();
+        await waitUntilHidden(requestUpdatePage.saveButton);
+        expect(await isVisible(requestUpdatePage.saveButton)).to.be.false;
 
-    expect(await requestComponentsPage.createButton.isEnabled()).to.be.true;
+        expect(await requestComponentsPage.createButton.isEnabled()).to.be.true;
 
-    await waitUntilDisplayed(requestComponentsPage.table);
+        await waitUntilDisplayed(requestComponentsPage.table);
 
-    await waitUntilCount(requestComponentsPage.records, beforeRecordsCount + 1);
-    expect(await requestComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
-  });
+        await waitUntilCount(requestComponentsPage.records, beforeRecordsCount + 1);
+        expect(await requestComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
+    }); */
 
-  it('should delete last Request', async () => {
-    const deleteButton = requestComponentsPage.getDeleteButton(requestComponentsPage.records.last());
-    await click(deleteButton);
+  /*  it('should delete last Request', async () => {
 
-    requestDeleteDialog = new RequestDeleteDialog();
-    await waitUntilDisplayed(requestDeleteDialog.deleteModal);
-    expect(await requestDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/crownApp.request.delete.question/);
-    await requestDeleteDialog.clickOnConfirmButton();
+        const deleteButton = requestComponentsPage.getDeleteButton(requestComponentsPage.records.last());
+        await click(deleteButton);
 
-    await waitUntilHidden(requestDeleteDialog.deleteModal);
+        requestDeleteDialog = new RequestDeleteDialog();
+        await waitUntilDisplayed(requestDeleteDialog.deleteModal);
+        expect(await requestDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/crownApp.request.delete.question/);
+        await requestDeleteDialog.clickOnConfirmButton();
 
-    expect(await isVisible(requestDeleteDialog.deleteModal)).to.be.false;
+        await waitUntilHidden(requestDeleteDialog.deleteModal);
 
-    await waitUntilAnyDisplayed([requestComponentsPage.noRecords, requestComponentsPage.table]);
+        expect(await isVisible(requestDeleteDialog.deleteModal)).to.be.false;
 
-    const afterCount = (await isVisible(requestComponentsPage.noRecords)) ? 0 : await getRecordsCount(requestComponentsPage.table);
-    expect(afterCount).to.eq(beforeRecordsCount);
-  });
+        await waitUntilAnyDisplayed([requestComponentsPage.noRecords,
+        requestComponentsPage.table]);
+    
+        const afterCount = await isVisible(requestComponentsPage.noRecords) ? 0 : await getRecordsCount(requestComponentsPage.table);
+        expect(afterCount).to.eq(beforeRecordsCount);
+    }); */
 
   after(async () => {
     await navBarPage.autoSignOut();

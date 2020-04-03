@@ -9,6 +9,7 @@ export default class RequestUpdatePage {
   dailyNeedInput: ElementFinder = element(by.css('input#request-dailyNeed'));
   numinStockInput: ElementFinder = element(by.css('input#request-numinStock'));
   daysLeftInput: ElementFinder = element(by.css('input#request-daysLeft'));
+  resourceSelect: ElementFinder = element(by.css('select#request-resource'));
   requestPointSelect: ElementFinder = element(by.css('select#request-requestPoint'));
 
   getPageTitle() {
@@ -53,6 +54,25 @@ export default class RequestUpdatePage {
 
   async getDaysLeftInput() {
     return this.daysLeftInput.getAttribute('value');
+  }
+
+  async resourceSelectLastOption() {
+    await this.resourceSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async resourceSelectOption(option) {
+    await this.resourceSelect.sendKeys(option);
+  }
+
+  getResourceSelect() {
+    return this.resourceSelect;
+  }
+
+  async getResourceSelectedOption() {
+    return this.resourceSelect.element(by.css('option:checked')).getText();
   }
 
   async requestPointSelectLastOption() {
