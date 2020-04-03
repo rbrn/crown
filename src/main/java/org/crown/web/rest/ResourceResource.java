@@ -2,7 +2,6 @@ package org.crown.web.rest;
 
 import org.crown.domain.Resource;
 import org.crown.repository.ResourceRepository;
-import org.crown.repository.search.ResourceSearchRepository;
 import org.crown.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -28,7 +27,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link org.crown.domain.Resource}.
@@ -46,11 +44,9 @@ public class ResourceResource {
 
     private final ResourceRepository resourceRepository;
 
-    private final ResourceSearchRepository resourceSearchRepository;
 
-    public ResourceResource(ResourceRepository resourceRepository, ResourceSearchRepository resourceSearchRepository) {
+    public ResourceResource(ResourceRepository resourceRepository) {
         this.resourceRepository = resourceRepository;
-        this.resourceSearchRepository = resourceSearchRepository;
     }
 
     /**
@@ -67,7 +63,7 @@ public class ResourceResource {
             throw new BadRequestAlertException("A new resource cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Resource result = resourceRepository.save(resource);
-        resourceSearchRepository.save(result);
+
         return ResponseEntity.created(new URI("/api/resources/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -89,7 +85,7 @@ public class ResourceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Resource result = resourceRepository.save(resource);
-        resourceSearchRepository.save(result);
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, resource.getId().toString()))
             .body(result);
@@ -132,23 +128,8 @@ public class ResourceResource {
     public ResponseEntity<Void> deleteResource(@PathVariable String id) {
         log.debug("REST request to delete Resource : {}", id);
         resourceRepository.deleteById(id);
-        resourceSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/resources?query=:query} : search for the resource corresponding
-     * to the query.
-     *
-     * @param query the query of the resource search.
-     * @param pageable the pagination information.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/resources")
-    public ResponseEntity<List<Resource>> searchResources(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Resources for query {}", query);
-        Page<Resource> page = resourceSearchRepository.search(queryStringQuery(query), pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
+
 }

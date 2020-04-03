@@ -3,7 +3,6 @@ package org.crown.web.rest;
 import org.crown.CrownApp;
 import org.crown.domain.SupplyPointResource;
 import org.crown.repository.SupplyPointResourceRepository;
-import org.crown.repository.search.SupplyPointResourceSearchRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.*;
@@ -51,13 +49,6 @@ public class SupplyPointResourceResourceIT {
     @Autowired
     private SupplyPointResourceRepository supplyPointResourceRepository;
 
-    /**
-     * This repository is mocked in the org.crown.repository.search test package.
-     *
-     * @see org.crown.repository.search.SupplyPointResourceSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private SupplyPointResourceSearchRepository mockSupplyPointResourceSearchRepository;
 
     @Autowired
     private MockMvc restSupplyPointResourceMockMvc;
@@ -115,8 +106,6 @@ public class SupplyPointResourceResourceIT {
         assertThat(testSupplyPointResource.getCanProduce()).isEqualTo(DEFAULT_CAN_PRODUCE);
         assertThat(testSupplyPointResource.getNuminStock()).isEqualTo(DEFAULT_NUMIN_STOCK);
 
-        // Validate the SupplyPointResource in Elasticsearch
-        verify(mockSupplyPointResourceSearchRepository, times(1)).save(testSupplyPointResource);
     }
 
     @Test
@@ -136,8 +125,6 @@ public class SupplyPointResourceResourceIT {
         List<SupplyPointResource> supplyPointResourceList = supplyPointResourceRepository.findAll();
         assertThat(supplyPointResourceList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the SupplyPointResource in Elasticsearch
-        verify(mockSupplyPointResourceSearchRepository, times(0)).save(supplyPointResource);
     }
 
 
@@ -205,8 +192,6 @@ public class SupplyPointResourceResourceIT {
         assertThat(testSupplyPointResource.getCanProduce()).isEqualTo(UPDATED_CAN_PRODUCE);
         assertThat(testSupplyPointResource.getNuminStock()).isEqualTo(UPDATED_NUMIN_STOCK);
 
-        // Validate the SupplyPointResource in Elasticsearch
-        verify(mockSupplyPointResourceSearchRepository, times(1)).save(testSupplyPointResource);
     }
 
     @Test
@@ -225,8 +210,6 @@ public class SupplyPointResourceResourceIT {
         List<SupplyPointResource> supplyPointResourceList = supplyPointResourceRepository.findAll();
         assertThat(supplyPointResourceList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the SupplyPointResource in Elasticsearch
-        verify(mockSupplyPointResourceSearchRepository, times(0)).save(supplyPointResource);
     }
 
     @Test
@@ -245,23 +228,5 @@ public class SupplyPointResourceResourceIT {
         List<SupplyPointResource> supplyPointResourceList = supplyPointResourceRepository.findAll();
         assertThat(supplyPointResourceList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the SupplyPointResource in Elasticsearch
-        verify(mockSupplyPointResourceSearchRepository, times(1)).deleteById(supplyPointResource.getId());
-    }
-
-    @Test
-    public void searchSupplyPointResource() throws Exception {
-        // Initialize the database
-        supplyPointResourceRepository.save(supplyPointResource);
-        when(mockSupplyPointResourceSearchRepository.search(queryStringQuery("id:" + supplyPointResource.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(supplyPointResource), PageRequest.of(0, 1), 1));
-        // Search the supplyPointResource
-        restSupplyPointResourceMockMvc.perform(get("/api/_search/supply-point-resources?query=id:" + supplyPointResource.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(supplyPointResource.getId())))
-            .andExpect(jsonPath("$.[*].numRequested").value(hasItem(DEFAULT_NUM_REQUESTED)))
-            .andExpect(jsonPath("$.[*].canProduce").value(hasItem(DEFAULT_CAN_PRODUCE)))
-            .andExpect(jsonPath("$.[*].numinStock").value(hasItem(DEFAULT_NUMIN_STOCK)));
     }
 }

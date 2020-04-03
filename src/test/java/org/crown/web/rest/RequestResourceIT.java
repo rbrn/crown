@@ -3,7 +3,6 @@ package org.crown.web.rest;
 import org.crown.CrownApp;
 import org.crown.domain.Request;
 import org.crown.repository.RequestRepository;
-import org.crown.repository.search.RequestSearchRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.*;
@@ -55,13 +53,7 @@ public class RequestResourceIT {
     @Autowired
     private RequestRepository requestRepository;
 
-    /**
-     * This repository is mocked in the org.crown.repository.search test package.
-     *
-     * @see org.crown.repository.search.RequestSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private RequestSearchRepository mockRequestSearchRepository;
+
 
     @Autowired
     private MockMvc restRequestMockMvc;
@@ -125,8 +117,6 @@ public class RequestResourceIT {
         assertThat(testRequest.getNuminStock()).isEqualTo(DEFAULT_NUMIN_STOCK);
         assertThat(testRequest.getDaysLeft()).isEqualTo(DEFAULT_DAYS_LEFT);
 
-        // Validate the Request in Elasticsearch
-        verify(mockRequestSearchRepository, times(1)).save(testRequest);
     }
 
     @Test
@@ -146,8 +136,7 @@ public class RequestResourceIT {
         List<Request> requestList = requestRepository.findAll();
         assertThat(requestList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Request in Elasticsearch
-        verify(mockRequestSearchRepository, times(0)).save(request);
+
     }
 
 
@@ -223,8 +212,7 @@ public class RequestResourceIT {
         assertThat(testRequest.getNuminStock()).isEqualTo(UPDATED_NUMIN_STOCK);
         assertThat(testRequest.getDaysLeft()).isEqualTo(UPDATED_DAYS_LEFT);
 
-        // Validate the Request in Elasticsearch
-        verify(mockRequestSearchRepository, times(1)).save(testRequest);
+
     }
 
     @Test
@@ -243,8 +231,7 @@ public class RequestResourceIT {
         List<Request> requestList = requestRepository.findAll();
         assertThat(requestList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Request in Elasticsearch
-        verify(mockRequestSearchRepository, times(0)).save(request);
+
     }
 
     @Test
@@ -262,26 +249,6 @@ public class RequestResourceIT {
         // Validate the database contains one less item
         List<Request> requestList = requestRepository.findAll();
         assertThat(requestList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Request in Elasticsearch
-        verify(mockRequestSearchRepository, times(1)).deleteById(request.getId());
     }
 
-    @Test
-    public void searchRequest() throws Exception {
-        // Initialize the database
-        requestRepository.save(request);
-        when(mockRequestSearchRepository.search(queryStringQuery("id:" + request.getId())))
-            .thenReturn(Collections.singletonList(request));
-        // Search the request
-        restRequestMockMvc.perform(get("/api/_search/requests?query=id:" + request.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(request.getId())))
-            .andExpect(jsonPath("$.[*].itemType").value(hasItem(DEFAULT_ITEM_TYPE)))
-            .andExpect(jsonPath("$.[*].numRequested").value(hasItem(DEFAULT_NUM_REQUESTED)))
-            .andExpect(jsonPath("$.[*].dailyNeed").value(hasItem(DEFAULT_DAILY_NEED)))
-            .andExpect(jsonPath("$.[*].numinStock").value(hasItem(DEFAULT_NUMIN_STOCK)))
-            .andExpect(jsonPath("$.[*].daysLeft").value(hasItem(DEFAULT_DAYS_LEFT)));
-    }
 }
