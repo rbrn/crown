@@ -42,9 +42,9 @@ spring:
       indent-output: true
   data:
     mongodb:
-      uri: mongodb://heroku_b1h959zd:2d2kf426eb886nkc56l2ta4jsb@ds125481.mlab.com:25481/heroku_b1h959zd?authMode=scram-sha1&retryWrites=false
+      uri: mongodb://heroku_89bxgg49:ivffqid1kf5vsv6ak77juhio0u@ds013908.mlab.com:13908/heroku_89bxgg49?authMode=scram-sha1&retryWrites=false
       #uri: mongodb://localhost:27017
-      database: heroku_b1h959zd
+      database: heroku_89bxgg49
     jest:
       uri: https://qtzr4ow9ti:6651g2vfxz@azalea-597624215.us-east-1.bonsaisearch.net:443
     elasticsearch:
