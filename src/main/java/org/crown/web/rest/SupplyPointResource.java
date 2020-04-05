@@ -142,15 +142,15 @@ public class SupplyPointResource {
      * @param itemId the item id of the item urgent list to retrieve
      * @return a list of requests
      */
-    @GetMapping("/supply-point/{supplyPointId}/itemid/{itemId}/urgent")
-    public ResponseEntity<List<Request>> supplyPointUrgentRequests(@PathVariable String supplyPointId, @PathVariable String itemId) {
+    @GetMapping("/supply-point/{supplyPointId}/itemid/{itemId}/urgent/ {radius}")
+    public ResponseEntity<List<Request>> supplyPointUrgentRequests(@PathVariable String supplyPointId, @PathVariable String itemId, @PathVariable Integer radius) {
         log.debug("REST request to retrieve most urgent requests for a supply point {}, item {}", supplyPointId, itemId);
 
         Optional<SupplyPoint> optionalSupplyPoint = supplyPointRepository.findById(supplyPointId);
         if (!optionalSupplyPoint.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        return ResponseEntity.ok().body(requestListService.mostUrgentRequests(optionalSupplyPoint.get(), itemId));
+        return ResponseEntity.ok().body(requestListService.mostUrgentRequests(supplyPointId, itemId, radius));
     }
 
 
