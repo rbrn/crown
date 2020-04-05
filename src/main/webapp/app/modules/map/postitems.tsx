@@ -1,12 +1,15 @@
 import React, {createRef} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios'
-import {Button} from 'reactstrap';
-import {AvForm, AvField} from 'availity-reactstrap-validation';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Popup from "reactjs-popup";
 import {LatLng} from './map';
 import config from './apiConfig.json';
+import {translate, Translate} from "react-jhipster";
+import {Link} from "react-router-dom";
+import {Button, Row, Col, Label} from 'reactstrap';
+import {AvFeedback, AvForm, AvGroup, AvInput, AvField} from 'availity-reactstrap-validation';
+import ReceiverResource from "app/entities/receiver-resource/receiver-resource";
 
 export interface OwnProps {
     position: LatLng,
@@ -89,38 +92,87 @@ class PostComponent extends React.Component<Props, State> {
         }
     }
 
-    postData = (event, errors, values) => {
-        // post the states in the api
-        const input = {
-            user: this.props.account,
-            currentStock: values["currentStock"],
-            dailyUse: 1,
-            name: values["name"],
-            notes: values["notes"],
-            position: this.state.position,
-            quantity: values["quantity"]
-        };
-
-        axios.post(config.postUri, input)
-    }
+     saveEntity = (event, errors, values) => {
+         values.position = this.state.position
+         axios.post(config.postUri, values)
+    };
 
     render() {
         const {lat, lng} = this.props.position;
         return (
             <div className="post-items-display">
-                <AvForm onSubmit={this.postData}>
-                    {form.map(item => (
+
+                <AvForm model={ {}  } onSubmit={this.saveEntity}>
+
+                    <AvGroup>
+                        <Label id="nameLabel" for="receiver-resource-name">
+                            <Translate contentKey="crownApp.receiverResource.name">Name</Translate>
+                        </Label>
                         <AvField
-                            key={item.name}
-                            name={item.name}
-                            type={item.type}
-                            label={item.label}
-                            placeholder={item.placeholder}
-                            required={item.required}
-                            errorMessage={item.error}
+                            id="receiver-resource-name"
+                            type="text"
+                            name="name"
+                            validate={{
+                                required: {value: true, errorMessage: translate('entity.validation.required')}
+                            }}
                         />
-                    ))}
-                    <Button type="submit"> Submit </Button>
+                    </AvGroup>
+                    <AvGroup>
+                        <Label id="quantityLabel" for="receiver-resource-quantity">
+                            <Translate contentKey="crownApp.receiverResource.quantity">Quantity</Translate>
+                        </Label>
+                        <AvField
+                            id="receiver-resource-quantity"
+                            type="string"
+                            className="form-control"
+                            name="quantity"
+                            validate={{
+                                required: {value: true, errorMessage: translate('entity.validation.required')},
+                                number: {value: true, errorMessage: translate('entity.validation.number')}
+                            }}
+                        />
+                    </AvGroup>
+                    <AvGroup>
+                        <Label id="dailyUseLabel" for="receiver-resource-dailyUse">
+                            <Translate contentKey="crownApp.receiverResource.dailyUse">Daily Use</Translate>
+                        </Label>
+                        <AvField
+                            id="receiver-resource-dailyUse"
+                            type="string"
+                            className="form-control"
+                            name="dailyUse"
+                            validate={{
+                                required: {value: true, errorMessage: translate('entity.validation.required')},
+                                number: {value: true, errorMessage: translate('entity.validation.number')}
+                            }}
+                        />
+                    </AvGroup>
+                    <AvGroup>
+                        <Label id="currentStockLabel" for="receiver-resource-currentStock">
+                            <Translate contentKey="crownApp.receiverResource.currentStock">Current Stock</Translate>
+                        </Label>
+                        <AvField id="receiver-resource-currentStock" type="string" className="form-control"
+                                 name="currentStock"/>
+                    </AvGroup>
+                    <AvGroup>
+                        <Label id="notesLabel" for="receiver-resource-notes">
+                            <Translate contentKey="crownApp.receiverResource.notes">Notes</Translate>
+                        </Label>
+                        <AvField id="receiver-resource-notes" type="text" name="notes"/>
+                    </AvGroup>
+                    <Button tag={Link} id="cancel-save" to="/receiver-resource" replace color="info">
+                        <FontAwesomeIcon icon="arrow-left"/>
+                        &nbsp;
+                        <span className="d-none d-md-inline">
+                  <Translate contentKey="entity.action.back">Back</Translate>
+                </span>
+                    </Button>
+                    &nbsp;
+                    <Button color="primary" id="save-entity" type="submit">
+                        <FontAwesomeIcon icon="save"/>
+                        &nbsp;
+                        <Translate contentKey="entity.action.save">Save</Translate>
+                    </Button>
                 </AvForm>
             </div>
         )
