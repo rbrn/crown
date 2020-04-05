@@ -5,6 +5,8 @@ import java.util.List;
 import org.crown.domain.ReceiverResource;
 
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Box;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
@@ -24,14 +26,14 @@ public interface ReceiverResourceRepository extends MongoRepository<ReceiverReso
 	 * @param circle
 	 * @return
 	 */
-	List<ReceiverResource> findByPositionWithin(Circle circle);
+	Page<ReceiverResource> findByPositionWithin(Circle circle, Pageable pageable);
 
 	/**
 	 * Finds ReceiverResource within box shape.
 	 * @param box
 	 * @return
 	 */
-	List<ReceiverResource> findByPositionWithin(Box box);
+	Page<ReceiverResource> findByPositionWithin(Box box, Pageable pageable);
 
 	/**
 	 * Finds ReceiverResource near a point within a distance.
@@ -39,6 +41,6 @@ public interface ReceiverResourceRepository extends MongoRepository<ReceiverReso
 	 * @param distance
 	 * @return
 	 */
-	List<ReceiverResource> findByPositionNear(Point point, Distance distance);
+	Page<ReceiverResource> findByPositionNear(Point point, Distance distance, Pageable pageable);
 	
 }

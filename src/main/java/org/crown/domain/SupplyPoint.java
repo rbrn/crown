@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import javax.validation.constraints.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.HashSet;
@@ -16,7 +15,6 @@ import java.util.Set;
  * A SupplyPoint.
  */
 @Document(collection = "supply_point")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "supplypoint")
 public class SupplyPoint implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.*;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,7 +12,6 @@ import java.util.Objects;
  * A Delivery.
  */
 @Document(collection = "delivery")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "delivery")
 public class Delivery implements Serializable {
 
     private static final long serialVersionUID = 1L;

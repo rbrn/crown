@@ -3,7 +3,6 @@ package org.crown.web.rest;
 import org.crown.CrownApp;
 import org.crown.domain.SupplyPoint;
 import org.crown.repository.SupplyPointRepository;
-import org.crown.repository.search.SupplyPointSearchRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.*;
@@ -84,13 +82,6 @@ public class SupplyPointResourceIT {
     @Autowired
     private SupplyPointRepository supplyPointRepository;
 
-    /**
-     * This repository is mocked in the org.crown.repository.search test package.
-     *
-     * @see org.crown.repository.search.SupplyPointSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private SupplyPointSearchRepository mockSupplyPointSearchRepository;
 
     @Autowired
     private MockMvc restSupplyPointMockMvc;
@@ -181,8 +172,6 @@ public class SupplyPointResourceIT {
         assertThat(testSupplyPoint.getPriority()).isEqualTo(DEFAULT_PRIORITY);
         assertThat(testSupplyPoint.getNotes()).isEqualTo(DEFAULT_NOTES);
 
-        // Validate the SupplyPoint in Elasticsearch
-        verify(mockSupplyPointSearchRepository, times(1)).save(testSupplyPoint);
     }
 
     @Test
@@ -201,9 +190,6 @@ public class SupplyPointResourceIT {
         // Validate the SupplyPoint in the database
         List<SupplyPoint> supplyPointList = supplyPointRepository.findAll();
         assertThat(supplyPointList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the SupplyPoint in Elasticsearch
-        verify(mockSupplyPointSearchRepository, times(0)).save(supplyPoint);
     }
 
 
@@ -366,8 +352,6 @@ public class SupplyPointResourceIT {
         assertThat(testSupplyPoint.getPriority()).isEqualTo(UPDATED_PRIORITY);
         assertThat(testSupplyPoint.getNotes()).isEqualTo(UPDATED_NOTES);
 
-        // Validate the SupplyPoint in Elasticsearch
-        verify(mockSupplyPointSearchRepository, times(1)).save(testSupplyPoint);
     }
 
     @Test
@@ -386,8 +370,6 @@ public class SupplyPointResourceIT {
         List<SupplyPoint> supplyPointList = supplyPointRepository.findAll();
         assertThat(supplyPointList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the SupplyPoint in Elasticsearch
-        verify(mockSupplyPointSearchRepository, times(0)).save(supplyPoint);
     }
 
     @Test
@@ -406,34 +388,6 @@ public class SupplyPointResourceIT {
         List<SupplyPoint> supplyPointList = supplyPointRepository.findAll();
         assertThat(supplyPointList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the SupplyPoint in Elasticsearch
-        verify(mockSupplyPointSearchRepository, times(1)).deleteById(supplyPoint.getId());
     }
 
-    @Test
-    public void searchSupplyPoint() throws Exception {
-        // Initialize the database
-        supplyPointRepository.save(supplyPoint);
-        when(mockSupplyPointSearchRepository.search(queryStringQuery("id:" + supplyPoint.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(supplyPoint), PageRequest.of(0, 1), 1));
-        // Search the supplyPoint
-        restSupplyPointMockMvc.perform(get("/api/_search/supply-points?query=id:" + supplyPoint.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(supplyPoint.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
-            .andExpect(jsonPath("$.[*].primaryContactName").value(hasItem(DEFAULT_PRIMARY_CONTACT_NAME)))
-            .andExpect(jsonPath("$.[*].zip").value(hasItem(DEFAULT_ZIP)))
-            .andExpect(jsonPath("$.[*].phonenumber").value(hasItem(DEFAULT_PHONENUMBER)))
-            .andExpect(jsonPath("$.[*].latx").value(hasItem(DEFAULT_LATX.doubleValue())))
-            .andExpect(jsonPath("$.[*].longy").value(hasItem(DEFAULT_LONGY.doubleValue())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY)))
-            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE)))
-            .andExpect(jsonPath("$.[*].isDistributor").value(hasItem(DEFAULT_IS_DISTRIBUTOR.booleanValue())))
-            .andExpect(jsonPath("$.[*].isHealthcare").value(hasItem(DEFAULT_IS_HEALTHCARE.booleanValue())))
-            .andExpect(jsonPath("$.[*].hasSterilization").value(hasItem(DEFAULT_HAS_STERILIZATION.booleanValue())))
-            .andExpect(jsonPath("$.[*].priority").value(hasItem(DEFAULT_PRIORITY)))
-            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
-    }
 }

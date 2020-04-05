@@ -3,30 +3,23 @@ package org.crown.web.rest;
 import org.crown.CrownApp;
 import org.crown.domain.Delivery;
 import org.crown.repository.DeliveryRepository;
-import org.crown.repository.search.DeliverySearchRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -51,13 +44,6 @@ public class DeliveryResourceIT {
     @Autowired
     private DeliveryRepository deliveryRepository;
 
-    /**
-     * This repository is mocked in the org.crown.repository.search test package.
-     *
-     * @see org.crown.repository.search.DeliverySearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private DeliverySearchRepository mockDeliverySearchRepository;
 
     @Autowired
     private MockMvc restDeliveryMockMvc;
@@ -115,8 +101,6 @@ public class DeliveryResourceIT {
         assertThat(testDelivery.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
         assertThat(testDelivery.getNotes()).isEqualTo(DEFAULT_NOTES);
 
-        // Validate the Delivery in Elasticsearch
-        verify(mockDeliverySearchRepository, times(1)).save(testDelivery);
     }
 
     @Test
@@ -136,8 +120,6 @@ public class DeliveryResourceIT {
         List<Delivery> deliveryList = deliveryRepository.findAll();
         assertThat(deliveryList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Delivery in Elasticsearch
-        verify(mockDeliverySearchRepository, times(0)).save(delivery);
     }
 
 
@@ -238,9 +220,6 @@ public class DeliveryResourceIT {
         assertThat(testDelivery.getDeliveryContact()).isEqualTo(UPDATED_DELIVERY_CONTACT);
         assertThat(testDelivery.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
         assertThat(testDelivery.getNotes()).isEqualTo(UPDATED_NOTES);
-
-        // Validate the Delivery in Elasticsearch
-        verify(mockDeliverySearchRepository, times(1)).save(testDelivery);
     }
 
     @Test
@@ -259,8 +238,6 @@ public class DeliveryResourceIT {
         List<Delivery> deliveryList = deliveryRepository.findAll();
         assertThat(deliveryList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Delivery in Elasticsearch
-        verify(mockDeliverySearchRepository, times(0)).save(delivery);
     }
 
     @Test
@@ -279,23 +256,6 @@ public class DeliveryResourceIT {
         List<Delivery> deliveryList = deliveryRepository.findAll();
         assertThat(deliveryList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the Delivery in Elasticsearch
-        verify(mockDeliverySearchRepository, times(1)).deleteById(delivery.getId());
     }
 
-    @Test
-    public void searchDelivery() throws Exception {
-        // Initialize the database
-        deliveryRepository.save(delivery);
-        when(mockDeliverySearchRepository.search(queryStringQuery("id:" + delivery.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(delivery), PageRequest.of(0, 1), 1));
-        // Search the delivery
-        restDeliveryMockMvc.perform(get("/api/_search/deliveries?query=id:" + delivery.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(delivery.getId())))
-            .andExpect(jsonPath("$.[*].deliveryContact").value(hasItem(DEFAULT_DELIVERY_CONTACT)))
-            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
-            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
-    }
 }

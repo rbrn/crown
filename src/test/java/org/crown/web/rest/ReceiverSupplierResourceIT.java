@@ -3,7 +3,6 @@ package org.crown.web.rest;
 import org.crown.CrownApp;
 import org.crown.domain.ReceiverSupplier;
 import org.crown.repository.ReceiverSupplierRepository;
-import org.crown.repository.search.ReceiverSupplierSearchRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.*;
@@ -92,14 +90,6 @@ public class ReceiverSupplierResourceIT {
 
     @Autowired
     private ReceiverSupplierRepository receiverSupplierRepository;
-
-    /**
-     * This repository is mocked in the org.crown.repository.search test package.
-     *
-     * @see org.crown.repository.search.ReceiverSupplierSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ReceiverSupplierSearchRepository mockReceiverSupplierSearchRepository;
 
     @Autowired
     private MockMvc restReceiverSupplierMockMvc;
@@ -199,8 +189,6 @@ public class ReceiverSupplierResourceIT {
         assertThat(testReceiverSupplier.getPriority()).isEqualTo(DEFAULT_PRIORITY);
         assertThat(testReceiverSupplier.getNotes()).isEqualTo(DEFAULT_NOTES);
 
-        // Validate the ReceiverSupplier in Elasticsearch
-        verify(mockReceiverSupplierSearchRepository, times(1)).save(testReceiverSupplier);
     }
 
     @Test
@@ -220,8 +208,6 @@ public class ReceiverSupplierResourceIT {
         List<ReceiverSupplier> receiverSupplierList = receiverSupplierRepository.findAll();
         assertThat(receiverSupplierList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the ReceiverSupplier in Elasticsearch
-        verify(mockReceiverSupplierSearchRepository, times(0)).save(receiverSupplier);
     }
 
 
@@ -498,8 +484,6 @@ public class ReceiverSupplierResourceIT {
         assertThat(testReceiverSupplier.getPriority()).isEqualTo(UPDATED_PRIORITY);
         assertThat(testReceiverSupplier.getNotes()).isEqualTo(UPDATED_NOTES);
 
-        // Validate the ReceiverSupplier in Elasticsearch
-        verify(mockReceiverSupplierSearchRepository, times(1)).save(testReceiverSupplier);
     }
 
     @Test
@@ -517,9 +501,6 @@ public class ReceiverSupplierResourceIT {
         // Validate the ReceiverSupplier in the database
         List<ReceiverSupplier> receiverSupplierList = receiverSupplierRepository.findAll();
         assertThat(receiverSupplierList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the ReceiverSupplier in Elasticsearch
-        verify(mockReceiverSupplierSearchRepository, times(0)).save(receiverSupplier);
     }
 
     @Test
@@ -538,10 +519,8 @@ public class ReceiverSupplierResourceIT {
         List<ReceiverSupplier> receiverSupplierList = receiverSupplierRepository.findAll();
         assertThat(receiverSupplierList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the ReceiverSupplier in Elasticsearch
-        verify(mockReceiverSupplierSearchRepository, times(1)).deleteById(receiverSupplier.getId());
     }
-
+/*
     @Test
     public void searchReceiverSupplier() throws Exception {
         // Initialize the database
@@ -570,5 +549,5 @@ public class ReceiverSupplierResourceIT {
             .andExpect(jsonPath("$.[*].hasSterilization").value(hasItem(DEFAULT_HAS_STERILIZATION.booleanValue())))
             .andExpect(jsonPath("$.[*].priority").value(hasItem(DEFAULT_PRIORITY)))
             .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
-    }
+    }*/
 }

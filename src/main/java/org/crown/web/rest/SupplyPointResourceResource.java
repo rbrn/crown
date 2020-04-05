@@ -2,7 +2,6 @@ package org.crown.web.rest;
 
 import org.crown.domain.SupplyPointResource;
 import org.crown.repository.SupplyPointResourceRepository;
-import org.crown.repository.search.SupplyPointResourceSearchRepository;
 import org.crown.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -27,8 +26,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing {@link org.crown.domain.SupplyPointResource}.
  */
@@ -45,11 +42,8 @@ public class SupplyPointResourceResource {
 
     private final SupplyPointResourceRepository supplyPointResourceRepository;
 
-    private final SupplyPointResourceSearchRepository supplyPointResourceSearchRepository;
-
-    public SupplyPointResourceResource(SupplyPointResourceRepository supplyPointResourceRepository, SupplyPointResourceSearchRepository supplyPointResourceSearchRepository) {
+    public SupplyPointResourceResource(SupplyPointResourceRepository supplyPointResourceRepository) {
         this.supplyPointResourceRepository = supplyPointResourceRepository;
-        this.supplyPointResourceSearchRepository = supplyPointResourceSearchRepository;
     }
 
     /**
@@ -66,7 +60,6 @@ public class SupplyPointResourceResource {
             throw new BadRequestAlertException("A new supplyPointResource cannot already have an ID", ENTITY_NAME, "idexists");
         }
         SupplyPointResource result = supplyPointResourceRepository.save(supplyPointResource);
-        supplyPointResourceSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/supply-point-resources/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -88,7 +81,6 @@ public class SupplyPointResourceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         SupplyPointResource result = supplyPointResourceRepository.save(supplyPointResource);
-        supplyPointResourceSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, supplyPointResource.getId().toString()))
             .body(result);
@@ -131,23 +123,7 @@ public class SupplyPointResourceResource {
     public ResponseEntity<Void> deleteSupplyPointResource(@PathVariable String id) {
         log.debug("REST request to delete SupplyPointResource : {}", id);
         supplyPointResourceRepository.deleteById(id);
-        supplyPointResourceSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/supply-point-resources?query=:query} : search for the supplyPointResource corresponding
-     * to the query.
-     *
-     * @param query the query of the supplyPointResource search.
-     * @param pageable the pagination information.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/supply-point-resources")
-    public ResponseEntity<List<SupplyPointResource>> searchSupplyPointResources(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of SupplyPointResources for query {}", query);
-        Page<SupplyPointResource> page = supplyPointResourceSearchRepository.search(queryStringQuery(query), pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
 }
