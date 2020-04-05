@@ -154,10 +154,7 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.mongobee</groupId>
-            <artifactId>mongobee</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
@@ -296,6 +293,18 @@
             <artifactId>spring-cloud-heroku-connector</artifactId>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+        <dependency>
+            <groupId>com.github.cloudyrock.mongock</groupId>
+            <artifactId>mongock-core</artifactId>
+            <version>3.2.4</version>
+        </dependency>
+
+        <!-- To use with Spring-->
+        <dependency>
+            <groupId>com.github.cloudyrock.mongock</groupId>
+            <artifactId>mongock-spring</artifactId>
+            <version>3.2.4</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -358,6 +367,7 @@
                 <artifactId>properties-maven-plugin</artifactId>
             </plugin>
             <!-- jhipster-needle-maven-add-plugin -->
+
         </plugins>
         <pluginManagement>
             <plugins>
