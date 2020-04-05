@@ -40,10 +40,18 @@ public class ReceiverResource implements Serializable {
     @Field("notes")
     private String notes;
 
+    public double [] getPosition() {
+        return position;
+    }
+
+    public void setPosition(double [] position) {
+        this.position = position;
+    }
+
     // geo spatial position
     @GeoSpatialIndexed
     @Field("position")
-    private GeoJsonPoint position;
+    private double [] position;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
