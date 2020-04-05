@@ -7,6 +7,7 @@ import {LatLng} from './map';
 import config from './apiConfig.json';
 import {translate, Translate} from "react-jhipster";
 import {Link} from "react-router-dom";
+import { toast } from 'react-toastify';
 import {Button, Row, Col, Label} from 'reactstrap';
 import {AvFeedback, AvForm, AvGroup, AvInput, AvField} from 'availity-reactstrap-validation';
 import ReceiverResource from "app/entities/receiver-resource/receiver-resource";
@@ -18,12 +19,8 @@ type Props = StateProps & DispatchProps & OwnProps
 
 type State = {
     user: any,
-    name: string,
-    currentStock: number,
-    quantity: number,
-    notes: string,
-    dailyUse: number
     position: any,
+    saving: boolean,
 };
 
 const form = [
@@ -71,30 +68,32 @@ const form = [
 //   },
 ]
 
-
-// change this accordingly
-
 class PostComponent extends React.Component<Props, State> {
     constructor(props) {
         super(props);
         const {lat, lng} = props.position;
         this.state = {
             user: this.props.account,
-            currentStock: 10,
-            dailyUse: 1,
-            name: "",
-            notes: "",
             position: [
                 lat,
                 lng
             ],
-            quantity: 2
+            saving: false,
         }
     }
 
      saveEntity = (event, errors, values) => {
-         values.position = this.state.position
-         axios.post(config.postUri, values)
+        this.setState({
+            saving: true,
+        })
+        values.position = this.state.position
+        axios.post(config.postUri, values)
+        .finally(() => {
+            toast.info("Saved successfully.");
+            this.setState({
+                saving: false,
+            })
+        })
     };
 
     render() {
@@ -168,7 +167,7 @@ class PostComponent extends React.Component<Props, State> {
                 </span>
                     </Button>
                     &nbsp;
-                    <Button color="primary" id="save-entity" type="submit">
+                    <Button color="primary" id="save-entity" type="submit" disabled={this.state.saving}>
                         <FontAwesomeIcon icon="save"/>
                         &nbsp;
                         <Translate contentKey="entity.action.save">Save</Translate>
