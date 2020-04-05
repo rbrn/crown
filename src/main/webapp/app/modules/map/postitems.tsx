@@ -94,7 +94,7 @@ class PostComponent extends React.Component<Props, State> {
 
   postData = (event, errors, values)=> {
     // post the states in the api
-    // axios.post(config.postUri, this.state)
+     axios.post(config.postUri, this.state)
   }
 
   render() {
