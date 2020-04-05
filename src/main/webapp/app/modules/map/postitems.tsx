@@ -81,13 +81,10 @@ class PostComponent extends React.Component<Props, State> {
       dailyUse: 1,
       name: "",
       notes: "",
-      position: {
-        "type": "Point",
-        "coordinates": [
+      position: [
           lat,
           lng
-        ]
-      },
+      ],
       quantity: 2
     }
   }
