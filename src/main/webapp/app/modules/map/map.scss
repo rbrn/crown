@@ -1,0 +1,44 @@
+.leaflet-container {
+  height: 100vh;
+  width: 100%;
+}
+
+.info-div {
+  font-size: 9px;
+  color: #615656;
+}
+
+.leaflet-popup-tip-container {
+  display: none !important;
+}
+
+.popup-button {
+  width: 60px;
+  height: 30px;
+  font-size: 10px;
+  margin-right: 5px;
+}
+
+.get-items-display {
+  padding: 5px;
+}
+
+.post-items-display {
+  padding: 10px;
+  label {
+    font-size: 11px;
+    color: gray;
+  }
+}
+
+.left-panel {
+  height: 100vh;
+  background-color: #00a1ff;
+  img {
+    max-width: 100%;
+  }
+  .radius-info-div {
+    margin: 15px;
+    text-align: center;
+  }
+}

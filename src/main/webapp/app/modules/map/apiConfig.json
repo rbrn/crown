@@ -1,0 +1,4 @@
+{
+  "getUri": "/api/_search/receiver-resources",
+  "postUri": "/api/"
+}
