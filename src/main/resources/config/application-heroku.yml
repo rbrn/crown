@@ -19,6 +19,7 @@ eureka:
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URI}?authMode=scram-sha1&retryWrites=false
+      uri: mongodb+srv://crown_user:ZH57aGbNNRu2wKs@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+      database: crown
     jest:
       uri: ${BONSAI_URL}

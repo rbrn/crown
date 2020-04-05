@@ -33,7 +33,7 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: mongodb+srv://crown_user:ZH57aGbNNRu2wKs@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
       database: crown
     jest:
       uri: http://localhost:9200

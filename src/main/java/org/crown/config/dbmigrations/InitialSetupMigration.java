@@ -1,16 +1,14 @@
 package org.crown.config.dbmigrations;
 
+import com.github.cloudyrock.mongock.ChangeLog;
+import com.github.cloudyrock.mongock.ChangeSet;
 import org.crown.domain.Authority;
 import org.crown.domain.ReceiverResource;
 import org.crown.domain.SupplierResource;
 import org.crown.domain.User;
 import org.crown.security.AuthoritiesConstants;
-
-import com.github.mongobee.changeset.ChangeLog;
-import com.github.mongobee.changeset.ChangeSet;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.GeospatialIndex;
-import org.springframework.data.repository.init.ResourceReader;
 
 import java.time.Instant;
 
