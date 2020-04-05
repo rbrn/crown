@@ -101,10 +101,10 @@ public class InitialSetupMigration {
     @ChangeSet(order = "03", author = "initiator", id = "03-create-geospatial-index")
     public void createGeospatialIndex(MongoTemplate mongoTemplate) {
      
-    	GeospatialIndex idx1 = new GeospatialIndex("position");
+    	/*GeospatialIndex idx1 = new GeospatialIndex("position");
     	idx1.typed(GeoSpatialIndexType.GEO_2DSPHERE);
     	mongoTemplate.indexOps(SupplierResource.class).ensureIndex(idx1);
-    	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(idx1	);
+    	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(idx1	);*/
     	
     }
 }
