@@ -1,34 +1,31 @@
 package org.crown.web.rest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
 import org.crown.CrownApp;
 import org.crown.domain.ReceiverResource;
 import org.crown.repository.ReceiverResourceRepository;
-import org.crown.repository.search.ReceiverResourceSearchRepository;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Collections;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link ReceiverResourceResource} REST controller.
@@ -57,13 +54,6 @@ public class ReceiverResourceResourceIT {
     @Autowired
     private ReceiverResourceRepository receiverResourceRepository;
 
-    /**
-     * This repository is mocked in the org.crown.repository.search test package.
-     *
-     * @see org.crown.repository.search.ReceiverResourceSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ReceiverResourceSearchRepository mockReceiverResourceSearchRepository;
 
     @Autowired
     private MockMvc restReceiverResourceMockMvc;
@@ -127,8 +117,6 @@ public class ReceiverResourceResourceIT {
         assertThat(testReceiverResource.getCurrentStock()).isEqualTo(DEFAULT_CURRENT_STOCK);
         assertThat(testReceiverResource.getNotes()).isEqualTo(DEFAULT_NOTES);
 
-        // Validate the ReceiverResource in Elasticsearch
-        verify(mockReceiverResourceSearchRepository, times(1)).save(testReceiverResource);
     }
 
     @Test
@@ -148,8 +136,6 @@ public class ReceiverResourceResourceIT {
         List<ReceiverResource> receiverResourceList = receiverResourceRepository.findAll();
         assertThat(receiverResourceList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the ReceiverResource in Elasticsearch
-        verify(mockReceiverResourceSearchRepository, times(0)).save(receiverResource);
     }
 
 
@@ -276,8 +262,6 @@ public class ReceiverResourceResourceIT {
         assertThat(testReceiverResource.getCurrentStock()).isEqualTo(UPDATED_CURRENT_STOCK);
         assertThat(testReceiverResource.getNotes()).isEqualTo(UPDATED_NOTES);
 
-        // Validate the ReceiverResource in Elasticsearch
-        verify(mockReceiverResourceSearchRepository, times(1)).save(testReceiverResource);
     }
 
     @Test
@@ -296,8 +280,6 @@ public class ReceiverResourceResourceIT {
         List<ReceiverResource> receiverResourceList = receiverResourceRepository.findAll();
         assertThat(receiverResourceList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the ReceiverResource in Elasticsearch
-        verify(mockReceiverResourceSearchRepository, times(0)).save(receiverResource);
     }
 
     @Test
@@ -316,25 +298,5 @@ public class ReceiverResourceResourceIT {
         List<ReceiverResource> receiverResourceList = receiverResourceRepository.findAll();
         assertThat(receiverResourceList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the ReceiverResource in Elasticsearch
-        verify(mockReceiverResourceSearchRepository, times(1)).deleteById(receiverResource.getId());
-    }
-
-    @Test
-    public void searchReceiverResource() throws Exception {
-        // Initialize the database
-        receiverResourceRepository.save(receiverResource);
-        when(mockReceiverResourceSearchRepository.search(queryStringQuery("id:" + receiverResource.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(receiverResource), PageRequest.of(0, 1), 1));
-        // Search the receiverResource
-        restReceiverResourceMockMvc.perform(get("/api/_search/receiver-resources?query=id:" + receiverResource.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(receiverResource.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
-            .andExpect(jsonPath("$.[*].dailyUse").value(hasItem(DEFAULT_DAILY_USE)))
-            .andExpect(jsonPath("$.[*].currentStock").value(hasItem(DEFAULT_CURRENT_STOCK)))
-            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
     }
 }

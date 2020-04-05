@@ -2,7 +2,6 @@ package org.crown.web.rest;
 
 import org.crown.domain.ReceiverSupplier;
 import org.crown.repository.ReceiverSupplierRepository;
-import org.crown.repository.search.ReceiverSupplierSearchRepository;
 import org.crown.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -28,7 +27,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link org.crown.domain.ReceiverSupplier}.
@@ -46,11 +44,11 @@ public class ReceiverSupplierResource {
 
     private final ReceiverSupplierRepository receiverSupplierRepository;
 
-    private final ReceiverSupplierSearchRepository receiverSupplierSearchRepository;
 
-    public ReceiverSupplierResource(ReceiverSupplierRepository receiverSupplierRepository, ReceiverSupplierSearchRepository receiverSupplierSearchRepository) {
+
+    public ReceiverSupplierResource(ReceiverSupplierRepository receiverSupplierRepository) {
         this.receiverSupplierRepository = receiverSupplierRepository;
-        this.receiverSupplierSearchRepository = receiverSupplierSearchRepository;
+
     }
 
     /**
@@ -67,7 +65,6 @@ public class ReceiverSupplierResource {
             throw new BadRequestAlertException("A new receiverSupplier cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ReceiverSupplier result = receiverSupplierRepository.save(receiverSupplier);
-        receiverSupplierSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/receiver-suppliers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -89,7 +86,6 @@ public class ReceiverSupplierResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         ReceiverSupplier result = receiverSupplierRepository.save(receiverSupplier);
-        receiverSupplierSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, receiverSupplier.getId().toString()))
             .body(result);
@@ -132,23 +128,8 @@ public class ReceiverSupplierResource {
     public ResponseEntity<Void> deleteReceiverSupplier(@PathVariable String id) {
         log.debug("REST request to delete ReceiverSupplier : {}", id);
         receiverSupplierRepository.deleteById(id);
-        receiverSupplierSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/receiver-suppliers?query=:query} : search for the receiverSupplier corresponding
-     * to the query.
-     *
-     * @param query the query of the receiverSupplier search.
-     * @param pageable the pagination information.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/receiver-suppliers")
-    public ResponseEntity<List<ReceiverSupplier>> searchReceiverSuppliers(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of ReceiverSuppliers for query {}", query);
-        Page<ReceiverSupplier> page = receiverSupplierSearchRepository.search(queryStringQuery(query), pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
+
 }

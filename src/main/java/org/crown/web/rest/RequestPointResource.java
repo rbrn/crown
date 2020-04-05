@@ -2,7 +2,6 @@ package org.crown.web.rest;
 
 import org.crown.domain.RequestPoint;
 import org.crown.repository.RequestPointRepository;
-import org.crown.repository.search.RequestPointSearchRepository;
 import org.crown.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -22,7 +21,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link org.crown.domain.RequestPoint}.
@@ -40,11 +38,9 @@ public class RequestPointResource {
 
     private final RequestPointRepository requestPointRepository;
 
-    private final RequestPointSearchRepository requestPointSearchRepository;
 
-    public RequestPointResource(RequestPointRepository requestPointRepository, RequestPointSearchRepository requestPointSearchRepository) {
+    public RequestPointResource(RequestPointRepository requestPointRepository) {
         this.requestPointRepository = requestPointRepository;
-        this.requestPointSearchRepository = requestPointSearchRepository;
     }
 
     /**
@@ -61,7 +57,6 @@ public class RequestPointResource {
             throw new BadRequestAlertException("A new requestPoint cannot already have an ID", ENTITY_NAME, "idexists");
         }
         RequestPoint result = requestPointRepository.save(requestPoint);
-        requestPointSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/request-points/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,7 +78,6 @@ public class RequestPointResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         RequestPoint result = requestPointRepository.save(requestPoint);
-        requestPointSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, requestPoint.getId().toString()))
             .body(result);
@@ -123,22 +117,7 @@ public class RequestPointResource {
     public ResponseEntity<Void> deleteRequestPoint(@PathVariable String id) {
         log.debug("REST request to delete RequestPoint : {}", id);
         requestPointRepository.deleteById(id);
-        requestPointSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/request-points?query=:query} : search for the requestPoint corresponding
-     * to the query.
-     *
-     * @param query the query of the requestPoint search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/request-points")
-    public List<RequestPoint> searchRequestPoints(@RequestParam String query) {
-        log.debug("REST request to search RequestPoints for query {}", query);
-        return StreamSupport
-            .stream(requestPointSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

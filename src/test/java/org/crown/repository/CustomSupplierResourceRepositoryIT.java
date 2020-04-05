@@ -13,6 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
@@ -51,8 +54,9 @@ public class CustomSupplierResourceRepositoryIT {
 		 long miles = 100;
 		 GeoJsonPoint point = new GeoJsonPoint(50,50);
 		 Distance distance = new Distance(miles/DIST_UNIT_PER_MILE);
-		 List<SupplierResource> resources = resourceRepository.findByPositionNear(point, distance);
-		 assertThat(resources).isEqualTo(2);
+		 Pageable pageable = PageRequest.of(0, 10);
+		 Page<SupplierResource> resources = resourceRepository.findByPositionNear(point, distance, pageable);
+		 assertThat(resources.getSize()).isEqualTo(2);
 	 }
 	 
 }

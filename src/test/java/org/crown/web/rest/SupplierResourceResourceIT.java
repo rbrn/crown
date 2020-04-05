@@ -3,7 +3,6 @@ package org.crown.web.rest;
 import org.crown.CrownApp;
 import org.crown.domain.SupplierResource;
 import org.crown.repository.SupplierResourceRepository;
-import org.crown.repository.search.SupplierResourceSearchRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.mockito.Mockito.*;
@@ -48,13 +46,6 @@ public class SupplierResourceResourceIT {
     @Autowired
     private SupplierResourceRepository supplierResourceRepository;
 
-    /**
-     * This repository is mocked in the org.crown.repository.search test package.
-     *
-     * @see org.crown.repository.search.SupplierResourceSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private SupplierResourceSearchRepository mockSupplierResourceSearchRepository;
 
     @Autowired
     private MockMvc restSupplierResourceMockMvc;
@@ -110,7 +101,7 @@ public class SupplierResourceResourceIT {
         assertThat(testSupplierResource.getCost()).isEqualTo(DEFAULT_COST);
 
         // Validate the SupplierResource in Elasticsearch
-        verify(mockSupplierResourceSearchRepository, times(1)).save(testSupplierResource);
+        //verify(mockSupplierResourceSearchRepository, times(1)).save(testSupplierResource);
     }
 
     @Test
@@ -131,7 +122,7 @@ public class SupplierResourceResourceIT {
         assertThat(supplierResourceList).hasSize(databaseSizeBeforeCreate);
 
         // Validate the SupplierResource in Elasticsearch
-        verify(mockSupplierResourceSearchRepository, times(0)).save(supplierResource);
+        //verify(mockSupplierResourceSearchRepository, times(0)).save(supplierResource);
     }
 
 
@@ -229,8 +220,6 @@ public class SupplierResourceResourceIT {
         assertThat(testSupplierResource.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testSupplierResource.getCost()).isEqualTo(UPDATED_COST);
 
-        // Validate the SupplierResource in Elasticsearch
-        verify(mockSupplierResourceSearchRepository, times(1)).save(testSupplierResource);
     }
 
     @Test
@@ -249,8 +238,6 @@ public class SupplierResourceResourceIT {
         List<SupplierResource> supplierResourceList = supplierResourceRepository.findAll();
         assertThat(supplierResourceList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the SupplierResource in Elasticsearch
-        verify(mockSupplierResourceSearchRepository, times(0)).save(supplierResource);
     }
 
     @Test
@@ -269,10 +256,9 @@ public class SupplierResourceResourceIT {
         List<SupplierResource> supplierResourceList = supplierResourceRepository.findAll();
         assertThat(supplierResourceList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the SupplierResource in Elasticsearch
-        verify(mockSupplierResourceSearchRepository, times(1)).deleteById(supplierResource.getId());
-    }
 
+    }
+/*
     @Test
     public void searchSupplierResource() throws Exception {
         // Initialize the database
@@ -287,4 +273,5 @@ public class SupplierResourceResourceIT {
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
             .andExpect(jsonPath("$.[*].cost").value(hasItem(DEFAULT_COST)));
     }
+    */
 }
