@@ -2,6 +2,8 @@ package org.crown.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.*;
@@ -37,8 +39,10 @@ public class ReceiverResource implements Serializable {
 
     @Field("notes")
     private String notes;
-    
+
     // geo spatial position
+    @GeoSpatialIndexed
+    @Field("position")
     private GeoJsonPoint position;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -131,14 +135,7 @@ public class ReceiverResource implements Serializable {
     public int hashCode() {
         return 31;
     }
-    
-    public GeoJsonPoint getPosition() {
-		return position;
-	}
 
-	public void setPosition(GeoJsonPoint pos) {
-		this.position = pos;
-	}
 
     @Override
     public String toString() {
