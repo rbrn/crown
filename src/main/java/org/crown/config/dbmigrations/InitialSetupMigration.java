@@ -96,4 +96,12 @@ public class InitialSetupMigration {
     	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(new GeospatialIndex("position"));
     	
     }
+    
+    @ChangeSet(order = "03", author = "initiator", id = "03-create-geospatial-index")
+    public void createGeospatialIndex(MongoTemplate mongoTemplate) {
+     
+    	mongoTemplate.indexOps(SupplierResource.class).ensureIndex(new GeospatialIndex("position"));
+    	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(new GeospatialIndex("position"));
+    	
+    }
 }

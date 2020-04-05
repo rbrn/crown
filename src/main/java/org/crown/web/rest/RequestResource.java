@@ -2,9 +2,6 @@ package org.crown.web.rest;
 
 import org.crown.domain.Request;
 import org.crown.repository.RequestRepository;
-import org.crown.repository.search.RequestSearchRepository;
-import org.crown.service.InvalidIdException;
-import org.crown.service.RequestListService;
 import org.crown.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -12,12 +9,10 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,7 +20,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link org.crown.domain.Request}.
@@ -43,14 +37,8 @@ public class RequestResource {
 
     private final RequestRepository requestRepository;
 
-    private final RequestSearchRepository requestSearchRepository;
-
-    private final RequestListService requestListService;
-
-    public RequestResource(RequestRepository requestRepository, RequestSearchRepository requestSearchRepository, RequestListService requestListService) {
+    public RequestResource(RequestRepository requestRepository) {
         this.requestRepository = requestRepository;
-        this.requestSearchRepository = requestSearchRepository;
-        this.requestListService = requestListService;
     }
 
     /**
@@ -61,13 +49,12 @@ public class RequestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/requests")
-    public ResponseEntity<Request> createRequest(@Valid @RequestBody Request request) throws URISyntaxException {
+    public ResponseEntity<Request> createRequest(@RequestBody Request request) throws URISyntaxException {
         log.debug("REST request to save Request : {}", request);
         if (request.getId() != null) {
             throw new BadRequestAlertException("A new request cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Request result = requestRepository.save(request);
-        requestSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/requests/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,13 +70,12 @@ public class RequestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/requests")
-    public ResponseEntity<Request> updateRequest(@Valid @RequestBody Request request) throws URISyntaxException {
+    public ResponseEntity<Request> updateRequest(@RequestBody Request request) throws URISyntaxException {
         log.debug("REST request to update Request : {}", request);
         if (request.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Request result = requestRepository.save(request);
-        requestSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, request.getId().toString()))
             .body(result);
@@ -129,44 +115,7 @@ public class RequestResource {
     public ResponseEntity<Void> deleteRequest(@PathVariable String id) {
         log.debug("REST request to delete Request : {}", id);
         requestRepository.deleteById(id);
-        requestSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/requests?query=:query} : search for the request corresponding
-     * to the query.
-     *
-     * @param query the query of the request search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/requests")
-    public List<Request> searchRequests(@RequestParam String query) {
-        log.debug("REST request to search Requests for query {}", query);
-        return StreamSupport
-            .stream(requestSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
-
-
-    /**
-     * {@code GET  /requests/urgent} : return the most urgent requests for a specific resource within a radius of a supplypoint.
-     *
-     * @param supplypoint the id of the supplyPoint
-     * @param resource the id of the resource
-     * @param radius the radius around the supplyPoint
-     * @return a list of requests
-     */
-    @GetMapping("/requests/urgent")
-    public ResponseEntity<List<Request>> supplyPointUrgentRequests(@RequestParam String supplypoint, @RequestParam String resource, @RequestParam Integer radius) {
-
-        log.debug("REST request to retrieve most urgent requests for a supply point {}, resource {}, radius {}", supplypoint, resource, radius);
-
-        try {
-            return ResponseEntity.ok().body(requestListService.mostUrgentRequests(supplypoint, resource, radius));
-        }
-        catch(InvalidIdException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
 }
