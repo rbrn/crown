@@ -39,6 +39,11 @@ public class ReceiverResource implements Serializable {
 
     @Field("notes")
     private String notes;
+    
+    /** receiver of the resource **/
+    @Field("receiver")
+    private String receiver;
+    
 
     public double [] getPosition() {
         return position;
@@ -156,4 +161,12 @@ public class ReceiverResource implements Serializable {
             ", notes='" + getNotes() + "'" +
             "}";
     }
+
+	public String getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
 }

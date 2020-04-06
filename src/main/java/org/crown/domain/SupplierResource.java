@@ -2,6 +2,7 @@ package org.crown.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.*;
@@ -28,7 +29,9 @@ public class SupplierResource implements Serializable {
     @Field("cost")
     private Double cost = 0.0;
 
-    GeoJsonPoint position;
+    @GeoSpatialIndexed
+    @Field("position")
+    private double [] position;
     
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -66,14 +69,6 @@ public class SupplierResource implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    public GeoJsonPoint getPosition() {
-		return position;
-	}
-
-	public void setPosition(GeoJsonPoint pos) {
-		this.position = pos;
-	}
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -98,4 +93,8 @@ public class SupplierResource implements Serializable {
             ", cost=" + getCost() +
             "}";
     }
+
+	public void setPosition(double [] position) {
+		this.position = position;
+	}
 }
