@@ -7,6 +7,10 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IResourceType } from 'app/shared/model/resource-type.model';
+import { getEntities as getResourceTypes } from 'app/entities/resource-type/resource-type.reducer';
+import { IReceiverSupplier } from 'app/shared/model/receiver-supplier.model';
+import { getEntities as getReceiverSuppliers } from 'app/entities/receiver-supplier/receiver-supplier.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './supplier-resource.reducer';
 import { ISupplierResource } from 'app/shared/model/supplier-resource.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,9 +19,11 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
+  const [resourceTypeId, setResourceTypeId] = useState('0');
+  const [supplierId, setSupplierId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { supplierResourceEntity, loading, updating } = props;
+  const { supplierResourceEntity, resourceTypes, receiverSuppliers, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/supplier-resource');
@@ -27,6 +33,9 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
     if (!isNew) {
       props.getEntity(props.match.params.id);
     }
+
+    props.getResourceTypes();
+    props.getReceiverSuppliers();
   }, []);
 
   useEffect(() => {
@@ -103,6 +112,36 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   }}
                 />
               </AvGroup>
+              <AvGroup>
+                <Label for="supplier-resource-resourceType">
+                  <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate>
+                </Label>
+                <AvInput id="supplier-resource-resourceType" type="select" className="form-control" name="resourceType.id">
+                  <option value="" key="0" />
+                  {resourceTypes
+                    ? resourceTypes.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.name}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="supplier-resource-supplier">
+                  <Translate contentKey="crownApp.supplierResource.supplier">Supplier</Translate>
+                </Label>
+                <AvInput id="supplier-resource-supplier" type="select" className="form-control" name="supplier.id">
+                  <option value="" key="0" />
+                  {receiverSuppliers
+                    ? receiverSuppliers.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.name}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/supplier-resource" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -125,6 +164,8 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  resourceTypes: storeState.resourceType.entities,
+  receiverSuppliers: storeState.receiverSupplier.entities,
   supplierResourceEntity: storeState.supplierResource.entity,
   loading: storeState.supplierResource.loading,
   updating: storeState.supplierResource.updating,
@@ -132,6 +173,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getResourceTypes,
+  getReceiverSuppliers,
   getEntity,
   updateEntity,
   createEntity,

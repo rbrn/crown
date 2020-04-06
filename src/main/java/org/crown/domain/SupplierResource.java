@@ -1,9 +1,11 @@
 package org.crown.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
@@ -29,7 +31,16 @@ public class SupplierResource implements Serializable {
     private Double cost = 0.0;
 
     GeoJsonPoint position;
-    
+
+    @DBRef
+    @Field("resourceType")
+    private ResourceType resourceType;
+
+    @DBRef
+    @Field("supplier")
+    @JsonIgnoreProperties("supplierResources")
+    private ReceiverSupplier supplier;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -64,16 +75,42 @@ public class SupplierResource implements Serializable {
     public void setCost(Double cost) {
         this.cost = cost;
     }
+
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+
+    public SupplierResource resourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+        return this;
+    }
+
+    public void setResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public ReceiverSupplier getSupplier() {
+        return supplier;
+    }
+
+    public SupplierResource supplier(ReceiverSupplier receiverSupplier) {
+        this.supplier = receiverSupplier;
+        return this;
+    }
+
+    public void setSupplier(ReceiverSupplier receiverSupplier) {
+        this.supplier = receiverSupplier;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     public GeoJsonPoint getPosition() {
-		return position;
-	}
+        return position;
+    }
 
-	public void setPosition(GeoJsonPoint pos) {
-		this.position = pos;
-	}
-    
+    public void setPosition(GeoJsonPoint pos) {
+        this.position = pos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

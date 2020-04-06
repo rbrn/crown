@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.crown.CrownApp;
 import org.crown.domain.ReceiverResource;
+import org.crown.domain.ResourceType;
 import org.crown.repository.ReceiverResourceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,6 +74,11 @@ public class ReceiverResourceResourceIT {
             .dailyUse(DEFAULT_DAILY_USE)
             .currentStock(DEFAULT_CURRENT_STOCK)
             .notes(DEFAULT_NOTES);
+        // Add required entity
+        ResourceType resourceType;
+        resourceType = ResourceTypeResourceIT.createEntity();
+        resourceType.setId("fixed-id-for-tests");
+        receiverResource.setResourceType(resourceType);
         return receiverResource;
     }
     /**
@@ -88,6 +94,11 @@ public class ReceiverResourceResourceIT {
             .dailyUse(UPDATED_DAILY_USE)
             .currentStock(UPDATED_CURRENT_STOCK)
             .notes(UPDATED_NOTES);
+        // Add required entity
+        ResourceType resourceType;
+        resourceType = ResourceTypeResourceIT.createUpdatedEntity();
+        resourceType.setId("fixed-id-for-tests");
+        receiverResource.setResourceType(resourceType);
         return receiverResource;
     }
 
@@ -206,7 +217,7 @@ public class ReceiverResourceResourceIT {
             .andExpect(jsonPath("$.[*].currentStock").value(hasItem(DEFAULT_CURRENT_STOCK)))
             .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
     }
-    
+
     @Test
     public void getReceiverResource() throws Exception {
         // Initialize the database

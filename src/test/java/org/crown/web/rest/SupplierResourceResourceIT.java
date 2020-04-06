@@ -2,6 +2,7 @@ package org.crown.web.rest;
 
 import org.crown.CrownApp;
 import org.crown.domain.SupplierResource;
+import org.crown.domain.ResourceType;
 import org.crown.repository.SupplierResourceRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -62,6 +63,11 @@ public class SupplierResourceResourceIT {
         SupplierResource supplierResource = new SupplierResource()
             .quantity(DEFAULT_QUANTITY)
             .cost(DEFAULT_COST);
+        // Add required entity
+        ResourceType resourceType;
+        resourceType = ResourceTypeResourceIT.createEntity();
+        resourceType.setId("fixed-id-for-tests");
+        supplierResource.setResourceType(resourceType);
         return supplierResource;
     }
     /**
@@ -74,6 +80,11 @@ public class SupplierResourceResourceIT {
         SupplierResource supplierResource = new SupplierResource()
             .quantity(UPDATED_QUANTITY)
             .cost(UPDATED_COST);
+        // Add required entity
+        ResourceType resourceType;
+        resourceType = ResourceTypeResourceIT.createUpdatedEntity();
+        resourceType.setId("fixed-id-for-tests");
+        supplierResource.setResourceType(resourceType);
         return supplierResource;
     }
 
@@ -173,7 +184,7 @@ public class SupplierResourceResourceIT {
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
             .andExpect(jsonPath("$.[*].cost").value(hasItem(DEFAULT_COST)));
     }
-    
+
     @Test
     public void getSupplierResource() throws Exception {
         // Initialize the database
@@ -273,5 +284,6 @@ public class SupplierResourceResourceIT {
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
             .andExpect(jsonPath("$.[*].cost").value(hasItem(DEFAULT_COST)));
     }
-    */
+
+ */
 }

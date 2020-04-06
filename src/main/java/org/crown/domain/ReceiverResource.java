@@ -1,11 +1,11 @@
 package org.crown.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
@@ -39,6 +39,15 @@ public class ReceiverResource implements Serializable {
 
     @Field("notes")
     private String notes;
+
+    @DBRef
+    @Field("resourceType")
+    private ResourceType resourceType;
+
+    @DBRef
+    @Field("receiver")
+    @JsonIgnoreProperties("receiverResources")
+    private ReceiverSupplier receiver;
 
     public double [] getPosition() {
         return position;
@@ -126,6 +135,32 @@ public class ReceiverResource implements Serializable {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+
+    public ReceiverResource resourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+        return this;
+    }
+
+    public void setResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public ReceiverSupplier getReceiver() {
+        return receiver;
+    }
+
+    public ReceiverResource receiver(ReceiverSupplier receiverSupplier) {
+        this.receiver = receiverSupplier;
+        return this;
+    }
+
+    public void setReceiver(ReceiverSupplier receiverSupplier) {
+        this.receiver = receiverSupplier;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -143,7 +178,6 @@ public class ReceiverResource implements Serializable {
     public int hashCode() {
         return 31;
     }
-
 
     @Override
     public String toString() {

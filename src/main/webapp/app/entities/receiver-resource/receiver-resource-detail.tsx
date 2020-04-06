@@ -55,6 +55,14 @@ export const ReceiverResourceDetail = (props: IReceiverResourceDetailProps) => {
             </span>
           </dt>
           <dd>{receiverResourceEntity.notes}</dd>
+          <dt>
+            <Translate contentKey="crownApp.receiverResource.resourceType">Resource Type</Translate>
+          </dt>
+          <dd>{receiverResourceEntity.resourceType ? receiverResourceEntity.resourceType.name : ''}</dd>
+          <dt>
+            <Translate contentKey="crownApp.receiverResource.receiver">Receiver</Translate>
+          </dt>
+          <dd>{receiverResourceEntity.receiver ? receiverResourceEntity.receiver.name : ''}</dd>
         </dl>
         <Button tag={Link} to="/receiver-resource" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

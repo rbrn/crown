@@ -33,7 +33,9 @@
       "isSupplier": "Is Supplier",
       "hasSterilization": "Has Sterilization",
       "priority": "Priority",
-      "notes": "Notes"
+      "notes": "Notes",
+      "receiverResource": "Receiver Resource",
+      "supplierResource": "Supplier Resource"
     }
   }
 }

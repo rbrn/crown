@@ -36,10 +36,27 @@ entity Delivery {
 	notes String
 }
 
-
-relationship OneToOne {
-    Request{resource required} to Resource
+entity ResourceType {
+    name String required,
+    notes String
 }
 
+relationship OneToOne {
+    ReceiverResource{resourceType(name) required} to ResourceType
+}
+
+relationship OneToOne {
+    SupplierResource{resourceType(name) required} to ResourceType
+}
+
+relationship OneToMany {
+     ReceiverSupplier{receiverResource(name)} to ReceiverResource{receiver(name)}
+}
+
+relationship OneToMany {
+     ReceiverSupplier{supplierResource(name)} to SupplierResource{supplier(name)}
+}
+
+
 // Set pagination options
-paginate ReceiverSupplier, ReceiverResource, SupplierResource, Delivery with infinite-scroll
+paginate ReceiverSupplier, ReceiverResource, SupplierResource, Delivery, ResourceType with infinite-scroll

@@ -21,7 +21,9 @@
       "quantity": "Quantity",
       "dailyUse": "Daily Use",
       "currentStock": "Current Stock",
-      "notes": "Notes"
+      "notes": "Notes",
+      "resourceType": "Resource Type",
+      "receiver": "Receiver"
     }
   }
 }
