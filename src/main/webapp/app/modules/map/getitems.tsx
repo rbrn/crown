@@ -15,110 +15,49 @@ export interface OwnProps {
 type Props = StateProps & DispatchProps & OwnProps
 
 // make this header based on given information
-const headers = ["ID", "Name", "Notes", "Action"]
-const columns = ["id", "name", "notes"]
-const dummyData = [{
-  "id": "string1",
-  "name": "string1",
-  "notes": "string1",
-  "supplyPointResource": {
-    "canProduce": 0,
-    "id": "string1",
-    "numRequested": 0,
-    "numinStock": 0,
-    "resources": [
-      null
-    ],
-    "supplypoint": {
-      "address": "string1",
-      "city": "string1",
-      "hasSterilization": true,
-      "id": "string1",
-      "isDistributor": true,
-      "isHealthcare": true,
-      "latx": 0,
-      "longy": 0,
-      "name": "string1",
-      "notes": "string1",
-      "phonenumber": "string1",
-      "primaryContactName": "string1",
-      "priority": 0,
-      "resourceLocations": [
-        null
-      ],
-      "state": "string1",
-      "zip": "string1"
-    }
-  }
-},
-{
-    "id": "string2",
-    "name": "string2",
-    "notes": "string2",
-    "supplyPointResource": {
-      "canProduce": 0,
-      "id": "string2",
-      "numRequested": 0,
-      "numinStock": 0,
-      "resources": [
-        null
-      ],
-      "supplypoint": {
-        "address": "string2",
-        "city": "string2",
-        "hasSterilization": true,
-        "id": "string2",
-        "isDistributor": true,
-        "isHealthcare": true,
-        "latx": 0,
-        "longy": 0,
-        "name": "string2",
-        "notes": "string2",
-        "phonenumber": "string2",
-        "primaryContactName": "string2",
-        "priority": 0,
-        "resourceLocations": [
-          null
-        ],
-        "state": "string2",
-        "zip": "string2"
-      }
-    }
-  },
-  {
-    "id": "string3",
-    "name": "string3",
-    "notes": "string3",
-    "supplyPointResource": {
-      "canProduce": 0,
-      "id": "string3",
-      "numRequested": 0,
-      "numinStock": 0,
-      "resources": [
-        null
-      ],
-      "supplypoint": {
-        "address": "string3",
-        "city": "string3",
-        "hasSterilization": true,
-        "id": "string3",
-        "isDistributor": true,
-        "isHealthcare": true,
-        "latx": 0,
-        "longy": 0,
-        "name": "string3",
-        "notes": "string3",
-        "phonenumber": "string3",
-        "primaryContactName": "string3",
-        "priority": 0,
-        "resourceLocations": [
-          null
-        ],
-        "state": "string3",
-        "zip": "string3"
-      }
-    }
-  }
+const headers = ["Item Name", "Quantity", "Distance", "Date Posted", "Contact", "Action"]
+const columns = ["Name", "Quantity", "Distance", "DatePosted", "Contact"]
+const dummyData = [
+{ 
+	"distance" : {
+		"value":0.0,
+		"metrics":"string"
+	},
+	"content" : {
+		"id": "string1",
+	 	"name": "string1",
+	 	"quantity": 0,
+	  	"daily_use": 0,
+		"current_stock": 0,
+	  	"notes": "string1",
+	  	"supplyPointResource": {
+		    "canProduce": 0,
+		    "id": "string1",
+		    "numRequested": 0,
+		    "numinStock": 0,
+		    "resources": [null],
+	    	"supplypoint": {
+  			"address": "string1",
+			"city": "string1",
+  			"hasSterilization": true,
+  			"isDistributor": true,
+  			"isHealthcare": true,
+  			"latx": 0,
+  			"longy": 0,
+  			"name": "string1",
+  			"notes": "string1",
+  			"phonenumber": "string1",
+  			"primaryContactName": "string1",
+  			"priority": 0,
+			"resourceLocations": [
+			    null
+			  ],
+  			"state": "string1",
+  			"zip": "string1"
+	    }
+	  }
+	}
+}
 ]
 const actionItems = [
     {
@@ -196,14 +135,22 @@ class PostComponent extends React.Component<Props, State> {
             {
               // change dummy data with required data
               this.state.fetchedData.map((item, index) => (
-                <tr key={item.id}>
-                  {
-                    columns.map(col => (
-                      <td key={`${item.id}-${col}`}>
-                        {item[col]}
+                <tr key={item.content.id}>
+                      <td key={`${item.content.id}-Name`}>
+                        {item.content.name }
                       </td>
-                    ))
-                  }
+                      <td key={`${item.content.id}-Quanity`}>
+                        {item.content.quantity }
+                      </td>
+                      <td key={`${item.content.id}-Distance`}>
+                        {item.distance.value}
+                      </td>
+					 <td key={`${item.content.id}-DatePosted`}>
+                        TDB
+                     </td>
+                     <td key={`${item.content.id}-Contact`}>
+                        TDB
+                     </td>
                   {/* for the action column. Change the icons */}
                   <td>
                     <div className='action-items flex'>
@@ -232,7 +179,7 @@ class PostComponent extends React.Component<Props, State> {
                 <div className="info-div">
                     <pre>
                         <code>
-                            {JSON.stringify(this.state.fetchedData[this.state.viewIndex].supplyPointResource, undefined, 4)}
+                            {JSON.stringify(this.state.fetchedData[this.state.viewIndex].content.supplyPointResource, undefined, 4)}
                         </code>
                     </pre>
                 </div>

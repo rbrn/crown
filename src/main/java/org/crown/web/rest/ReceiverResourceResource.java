@@ -3,7 +3,10 @@ package org.crown.web.rest;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+
+import org.apache.logging.log4j.util.Strings;
 import org.crown.domain.ReceiverResource;
+import org.crown.domain.SupplierResource;
 import org.crown.repository.ReceiverResourceRepository;
 import org.crown.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
@@ -12,6 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoPage;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -137,12 +142,15 @@ public class ReceiverResourceResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/receiver-resources")
-    public ResponseEntity<List<ReceiverResource>> searchReceiverResources(@RequestParam double x, double y, 
+    public ResponseEntity<?> searchReceiverResources(@RequestParam double x, double y, 
     		double distance, Pageable pageable, String units) {
         log.debug("REST request to search for a page of ReceiverResources for longitude: {} latitude:{} distance: {}", x, y, distance);
         Point point = new Point(x, y);
-		Distance dist = new Distance(distance);
-        Page<ReceiverResource> page = receiverResourceRepository.findByPositionNear(point, dist, pageable);
+        Metrics metrics = Metrics.MILES;
+        if(!Strings.isBlank(units) && units.equals("km"))
+        	 metrics = Metrics.KILOMETERS;        
+		Distance dist = new Distance(distance, metrics);
+		GeoPage<ReceiverResource> page = receiverResourceRepository.findByPositionNear(point, dist, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
