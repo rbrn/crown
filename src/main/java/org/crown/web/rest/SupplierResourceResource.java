@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.util.Strings;
 import org.crown.domain.SupplierResource;
 import org.crown.repository.SupplierResourceRepository;
 import org.crown.web.rest.errors.BadRequestAlertException;
@@ -16,6 +17,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoPage;
+import org.springframework.data.geo.GeoResult;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -146,12 +151,15 @@ public class SupplierResourceResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/supplier-resources")
-    public ResponseEntity<List<SupplierResource>> searchReceiverResources(@RequestParam double x, double y, 
+    public ResponseEntity<?> searchReceiverResources(@RequestParam double x, double y, 
     		double distance, Pageable pageable, String units) {
         log.debug("REST request to search for a page of SupplierResources for longitude: {} latitude:{} distance: {}", x, y, distance);
-        GeoJsonPoint point = new GeoJsonPoint(x, y);
-		Distance dist = new Distance(distance);
-        Page<SupplierResource> page = supplierResourceRepository.findByPositionNear(point, dist, pageable);
+        Point point = new Point(x, y);
+        Metrics metrics = Metrics.MILES;
+        if(!Strings.isBlank(units) && units.equals("km"))
+        	 metrics = Metrics.KILOMETERS;        
+		Distance dist = new Distance(distance, metrics);
+		GeoPage<SupplierResource> page = supplierResourceRepository.findByPositionNear(point, dist, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

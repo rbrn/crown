@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -57,6 +58,9 @@ public class ReceiverResource implements Serializable {
     @GeoSpatialIndexed
     @Field("position")
     private double [] position;
+    
+    @Field("postedDate")
+    private Date postedDate;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -168,5 +172,13 @@ public class ReceiverResource implements Serializable {
 
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
+	}
+
+	public Date getPostedDate() {
+		return postedDate;
+	}
+
+	public void setPostedDate(Date postedDate) {
+		this.postedDate = postedDate;
 	}
 }
