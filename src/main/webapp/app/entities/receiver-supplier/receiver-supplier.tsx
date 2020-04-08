@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
-import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { Button, Col, Row, Table } from 'reactstrap';
+import { Translate, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, reset } from './receiver-supplier.reducer';
+import { getEntities, reset } from './receiver-supplier.reducer';
 import { IReceiverSupplier } from 'app/shared/model/receiver-supplier.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -16,21 +15,11 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 export interface IReceiverSupplierProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
-  const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
   const [sorting, setSorting] = useState(false);
 
   const getAllEntities = () => {
-    if (search) {
-      props.getSearchEntities(
-        search,
-        paginationState.activePage - 1,
-        paginationState.itemsPerPage,
-        `${paginationState.sort},${paginationState.order}`
-      );
-    } else {
-      props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
-    }
+    props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
   };
 
   const resetAll = () => {
@@ -44,34 +33,6 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
   useEffect(() => {
     resetAll();
   }, []);
-
-  const startSearching = () => {
-    if (search) {
-      props.reset();
-      setPaginationState({
-        ...paginationState,
-        activePage: 1
-      });
-      props.getSearchEntities(
-        search,
-        paginationState.activePage - 1,
-        paginationState.itemsPerPage,
-        `${paginationState.sort},${paginationState.order}`
-      );
-    }
-  };
-
-  const clear = () => {
-    props.reset();
-    setSearch('');
-    setPaginationState({
-      ...paginationState,
-      activePage: 1
-    });
-    props.getEntities();
-  };
-
-  const handleSearch = event => setSearch(event.target.value);
 
   useEffect(() => {
     getAllEntities();
@@ -91,7 +52,7 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
       getAllEntities();
       setSorting(false);
     }
-  }, [sorting, search]);
+  }, [sorting]);
 
   const sort = p => () => {
     props.reset();
@@ -115,29 +76,6 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
           <Translate contentKey="crownApp.receiverSupplier.home.createLabel">Create new Receiver Supplier</Translate>
         </Link>
       </h2>
-      <Row>
-        <Col sm="12">
-          <AvForm onSubmit={startSearching}>
-            <AvGroup>
-              <InputGroup>
-                <AvInput
-                  type="text"
-                  name="search"
-                  value={search}
-                  onChange={handleSearch}
-                  placeholder={translate('crownApp.receiverSupplier.home.search')}
-                />
-                <Button className="input-group-addon">
-                  <FontAwesomeIcon icon="search" />
-                </Button>
-                <Button type="reset" className="input-group-addon" onClick={clear}>
-                  <FontAwesomeIcon icon="trash" />
-                </Button>
-              </InputGroup>
-            </AvGroup>
-          </AvForm>
-        </Col>
-      </Row>
       <div className="table-responsive">
         <InfiniteScroll
           pageStart={paginationState.activePage}
@@ -207,6 +145,9 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
                   <th className="hand" onClick={sort('notes')}>
                     <Translate contentKey="crownApp.receiverSupplier.notes">Notes</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('tags')}>
+                    <Translate contentKey="crownApp.receiverSupplier.tags">Tags</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -235,6 +176,7 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
                     <td>{receiverSupplier.hasSterilization ? 'true' : 'false'}</td>
                     <td>{receiverSupplier.priority}</td>
                     <td>{receiverSupplier.notes}</td>
+                    <td>{receiverSupplier.tags}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${receiverSupplier.id}`} color="info" size="sm">
@@ -284,7 +226,6 @@ const mapStateToProps = ({ receiverSupplier }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getSearchEntities,
   getEntities,
   reset
 };

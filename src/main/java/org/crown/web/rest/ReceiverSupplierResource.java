@@ -24,9 +24,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 
 /**
  * REST controller for managing {@link org.crown.domain.ReceiverSupplier}.
@@ -44,11 +41,8 @@ public class ReceiverSupplierResource {
 
     private final ReceiverSupplierRepository receiverSupplierRepository;
 
-
-
     public ReceiverSupplierResource(ReceiverSupplierRepository receiverSupplierRepository) {
         this.receiverSupplierRepository = receiverSupplierRepository;
-
     }
 
     /**
@@ -130,6 +124,4 @@ public class ReceiverSupplierResource {
         receiverSupplierRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
-
-
 }

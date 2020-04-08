@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
-import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { Button, Col, Row, Table } from 'reactstrap';
+import { Translate, ICrudGetAllAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, reset } from './receiver-resource.reducer';
+import { getEntities, reset } from './receiver-resource.reducer';
 import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -16,21 +15,11 @@ import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 export interface IReceiverResourceProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export const ReceiverResource = (props: IReceiverResourceProps) => {
-  const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
   const [sorting, setSorting] = useState(false);
 
   const getAllEntities = () => {
-    if (search) {
-      props.getSearchEntities(
-        search,
-        paginationState.activePage - 1,
-        paginationState.itemsPerPage,
-        `${paginationState.sort},${paginationState.order}`
-      );
-    } else {
-      props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
-    }
+    props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
   };
 
   const resetAll = () => {
@@ -44,34 +33,6 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
   useEffect(() => {
     resetAll();
   }, []);
-
-  const startSearching = () => {
-    if (search) {
-      props.reset();
-      setPaginationState({
-        ...paginationState,
-        activePage: 1
-      });
-      props.getSearchEntities(
-        search,
-        paginationState.activePage - 1,
-        paginationState.itemsPerPage,
-        `${paginationState.sort},${paginationState.order}`
-      );
-    }
-  };
-
-  const clear = () => {
-    props.reset();
-    setSearch('');
-    setPaginationState({
-      ...paginationState,
-      activePage: 1
-    });
-    props.getEntities();
-  };
-
-  const handleSearch = event => setSearch(event.target.value);
 
   useEffect(() => {
     getAllEntities();
@@ -91,7 +52,7 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
       getAllEntities();
       setSorting(false);
     }
-  }, [sorting, search]);
+  }, [sorting]);
 
   const sort = p => () => {
     props.reset();
@@ -115,29 +76,6 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
           <Translate contentKey="crownApp.receiverResource.home.createLabel">Create new Receiver Resource</Translate>
         </Link>
       </h2>
-      <Row>
-        <Col sm="12">
-          <AvForm onSubmit={startSearching}>
-            <AvGroup>
-              <InputGroup>
-                <AvInput
-                  type="text"
-                  name="search"
-                  value={search}
-                  onChange={handleSearch}
-                  placeholder={translate('crownApp.receiverResource.home.search')}
-                />
-                <Button className="input-group-addon">
-                  <FontAwesomeIcon icon="search" />
-                </Button>
-                <Button type="reset" className="input-group-addon" onClick={clear}>
-                  <FontAwesomeIcon icon="trash" />
-                </Button>
-              </InputGroup>
-            </AvGroup>
-          </AvForm>
-        </Col>
-      </Row>
       <div className="table-responsive">
         <InfiniteScroll
           pageStart={paginationState.activePage}
@@ -163,8 +101,14 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                   <th className="hand" onClick={sort('dailyUse')}>
                     <Translate contentKey="crownApp.receiverResource.dailyUse">Daily Use</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('postedDate')}>
+                    <Translate contentKey="crownApp.receiverResource.postedDate">Posted Date</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('currentStock')}>
                     <Translate contentKey="crownApp.receiverResource.currentStock">Current Stock</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('expiration')}>
+                    <Translate contentKey="crownApp.receiverResource.expiration">Expiration</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('notes')}>
                     <Translate contentKey="crownApp.receiverResource.notes">Notes</Translate> <FontAwesomeIcon icon="sort" />
@@ -189,7 +133,13 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                     <td>{receiverResource.name}</td>
                     <td>{receiverResource.quantity}</td>
                     <td>{receiverResource.dailyUse}</td>
+                    <td>
+                      <TextFormat type="date" value={receiverResource.postedDate} format={APP_LOCAL_DATE_FORMAT} />
+                    </td>
                     <td>{receiverResource.currentStock}</td>
+                    <td>
+                      <TextFormat type="date" value={receiverResource.expiration} format={APP_LOCAL_DATE_FORMAT} />
+                    </td>
                     <td>{receiverResource.notes}</td>
                     <td>
                       {receiverResource.resourceType ? (
@@ -254,7 +204,6 @@ const mapStateToProps = ({ receiverResource }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getSearchEntities,
   getEntities,
   reset
 };
