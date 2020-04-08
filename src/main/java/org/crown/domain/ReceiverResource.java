@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
+import java.time.LocalDate;
 
 /**
  * A ReceiverResource.
@@ -35,16 +35,18 @@ public class ReceiverResource implements Serializable {
     @Field("daily_use")
     private Integer dailyUse;
 
+    @NotNull
+    @Field("posted_date")
+    private LocalDate postedDate;
+
     @Field("current_stock")
     private Integer currentStock;
 
+    @Field("expiration")
+    private LocalDate expiration;
+
     @Field("notes")
     private String notes;
-    
-    /** receiver of the resource **/
-    @Field("receiver")
-    private String receiver;
-    
 
     @DBRef
     @Field("resourceType")
@@ -68,9 +70,6 @@ public class ReceiverResource implements Serializable {
     @Field("position")
     private double [] position;
     
-    @Field("postedDate")
-    private Date postedDate;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -119,6 +118,19 @@ public class ReceiverResource implements Serializable {
         this.dailyUse = dailyUse;
     }
 
+    public LocalDate getPostedDate() {
+        return postedDate;
+    }
+
+    public ReceiverResource postedDate(LocalDate postedDate) {
+        this.postedDate = postedDate;
+        return this;
+    }
+
+    public void setPostedDate(LocalDate postedDate) {
+        this.postedDate = postedDate;
+    }
+
     public Integer getCurrentStock() {
         return currentStock;
     }
@@ -130,6 +142,19 @@ public class ReceiverResource implements Serializable {
 
     public void setCurrentStock(Integer currentStock) {
         this.currentStock = currentStock;
+    }
+
+    public LocalDate getExpiration() {
+        return expiration;
+    }
+
+    public ReceiverResource expiration(LocalDate expiration) {
+        this.expiration = expiration;
+        return this;
+    }
+
+    public void setExpiration(LocalDate expiration) {
+        this.expiration = expiration;
     }
 
     public String getNotes() {
@@ -195,24 +220,10 @@ public class ReceiverResource implements Serializable {
             ", name='" + getName() + "'" +
             ", quantity=" + getQuantity() +
             ", dailyUse=" + getDailyUse() +
+            ", postedDate='" + getPostedDate() + "'" +
             ", currentStock=" + getCurrentStock() +
+            ", expiration='" + getExpiration() + "'" +
             ", notes='" + getNotes() + "'" +
             "}";
     }
-
-	public String getReceiver() {
-		return receiver;
-	}
-
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
-	}
-
-	public Date getPostedDate() {
-		return postedDate;
-	}
-
-	public void setPostedDate(Date postedDate) {
-		this.postedDate = postedDate;
-	}
 }

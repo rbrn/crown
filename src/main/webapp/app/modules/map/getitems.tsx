@@ -30,6 +30,24 @@ const dummyData = [
 	  	"daily_use": 0,
 		"current_stock": 0,
 	  	"notes": "string1",
+		"postedDate":"string1",
+		"receiver": {	"id": "string1", 
+			"name": "string1", 
+			"address": "string1", 
+			"email": "string1", 
+			"primary_contact_name": "string1", 
+			"zip": "string1", 
+			"phonenumber": "string1", 
+			"city": "string1", 
+			"state": "string1", 
+			"country": "string1", 
+			"npi": 1, 
+			"is_receiver": true, 
+			"is_supplier": false, 
+			"has_sterilization": false, 
+			"priority": 1, 
+			"notes": ""
+		},
 	  	"supplyPointResource": {
 		    "canProduce": 0,
 		    "id": "string1",
@@ -146,10 +164,10 @@ class PostComponent extends React.Component<Props, State> {
                         {item.distance.value}
                       </td>
 					 <td key={`${item.content.id}-DatePosted`}>
-                        TDB
+                        {item.content.postedDate}
                      </td>
                      <td key={`${item.content.id}-Contact`}>
-                        TDB
+                        {(item.content.receiver)?item.content.receiver.name:'Missing Receiver'}
                      </td>
                   {/* for the action column. Change the icons */}
                   <td>

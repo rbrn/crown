@@ -1,6 +1,13 @@
 {
-    "name": "SupplierResource",
+    "name": "ReceiverResource",
     "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
         {
             "fieldName": "quantity",
             "fieldType": "Integer",
@@ -9,18 +16,37 @@
             ]
         },
         {
-            "fieldName": "cost",
+            "fieldName": "dailyUse",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "postedDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "currentStock",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "expiration",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "notes",
+            "fieldType": "String"
         }
     ],
     "relationships": [
         {
             "relationshipType": "one-to-one",
             "otherEntityName": "resourceType",
-            "otherEntityRelationshipName": "supplierResource",
+            "otherEntityRelationshipName": "receiverResource",
             "relationshipValidateRules": "required",
             "relationshipName": "resourceType",
             "otherEntityField": "name",
@@ -29,13 +55,13 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "receiverSupplier",
-            "otherEntityRelationshipName": "supplierResource",
-            "relationshipName": "supplier",
+            "otherEntityRelationshipName": "receiverResource",
+            "relationshipName": "receiver",
             "otherEntityField": "name"
         }
     ],
-    "changelogDate": "20200402072900",
-    "entityTableName": "supplier_resource",
+    "changelogDate": "20200408051900",
+    "entityTableName": "receiver_resource",
     "dto": "no",
     "pagination": "infinite-scroll",
     "service": "no",

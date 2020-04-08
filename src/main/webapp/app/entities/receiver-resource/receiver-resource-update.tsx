@@ -126,10 +126,30 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                 />
               </AvGroup>
               <AvGroup>
+                <Label id="postedDateLabel" for="receiver-resource-postedDate">
+                  <Translate contentKey="crownApp.receiverResource.postedDate">Posted Date</Translate>
+                </Label>
+                <AvField
+                  id="receiver-resource-postedDate"
+                  type="date"
+                  className="form-control"
+                  name="postedDate"
+                  validate={{
+                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
                 <Label id="currentStockLabel" for="receiver-resource-currentStock">
                   <Translate contentKey="crownApp.receiverResource.currentStock">Current Stock</Translate>
                 </Label>
                 <AvField id="receiver-resource-currentStock" type="string" className="form-control" name="currentStock" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="expirationLabel" for="receiver-resource-expiration">
+                  <Translate contentKey="crownApp.receiverResource.expiration">Expiration</Translate>
+                </Label>
+                <AvField id="receiver-resource-expiration" type="date" className="form-control" name="expiration" />
               </AvGroup>
               <AvGroup>
                 <Label id="notesLabel" for="receiver-resource-notes">

@@ -6,25 +6,18 @@ import org.crown.repository.ReceiverSupplierRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -32,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link ReceiverSupplierResource} REST controller.
  */
 @SpringBootTest(classes = CrownApp.class)
-@ExtendWith(MockitoExtension.class)
+
 @AutoConfigureMockMvc
 @WithMockUser
 public class ReceiverSupplierResourceIT {
@@ -88,6 +81,9 @@ public class ReceiverSupplierResourceIT {
     private static final String DEFAULT_NOTES = "AAAAAAAAAA";
     private static final String UPDATED_NOTES = "BBBBBBBBBB";
 
+    private static final String DEFAULT_TAGS = "AAAAAAAAAA";
+    private static final String UPDATED_TAGS = "BBBBBBBBBB";
+
     @Autowired
     private ReceiverSupplierRepository receiverSupplierRepository;
 
@@ -120,7 +116,8 @@ public class ReceiverSupplierResourceIT {
             .isSupplier(DEFAULT_IS_SUPPLIER)
             .hasSterilization(DEFAULT_HAS_STERILIZATION)
             .priority(DEFAULT_PRIORITY)
-            .notes(DEFAULT_NOTES);
+            .notes(DEFAULT_NOTES)
+            .tags(DEFAULT_TAGS);
         return receiverSupplier;
     }
     /**
@@ -147,7 +144,8 @@ public class ReceiverSupplierResourceIT {
             .isSupplier(UPDATED_IS_SUPPLIER)
             .hasSterilization(UPDATED_HAS_STERILIZATION)
             .priority(UPDATED_PRIORITY)
-            .notes(UPDATED_NOTES);
+            .notes(UPDATED_NOTES)
+            .tags(UPDATED_TAGS);
         return receiverSupplier;
     }
 
@@ -188,7 +186,7 @@ public class ReceiverSupplierResourceIT {
         assertThat(testReceiverSupplier.isHasSterilization()).isEqualTo(DEFAULT_HAS_STERILIZATION);
         assertThat(testReceiverSupplier.getPriority()).isEqualTo(DEFAULT_PRIORITY);
         assertThat(testReceiverSupplier.getNotes()).isEqualTo(DEFAULT_NOTES);
-
+        assertThat(testReceiverSupplier.getTags()).isEqualTo(DEFAULT_TAGS);
     }
 
     @Test
@@ -207,7 +205,6 @@ public class ReceiverSupplierResourceIT {
         // Validate the ReceiverSupplier in the database
         List<ReceiverSupplier> receiverSupplierList = receiverSupplierRepository.findAll();
         assertThat(receiverSupplierList).hasSize(databaseSizeBeforeCreate);
-
     }
 
 
@@ -390,7 +387,8 @@ public class ReceiverSupplierResourceIT {
             .andExpect(jsonPath("$.[*].isSupplier").value(hasItem(DEFAULT_IS_SUPPLIER.booleanValue())))
             .andExpect(jsonPath("$.[*].hasSterilization").value(hasItem(DEFAULT_HAS_STERILIZATION.booleanValue())))
             .andExpect(jsonPath("$.[*].priority").value(hasItem(DEFAULT_PRIORITY)))
-            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
+            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)))
+            .andExpect(jsonPath("$.[*].tags").value(hasItem(DEFAULT_TAGS)));
     }
     
     @Test
@@ -419,7 +417,8 @@ public class ReceiverSupplierResourceIT {
             .andExpect(jsonPath("$.isSupplier").value(DEFAULT_IS_SUPPLIER.booleanValue()))
             .andExpect(jsonPath("$.hasSterilization").value(DEFAULT_HAS_STERILIZATION.booleanValue()))
             .andExpect(jsonPath("$.priority").value(DEFAULT_PRIORITY))
-            .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES));
+            .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES))
+            .andExpect(jsonPath("$.tags").value(DEFAULT_TAGS));
     }
 
     @Test
@@ -455,7 +454,8 @@ public class ReceiverSupplierResourceIT {
             .isSupplier(UPDATED_IS_SUPPLIER)
             .hasSterilization(UPDATED_HAS_STERILIZATION)
             .priority(UPDATED_PRIORITY)
-            .notes(UPDATED_NOTES);
+            .notes(UPDATED_NOTES)
+            .tags(UPDATED_TAGS);
 
         restReceiverSupplierMockMvc.perform(put("/api/receiver-suppliers").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -483,7 +483,7 @@ public class ReceiverSupplierResourceIT {
         assertThat(testReceiverSupplier.isHasSterilization()).isEqualTo(UPDATED_HAS_STERILIZATION);
         assertThat(testReceiverSupplier.getPriority()).isEqualTo(UPDATED_PRIORITY);
         assertThat(testReceiverSupplier.getNotes()).isEqualTo(UPDATED_NOTES);
-
+        assertThat(testReceiverSupplier.getTags()).isEqualTo(UPDATED_TAGS);
     }
 
     @Test
@@ -518,36 +518,5 @@ public class ReceiverSupplierResourceIT {
         // Validate the database contains one less item
         List<ReceiverSupplier> receiverSupplierList = receiverSupplierRepository.findAll();
         assertThat(receiverSupplierList).hasSize(databaseSizeBeforeDelete - 1);
-
     }
-/*
-    @Test
-    public void searchReceiverSupplier() throws Exception {
-        // Initialize the database
-        receiverSupplierRepository.save(receiverSupplier);
-        when(mockReceiverSupplierSearchRepository.search(queryStringQuery("id:" + receiverSupplier.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(receiverSupplier), PageRequest.of(0, 1), 1));
-        // Search the receiverSupplier
-        restReceiverSupplierMockMvc.perform(get("/api/_search/receiver-suppliers?query=id:" + receiverSupplier.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(receiverSupplier.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
-            .andExpect(jsonPath("$.[*].primaryContactName").value(hasItem(DEFAULT_PRIMARY_CONTACT_NAME)))
-            .andExpect(jsonPath("$.[*].zip").value(hasItem(DEFAULT_ZIP)))
-            .andExpect(jsonPath("$.[*].phonenumber").value(hasItem(DEFAULT_PHONENUMBER)))
-            .andExpect(jsonPath("$.[*].latx").value(hasItem(DEFAULT_LATX.doubleValue())))
-            .andExpect(jsonPath("$.[*].longy").value(hasItem(DEFAULT_LONGY.doubleValue())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY)))
-            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE)))
-            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY)))
-            .andExpect(jsonPath("$.[*].npi").value(hasItem(DEFAULT_NPI)))
-            .andExpect(jsonPath("$.[*].isReceiver").value(hasItem(DEFAULT_IS_RECEIVER.booleanValue())))
-            .andExpect(jsonPath("$.[*].isSupplier").value(hasItem(DEFAULT_IS_SUPPLIER.booleanValue())))
-            .andExpect(jsonPath("$.[*].hasSterilization").value(hasItem(DEFAULT_HAS_STERILIZATION.booleanValue())))
-            .andExpect(jsonPath("$.[*].priority").value(hasItem(DEFAULT_PRIORITY)))
-            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
-    }*/
 }

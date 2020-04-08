@@ -7,7 +7,9 @@ export default class ReceiverResourceUpdatePage {
   nameInput: ElementFinder = element(by.css('input#receiver-resource-name'));
   quantityInput: ElementFinder = element(by.css('input#receiver-resource-quantity'));
   dailyUseInput: ElementFinder = element(by.css('input#receiver-resource-dailyUse'));
+  postedDateInput: ElementFinder = element(by.css('input#receiver-resource-postedDate'));
   currentStockInput: ElementFinder = element(by.css('input#receiver-resource-currentStock'));
+  expirationInput: ElementFinder = element(by.css('input#receiver-resource-expiration'));
   notesInput: ElementFinder = element(by.css('input#receiver-resource-notes'));
   resourceTypeSelect: ElementFinder = element(by.css('select#receiver-resource-resourceType'));
   receiverSelect: ElementFinder = element(by.css('select#receiver-resource-receiver'));
@@ -40,12 +42,28 @@ export default class ReceiverResourceUpdatePage {
     return this.dailyUseInput.getAttribute('value');
   }
 
+  async setPostedDateInput(postedDate) {
+    await this.postedDateInput.sendKeys(postedDate);
+  }
+
+  async getPostedDateInput() {
+    return this.postedDateInput.getAttribute('value');
+  }
+
   async setCurrentStockInput(currentStock) {
     await this.currentStockInput.sendKeys(currentStock);
   }
 
   async getCurrentStockInput() {
     return this.currentStockInput.getAttribute('value');
+  }
+
+  async setExpirationInput(expiration) {
+    await this.expirationInput.sendKeys(expiration);
+  }
+
+  async getExpirationInput() {
+    return this.expirationInput.getAttribute('value');
   }
 
   async setNotesInput(notes) {

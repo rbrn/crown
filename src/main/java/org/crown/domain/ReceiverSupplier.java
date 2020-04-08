@@ -1,7 +1,6 @@
 package org.crown.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -83,7 +82,8 @@ public class ReceiverSupplier implements Serializable {
     @Field("notes")
     private String notes;
 
-    private GeoJsonPoint position;
+    @Field("tags")
+    private String tags;
 
     @DBRef
     @Field("receiverResource")
@@ -323,6 +323,19 @@ public class ReceiverSupplier implements Serializable {
         this.notes = notes;
     }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public ReceiverSupplier tags(String tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
     public Set<ReceiverResource> getReceiverResources() {
         return receiverResources;
     }
@@ -374,15 +387,6 @@ public class ReceiverSupplier implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-
-    public GeoJsonPoint getPosition() {
-        return position;
-    }
-
-    public void setPosition(GeoJsonPoint pos) {
-        this.position = pos;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -420,6 +424,7 @@ public class ReceiverSupplier implements Serializable {
             ", hasSterilization='" + isHasSterilization() + "'" +
             ", priority=" + getPriority() +
             ", notes='" + getNotes() + "'" +
+            ", tags='" + getTags() + "'" +
             "}";
     }
 }

@@ -15,14 +15,18 @@ entity ReceiverSupplier {
     isSupplier Boolean,
     hasSterilization Boolean,
     priority Integer,
-    notes String
+    notes String,
+    tags String,
 }
+
 entity ReceiverResource {
-	name String required,
+    name String required,
     quantity Integer required,
     dailyUse Integer required,
+    postedDate LocalDate required,
     currentStock Integer,
-	notes String
+    expiration LocalDate,
+    notes String
 }
 
 entity SupplierResource {

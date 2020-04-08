@@ -21,7 +21,7 @@ describe('ReceiverResource e2e test', () => {
   let signInPage: SignInPage;
   let receiverResourceComponentsPage: ReceiverResourceComponentsPage;
   let receiverResourceUpdatePage: ReceiverResourceUpdatePage;
-  let receiverResourceDeleteDialog: ReceiverResourceDeleteDialog;
+  /* let receiverResourceDeleteDialog: ReceiverResourceDeleteDialog; */
   let beforeRecordsCount = 0;
 
   before(async () => {
@@ -59,51 +59,57 @@ describe('ReceiverResource e2e test', () => {
     await receiverResourceUpdatePage.cancel();
   });
 
-  it('should create and save ReceiverResources', async () => {
-    await receiverResourceComponentsPage.createButton.click();
-    await receiverResourceUpdatePage.setNameInput('name');
-    expect(await receiverResourceUpdatePage.getNameInput()).to.match(/name/);
-    await receiverResourceUpdatePage.setQuantityInput('5');
-    expect(await receiverResourceUpdatePage.getQuantityInput()).to.eq('5');
-    await receiverResourceUpdatePage.setDailyUseInput('5');
-    expect(await receiverResourceUpdatePage.getDailyUseInput()).to.eq('5');
-    await receiverResourceUpdatePage.setCurrentStockInput('5');
-    expect(await receiverResourceUpdatePage.getCurrentStockInput()).to.eq('5');
-    await receiverResourceUpdatePage.setNotesInput('notes');
-    expect(await receiverResourceUpdatePage.getNotesInput()).to.match(/notes/);
-    await waitUntilDisplayed(receiverResourceUpdatePage.saveButton);
-    await receiverResourceUpdatePage.save();
-    await waitUntilHidden(receiverResourceUpdatePage.saveButton);
-    expect(await isVisible(receiverResourceUpdatePage.saveButton)).to.be.false;
+  /*  it('should create and save ReceiverResources', async () => {
+        await receiverResourceComponentsPage.createButton.click();
+        await receiverResourceUpdatePage.setNameInput('name');
+        expect(await receiverResourceUpdatePage.getNameInput()).to.match(/name/);
+        await receiverResourceUpdatePage.setQuantityInput('5');
+        expect(await receiverResourceUpdatePage.getQuantityInput()).to.eq('5');
+        await receiverResourceUpdatePage.setDailyUseInput('5');
+        expect(await receiverResourceUpdatePage.getDailyUseInput()).to.eq('5');
+        await receiverResourceUpdatePage.setPostedDateInput('01-01-2001');
+        expect(await receiverResourceUpdatePage.getPostedDateInput()).to.eq('2001-01-01');
+        await receiverResourceUpdatePage.setCurrentStockInput('5');
+        expect(await receiverResourceUpdatePage.getCurrentStockInput()).to.eq('5');
+        await receiverResourceUpdatePage.setExpirationInput('01-01-2001');
+        expect(await receiverResourceUpdatePage.getExpirationInput()).to.eq('2001-01-01');
+        await receiverResourceUpdatePage.setNotesInput('notes');
+        expect(await receiverResourceUpdatePage.getNotesInput()).to.match(/notes/);
+        await receiverResourceUpdatePage.resourceTypeSelectLastOption();
+        await receiverResourceUpdatePage.receiverSelectLastOption();
+        await waitUntilDisplayed(receiverResourceUpdatePage.saveButton);
+        await receiverResourceUpdatePage.save();
+        await waitUntilHidden(receiverResourceUpdatePage.saveButton);
+        expect(await isVisible(receiverResourceUpdatePage.saveButton)).to.be.false;
 
-    expect(await receiverResourceComponentsPage.createButton.isEnabled()).to.be.true;
+        expect(await receiverResourceComponentsPage.createButton.isEnabled()).to.be.true;
 
-    await waitUntilDisplayed(receiverResourceComponentsPage.table);
+        await waitUntilDisplayed(receiverResourceComponentsPage.table);
 
-    await waitUntilCount(receiverResourceComponentsPage.records, beforeRecordsCount + 1);
-    expect(await receiverResourceComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
-  });
+        await waitUntilCount(receiverResourceComponentsPage.records, beforeRecordsCount + 1);
+        expect(await receiverResourceComponentsPage.records.count()).to.eq(beforeRecordsCount + 1);
+    }); */
 
-  it('should delete last ReceiverResource', async () => {
-    const deleteButton = receiverResourceComponentsPage.getDeleteButton(receiverResourceComponentsPage.records.last());
-    await click(deleteButton);
+  /*  it('should delete last ReceiverResource', async () => {
 
-    receiverResourceDeleteDialog = new ReceiverResourceDeleteDialog();
-    await waitUntilDisplayed(receiverResourceDeleteDialog.deleteModal);
-    expect(await receiverResourceDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/crownApp.receiverResource.delete.question/);
-    await receiverResourceDeleteDialog.clickOnConfirmButton();
+        const deleteButton = receiverResourceComponentsPage.getDeleteButton(receiverResourceComponentsPage.records.last());
+        await click(deleteButton);
 
-    await waitUntilHidden(receiverResourceDeleteDialog.deleteModal);
+        receiverResourceDeleteDialog = new ReceiverResourceDeleteDialog();
+        await waitUntilDisplayed(receiverResourceDeleteDialog.deleteModal);
+        expect(await receiverResourceDeleteDialog.getDialogTitle().getAttribute('id')).to.match(/crownApp.receiverResource.delete.question/);
+        await receiverResourceDeleteDialog.clickOnConfirmButton();
 
-    expect(await isVisible(receiverResourceDeleteDialog.deleteModal)).to.be.false;
+        await waitUntilHidden(receiverResourceDeleteDialog.deleteModal);
 
-    await waitUntilAnyDisplayed([receiverResourceComponentsPage.noRecords, receiverResourceComponentsPage.table]);
+        expect(await isVisible(receiverResourceDeleteDialog.deleteModal)).to.be.false;
 
-    const afterCount = (await isVisible(receiverResourceComponentsPage.noRecords))
-      ? 0
-      : await getRecordsCount(receiverResourceComponentsPage.table);
-    expect(afterCount).to.eq(beforeRecordsCount);
-  });
+        await waitUntilAnyDisplayed([receiverResourceComponentsPage.noRecords,
+        receiverResourceComponentsPage.table]);
+    
+        const afterCount = await isVisible(receiverResourceComponentsPage.noRecords) ? 0 : await getRecordsCount(receiverResourceComponentsPage.table);
+        expect(afterCount).to.eq(beforeRecordsCount);
+    }); */
 
   after(async () => {
     await navBarPage.autoSignOut();

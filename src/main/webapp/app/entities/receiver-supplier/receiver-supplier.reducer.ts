@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-  ICrudSearchAction,
   parseHeaderForLinks,
   loadMoreDataWhenScrolled,
   ICrudGetAction,
@@ -15,7 +14,6 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { IReceiverSupplier, defaultValue } from 'app/shared/model/receiver-supplier.model';
 
 export const ACTION_TYPES = {
-  SEARCH_RECEIVERSUPPLIERS: 'receiverSupplier/SEARCH_RECEIVERSUPPLIERS',
   FETCH_RECEIVERSUPPLIER_LIST: 'receiverSupplier/FETCH_RECEIVERSUPPLIER_LIST',
   FETCH_RECEIVERSUPPLIER: 'receiverSupplier/FETCH_RECEIVERSUPPLIER',
   CREATE_RECEIVERSUPPLIER: 'receiverSupplier/CREATE_RECEIVERSUPPLIER',
@@ -41,7 +39,6 @@ export type ReceiverSupplierState = Readonly<typeof initialState>;
 
 export default (state: ReceiverSupplierState = initialState, action): ReceiverSupplierState => {
   switch (action.type) {
-    case REQUEST(ACTION_TYPES.SEARCH_RECEIVERSUPPLIERS):
     case REQUEST(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST):
     case REQUEST(ACTION_TYPES.FETCH_RECEIVERSUPPLIER):
       return {
@@ -59,7 +56,6 @@ export default (state: ReceiverSupplierState = initialState, action): ReceiverSu
         updateSuccess: false,
         updating: true
       };
-    case FAILURE(ACTION_TYPES.SEARCH_RECEIVERSUPPLIERS):
     case FAILURE(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST):
     case FAILURE(ACTION_TYPES.FETCH_RECEIVERSUPPLIER):
     case FAILURE(ACTION_TYPES.CREATE_RECEIVERSUPPLIER):
@@ -72,7 +68,6 @@ export default (state: ReceiverSupplierState = initialState, action): ReceiverSu
         updateSuccess: false,
         errorMessage: action.payload
       };
-    case SUCCESS(ACTION_TYPES.SEARCH_RECEIVERSUPPLIERS):
     case SUCCESS(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST): {
       const links = parseHeaderForLinks(action.payload.headers.link);
 
@@ -115,14 +110,8 @@ export default (state: ReceiverSupplierState = initialState, action): ReceiverSu
 };
 
 const apiUrl = 'api/receiver-suppliers';
-const apiSearchUrl = 'api/_search/receiver-suppliers';
 
 // Actions
-
-export const getSearchEntities: ICrudSearchAction<IReceiverSupplier> = (query, page, size, sort) => ({
-  type: ACTION_TYPES.SEARCH_RECEIVERSUPPLIERS,
-  payload: axios.get<IReceiverSupplier>(`${apiSearchUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`)
-});
 
 export const getEntities: ICrudGetAllAction<IReceiverSupplier> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;

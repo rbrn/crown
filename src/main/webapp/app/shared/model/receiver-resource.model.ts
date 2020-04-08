@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { IResourceType } from 'app/shared/model/resource-type.model';
 import { IReceiverSupplier } from 'app/shared/model/receiver-supplier.model';
 
@@ -6,7 +7,9 @@ export interface IReceiverResource {
   name?: string;
   quantity?: number;
   dailyUse?: number;
+  postedDate?: Moment;
   currentStock?: number;
+  expiration?: Moment;
   notes?: string;
   resourceType?: IResourceType;
   receiver?: IReceiverSupplier;
