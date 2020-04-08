@@ -8,14 +8,14 @@ import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, getSortStat
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities, reset } from './receiver-resource.reducer';
-import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
+import { getSearchEntities, getEntities, reset } from './resource-type.reducer';
+import { IResourceType } from 'app/shared/model/resource-type.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-export interface IReceiverResourceProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IResourceTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export const ReceiverResource = (props: IReceiverResourceProps) => {
+export const ResourceType = (props: IResourceTypeProps) => {
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
   const [sorting, setSorting] = useState(false);
@@ -104,15 +104,15 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
     setSorting(true);
   };
 
-  const { receiverResourceList, match, loading } = props;
+  const { resourceTypeList, match, loading } = props;
   return (
     <div>
-      <h2 id="receiver-resource-heading">
-        <Translate contentKey="crownApp.receiverResource.home.title">Receiver Resources</Translate>
+      <h2 id="resource-type-heading">
+        <Translate contentKey="crownApp.resourceType.home.title">Resource Types</Translate>
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp;
-          <Translate contentKey="crownApp.receiverResource.home.createLabel">Create new Receiver Resource</Translate>
+          <Translate contentKey="crownApp.resourceType.home.createLabel">Create new Resource Type</Translate>
         </Link>
       </h2>
       <Row>
@@ -125,7 +125,7 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                   name="search"
                   value={search}
                   onChange={handleSearch}
-                  placeholder={translate('crownApp.receiverResource.home.search')}
+                  placeholder={translate('crownApp.resourceType.home.search')}
                 />
                 <Button className="input-group-addon">
                   <FontAwesomeIcon icon="search" />
@@ -147,7 +147,7 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
           threshold={0}
           initialLoad={false}
         >
-          {receiverResourceList && receiverResourceList.length > 0 ? (
+          {resourceTypeList && resourceTypeList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
@@ -155,71 +155,39 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('name')}>
-                    <Translate contentKey="crownApp.receiverResource.name">Name</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('quantity')}>
-                    <Translate contentKey="crownApp.receiverResource.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('dailyUse')}>
-                    <Translate contentKey="crownApp.receiverResource.dailyUse">Daily Use</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('currentStock')}>
-                    <Translate contentKey="crownApp.receiverResource.currentStock">Current Stock</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="crownApp.resourceType.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('notes')}>
-                    <Translate contentKey="crownApp.receiverResource.notes">Notes</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
-                    <Translate contentKey="crownApp.receiverResource.resourceType">Resource Type</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
-                    <Translate contentKey="crownApp.receiverResource.receiver">Receiver</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="crownApp.resourceType.notes">Notes</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
-                {receiverResourceList.map((receiverResource, i) => (
+                {resourceTypeList.map((resourceType, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
-                      <Button tag={Link} to={`${match.url}/${receiverResource.id}`} color="link" size="sm">
-                        {receiverResource.id}
+                      <Button tag={Link} to={`${match.url}/${resourceType.id}`} color="link" size="sm">
+                        {resourceType.id}
                       </Button>
                     </td>
-                    <td>{receiverResource.name}</td>
-                    <td>{receiverResource.quantity}</td>
-                    <td>{receiverResource.dailyUse}</td>
-                    <td>{receiverResource.currentStock}</td>
-                    <td>{receiverResource.notes}</td>
-                    <td>
-                      {receiverResource.resourceType ? (
-                        <Link to={`resource-type/${receiverResource.resourceType.id}`}>{receiverResource.resourceType.name}</Link>
-                      ) : (
-                        ''
-                      )}
-                    </td>
-                    <td>
-                      {receiverResource.receiver ? (
-                        <Link to={`receiver-supplier/${receiverResource.receiver.id}`}>{receiverResource.receiver.name}</Link>
-                      ) : (
-                        ''
-                      )}
-                    </td>
+                    <td>{resourceType.name}</td>
+                    <td>{resourceType.notes}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${receiverResource.id}`} color="info" size="sm">
+                        <Button tag={Link} to={`${match.url}/${resourceType.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${receiverResource.id}/edit`} color="primary" size="sm">
+                        <Button tag={Link} to={`${match.url}/${resourceType.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.edit">Edit</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${receiverResource.id}/delete`} color="danger" size="sm">
+                        <Button tag={Link} to={`${match.url}/${resourceType.id}/delete`} color="danger" size="sm">
                           <FontAwesomeIcon icon="trash" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -234,7 +202,7 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
           ) : (
             !loading && (
               <div className="alert alert-warning">
-                <Translate contentKey="crownApp.receiverResource.home.notFound">No Receiver Resources found</Translate>
+                <Translate contentKey="crownApp.resourceType.home.notFound">No Resource Types found</Translate>
               </div>
             )
           )}
@@ -244,13 +212,13 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
   );
 };
 
-const mapStateToProps = ({ receiverResource }: IRootState) => ({
-  receiverResourceList: receiverResource.entities,
-  loading: receiverResource.loading,
-  totalItems: receiverResource.totalItems,
-  links: receiverResource.links,
-  entity: receiverResource.entity,
-  updateSuccess: receiverResource.updateSuccess
+const mapStateToProps = ({ resourceType }: IRootState) => ({
+  resourceTypeList: resourceType.entities,
+  loading: resourceType.loading,
+  totalItems: resourceType.totalItems,
+  links: resourceType.links,
+  entity: resourceType.entity,
+  updateSuccess: resourceType.updateSuccess
 });
 
 const mapDispatchToProps = {
@@ -262,4 +230,4 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReceiverResource);
+export default connect(mapStateToProps, mapDispatchToProps)(ResourceType);

@@ -1,3 +1,6 @@
+import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
+import { ISupplierResource } from 'app/shared/model/supplier-resource.model';
+
 export interface IReceiverSupplier {
   id?: string;
   name?: string;
@@ -17,6 +20,8 @@ export interface IReceiverSupplier {
   hasSterilization?: boolean;
   priority?: number;
   notes?: string;
+  receiverResources?: IReceiverResource[];
+  supplierResources?: ISupplierResource[];
 }
 
 export const defaultValue: Readonly<IReceiverSupplier> = {

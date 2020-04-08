@@ -5,6 +5,7 @@ import com.github.cloudyrock.mongock.ChangeSet;
 import org.crown.domain.Authority;
 import org.crown.domain.ReceiverResource;
 import org.crown.domain.SupplierResource;
+import org.crown.domain.ResourceType;
 import org.crown.domain.User;
 import org.crown.security.AuthoritiesConstants;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -92,19 +93,33 @@ public class InitialSetupMigration {
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(userUser);
-                
+
     	mongoTemplate.indexOps(SupplierResource.class).ensureIndex(new GeospatialIndex("position"));
     	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(new GeospatialIndex("position"));
-    	
+
     }
-    
+
     @ChangeSet(order = "03", author = "initiator", id = "03-create-geospatial-index")
     public void createGeospatialIndex(MongoTemplate mongoTemplate) {
-     
+
     	/*GeospatialIndex idx1 = new GeospatialIndex("position");
     	idx1.typed(GeoSpatialIndexType.GEO_2DSPHERE);
     	mongoTemplate.indexOps(SupplierResource.class).ensureIndex(idx1);
     	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(idx1	);*/
-    	
+
     }
+
+    @ChangeSet(order = "04", author = "initiator", id = "05-addResourceTypes")
+    public void addResourceTypes(MongoTemplate mongoTemplate) {
+
+        String[] resourceTypeNames = new String[]{"Booties","Face shield","Goggles","Gown","Hand sanitizer","Masks (Homemade)","Mask (N95)","Masks (Surgical)","Swabs","Ventilator"};
+
+        for(String resourceTypeName: resourceTypeNames) {
+            ResourceType resourceType = new ResourceType();
+            resourceType.setName(resourceTypeName);
+            mongoTemplate.save(resourceType);
+        }
+
+    }
+
 }

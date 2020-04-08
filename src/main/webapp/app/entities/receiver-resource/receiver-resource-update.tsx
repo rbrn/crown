@@ -7,6 +7,10 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IResourceType } from 'app/shared/model/resource-type.model';
+import { getEntities as getResourceTypes } from 'app/entities/resource-type/resource-type.reducer';
+import { IReceiverSupplier } from 'app/shared/model/receiver-supplier.model';
+import { getEntities as getReceiverSuppliers } from 'app/entities/receiver-supplier/receiver-supplier.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './receiver-resource.reducer';
 import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,9 +19,11 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IReceiverResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
+  const [resourceTypeId, setResourceTypeId] = useState('0');
+  const [receiverId, setReceiverId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { receiverResourceEntity, loading, updating } = props;
+  const { receiverResourceEntity, resourceTypes, receiverSuppliers, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/receiver-resource');
@@ -27,6 +33,9 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
     if (!isNew) {
       props.getEntity(props.match.params.id);
     }
+
+    props.getResourceTypes();
+    props.getReceiverSuppliers();
   }, []);
 
   useEffect(() => {
@@ -128,6 +137,36 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                 </Label>
                 <AvField id="receiver-resource-notes" type="text" name="notes" />
               </AvGroup>
+              <AvGroup>
+                <Label for="receiver-resource-resourceType">
+                  <Translate contentKey="crownApp.receiverResource.resourceType">Resource Type</Translate>
+                </Label>
+                <AvInput id="receiver-resource-resourceType" type="select" className="form-control" name="resourceType.id">
+                  <option value="" key="0" />
+                  {resourceTypes
+                    ? resourceTypes.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.name}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="receiver-resource-receiver">
+                  <Translate contentKey="crownApp.receiverResource.receiver">Receiver</Translate>
+                </Label>
+                <AvInput id="receiver-resource-receiver" type="select" className="form-control" name="receiver.id">
+                  <option value="" key="0" />
+                  {receiverSuppliers
+                    ? receiverSuppliers.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.name}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/receiver-resource" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -150,6 +189,8 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  resourceTypes: storeState.resourceType.entities,
+  receiverSuppliers: storeState.receiverSupplier.entities,
   receiverResourceEntity: storeState.receiverResource.entity,
   loading: storeState.receiverResource.loading,
   updating: storeState.receiverResource.updating,
@@ -157,6 +198,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getResourceTypes,
+  getReceiverSuppliers,
   getEntity,
   updateEntity,
   createEntity,
