@@ -5,7 +5,6 @@
         "title": "Receiver Resources",
         "createLabel": "Crear nuevo Receiver Resource",
         "createOrEditLabel": "Crear o editar Receiver Resource",
-        "search": "Buscar Receiver Resource",
         "notFound": "Ningún Receiver Resources encontrado"
       },
       "created": "Un nuevo Receiver Resource ha sido creado con el identificador {{ param }}",
@@ -20,7 +19,9 @@
       "name": "Name",
       "quantity": "Quantity",
       "dailyUse": "Daily Use",
+      "postedDate": "Posted Date",
       "currentStock": "Current Stock",
+      "expiration": "Expiration",
       "notes": "Notes",
       "resourceType": "Resource Type",
       "receiver": "Receiver"

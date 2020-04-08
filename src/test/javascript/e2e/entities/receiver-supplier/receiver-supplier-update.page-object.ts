@@ -21,6 +21,7 @@ export default class ReceiverSupplierUpdatePage {
   hasSterilizationInput: ElementFinder = element(by.css('input#receiver-supplier-hasSterilization'));
   priorityInput: ElementFinder = element(by.css('input#receiver-supplier-priority'));
   notesInput: ElementFinder = element(by.css('input#receiver-supplier-notes'));
+  tagsInput: ElementFinder = element(by.css('input#receiver-supplier-tags'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -145,6 +146,14 @@ export default class ReceiverSupplierUpdatePage {
 
   async getNotesInput() {
     return this.notesInput.getAttribute('value');
+  }
+
+  async setTagsInput(tags) {
+    await this.tagsInput.sendKeys(tags);
+  }
+
+  async getTagsInput() {
+    return this.tagsInput.getAttribute('value');
   }
 
   async save() {

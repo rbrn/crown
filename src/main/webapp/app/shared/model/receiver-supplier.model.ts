@@ -20,6 +20,7 @@ export interface IReceiverSupplier {
   hasSterilization?: boolean;
   priority?: number;
   notes?: string;
+  tags?: string;
   receiverResources?: IReceiverResource[];
   supplierResources?: ISupplierResource[];
 }
