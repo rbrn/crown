@@ -93,6 +93,10 @@ class PostComponent extends React.Component<Props, State> {
           })
         .catch(reason => {
           toast.error("Problem with request: " + reason.toString())
+        }).finally( () => {
+          this.setState({
+            saving: false,
+          })
         })
     };
 
