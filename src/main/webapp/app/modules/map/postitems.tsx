@@ -1,16 +1,14 @@
-import React, {createRef} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import Popup from "reactjs-popup";
 import {LatLng} from './map';
 import config from './apiConfig.json';
 import {translate, Translate} from "react-jhipster";
 import {Link} from "react-router-dom";
-import { toast } from 'react-toastify';
-import {Button, Row, Col, Label} from 'reactstrap';
-import {AvFeedback, AvForm, AvGroup, AvInput, AvField} from 'availity-reactstrap-validation';
-import ReceiverResource from "app/entities/receiver-resource/receiver-resource";
+import {toast} from 'react-toastify';
+import {Button, Label} from 'reactstrap';
+import {AvField, AvForm, AvGroup} from 'availity-reactstrap-validation';
 
 export interface OwnProps {
     position: LatLng,
@@ -51,19 +49,19 @@ const form = [
         label: "Extra Notes"
     },
 //   {
-//     placeholder: "Enter Daily Use", 
-//     error: "Required", 
-//     required: false, 
-//     name: "dailyUse", 
-//     type: "string", 
+//     placeholder: "Enter Daily Use",
+//     error: "Required",
+//     required: false,
+//     name: "dailyUse",
+//     type: "string",
 //     label: "Extra Notes"
 //   },
 //   {
-//     placeholder: "Enter Current Stock", 
-//     error: "Required", 
-//     required: false, 
-//     name: "currentStock", 
-//     type: "string", 
+//     placeholder: "Enter Current Stock",
+//     error: "Required",
+//     required: false,
+//     name: "currentStock",
+//     type: "string",
 //     label: "Extra Notes"
 //   },
 ]
@@ -87,12 +85,14 @@ class PostComponent extends React.Component<Props, State> {
             saving: true,
         })
         values.position = this.state.position
+        values.postedDate = new Date()
         axios.post(config.postUri, values)
-        .finally(() => {
+          .then(  value => {
             toast.info("Saved successfully.");
-            this.setState({
-                saving: false,
-            })
+
+          })
+        .catch(reason => {
+          toast.error("Problem with request: " + reason.toString())
         })
     };
 
