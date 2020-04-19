@@ -12,7 +12,7 @@ export type IHomeProp = StateProps;
 
 export const Home = (props: IHomeProp) => {
   const { account } = props;
-  if (!(account && account.login)) {
+/*  if (!(account && account.login)) {
     return (
       <div>
         <Alert color="warning">
@@ -35,7 +35,7 @@ export const Home = (props: IHomeProp) => {
         </Alert>
       </div>
     )
-  }
+  }*/
   return (
     <Map />
   );
