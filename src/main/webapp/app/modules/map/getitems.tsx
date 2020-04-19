@@ -6,19 +6,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popup from "reactjs-popup";
 import {LatLng} from './map';
 import config from './apiConfig.json';
-
+import NumberFormat from 'react-number-format';
 export interface OwnProps {
   position: LatLng,
   radius: number,
 };
-  
+
 type Props = StateProps & DispatchProps & OwnProps
 
 // make this header based on given information
 const headers = ["Item Name", "Quantity", "Distance", "Date Posted", "Contact", "Action"]
 const columns = ["Name", "Quantity", "Distance", "DatePosted", "Contact"]
 const dummyData = [
-{ 
+{
 	"distance" : {
 		"value":0.0,
 		"metrics":"string"
@@ -31,21 +31,21 @@ const dummyData = [
 		"current_stock": 0,
 	  	"notes": "string1",
 		"postedDate":"string1",
-		"receiver": {	"id": "string1", 
-			"name": "string1", 
-			"address": "string1", 
-			"email": "string1", 
-			"primary_contact_name": "string1", 
-			"zip": "string1", 
-			"phonenumber": "string1", 
-			"city": "string1", 
-			"state": "string1", 
-			"country": "string1", 
-			"npi": 1, 
-			"is_receiver": true, 
-			"is_supplier": false, 
-			"has_sterilization": false, 
-			"priority": 1, 
+		"receiver": {	"id": "string1",
+			"name": "string1",
+			"address": "string1",
+			"email": "string1",
+			"primary_contact_name": "string1",
+			"zip": "string1",
+			"phonenumber": "string1",
+			"city": "string1",
+			"state": "string1",
+			"country": "string1",
+			"npi": 1,
+			"is_receiver": true,
+			"is_supplier": false,
+			"has_sterilization": false,
+			"priority": 1,
 			"notes": ""
 		},
 	  	"supplyPointResource": {
@@ -97,7 +97,7 @@ const actionItems = [
 
 type State = {
   viewIndex: number,
-  fetchedData: any 
+  fetchedData: any
 };
 
 class PostComponent extends React.Component<Props, State> {
@@ -139,11 +139,11 @@ class PostComponent extends React.Component<Props, State> {
           <p> lat, lng: {lat}, {lng} </p>
           <p> Radius: {radius} KM </p>
         </div>
-        <Table>
+        <Table  striped bordered hover size="sm">
           <thead>
             {
               headers.map(item => (
-                <th key={item}>
+                <th key={item} scope="col">
                   {item}
                 </th>
               ))
@@ -154,14 +154,14 @@ class PostComponent extends React.Component<Props, State> {
               // change dummy data with required data
               this.state.fetchedData.map((item, index) => (
                 <tr key={item.content.id}>
-                      <td key={`${item.content.id}-Name`}>
+                      <td key={`${item.content.id}-Name`} >
                         {item.content.name }
                       </td>
                       <td key={`${item.content.id}-Quanity`}>
                         {item.content.quantity }
                       </td>
                       <td key={`${item.content.id}-Distance`}>
-                        {item.distance.value}
+                        <NumberFormat value={item.distance.value} displayType={'text'} decimalSeparator={","} decimalScale={2} />
                       </td>
 					 <td key={`${item.content.id}-DatePosted`}>
                         {item.content.postedDate}
@@ -188,7 +188,7 @@ class PostComponent extends React.Component<Props, State> {
         </Table>
         {/* change this accordingly */}
         {
-            this.state.viewIndex !== -1 && 
+            this.state.viewIndex !== -1 &&
             <Popup
                 open={this.state.viewIndex !== -1}
                 closeOnDocumentClick
