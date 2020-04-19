@@ -110,6 +110,7 @@ class PostComponent extends React.Component<Props, State> {
 
   componentDidMount() {
     const {position: {lat, lng}, radius} = this.props;
+
     axios.get(`${config.getUri}?distance=${radius}&page=0&size=1000&units=km&x=${lat}&y=${lng}`)
       .then(({data}) => {
         this.setState({

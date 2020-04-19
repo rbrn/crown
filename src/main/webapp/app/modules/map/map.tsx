@@ -1,11 +1,11 @@
 import './map.scss';
 
 import React, {createRef} from 'react';
-import { Translate, translate } from 'react-jhipster';
-import { connect } from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Alert, Row, Col } from 'reactstrap';
-import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Link } from 'react-router-dom';
+import {Translate, translate} from 'react-jhipster';
+import {connect} from 'react-redux';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Alert, Row, Col} from 'reactstrap';
+import {AvForm, AvField, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Link} from 'react-router-dom';
 import Popup from "reactjs-popup";
 
 import GetItems from './getitems';
@@ -17,11 +17,11 @@ import 'leaflet/dist/leaflet.css';
 
 declare global {
   interface Window {
-      L:any;
+    L: any;
   }
 }
 
-const { L } = window;
+const {L} = window;
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -30,7 +30,9 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "content/images/marker-shadow.png",
 });
 
-export interface MapProps extends StateProps, DispatchProps {}
+export interface MapProps extends StateProps, DispatchProps {
+}
+
 export type LatLng = {
   lat: number,
   lng: number,
@@ -56,9 +58,10 @@ const types = {
   Get: 'Get',
   Post: 'Post',
 };
-const position = [51.505, -0.09];
+let position = [];
+
 class MapComponent extends React.Component<MapProps, State> {
-  private mymap: Map;
+  private resourceSuppliersMap: Map;
   circle = {};
   state = {
     open: false,
@@ -83,9 +86,26 @@ class MapComponent extends React.Component<MapProps, State> {
 
   componentDidMount() {
     // use this.props.account to set view after the geo location of user is obtained
-    this.mymap = L.map('map-container').setView([51.505, -0.09], 10);
-    this.mymap.on('click' , (event) => this.onMapClicked(event));
-    this.setTitleLayer();
+
+
+// check for Geolocation support
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        position = [pos.coords.latitude, pos.coords.longitude]
+
+        this.resourceSuppliersMap = L.map('map-container').setView(position, 10);
+        this.resourceSuppliersMap.on('click', (event) => this.onMapClicked(event));
+        this.setTitleLayer();
+
+      }, (error) => {
+        alert("Geolocation is not available in your browser")
+        /**
+         * Add a different strategy for identifying users
+         */
+      })
+    } else {
+      alert('Geolocation is not supported for this Browser/OS.');
+    }
   }
 
   onButtonClicked = (latlng, type, event) => {
@@ -96,21 +116,21 @@ class MapComponent extends React.Component<MapProps, State> {
   }
 
   removeCircle = () => {
-    this.mymap.removeLayer(this.circle)
+    this.resourceSuppliersMap.removeLayer(this.circle)
   }
 
   onMapClicked = (event) => {
     this.removeCircle()
 
     L.popup()
-    .setLatLng(event.latlng)
-    .setContent((layer) => this.showPopup(layer, event.latlng))
-    .openOn(this.mymap)
-    .on('remove', () => {
-      this.removeCircle();
-    })
+      .setLatLng(event.latlng)
+      .setContent((layer) => this.showPopup(layer, event.latlng))
+      .openOn(this.resourceSuppliersMap)
+      .on('remove', () => {
+        this.removeCircle();
+      })
 
-    this.circle = L.circle(event.latlng, this.state.radius * 1000).addTo(this.mymap);
+    this.circle = L.circle(event.latlng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
     this.setState({
       latlng: event.latlng
     });
@@ -132,7 +152,7 @@ class MapComponent extends React.Component<MapProps, State> {
       attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
     };
 
-    L.tileLayer(baseTileString, options).addTo(this.mymap);
+    L.tileLayer(baseTileString, options).addTo(this.resourceSuppliersMap);
   }
 
   render() {
@@ -142,17 +162,17 @@ class MapComponent extends React.Component<MapProps, State> {
           <LeftPanel radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius}/>
         </Col>
         <Col md="9">
-        <div>
-          <div id='map-container'></div>
+          <div>
+            <div id='map-container'></div>
             <Popup
               open={this.state.open}
               closeOnDocumentClick
               onClose={this.closeModal}
             >
               {
-                this.state.type === types.Get 
-                ? <GetItems position={this.state.latlng} radius={this.state.radius} />
-                : <PostItems position={this.state.latlng} />
+                this.state.type === types.Get
+                  ? <GetItems position={this.state.latlng} radius={this.state.radius}/>
+                  : <PostItems position={this.state.latlng}/>
               }
             </Popup>
           </div>
@@ -167,8 +187,8 @@ const mapStateToProps = storeState => ({
   isAuthenticated: storeState.authentication.isAuthenticated
 });
 
-const mapDispatchToProps = { };
-  
+const mapDispatchToProps = {};
+
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
