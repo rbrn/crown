@@ -8,10 +8,8 @@ import Popup from "reactjs-popup";
 import GetItems from './getitems';
 import PostItems from './postitems';
 import LeftPanel from './leftpanel';
-import {geolocated} from "react-geolocated";
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import Any = jasmine.Any;
 
 declare global {
   interface Window {
