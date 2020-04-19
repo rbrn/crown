@@ -1,17 +1,14 @@
 import './map.scss';
 
-import React, {createRef} from 'react';
-import {Translate, translate} from 'react-jhipster';
+import React from 'react';
 import {connect} from 'react-redux';
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Alert, Row, Col} from 'reactstrap';
-import {AvForm, AvField, AvGroup, AvInput} from 'availity-reactstrap-validation';
-import {Link} from 'react-router-dom';
+import {Col, Row} from 'reactstrap';
 import Popup from "reactjs-popup";
 
 import GetItems from './getitems';
 import PostItems from './postitems';
 import LeftPanel from './leftpanel';
-
+import { geolocated } from "react-geolocated";
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -98,13 +95,23 @@ class MapComponent extends React.Component<MapProps, State> {
         this.setTitleLayer();
 
       }, (error) => {
-        alert("Geolocation is not available in your browser")
+        alert("Problem getting geolocation " + error.message);
         /**
          * Add a different strategy for identifying users
          */
+        position = [this.state.latlng.lat, this.state.latlng.lng]
+
+        this.resourceSuppliersMap = L.map('map-container').setView(position, 10);
+        this.resourceSuppliersMap.on('click', (event) => this.onMapClicked(event));
+        this.setTitleLayer();
       })
     } else {
       alert('Geolocation is not supported for this Browser/OS.');
+      position = [this.state.latlng.lat, this.state.latlng.lng]
+
+      this.resourceSuppliersMap = L.map('map-container').setView(position, 10);
+      this.resourceSuppliersMap.on('click', (event) => this.onMapClicked(event));
+      this.setTitleLayer();
     }
   }
 
@@ -154,6 +161,8 @@ class MapComponent extends React.Component<MapProps, State> {
 
     L.tileLayer(baseTileString, options).addTo(this.resourceSuppliersMap);
   }
+
+
 
   render() {
     return (
