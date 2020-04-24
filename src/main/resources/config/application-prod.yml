@@ -33,7 +33,7 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb+srv://crown_user:ZH57aGbNNRu2wKs@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+      uri: ${MONGODB_URI}
       database: crown
   mail:
     host: localhost

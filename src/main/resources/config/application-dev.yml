@@ -42,7 +42,7 @@ spring:
       indent-output: true
   data:
     mongodb:
-      uri: mongodb+srv://crown_user:ZH57aGbNNRu2wKs@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+      uri: ${MONGODB_URI}
       database: crown
     jest:
       uri: https://qtzr4ow9ti:6651g2vfxz@azalea-597624215.us-east-1.bonsaisearch.net:443
