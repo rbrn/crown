@@ -21,14 +21,34 @@ Steps
    target: `http${options.tls ? 's' : ''}://crown-dev.herokuapp.com`,
    secure: true,
 
-   run
-   npm run start-tls
+run from the command line
+
+    npm run start-tls
 
 ## FRONTEND WITH local backend
 
 run from the command line
 
+Request a password for the crown database from one of the main contributors
+
+set the following environment variable wth name MONGODB_URI with the value below replacing the REPLACEME with the password
+  
+ mongodb+srv://crown_user:REPLACEME@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+  
+ Export the variable from command line in linux/macos
+  
+ export MONGODB_URI=mongodb+srv://crown_user:REPLACEME@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+
+Export the variable in windows
+
+    SET MONGODB_URI=mongodb+srv://crown_user:REPLACEME@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+
+Start maven java app
+
     ./mvnw
+
+Start frontend
+
     npm start
 
 ### Packaging as war
