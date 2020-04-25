@@ -23,6 +23,44 @@
   padding: 5px;
 }
 
+.crown-header {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.crown-header-white {
+  color: dodgerblue;
+  background-color: white;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 25px;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.radius {
+  width: 80px;
+  text-align: center;
+}
+.latlong {
+  font-size: 10px;
+}
+.crown-header-label {
+  color: dodgerblue;
+  background-color: white;
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: bold;
+  width: 150px;
+}
+.crown-header-label-container {
+  text-align: center;
+  -ms-flex-line-pack: center !important;
+  align-content: center !important;
+}
+
 .post-items-display {
   padding: 10px;
   label {
