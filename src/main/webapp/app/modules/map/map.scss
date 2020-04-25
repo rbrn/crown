@@ -44,18 +44,19 @@
   width: 80px;
   text-align: center;
 }
-
+.latlong {
+  font-size: 10px;
+}
 .crown-header-label {
   color: dodgerblue;
   background-color: white;
   border-radius: 25px;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: bold;
   width: 150px;
 }
 .crown-header-label-container {
   text-align: center;
-  border: 1px solid red;
   -ms-flex-line-pack: center !important;
   align-content: center !important;
 }
