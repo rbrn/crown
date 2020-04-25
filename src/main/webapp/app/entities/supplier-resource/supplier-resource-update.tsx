@@ -92,6 +92,22 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
+                <Label for="supplier-resource-resourceType">
+                  <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate>
+                </Label>
+                <AvInput id="supplier-resource-resourceType" type="select" className="form-control"
+                         name="resourceType.id">
+                  <option value="" key="0"/>
+                  {resourceTypes
+                    ? resourceTypes.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.name}
+                      </option>
+                    ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
                 <Label id="quantityLabel" for="supplier-resource-quantity">
                   <Translate contentKey="crownApp.supplierResource.quantity">Quantity</Translate>
                 </Label>
@@ -121,22 +137,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   }}
                 />
               </AvGroup>
-              <AvGroup>
-                <Label for="supplier-resource-resourceType">
-                  <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate>
-                </Label>
-                <AvInput id="supplier-resource-resourceType" type="select" className="form-control"
-                         name="resourceType.id">
-                  <option value="" key="0"/>
-                  {resourceTypes
-                    ? resourceTypes.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.name}
-                      </option>
-                    ))
-                    : null}
-                </AvInput>
-              </AvGroup>
+
               <Button tag={Link} id="cancel-save" to="/supplier-resource" replace color="info">
                 <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
