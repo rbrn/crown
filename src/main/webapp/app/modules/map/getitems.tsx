@@ -16,8 +16,8 @@ export interface OwnProps {
 type Props = StateProps & DispatchProps & OwnProps
 
 // make this header based on given information
-const headers = ["Item Name", "Quantity", "Distance", "Posted", "Contact", "Action"]
-const columns = ["Name", "Quantity", "Distance", "DatePosted", "Contact"]
+const headers = ["Item Type", "Quantity", "Action"]
+const columns = ["Item Type", "Quantity"]
 const dummyData = [
   {
     "distance": {
@@ -158,24 +158,13 @@ class PostComponent extends React.Component<Props, State> {
             {
               // change dummy data with required data
               this.state.fetchedData.map((item, index) => (
-                <tr key={item.content.id}>
-                  <td key={`${item.content.id}-Name`}>
-                    {item.content.name}
-                  </td>
-                  <td key={`${item.content.id}-Quanity`}>
-                    {item.content.quantity}
-                  </td>
-                  <td key={`${item.content.id}-Distance`}>
-                    <NumberFormat value={item.distance.value} displayType={'text'} decimalSeparator={","}
-                                  decimalScale={2}/>
-                  </td>
-                  <td key={`${item.content.id}-DatePosted`}>
-                    {item.content.postedDate}
-                  </td>
-                  <td key={`${item.content.id}-Contact`}>
-                    {(item.content.receiver) ? item.content.receiver.name : 'Missing Receiver'}
-                  </td>
-                  {/* for the action column. Change the icons */}
+                <tr key={item.itemType}>
+                    <td key={`${item.itemType}-Type`}>
+                      {item.itemType}
+                    </td>
+                    <td key={`${item.countItems}-Name`}>
+                      {item.countItems}
+                    </td>
                   <td>
                     <div className='action-items flex'>
                       {/* <FontAwesomeIcon onClick={this.handleDelete} icon='trash' color='red' style={{cursor: 'pointer'}}/>{' '} */}
