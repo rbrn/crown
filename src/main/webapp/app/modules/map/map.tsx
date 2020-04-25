@@ -10,6 +10,9 @@ import PostItems from './postitems';
 import LeftPanel from './leftpanel';
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {post} from "selenium-webdriver/http";
+import {BrowserRouterProps, RouteComponentProps} from "react-router-dom";
+import {Redirect} from 'react-router-dom';
 
 declare global {
   interface Window {
@@ -26,7 +29,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "content/images/marker-shadow.png",
 });
 
-export interface MapProps extends StateProps, DispatchProps {
+export interface MapProps extends StateProps, DispatchProps, RouteComponentProps {
 }
 
 export type LatLng = {
@@ -52,13 +55,13 @@ const defaultLatLng = {
 };
 const types = {
   Get: 'Get',
-  Post: 'Post',
+  'Post': 'Post',
 };
 let position = [51.505, -0.09];
 
 let currentMarker = undefined;
 
-class MapComponent extends React.Component<MapProps, State> {
+class MapComponent extends React.Component<MapProps, State, RouteComponentProps> {
   private resourceSuppliersMap: Map;
   circle = {};
   state = {
@@ -122,11 +125,16 @@ class MapComponent extends React.Component<MapProps, State> {
       lng: position[1],
     };
 
+    this.circle = L.circle(browserLatLng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
+    this.setState({
+      latlng: browserLatLng
+    });
     currentMarker = new L.Marker(browserLatLng).addTo(this.resourceSuppliersMap);
   }
 
   onButtonClicked = (latlng, type, event) => {
     position = [latlng.lang, latlng.lng]
+
     this.setState({
       open: true,
       type,
@@ -158,7 +166,7 @@ class MapComponent extends React.Component<MapProps, State> {
   }
 
   showPopup = (layer, latlng) => {
-    const node = L.DomUtil.create('div', 'popup-div info-div');
+    const node = L.DomUtil.create('div', 'popup-div-large info-div');
     Object.keys(types).forEach(type => {
       const button = L.DomUtil.create('button', 'popup-button btn btn-secondary', node);
       button.innerHTML = type;
@@ -178,6 +186,7 @@ class MapComponent extends React.Component<MapProps, State> {
 
 
   render() {
+    const param = "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
     return (
       <Row>
         <Col md="3">
@@ -189,12 +198,11 @@ class MapComponent extends React.Component<MapProps, State> {
             <Popup
               open={this.state.open}
               closeOnDocumentClick
-              onClose={this.closeModal}
-            >
+              onClose={this.closeModal}>
               {
                 this.state.type === types.Get
                   ? <GetItems position={this.state.latlng} radius={this.state.radius}/>
-                  : <PostItems position={this.state.latlng}/>
+                  : <Redirect to={param}/>
               }
             </Popup>
           </div>
