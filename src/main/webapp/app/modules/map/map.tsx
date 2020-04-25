@@ -10,9 +10,8 @@ import PostItems from './postitems';
 import LeftPanel from './leftpanel';
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {post} from "selenium-webdriver/http";
-import {BrowserRouterProps, RouteComponentProps} from "react-router-dom";
-import {Redirect} from 'react-router-dom';
+import {Redirect} from "react-router-dom";
+import RequestedItemsComponent from "app/modules/map/requestedItems";
 
 declare global {
   interface Window {
@@ -54,9 +53,12 @@ const defaultLatLng = {
   lng: -0.09,
 };
 const types = {
-  Get: 'Get',
-  'Post': 'Post',
+  Available: 'Available',
+  Requested: 'Requested',
+  RequestPPE: 'RequestPPE',
+  OfferPPE: 'OfferPPE',
 };
+
 let position = [51.505, -0.09];
 
 let currentMarker = undefined;
@@ -67,7 +69,7 @@ class MapComponent extends React.Component<MapProps, State> {
   state = {
     open: false,
     latlng: defaultLatLng,
-    type: types.Get,
+    type: types.Available,
     radius: 10
   };
 
@@ -81,7 +83,7 @@ class MapComponent extends React.Component<MapProps, State> {
     this.setState({
       open: false,
       latlng: defaultLatLng,
-      type: types.Get,
+      type: types.Available,
     })
   }
 
@@ -166,7 +168,7 @@ class MapComponent extends React.Component<MapProps, State> {
   }
 
   showPopup = (layer, latlng) => {
-    const node = L.DomUtil.create('div', 'popup-div-large info-div');
+    const node = L.DomUtil.create('div', 'info-div');
     Object.keys(types).forEach(type => {
       const button = L.DomUtil.create('button', 'popup-button btn btn-secondary', node);
       button.innerHTML = type;
@@ -185,8 +187,21 @@ class MapComponent extends React.Component<MapProps, State> {
   }
 
 
+  getRedirect(mytype) {
+    const offerPPEparam = mytype === types.RequestPPE ? "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng :
+      "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
+    return offerPPEparam;
+  }
   render() {
-    const param = "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
+    const offerPPEparam = "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
+    const requestPPEparam = "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
+
+    if (this.state.type === types.RequestPPE)
+      return <Redirect to={requestPPEparam}/>
+    else if (this.state.type === types.OfferPPE) {
+      return <Redirect to={offerPPEparam}/>
+    }
+
     return (
       <Row>
         <Col md="3">
@@ -200,10 +215,12 @@ class MapComponent extends React.Component<MapProps, State> {
               closeOnDocumentClick
               onClose={this.closeModal}>
               {
-                this.state.type === types.Get
+                this.state.type === types.Available
                   ? <GetItems position={this.state.latlng} radius={this.state.radius}/>
-                  : <Redirect to={param}/>
+                  : <RequestedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
+
               }
+
             </Popup>
           </div>
         </Col>

@@ -1,4 +1,5 @@
 {
   "getSupplierResourcesAggregatedUri": "/api/_search/supplier-resources/aggregated",
+  "getReceiverResourcesAggregatedUri": "/api/_search/receiver-resources/aggregated",
   "postUri": "/api/receiver-resources"
 }
