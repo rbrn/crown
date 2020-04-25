@@ -32,7 +32,7 @@ class LeftPanelComponent extends React.Component<Props> {
         </div>
 
         <div className="radius-info-div">
-          <p className="latlong">LatLng: {lat}, {lng}</p>
+          <p className="latlong">Coord: {lat}, {lng}</p>
           <div className="align-content-center">
             <div className="align-content-center crown-header-white">RADIUS(KM)</div>
           </div>
