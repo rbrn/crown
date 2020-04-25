@@ -139,7 +139,7 @@ class RequestedItemsComponent extends React.Component<Props, State> {
     return (
       <div className="get-items-display">
         {<div className="info-div">
-          <h1>Items requested in your area</h1>
+          <h4>Items requested in your area</h4>
           <p> Getting data for user: {this.props.account.login} </p>
           <p> lat, lng: {lat}, {lng} </p>
           <p> Radius: {radius} KM </p>

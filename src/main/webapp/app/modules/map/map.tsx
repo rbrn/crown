@@ -5,13 +5,14 @@ import {connect} from 'react-redux';
 import {Col, Row} from 'reactstrap';
 import Popup from "reactjs-popup";
 
-import GetItems from './getitems';
+import GetItems from './posteditems';
 import PostItems from './postitems';
 import LeftPanel from './leftpanel';
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Redirect} from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
+import PostedItemsComponent from "./posteditems";
 
 declare global {
   interface Window {
@@ -216,9 +217,8 @@ class MapComponent extends React.Component<MapProps, State> {
               onClose={this.closeModal}>
               {
                 this.state.type === types.Available
-                  ? <GetItems position={this.state.latlng} radius={this.state.radius}/>
+                  ? <PostedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
                   : <RequestedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
-
               }
 
             </Popup>

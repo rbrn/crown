@@ -102,7 +102,7 @@ type State = {
   fetchedData: any
 };
 
-class PostComponent extends React.Component<Props, State> {
+class PostedItemsComponent extends React.Component<Props, State> {
   state = {
     viewIndex: -1,
     fetchedData: [], // mocking the data
@@ -139,7 +139,7 @@ class PostComponent extends React.Component<Props, State> {
     return (
       <div className="get-items-display">
         {<div className="info-div">
-          <h1>Items available in your area</h1>
+          <h4>Items available in your area</h4>
           <p> Getting data for user: {this.props.account.login} </p>
           <p> lat, lng: {lat}, {lng} </p>
           <p> Radius: {radius} KM </p>
@@ -214,4 +214,4 @@ const mapDispatchToProps = {};
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps)(PostComponent);
+export default connect(mapStateToProps)(PostedItemsComponent);
