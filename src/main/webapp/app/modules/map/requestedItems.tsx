@@ -18,67 +18,9 @@ type Props = StateProps & DispatchProps & OwnProps
 // make this header based on given information
 const headers = ["Item Type", "Quantity", "Action"]
 const columns = ["Item Type", "Quantity"]
-const dummyData = [
-  {
-    "distance": {
-      "value": 0.0,
-      "metrics": "string"
-    },
-    "content": {
-      "id": "string1",
-      "name": "string1",
-      "quantity": 0,
-      "daily_use": 0,
-      "current_stock": 0,
-      "notes": "string1",
-      "postedDate": "string1",
-      "receiver": {
-        "id": "string1",
-        "name": "string1",
-        "address": "string1",
-        "email": "string1",
-        "primary_contact_name": "string1",
-        "zip": "string1",
-        "phonenumber": "string1",
-        "city": "string1",
-        "state": "string1",
-        "country": "string1",
-        "npi": 1,
-        "is_receiver": true,
-        "is_supplier": false,
-        "has_sterilization": false,
-        "priority": 1,
-        "notes": ""
-      },
-      "supplyPointResource": {
-        "canProduce": 0,
-        "id": "string1",
-        "numRequested": 0,
-        "numinStock": 0,
-        "resources": [null],
-        "supplypoint": {
-          "address": "string1",
-          "city": "string1",
-          "hasSterilization": true,
-          "isDistributor": true,
-          "isHealthcare": true,
-          "latx": 0,
-          "longy": 0,
-          "name": "string1",
-          "notes": "string1",
-          "phonenumber": "string1",
-          "primaryContactName": "string1",
-          "priority": 0,
-          "resourceLocations": [
-            null
-          ],
-          "state": "string1",
-          "zip": "string1"
-        }
-      }
-    }
-  }
-]
+
+const drilDownheaders = ["Requested By", "Email", "Quantity"]
+
 const actionItems = [
   {
     icon: 'trash',
@@ -192,12 +134,50 @@ class RequestedItemsComponent extends React.Component<Props, State> {
             closeOnDocumentClick
             onClose={this.closeModel}
           >
-            <div className="info-div">
-                    <pre>
+            <div className="get-items-display">
+              <div className="panel-heading">Detailed View</div>
+              <div className="table-responsive">
+                {
+                  /*   <pre>
                         <code>
-                            {JSON.stringify(this.state.fetchedData[this.state.viewIndex].content.supplyPointResource, undefined, 4)}
+                            {JSON.stringify(this.state.fetchedData[this.state.viewIndex].itemTypesList, undefined, 4)}
                         </code>
-                    </pre>
+                    </pre>*/
+                }
+                <Table striped bordered hover size="sm">
+                  <thead>
+                  {
+                    drilDownheaders.map(item => (
+                      <th key={item} scope="col">
+                        {item}
+                      </th>
+                    ))
+                  }
+                  </thead>
+                  <tbody>
+                  {
+                    // change dummy data with required data
+                    this.state.fetchedData[this.state.viewIndex].itemTypesList.map((item, index) => (
+
+                      <tr key={item.toString() + index}>
+                        {
+                          <td key={`${index.toString()}-Name`}>
+                            {item.name ?  item.name : ""}
+                          </td>
+                        }
+                        <td key={`${index.toString()}-Email`}>
+                          {item  && item.email ?  item.email : ""}
+                        </td>
+                        <td key={`${item.quantity}-Type`}>
+                          { item.quantity}
+                        </td>
+                      </tr>
+
+                    ))
+                  }
+                  </tbody>
+                </Table>
+              </div>
             </div>
           </Popup>
         }

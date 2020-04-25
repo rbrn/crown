@@ -5,14 +5,12 @@ import {connect} from 'react-redux';
 import {Col, Row} from 'reactstrap';
 import Popup from "reactjs-popup";
 
-import GetItems from './posteditems';
-import PostItems from './postitems';
+import PostedItemsComponent from './posteditems';
 import LeftPanel from './leftpanel';
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Redirect} from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
-import PostedItemsComponent from "./posteditems";
 
 declare global {
   interface Window {
