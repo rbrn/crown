@@ -18,7 +18,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
   const [supplierId, setSupplierId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const {supplierResourceEntity, resourceTypes, receiverSuppliers, loading, updating} = props;
+  const {supplierResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account} = props;
   let lat;
   let lng;
 
@@ -32,7 +32,6 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
     }
     props.getResourceTypes();
     props.getReceiverSuppliers();
-
   }, []);
 
   useEffect(() => {
@@ -53,6 +52,14 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
         lat = query.get('lat');
         lng = query.get('lng');
         entity.position = [lat, lng]
+
+        entity.supplier = {
+          email: account.email,
+          latx: lat,
+          longy: lng,
+          name: account.firstName + " " + account.lastName,
+          primaryContactName: account.email
+        };
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);
@@ -130,21 +137,6 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     : null}
                 </AvInput>
               </AvGroup>
-              <AvGroup>
-                <Label for="supplier-resource-supplier">
-                  <Translate contentKey="crownApp.supplierResource.supplier">Supplier</Translate>
-                </Label>
-                <AvInput id="supplier-resource-supplier" type="select" className="form-control" name="supplier.id">
-                  <option value="" key="0"/>
-                  {receiverSuppliers
-                    ? receiverSuppliers.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.name}
-                      </option>
-                    ))
-                    : null}
-                </AvInput>
-              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/supplier-resource" replace color="info">
                 <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
@@ -172,7 +164,8 @@ const mapStateToProps = (storeState: IRootState) => ({
   supplierResourceEntity: storeState.supplierResource.entity,
   loading: storeState.supplierResource.loading,
   updating: storeState.supplierResource.updating,
-  updateSuccess: storeState.supplierResource.updateSuccess
+  updateSuccess: storeState.supplierResource.updateSuccess,
+  account: storeState.authentication.account
 });
 
 const mapDispatchToProps = {

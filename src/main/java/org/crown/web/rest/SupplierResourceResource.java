@@ -8,11 +8,14 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.util.Strings;
+import org.crown.domain.ReceiverSupplier;
 import org.crown.domain.SupplierResource;
+import org.crown.repository.ReceiverSupplierRepository;
 import org.crown.repository.SupplierResourceRepository;
 import org.crown.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,6 +63,10 @@ public class SupplierResourceResource {
         this.supplierResourceRepository = supplierResourceRepository;
     }
 
+
+    @Autowired
+    private ReceiverSupplierRepository receiverSupplierRepository;
+
     /**
      * {@code POST  /supplier-resources} : Create a new supplierResource.
      *
@@ -73,6 +80,15 @@ public class SupplierResourceResource {
         if (supplierResource.getId() != null) {
             throw new BadRequestAlertException("A new supplierResource cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        if(receiverSupplierRepository.countAllByEmail(supplierResource.getSupplier().getEmail()) == 0){
+            ReceiverSupplier receiverSupplier =  receiverSupplierRepository.save(supplierResource.getSupplier());
+            supplierResource.setSupplier(receiverSupplier);
+        } else {
+            ReceiverSupplier receiverSupplier =  receiverSupplierRepository.findByEmail(supplierResource.getSupplier().getEmail());
+            supplierResource.setSupplier(receiverSupplier);
+        }
+
         SupplierResource result = supplierResourceRepository.save(supplierResource);
         return ResponseEntity.created(new URI("/api/supplier-resources/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -94,7 +110,7 @@ public class SupplierResourceResource {
         if (supplierResource.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        SupplierResource result = supplierResourceRepository.save(supplierResource);        
+        SupplierResource result = supplierResourceRepository.save(supplierResource);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, supplierResource.getId().toString()))
             .body(result);
@@ -140,7 +156,7 @@ public class SupplierResourceResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id)).build();
     }
 
-    
+
     /**
      * {@code SEARCH  /_search/receiver-resources?x=:x&y=:y&distance=:distance} : geo search - search for the receiverResource corresponding
      * to the query.
@@ -151,13 +167,13 @@ public class SupplierResourceResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/supplier-resources")
-    public ResponseEntity<?> searchReceiverResources(@RequestParam double x, double y, 
+    public ResponseEntity<?> searchReceiverResources(@RequestParam double x, double y,
     		double distance, Pageable pageable, String units) {
         log.debug("REST request to search for a page of SupplierResources for longitude: {} latitude:{} distance: {}", x, y, distance);
         Point point = new Point(x, y);
         Metrics metrics = Metrics.MILES;
         if(!Strings.isBlank(units) && units.equals("km"))
-        	 metrics = Metrics.KILOMETERS;        
+        	 metrics = Metrics.KILOMETERS;
 		Distance dist = new Distance(distance, metrics);
 		GeoPage<SupplierResource> page = supplierResourceRepository.findByPositionNear(point, dist, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
