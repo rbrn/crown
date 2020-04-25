@@ -29,7 +29,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "content/images/marker-shadow.png",
 });
 
-export interface MapProps extends StateProps, DispatchProps, RouteComponentProps {
+export interface MapProps extends StateProps, DispatchProps {
 }
 
 export type LatLng = {
@@ -61,7 +61,7 @@ let position = [51.505, -0.09];
 
 let currentMarker = undefined;
 
-class MapComponent extends React.Component<MapProps, State, RouteComponentProps> {
+class MapComponent extends React.Component<MapProps, State> {
   private resourceSuppliersMap: Map;
   circle = {};
   state = {

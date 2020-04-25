@@ -12,4 +12,8 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ReceiverSupplierRepository extends MongoRepository<ReceiverSupplier, String> {
+
+    int countAllByEmail(String email);
+
+    ReceiverSupplier findByEmail(String email);
 }

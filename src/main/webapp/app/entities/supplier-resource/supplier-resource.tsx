@@ -238,7 +238,7 @@ const mapStateToProps = ({ supplierResource }: IRootState) => ({
   totalItems: supplierResource.totalItems,
   links: supplierResource.links,
   entity: supplierResource.entity,
-  updateSuccess: supplierResource.updateSuccess
+  updateSuccess: supplierResource.updateSuccess,
 });
 
 const mapDispatchToProps = {
