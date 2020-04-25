@@ -122,6 +122,10 @@ class MapComponent extends React.Component<MapProps, State> {
       lng: position[1],
     };
 
+    this.circle = L.circle(browserLatLng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
+    this.setState({
+      latlng: browserLatLng
+    });
     currentMarker = new L.Marker(browserLatLng).addTo(this.resourceSuppliersMap);
   }
 
