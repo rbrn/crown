@@ -26,7 +26,6 @@ public class ReceiverSupplier implements Serializable {
     @Field("name")
     private String name;
 
-    @NotNull
     @Field("address")
     private String address;
 
@@ -38,11 +37,10 @@ public class ReceiverSupplier implements Serializable {
     @Field("primary_contact_name")
     private String primaryContactName;
 
-    @NotNull
+
     @Field("zip")
     private String zip;
 
-    @NotNull
     @Field("phonenumber")
     private String phonenumber;
 
@@ -52,15 +50,13 @@ public class ReceiverSupplier implements Serializable {
     @Field("longy")
     private Float longy;
 
-    @NotNull
     @Field("city")
     private String city;
 
-    @NotNull
+
     @Field("state")
     private String state;
 
-    @NotNull
     @Field("country")
     private String country;
 
