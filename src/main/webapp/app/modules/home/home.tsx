@@ -1,10 +1,7 @@
 import './home.scss';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
-import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import {connect} from 'react-redux';
 
 import Map from '../map/map';
 
