@@ -112,8 +112,7 @@ describe('Notification Middleware', () => {
 
   beforeEach(() => {
     store = makeStore();
-    sino;
-    n.spy(toastify.toast, 'error');
+    sinon.spy(toastify.toast, 'error');
     sinon.spy(toastify.toast, 'success');
   });
 
