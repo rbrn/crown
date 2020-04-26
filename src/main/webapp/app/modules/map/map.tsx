@@ -11,6 +11,8 @@ import 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Redirect} from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
+import axios from "axios";
+import config from "app/modules/map/apiConfig.json";
 
 declare global {
   interface Window {
@@ -27,6 +29,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "content/images/marker-shadow.png",
 });
 
+
+
 export interface MapProps extends StateProps, DispatchProps {
 }
 
@@ -39,6 +43,9 @@ type State = {
   latlng: LatLng,
   type: string,
   radius: number,
+  aroundMeSuppliers: [],
+  aroundMeReceivers: [],
+  resourceSuppliersMap
 };
 type Map = {
   on: Function,
@@ -57,6 +64,18 @@ const types = {
   RequestPPE: 'RequestPPE',
   OfferPPE: 'OfferPPE',
 };
+const LeafIcon = L.Icon.extend({
+  options: {
+    iconSize:     [20, 45],
+    shadowSize:   [15, 35],
+    iconAnchor:   [15, 35],
+    shadowAnchor: [4, 35],
+    popupAnchor:  [-3, -35]
+  }
+});
+
+const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-svgrepo-com.svg'});
+const requesterIcon = new LeafIcon({iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'});
 
 let position = [51.505, -0.09];
 
@@ -69,7 +88,10 @@ class MapComponent extends React.Component<MapProps, State> {
     open: false,
     latlng: defaultLatLng,
     type: types.Available,
-    radius: 10
+    radius: 10,
+    aroundMeSuppliers: [],
+    aroundMeReceivers: [],
+    resourceSuppliersMap : null
   };
 
   changeRadius = (event, error, values) => {
@@ -120,16 +142,37 @@ class MapComponent extends React.Component<MapProps, State> {
   private extracted(pos) {
     this.resourceSuppliersMap = L.map('map-container').setView(pos, 10);
     this.resourceSuppliersMap.on('click', (event) => this.onMapClicked(event));
+
     this.setTitleLayer();
     const browserLatLng = {
       lat: position[0],
       lng: position[1],
     };
 
+    axios.get(`${config.getSupplierGetAroundMeUri}?distance=100&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
+      .then(({data}) => {
+        this.setState({
+          aroundMeSuppliers: data,
+        });
+      })
+
+
+    axios.get(`${config.getReceiversAroundMeUri}?distance=100&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
+      .then(({data}) => {
+        this.setState({
+          aroundMeReceivers: data,
+        });
+      })
+
     this.circle = L.circle(browserLatLng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
     this.setState({
       latlng: browserLatLng
     });
+
+    this.setState({
+      resourceSuppliersMap: this.resourceSuppliersMap}
+      )
+
     currentMarker = new L.Marker(browserLatLng).addTo(this.resourceSuppliersMap);
   }
 
@@ -186,14 +229,25 @@ class MapComponent extends React.Component<MapProps, State> {
   }
 
 
-  getRedirect(mytype) {
-    const offerPPEparam = mytype === types.RequestPPE ? "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng :
-      "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
-    return offerPPEparam;
-  }
   render() {
+
     const offerPPEparam = "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
     const requestPPEparam = "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
+    const map = this.state.resourceSuppliersMap;
+
+    if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
+      this.state.aroundMeSuppliers.forEach(function (value) {
+        L.marker(value.latLng, {icon: supplierIcon}).addTo(map).bindPopup(value.supplyType);
+      });
+    }
+
+    if (this.state.aroundMeReceivers.length > 0 && map !== null) {
+      this.state.aroundMeReceivers.forEach(function (value) {
+        L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.supplyType);
+      });
+    }
+
+
 
     if (this.state.type === types.RequestPPE)
       return <Redirect to={requestPPEparam}/>
