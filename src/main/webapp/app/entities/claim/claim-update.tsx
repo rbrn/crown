@@ -129,7 +129,7 @@ export const ClaimUpdate = (props: IClaimUpdateProps) => {
                   {supplierResources
                     ? supplierResources.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.name}
+                          {otherEntity.supplier.name}
                         </option>
                       ))
                     : null}
