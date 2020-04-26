@@ -44,10 +44,10 @@ public class SupplierResource implements Serializable {
     @GeoSpatialIndexed
     @Field("position")
     private double [] position;
-    
+
     @Field("postedDate")
     private Date postedDate;
-    
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -138,6 +138,10 @@ public class SupplierResource implements Serializable {
 	public void setPosition(double [] position) {
 		this.position = position;
 	}
+
+	public double []  getPosition(){
+        return this.position;
+    }
 
 	public Date getPostedDate() {
 		return postedDate;
