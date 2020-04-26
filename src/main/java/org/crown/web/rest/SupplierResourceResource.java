@@ -8,16 +8,19 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.util.Strings;
+import org.crown.domain.ReceiverResource;
 import org.crown.domain.ReceiverSupplier;
 import org.crown.domain.SupplierResource;
 import org.crown.repository.ReceiverSupplierRepository;
 import org.crown.repository.SupplierResourceRepository;
+import org.crown.service.SupplierResourceService;
 import org.crown.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoPage;
@@ -57,10 +60,12 @@ public class SupplierResourceResource {
     private String applicationName;
 
     private final SupplierResourceRepository supplierResourceRepository;
+    private final SupplierResourceService supplierResourceService;
 
 
-    public SupplierResourceResource(SupplierResourceRepository supplierResourceRepository) {
+    public SupplierResourceResource(SupplierResourceRepository supplierResourceRepository, SupplierResourceService supplierResourceService) {
         this.supplierResourceRepository = supplierResourceRepository;
+        this.supplierResourceService = supplierResourceService;
     }
 
 
@@ -124,10 +129,11 @@ public class SupplierResourceResource {
      */
     @GetMapping("/supplier-resources")
     public ResponseEntity<List<SupplierResource>> getAllSupplierResources(Pageable pageable) {
-        log.debug("REST request to get a page of SupplierResources");
-        Page<SupplierResource> page = supplierResourceRepository.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        log.debug("REST request to get a page of ReceiverResources");
+        List<SupplierResource> filtered = supplierResourceService.getAllSupplierResources(pageable);
+        Page<SupplierResource> receiverResourcePage1 = new PageImpl<>(filtered);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), receiverResourcePage1);
+        return ResponseEntity.ok().headers(headers).body(filtered);
     }
 
     /**
