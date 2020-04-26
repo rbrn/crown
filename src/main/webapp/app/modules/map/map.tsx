@@ -45,7 +45,7 @@ type State = {
   radius: number,
   aroundMeSuppliers: [],
   aroundMeReceivers: [],
-  resourceSuppliersMap
+  resourceSuppliersMap : {}
 };
 type Map = {
   on: Function,
@@ -66,16 +66,14 @@ const types = {
 };
 const LeafIcon = L.Icon.extend({
   options: {
-    iconSize:     [20, 45],
-    shadowSize:   [15, 35],
-    iconAnchor:   [15, 35],
-    shadowAnchor: [4, 35],
-    popupAnchor:  [-3, -35]
+    iconSize:     [25, 65]
   }
 });
 
 const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-svgrepo-com.svg'});
-const requesterIcon = new LeafIcon({iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'});
+const requesterIcon = new LeafIcon({
+  iconSize:     [25, 35],
+  iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'});
 
 let position = [51.505, -0.09];
 
@@ -84,6 +82,7 @@ let currentMarker = undefined;
 class MapComponent extends React.Component<MapProps, State> {
   private resourceSuppliersMap: Map;
   circle = {};
+
   state = {
     open: false,
     latlng: defaultLatLng,
@@ -91,7 +90,7 @@ class MapComponent extends React.Component<MapProps, State> {
     radius: 10,
     aroundMeSuppliers: [],
     aroundMeReceivers: [],
-    resourceSuppliersMap : null
+    resourceSuppliersMap : {}
   };
 
   changeRadius = (event, error, values) => {
