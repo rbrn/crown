@@ -43,8 +43,8 @@ type State = {
   latlng: LatLng,
   type: string,
   radius: number,
-  aroundMeSuppliers: [],
-  aroundMeReceivers: [],
+  aroundMeSuppliers: any,
+  aroundMeReceivers: any,
   resourceSuppliersMap : {}
 };
 type Map = {
@@ -92,6 +92,7 @@ class MapComponent extends React.Component<MapProps, State> {
     aroundMeReceivers: [],
     resourceSuppliersMap : {}
   };
+
 
   changeRadius = (event, error, values) => {
     this.setState({
