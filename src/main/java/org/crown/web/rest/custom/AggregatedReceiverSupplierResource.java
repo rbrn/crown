@@ -9,10 +9,7 @@ import org.crown.domain.ResourceType;
 import org.crown.domain.SupplierResource;
 import org.crown.repository.ReceiverResourceRepository;
 import org.crown.repository.SupplierResourceRepository;
-import org.crown.service.dto.AggregatedDTO;
-import org.crown.service.dto.AroundMeSuppliesDTO;
-import org.crown.service.dto.ReceiverResourceAggregatedDTO;
-import org.crown.service.dto.SupplierResourceAggregatedDTO;
+import org.crown.service.dto.*;
 import org.crown.web.rest.ReceiverResourceResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,6 +97,34 @@ public class AggregatedReceiverSupplierResource {
         List<AroundMeSuppliesDTO> aggregatedDTOS = getAroundMe(page);
         return ResponseEntity.ok().body(aggregatedDTOS);
     }
+
+
+    /**
+     * {@code SEARCH  /_search/receiver-resources?x=:x&y=:y&distance=:distance} : geo search - search for the receiverResource corresponding
+     * to the query.
+     *
+     * @param x
+     * @param y
+     * @param distance - distance in meters
+     * @return the result of the search.
+     */
+    @GetMapping("/_search/receiver-resources/aroundme")
+    public ResponseEntity<?> searchReceiverResourcesAroundMe(@RequestParam double x, double y,
+                                                             double distance, Pageable pageable, String units) {
+        log.debug("REST request to search for a page of SupplierResources for longitude: {} latitude:{} distance: {}", x, y, distance);
+        CreateDistance createDistance = new CreateDistance(x, y, distance, units).invoke();
+        Point point = createDistance.getPoint();
+        Distance dist = createDistance.getDist();
+
+        GeoResults<ReceiverResource> page = receiverResourceRepository.findByPositionNear(point, dist);
+        List<AroundMeRequesterDTO> aggregatedDTOS = getRequestsAroundMe(page);
+        return ResponseEntity.ok().body(aggregatedDTOS);
+    }
+
+    private List<AroundMeRequesterDTO> getRequestsAroundMe(GeoResults<ReceiverResource> page) {
+        return page.getContent().stream().map(AroundMeRequesterDTO::of).collect(toList());
+    }
+
 
     private List<AroundMeSuppliesDTO> getAroundMe(GeoResults<SupplierResource> page) {
         return page.getContent().stream().map(AroundMeSuppliesDTO::of).collect(toList());

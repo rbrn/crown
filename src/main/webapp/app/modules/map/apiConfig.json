@@ -1,4 +1,5 @@
 {
+  "getReceiversAroundMeUri": "/api/_search/receiver-resources/aroundme",
   "getSupplierGetAroundMeUri": "/api/_search/supplier-resources/aroundme",
   "getSupplierResourcesAggregatedUri": "/api/_search/supplier-resources/aggregated",
   "getReceiverResourcesAggregatedUri": "/api/_search/receiver-resources/aggregated",

@@ -44,6 +44,7 @@ type State = {
   type: string,
   radius: number,
   aroundMeSuppliers: [],
+  aroundMeReceivers: [],
   resourceSuppliersMap
 };
 type Map = {
@@ -65,14 +66,16 @@ const types = {
 };
 const LeafIcon = L.Icon.extend({
   options: {
-    shadowUrl: '/images/leaf-shadow.png',
     iconSize:     [20, 45],
-    shadowSize:   [50, 64],
-    iconAnchor:   [22, 94],
-    shadowAnchor: [4, 62],
-    popupAnchor:  [-3, -76]
+    shadowSize:   [15, 35],
+    iconAnchor:   [15, 35],
+    shadowAnchor: [4, 35],
+    popupAnchor:  [-3, -35]
   }
 });
+
+const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-svgrepo-com.svg'});
+const requesterIcon = new LeafIcon({iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'});
 
 let position = [51.505, -0.09];
 
@@ -87,6 +90,7 @@ class MapComponent extends React.Component<MapProps, State> {
     type: types.Available,
     radius: 10,
     aroundMeSuppliers: [],
+    aroundMeReceivers: [],
     resourceSuppliersMap : null
   };
 
@@ -150,7 +154,14 @@ class MapComponent extends React.Component<MapProps, State> {
         this.setState({
           aroundMeSuppliers: data,
         });
+      })
 
+
+    axios.get(`${config.getReceiversAroundMeUri}?distance=100&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
+      .then(({data}) => {
+        this.setState({
+          aroundMeReceivers: data,
+        });
       })
 
     this.circle = L.circle(browserLatLng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
@@ -226,16 +237,18 @@ class MapComponent extends React.Component<MapProps, State> {
 
     if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
       this.state.aroundMeSuppliers.forEach(function (value) {
-        const latLng = {
-          lat: value.latLng[0], lng: value.latLng[1],
-        };
-        const greenIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-svgrepo-com.svg'});
-        L.marker(value.latLng, {icon: greenIcon}).addTo(map).bindPopup(value.supplyType);
-
-         // new L.Marker(latLng).addTo(map).bindPopup("I am a green leaf.");
-
+        L.marker(value.latLng, {icon: supplierIcon}).addTo(map).bindPopup(value.supplyType);
       });
     }
+
+    if (this.state.aroundMeReceivers.length > 0 && map !== null) {
+      this.state.aroundMeReceivers.forEach(function (value) {
+        L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.supplyType);
+      });
+    }
+
+
+
     if (this.state.type === types.RequestPPE)
       return <Redirect to={requestPPEparam}/>
     else if (this.state.type === types.OfferPPE) {
