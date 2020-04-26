@@ -1,11 +1,10 @@
 package org.crown.repository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.crown.domain.ReceiverResource;
-import org.crown.domain.SupplierResource;
-import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.domain.Page;
+import org.crown.domain.ReceiverSupplier;
+import org.crown.domain.ResourceType;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Box;
 import org.springframework.data.geo.Circle;
@@ -44,4 +43,5 @@ public interface ReceiverResourceRepository extends MongoRepository<ReceiverReso
 	 */
 	GeoPage<ReceiverResource> findByPositionNear(Point point, Distance distance, Pageable pageable);
 	
+	Optional<ReceiverResource >findByReceiverAndResourceType(ReceiverSupplier receiver, ResourceType resourceType);
 }

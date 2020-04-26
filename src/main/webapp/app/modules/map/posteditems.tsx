@@ -17,7 +17,7 @@ type Props = StateProps & DispatchProps & OwnProps
 
 // make this header based on given information
 const headers = ["Item Type", "Quantity", "Action"]
-const drilDownheaders = ["Supplier Name", "Email", "Quantity"]
+const drilDownheaders = ["Supplier Name", "Email", "Quantity", "Action"]
 const columns = ["Item Type", "Quantity"]
 
 const actionItems = [
@@ -57,6 +57,13 @@ class PostedItemsComponent extends React.Component<Props, State> {
                 this.setState({
                     fetchedData: data,
                 });
+            })
+    }
+    
+    claimItem(supplierResourceId, quantity) {
+    	axios.get(`${config.createClaimUri}?supplierResourceId=${supplierResourceId}&quantity=${quantity}`)
+            .then(() => {
+                alert("claimed");
             })
     }
 
@@ -170,6 +177,10 @@ class PostedItemsComponent extends React.Component<Props, State> {
                                             </td>
                                             <td key={`${item.quantity}-Type`}>
                                                 { item.quantity}
+                                            </td>
+                                            <td>
+                                                <FontAwesomeIcon onClick={this.claimItem(item.id, item.quantity)} icon='pencil-alt' color='blue'
+                                                             style={{cursor: 'pointer'}}/>{' '}
                                             </td>
                                         </tr>
 

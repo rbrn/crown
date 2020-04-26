@@ -53,6 +53,10 @@ import supplierResource, {
 import resourceType, {
   ResourceTypeState
 } from 'app/entities/resource-type/resource-type.reducer';
+// prettier-ignore
+import claim, {
+  ClaimState
+} from 'app/entities/claim/claim.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -77,6 +81,7 @@ export interface IRootState {
   readonly receiverResource: ReceiverResourceState;
   readonly supplierResource: SupplierResourceState;
   readonly resourceType: ResourceTypeState;
+  readonly claim: ClaimState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -103,6 +108,7 @@ const rootReducer = combineReducers<IRootState>({
   receiverResource,
   supplierResource,
   resourceType,
+  claim,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
