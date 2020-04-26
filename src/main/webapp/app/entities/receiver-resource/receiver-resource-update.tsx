@@ -23,7 +23,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
   const [receiverId, setReceiverId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { receiverResourceEntity, resourceTypes, receiverSuppliers, loading, updating } = props;
+  const { receiverResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account } = props;
 
   const handleClose = () => {
     props.history.push('/receiver-resource');
@@ -52,6 +52,19 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
       };
 
       if (isNew) {
+        const query = new URLSearchParams(props.location.search);
+        const lat = query.get('lat');
+        const  lng = query.get('lng');
+        entity.position = [lat, lng]
+
+        entity.receiver = {
+          email: account.email,
+          latx: lat,
+          longy: lng,
+          name: account.firstName + " " + account.lastName,
+          primaryContactName: account.email
+        };
+
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);
@@ -172,21 +185,6 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                     : null}
                 </AvInput>
               </AvGroup>
-              <AvGroup>
-                <Label for="receiver-resource-receiver">
-                  <Translate contentKey="crownApp.receiverResource.receiver">Receiver</Translate>
-                </Label>
-                <AvInput id="receiver-resource-receiver" type="select" className="form-control" name="receiver.id">
-                  <option value="" key="0" />
-                  {receiverSuppliers
-                    ? receiverSuppliers.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.name}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
-              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/receiver-resource" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -214,7 +212,8 @@ const mapStateToProps = (storeState: IRootState) => ({
   receiverResourceEntity: storeState.receiverResource.entity,
   loading: storeState.receiverResource.loading,
   updating: storeState.receiverResource.updating,
-  updateSuccess: storeState.receiverResource.updateSuccess
+  updateSuccess: storeState.receiverResource.updateSuccess,
+  account: storeState.authentication.account
 });
 
 const mapDispatchToProps = {
