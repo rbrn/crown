@@ -1,26 +1,21 @@
 package org.crown.web.rest.custom;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.crown.domain.Claim;
 import org.crown.domain.ReceiverResource;
 import org.crown.domain.ReceiverSupplier;
 import org.crown.domain.SupplierResource;
+import org.crown.domain.User;
 import org.crown.repository.ClaimRepository;
 import org.crown.repository.ReceiverResourceRepository;
 import org.crown.repository.ReceiverSupplierRepository;
 import org.crown.repository.SupplierResourceRepository;
-import org.crown.service.dto.AggregatedDTO;
-import org.crown.service.dto.ReceiverResourceAggregatedDTO;
-import org.crown.web.rest.ReceiverResourceResource;
+import org.crown.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.GeoPage;
-import org.springframework.data.geo.Point;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,43 +25,76 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class Claims {
-	 private final Logger log = LoggerFactory.getLogger(ReceiverResourceResource.class);
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	    private static final String ENTITY_NAME = "receiverResource";
+	@Value("${jhipster.clientApp.name}")
+	private String applicationName;
 
-	    @Value("${jhipster.clientApp.name}")
-	    private String applicationName;
+	private final ReceiverResourceRepository receiverResourceRepository;
+	private final SupplierResourceRepository supplierResourceRepository;
+	private final ReceiverSupplierRepository receiverSupplierRepository;
+	private final ClaimRepository claimRepository;
+	private final UserService userService;
 
-	    private final ReceiverResourceRepository receiverResourceRepository;
-	    private final SupplierResourceRepository supplierResourceRepository;
-	    private final ReceiverSupplierRepository receiverSupplierRepository;
-	    private final ClaimRepository claimRepository;
+	public Claims(ReceiverResourceRepository receiverResourceRepository, SupplierResourceRepository supplierResourceRepository,
+			ReceiverSupplierRepository receiverSupplierRepository, ClaimRepository claimRepository, UserService userService) {
+		this.receiverResourceRepository = receiverResourceRepository;
+		this.supplierResourceRepository = supplierResourceRepository;
+		this.receiverSupplierRepository = receiverSupplierRepository;
+		this.claimRepository = claimRepository;
+		this.userService= userService;
+	}
 
-	    public Claims(ReceiverResourceRepository receiverResourceRepository, SupplierResourceRepository supplierResourceRepository, ReceiverSupplierRepository receiverSupplierRepository, ClaimRepository claimRepository) {
-	        this.receiverResourceRepository = receiverResourceRepository;
-	        this.supplierResourceRepository = supplierResourceRepository;
-	        this.receiverSupplierRepository = receiverSupplierRepository;
-	        this.claimRepository = claimRepository;
-	    }
+	@GetMapping("/_claim/claim-supply-resource")
+	public ResponseEntity<Void> searchReceiverResources(@RequestParam String supplierResourceId,
+			@RequestParam int quantity) {
+		log.debug("REST request to claim item {}", supplierResourceId);
+		SupplierResource supplierResource = supplierResourceRepository.findById(supplierResourceId).orElseThrow(() -> new RuntimeException("Suplier Resource not found"));
+		log.debug("supplierResource: " + supplierResource);
+		
+		Claim claim = new Claim();
+		claim.setSupplierResource(supplierResource);
 
-	    @GetMapping("/_claim/claim-supply-resource")
-	    public ResponseEntity<Void> searchReceiverResources(@RequestParam String supplierResourceId, @RequestParam int quantity) {
-	        log.debug("REST request to claim item {}", supplierResourceId);
-	        Optional<SupplierResource> supplierResource = supplierResourceRepository.findById(supplierResourceId);
-	        Claim claim= new Claim();
-	        claim.setSupplierResource(supplierResource.get());
+		User user= userService.getUserWithAuthorities().orElseThrow(() -> new RuntimeException("User could not be found"));
 
-	        //SecurityUtils.getCurrentUserLogin()
+		ReceiverSupplier receiver = receiverSupplierRepository.findByEmail(user.getEmail());
+		
+		if (receiver == null) {
+			receiver= new ReceiverSupplier();
+			receiver.setEmail(user.getEmail());
+			receiver.setName(user.getEmail().replaceFirst("@.*", ""));
+			receiver.setPrimaryContactName(receiver.getName());
+			receiver.setIsSupplier(true);
+			receiverSupplierRepository.save(receiver);
+		}
+		
+		log.debug("Receiver: " + receiver);
 
-	        ReceiverSupplier receiver= receiverSupplierRepository.findByEmail("tiparega@gmail.com");
+		Optional<ReceiverResource> receiverResource = receiverResourceRepository.findByReceiverAndResourceType(receiver,
+				supplierResource.getResourceType());
+		if (receiverResource.isPresent()) {
+			log.debug("receiverResource: " + receiverResource);
+			claim.setReceiverResource(receiverResource.get());
+		} else {
+			ReceiverResource recRes= new ReceiverResource();
+			recRes.setCurrentStock(0);
+			recRes.setDailyUse(0);
+			recRes.setName("Resource needed");
+			recRes.setQuantity(quantity);
+			recRes.setNotes("Automatically created");
+			recRes.setResourceType(supplierResource.getResourceType());
+			recRes.setReceiver(receiver);
+			recRes.setPostedDate(LocalDate.now());
+			
+			receiverResourceRepository.save(recRes);
+			claim.setReceiverResource(recRes);
+			log.debug("Created receiver resource: " + recRes);
+		}
+		
+		claim.setQuantity(quantity);
+		log.debug("Creating claim: " + claim + " from " + claim.getSupplierResource() + " to " + claim.getReceiverResource());
+		claimRepository.save(claim);
 
-	        Optional<ReceiverResource> receiverResource = receiverResourceRepository.findByReceiverAndResourceType(receiver, supplierResource.get().getResourceType());
-
-	        claim.setReceiverResource(receiverResource.orElse( null));
-	        claim.setQuantity(quantity);
-
-	        claimRepository.save(claim);
-
-	        return ResponseEntity.ok().build();
-	    }
+		return ResponseEntity.ok().build();
+	}
 }
