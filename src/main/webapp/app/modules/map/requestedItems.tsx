@@ -166,7 +166,7 @@ class RequestedItemsComponent extends React.Component<Props, State> {
                           </td>
                         }
                         <td key={`${index.toString()}-Email`}>
-                          {item  && item.email ?  item.email : ""}
+                          {item  && item.receiver.email ?  item.receiver.email : ""}
                         </td>
                         <td key={`${item.quantity}-Type`}>
                           { item.quantity}
