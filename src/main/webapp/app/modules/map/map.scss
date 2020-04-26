@@ -44,8 +44,24 @@
   width: 80px;
   text-align: center;
 }
+
+.radius-submit {
+  margin-top: 15px;
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+}
+
+.radius-button {
+  color: dodgerblue;
+  background-color: white;
+  height: 40px;
+  width: 80px;
+}
+
 .latlong {
-  font-size: 10px;
+  font-size: 15px;
+  color: white;
 }
 .crown-header-label {
   color: dodgerblue;
