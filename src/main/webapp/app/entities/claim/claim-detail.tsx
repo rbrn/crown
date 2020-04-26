@@ -40,11 +40,11 @@ export const ClaimDetail = (props: IClaimDetailProps) => {
           <dt>
             <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
           </dt>
-          <dd>{claimEntity.receiverResource ? claimEntity.receiverResource.name : ''}</dd>
+          <dd>{claimEntity.receiverResource ? claimEntity.receiverResource.id : ''}</dd>
           <dt>
             <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>
           </dt>
-          <dd>{claimEntity.supplierResource ? claimEntity.supplierResource.name : ''}</dd>
+          <dd>{claimEntity.supplierResource ? claimEntity.supplierResource.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/claim" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

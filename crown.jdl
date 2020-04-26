@@ -59,11 +59,11 @@ relationship OneToOne {
 }
 
 relationship OneToOne {
-    Claim{receiverResource(name) required} to ReceiverResource
+    Claim{receiverResource required} to ReceiverResource
 }
 
 relationship OneToOne {
-    Claim{supplierResource(name) required} to SupplierResource
+    Claim{supplierResource required} to SupplierResource
 }
 
 relationship OneToMany {
