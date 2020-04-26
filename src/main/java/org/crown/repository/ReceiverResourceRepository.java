@@ -1,6 +1,8 @@
 package org.crown.repository;
 
 import org.crown.domain.ReceiverResource;
+import org.crown.domain.ReceiverSupplier;
+import org.crown.domain.ResourceType;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.*;
 import org.springframework.data.mongodb.repository.MongoRepository;

@@ -14,7 +14,6 @@ import org.crown.repository.SupplierResourceRepository;
 import org.crown.service.dto.AggregatedDTO;
 import org.crown.service.dto.ReceiverResourceAggregatedDTO;
 import org.crown.web.rest.ReceiverResourceResource;
-import org.crown.web.rest.custom.AggregatedReceiverSupplierResource.CreateDistance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,28 +41,30 @@ public class Claims {
 	    private final SupplierResourceRepository supplierResourceRepository;
 	    private final ReceiverSupplierRepository receiverSupplierRepository;
 	    private final ClaimRepository claimRepository;
-	    
-	    public Claims(ReceiverResourceRepository receiverResourceRepository, SupplierResourceRepository supplierResourceRepository) {
+
+	    public Claims(ReceiverResourceRepository receiverResourceRepository, SupplierResourceRepository supplierResourceRepository, ReceiverSupplierRepository receiverSupplierRepository, ClaimRepository claimRepository) {
 	        this.receiverResourceRepository = receiverResourceRepository;
 	        this.supplierResourceRepository = supplierResourceRepository;
+	        this.receiverSupplierRepository = receiverSupplierRepository;
+	        this.claimRepository = claimRepository;
 	    }
-	    
+
 	    @GetMapping("/_claim/claim-supply-resource")
 	    public ResponseEntity<Void> searchReceiverResources(@RequestParam String supplierResourceId, @RequestParam int quantity) {
 	        log.debug("REST request to claim item {}", supplierResourceId);
 	        Optional<SupplierResource> supplierResource = supplierResourceRepository.findById(supplierResourceId);
 	        Claim claim= new Claim();
 	        claim.setSupplierResource(supplierResource.get());
-	        
+
 	        //SecurityUtils.getCurrentUserLogin()
-	        
+
 	        ReceiverSupplier receiver= receiverSupplierRepository.findByEmail("tiparega@gmail.com");
-	        
+
 	        Optional<ReceiverResource> receiverResource = receiverResourceRepository.findByReceiverAndResourceType(receiver, supplierResource.get().getResourceType());
-	        
-	        claim.setReceiverResource(receiverResource.get());
+
+	        claim.setReceiverResource(receiverResource.orElse( null));
 	        claim.setQuantity(quantity);
-	        
+
 	        claimRepository.save(claim);
 
 	        return ResponseEntity.ok().build();

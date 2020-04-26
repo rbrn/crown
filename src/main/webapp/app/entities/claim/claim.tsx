@@ -70,7 +70,7 @@ export const Claim = (props: IClaimProps) => {
                   </td>
                   <td>
                     {claim.supplierResource ? (
-                      <Link to={`supplier-resource/${claim.supplierResource.id}`}>{claim.supplierResource.name}</Link>
+                      <Link to={`supplier-resource/${claim.supplierResource.id}`}>{claim.supplierResource.supplier.name}</Link>
                     ) : (
                       ''
                     )}
