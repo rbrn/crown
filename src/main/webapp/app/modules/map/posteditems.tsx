@@ -59,7 +59,6 @@ class PostedItemsComponent extends React.Component<Props, State> {
                 });
             })
     }
-    
     claimItem = (supplierResourceId, quantity) => () => {
     	axios.get(`${config.createClaimUri}?supplierResourceId=${supplierResourceId}&quantity=${quantity}`)
             .then(() => {
@@ -179,7 +178,7 @@ class PostedItemsComponent extends React.Component<Props, State> {
                                                 { item.quantity}
                                             </td>
                                             <td>
-                                                <FontAwesomeIcon onClick={this.claimItem(item.id, item.quantity)} icon='pencil-alt' color='blue'
+                                                <FontAwesomeIcon onClick={ event => this.claimItem(item.id, item.quantity)} icon='pencil-alt' color='blue'
                                                              style={{cursor: 'pointer'}}/>{' '}
                                             </td>
                                         </tr>
