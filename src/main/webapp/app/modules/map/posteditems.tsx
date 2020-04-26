@@ -59,8 +59,7 @@ class PostedItemsComponent extends React.Component<Props, State> {
                 });
             })
     }
-
-    claimItem(supplierResourceId, quantity) {
+    claimItem = (supplierResourceId, quantity) => () => {
     	axios.get(`${config.createClaimUri}?supplierResourceId=${supplierResourceId}&quantity=${quantity}`)
             .then(() => {
                 alert("claimed");

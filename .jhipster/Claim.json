@@ -20,7 +20,7 @@
             "otherEntityRelationshipName": "claim",
             "relationshipValidateRules": "required",
             "relationshipName": "receiverResource",
-            "otherEntityField": "name",
+            "otherEntityField": "id",
             "ownerSide": true
         },
         {
@@ -29,7 +29,7 @@
             "otherEntityRelationshipName": "claim",
             "relationshipValidateRules": "required",
             "relationshipName": "supplierResource",
-            "otherEntityField": "name",
+            "otherEntityField": "id",
             "ownerSide": true
         }
     ],
