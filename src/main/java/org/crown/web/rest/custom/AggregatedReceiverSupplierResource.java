@@ -106,7 +106,7 @@ public class AggregatedReceiverSupplierResource {
 
 
     private List<ReceiverResourceAggregatedDTO> getAggregatedResources(List<GeoResult<ReceiverResource>> content) {
-        Map<String, List<ReceiverResource>> receiverResourceMap = content.stream().map(page -> page.getContent()).collect(groupingBy(ReceiverResource::getName));
+        Map<ResourceType, List<ReceiverResource>> receiverResourceMap = content.stream().map(page -> page.getContent()).collect(groupingBy(ReceiverResource::getResourceType));
         return receiverResourceMap.entrySet().stream().map(ReceiverResourceAggregatedDTO::ofReceiverResource).collect(Collectors.toList());
     }
 
