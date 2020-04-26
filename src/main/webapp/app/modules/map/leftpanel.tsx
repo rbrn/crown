@@ -37,7 +37,7 @@ class LeftPanelComponent extends React.Component<Props> {
             <div className="align-content-center crown-header-white">RADIUS(KM)</div>
           </div>
 
-          <AvForm onSubmit={changeRadius}>
+          <AvForm className="radius-submit" onSubmit={changeRadius}>
             <AvField
               name="radius"
               type="number"
@@ -45,7 +45,7 @@ class LeftPanelComponent extends React.Component<Props> {
               required
               value={radius}
             />
-            <Button type="submit"> Change </Button>
+            <Button className="radius-button" type="submit"> Change </Button>
           </AvForm>
         </div>
       </div>
