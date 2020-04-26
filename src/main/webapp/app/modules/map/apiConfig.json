@@ -3,6 +3,7 @@
   "getSupplierGetAroundMeUri": "/api/_search/supplier-resources/aroundme",
   "getSupplierResourcesAggregatedUri": "/api/_search/supplier-resources/aggregated",
   "getReceiverResourcesAggregatedUri": "/api/_search/receiver-resources/aggregated",
-  "createClaimUri": "/api/_claim/claim-supply-resource",
+  "createClaimSupplyUri": "/api/_claim/claim-supply-resource",
+  "createClaimReceiveUri": "/api/_claim/claim-receive-resource",
   "postUri": "/api/receiver-resources"
 }

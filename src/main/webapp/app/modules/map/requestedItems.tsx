@@ -19,7 +19,7 @@ type Props = StateProps & DispatchProps & OwnProps
 const headers = ["Item Type", "Quantity", "Action"]
 const columns = ["Item Type", "Quantity"]
 
-const drilDownheaders = ["Requested By", "Email", "Quantity", "Claim"]
+const drilDownheaders = ["Requested By", "Email", "Quantity", "Offer"]
 
 const actionItems = [
   {
@@ -67,12 +67,11 @@ class RequestedItemsComponent extends React.Component<Props, State> {
     });
   }
 
-  claimItem(item) {
-    toast.success("This is till a mockup. Will be finished")
-  /*  axios.get(`${config.createClaimUri}?supplierResourceId=${item}&quantity=${item.quantity}`)
+  claimItem = (item) => () => {
+    axios.get(`${config.createClaimReceiveUri}?receiverResourceId=${item.id}&quantity=${item.quantity}`)
       .then(() => {
         alert("claimed");
-      })*/
+      })
   }
 
 
@@ -181,7 +180,7 @@ class RequestedItemsComponent extends React.Component<Props, State> {
                           { item.quantity}
                         </td>
                         <td>
-                          <FontAwesomeIcon onClick={ event => this.claimItem(item) } icon='pencil-alt' color='blue'
+                          <FontAwesomeIcon onClick={ this.claimItem(item) } icon='pencil-alt' color='blue'
                                            style={{cursor: 'pointer'}}/>{' '}
                         </td>
                       </tr>
