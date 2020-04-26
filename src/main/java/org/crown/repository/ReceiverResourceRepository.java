@@ -1,10 +1,14 @@
 package org.crown.repository;
 
 import org.crown.domain.ReceiverResource;
+import org.crown.domain.ReceiverSupplier;
+import org.crown.domain.ResourceType;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.*;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * Spring Data MongoDB repository for the ReceiverResource entity.
@@ -43,4 +47,6 @@ public interface ReceiverResourceRepository extends MongoRepository<ReceiverReso
     GeoResults<ReceiverResource> findByPositionNear(Point point, Distance distance);
 
 
+
+	Optional<ReceiverResource> findByReceiverAndResourceType(ReceiverSupplier receiver, ResourceType resourceType);
 }

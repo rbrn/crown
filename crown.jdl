@@ -45,12 +45,25 @@ entity ResourceType {
     notes String
 }
 
+entity Claim {
+    quantity Integer required,
+    notes String,
+}
+
 relationship OneToOne {
     ReceiverResource{resourceType(name) required} to ResourceType
 }
 
 relationship OneToOne {
     SupplierResource{resourceType(name) required} to ResourceType
+}
+
+relationship OneToOne {
+    Claim{receiverResource(name) required} to ReceiverResource
+}
+
+relationship OneToOne {
+    Claim{supplierResource(name) required} to SupplierResource
 }
 
 relationship OneToMany {

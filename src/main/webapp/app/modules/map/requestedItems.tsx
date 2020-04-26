@@ -7,7 +7,7 @@ import Popup from "reactjs-popup";
 import {LatLng} from './map';
 import config from './apiConfig.json';
 import NumberFormat from 'react-number-format';
-
+import { toast } from 'react-toastify';
 export interface OwnProps {
   position: LatLng,
   radius: number,
@@ -19,7 +19,7 @@ type Props = StateProps & DispatchProps & OwnProps
 const headers = ["Item Type", "Quantity", "Action"]
 const columns = ["Item Type", "Quantity"]
 
-const drilDownheaders = ["Requested By", "Email", "Quantity"]
+const drilDownheaders = ["Requested By", "Email", "Quantity", "Claim"]
 
 const actionItems = [
   {
@@ -66,6 +66,15 @@ class RequestedItemsComponent extends React.Component<Props, State> {
       viewIndex: -1,
     });
   }
+
+  claimItem(item) {
+    toast.success("This is till a mockup. Will be finished")
+  /*  axios.get(`${config.createClaimUri}?supplierResourceId=${item}&quantity=${item.quantity}`)
+      .then(() => {
+        alert("claimed");
+      })*/
+  }
+
 
   handleView = (index) => () => {
     // implement view feature here
@@ -170,6 +179,10 @@ class RequestedItemsComponent extends React.Component<Props, State> {
                         </td>
                         <td key={`${item.quantity}-Type`}>
                           { item.quantity}
+                        </td>
+                        <td>
+                          <FontAwesomeIcon onClick={ event => this.claimItem(item) } icon='pencil-alt' color='blue'
+                                           style={{cursor: 'pointer'}}/>{' '}
                         </td>
                       </tr>
 
