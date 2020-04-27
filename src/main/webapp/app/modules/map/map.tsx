@@ -6,6 +6,7 @@ import {Col, Row} from 'reactstrap';
 import Popup from "reactjs-popup";
 
 import PostedItemsComponent from './posteditems';
+
 import LeftPanel from './leftpanel';
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -29,10 +30,9 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "content/images/marker-shadow.png",
 });
 
-
-
 export interface MapProps extends StateProps, DispatchProps {
 }
+
 
 export type LatLng = {
   lat: number,
@@ -51,7 +51,6 @@ type Map = {
   on: Function,
   removeLayer: Function,
 }
-
 
 // change this after user is tagged with geo location
 const defaultLatLng = {
@@ -78,6 +77,11 @@ const requesterIcon = new LeafIcon({
 let position = [51.505, -0.09];
 
 let currentMarker = undefined;
+
+//const map = L.map('map-container').setView([51.505, -0.09], 13);
+
+//const pane = map.createPane('fixed', document.getElementById('map-container'));
+
 
 class MapComponent extends React.Component<MapProps, State> {
   private resourceSuppliersMap: Map;
@@ -212,8 +216,8 @@ class MapComponent extends React.Component<MapProps, State> {
   showPopup = (layer, latlng) => {
     const node = L.DomUtil.create('div', 'info-div');
     Object.keys(types).forEach(type => {
-      const button = L.DomUtil.create('button', 'popup-button btn btn-secondary', node);
-      button.innerHTML = type;
+      const button = L.DomUtil.create('button', 'popup-button btn btn-primary', node);
+      button.innerHTML = types[type];
       button.onclick = (e) => this.onButtonClicked(latlng, type, e);
     });
     return node;

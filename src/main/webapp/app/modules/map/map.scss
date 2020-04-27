@@ -4,9 +4,11 @@
 }
 
 .info-div {
-  width: 500px;
+  width: 800px;
   font-size: 9px;
   color: #615656;
+  position: absolute;
+  //height: 100px;
 }
 
 .leaflet-popup-tip-container {
@@ -14,9 +16,11 @@
 }
 
 .popup-button {
-  height: 30px;
-  font-size: 10px;
+  height: 40px;
+  font-size: 12px;
+  weight: 100px;
   margin-right: 5px;
+  text-align: center;
 }
 
 .get-items-display {
@@ -28,6 +32,11 @@
   font-size: 14px;
   font-weight: bold;
   color: white;
+}
+
+.leaflet-interactive {
+  //background-color: #00a1ff;
+  //ill: #00a1ff;
 }
 
 .crown-header-white {
