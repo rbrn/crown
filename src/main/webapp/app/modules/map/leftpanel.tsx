@@ -21,11 +21,7 @@ class LeftPanelComponent extends React.Component<Props> {
       <div className="left-panel">
         <img src={img}/>
         <div className="align-content-center">
-          <div className="align-content-center crown-header">CROWDSOURCED</div>
-          <div className="align-content-center crown-header">NETWORK</div>
-          <div className="align-content-center crown-header">FOR</div>
-          <div className="align-content-center crown-header">DISASTER</div>
-          <div className="align-content-center crown-header">RELIEF</div>
+          <div className="align-content-center crown-header">A COVID-19 Open Data Network for Rapid, Affordable and Standardized Procurement of Manufactured Medical Supplies (MS)</div>
         </div>
         <div className="align-content-center">
           <div className="align-content-center crown-header-white">LOCATION</div>
@@ -34,7 +30,7 @@ class LeftPanelComponent extends React.Component<Props> {
         <div className="radius-info-div">
           <p className="latlong">Coord: {lat}, {lng}</p>
           <div className="align-content-center">
-            <div className="align-content-center crown-header-white">RADIUS(KM)</div>
+            <div className="align-content-center crown-header-white">RADIUS (KM)</div>
           </div>
 
           <AvForm className="radius-submit" onSubmit={changeRadius}>
