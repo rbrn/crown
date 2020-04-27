@@ -34,7 +34,7 @@ class LeftPanelComponent extends React.Component<Props> {
         <div className="radius-info-div">
           <p className="latlong">Coord: {lat}, {lng}</p>
           <div className="align-content-center">
-            <div className="align-content-center crown-header-white">RADIUS(KM)</div>
+            <div className="align-content-center crown-header-white">RADIUS (KM)</div>
           </div>
 
           <AvForm className="radius-submit" onSubmit={changeRadius}>
