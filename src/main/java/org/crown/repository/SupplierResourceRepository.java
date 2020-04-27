@@ -1,8 +1,11 @@
 package org.crown.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.crown.domain.ReceiverResource;
+import org.crown.domain.ReceiverSupplier;
+import org.crown.domain.ResourceType;
 import org.crown.domain.SupplierResource;
 
 import org.springframework.data.geo.*;
@@ -48,5 +51,13 @@ public interface SupplierResourceRepository extends MongoRepository<SupplierReso
      * @return
      */
     GeoResults<SupplierResource> findByPositionNear(Point point, Distance distance);
+
+    /**
+     * Finds a supplierResource asked from a supplier of specific resourceType
+     * @param supplier
+     * @param resourceType
+     * @return
+     */
+	Optional<SupplierResource> findBySupplierAndResourceType(ReceiverSupplier supplier, ResourceType resourceType);
 
 }

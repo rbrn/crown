@@ -51,7 +51,11 @@ public interface ReceiverResourceRepository extends MongoRepository<ReceiverReso
      */
     GeoResults<ReceiverResource> findByPositionNear(Point point, Distance distance);
 
-
-
+    /**
+     * Finds a receiverResource asked from a receiver of specific resourceType
+     * @param receiver
+     * @param resourceType
+     * @return
+     */
 	Optional<ReceiverResource> findByReceiverAndResourceType(ReceiverSupplier receiver, ResourceType resourceType);
 }

@@ -46,7 +46,7 @@ public class Claims {
 	}
 
 	@GetMapping("/_claim/claim-supply-resource")
-	public ResponseEntity<Void> searchReceiverResources(@RequestParam String supplierResourceId,
+	public ResponseEntity<Void> claimSupplyResource(@RequestParam String supplierResourceId,
 			@RequestParam int quantity) {
 		log.debug("REST request to claim item {}", supplierResourceId);
 		SupplierResource supplierResource = supplierResourceRepository.findById(supplierResourceId).orElseThrow(() -> new RuntimeException("Suplier Resource not found"));
@@ -89,6 +89,54 @@ public class Claims {
 			receiverResourceRepository.save(recRes);
 			claim.setReceiverResource(recRes);
 			log.debug("Created receiver resource: " + recRes);
+		}
+		
+		claim.setQuantity(quantity);
+		log.debug("Creating claim: " + claim + " from " + claim.getSupplierResource() + " to " + claim.getReceiverResource());
+		claimRepository.save(claim);
+
+		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/_claim/claim-receive-resource")
+	public ResponseEntity<Void> claimReceiveResource(@RequestParam String receiverResourceId,
+			@RequestParam int quantity) {
+		log.debug("REST request to claim item {}", receiverResourceId);
+		ReceiverResource receiverResource = receiverResourceRepository.findById(receiverResourceId).orElseThrow(() -> new RuntimeException("Suplier Resource not found"));
+		log.debug("receiverResource: " + receiverResource);
+		
+		Claim claim = new Claim();
+		claim.setReceiverResource(receiverResource);
+
+		User user= userService.getUserWithAuthorities().orElseThrow(() -> new RuntimeException("User could not be found"));
+
+		ReceiverSupplier supplier = receiverSupplierRepository.findByEmail(user.getEmail());
+		
+		if (supplier == null) {
+			supplier= new ReceiverSupplier();
+			supplier.setEmail(user.getEmail());
+			supplier.setName(user.getEmail().replaceFirst("@.*", ""));
+			supplier.setPrimaryContactName(supplier.getName());
+			supplier.setIsSupplier(true);
+			receiverSupplierRepository.save(supplier);
+		}
+		
+		log.debug("Supplier: " + supplier);
+
+		Optional<SupplierResource> supplierResource = supplierResourceRepository.findBySupplierAndResourceType(supplier,
+				receiverResource.getResourceType());
+		if (supplierResource.isPresent()) {
+			log.debug("supplierResource: " + supplierResource);
+			claim.setSupplierResource(supplierResource.get());
+		} else {
+			SupplierResource supRes= new SupplierResource();
+			supRes.setQuantity(quantity);
+			supRes.setResourceType(receiverResource.getResourceType());
+			supRes.setSupplier(supplier);
+			
+			supplierResourceRepository.save(supRes);
+			claim.setSupplierResource(supRes);
+			log.debug("Created receiver resource: " + supRes);
 		}
 		
 		claim.setQuantity(quantity);
