@@ -61,8 +61,8 @@ const defaultLatLng = {
 const types = {
   Available: 'Available',
   Requested: 'Requested',
-  GetMS: 'GetMS',
-  SupplyMS: 'SupplyMS',
+  'Get MS': 'Get MS',
+  'Supply MS': 'Supply MS',
 };
 const LeafIcon = L.Icon.extend({
   options: {
@@ -249,9 +249,9 @@ class MapComponent extends React.Component<MapProps, State> {
 
 
 
-    if (this.state.type === types.GetMS)
+    if (this.state.type === types['Get MS'])
       return <Redirect to={requestPPEparam}/>
-    else if (this.state.type === types.SupplyMS) {
+    else if (this.state.type === types['Supply MS']) {
       return <Redirect to={offerPPEparam}/>
     }
 
