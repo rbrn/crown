@@ -21,7 +21,7 @@ class LeftPanelComponent extends React.Component<Props> {
       <div className="left-panel">
         <img src={img}/>
         <div className="align-content-center">
-          <div className="align-content-center crown-header">COVID-19 Open Data Network for Rapid, Effective and Standardized Procurement of Manufactured Medical Supplies</div>
+          <div className="align-content-center crown-header">A COVID-19 Open Data Network for Rapid, Affordable and Standardized Procurement of Manufactured Medical Supplies (MS)</div>
         </div>
         <div className="align-content-center">
           <div className="align-content-center crown-header-white">LOCATION</div>

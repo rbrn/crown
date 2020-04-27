@@ -61,8 +61,8 @@ const defaultLatLng = {
 const types = {
   Available: 'Available',
   Requested: 'Requested',
-  RequestPPE: 'RequestPPE',
-  OfferPPE: 'OfferPPE',
+  RequestPPE: 'Get MS',
+  OfferPPE: 'Supply MS',
 };
 const LeafIcon = L.Icon.extend({
   options: {
