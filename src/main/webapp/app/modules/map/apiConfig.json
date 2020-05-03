@@ -6,5 +6,5 @@
   "createClaimSupplyUri": "/api/_claim/claim-supply-resource",
   "createClaimReceiveUri": "/api/_claim/claim-receive-resource",
   "postUri": "/api/receiver-resources",
-  "getNewClaimUrl": "/claim/new"
+  "getNewClaimUrl": "/claim/request"
 }
