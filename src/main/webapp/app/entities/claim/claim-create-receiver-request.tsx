@@ -58,6 +58,11 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
         ...values
       };
 
+      const selectedSupplierResource = props.supplierResources.find( supplierResource=> supplierResource.id === persistent.supplierResource.id);
+      if(selectedSupplierResource) {
+        persistent.supplierResource = selectedSupplierResource
+      }
+
       props.createEntity(persistent);
     }
   };
