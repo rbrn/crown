@@ -106,6 +106,25 @@ export const ClaimUpdate = (props: IClaimUpdateProps) => {
                 <AvField id="claim-notes" type="text" name="notes" />
               </AvGroup>
               <AvGroup>
+                <Label id="statusLabel" for="claim-status">
+                  <Translate contentKey="crownApp.claim.status">Status</Translate>
+                </Label>
+                <AvInput
+                  id="claim-status"
+                  type="select"
+                  className="form-control"
+                  name="status"
+                  value={(!isNew && claimEntity.status) || 'PENDING'}
+                >
+                  <option value="PENDING">{translate('crownApp.ClaimStatusEnum.PENDING')}</option>
+                  <option value="INREVIEW">{translate('crownApp.ClaimStatusEnum.INREVIEW')}</option>
+                  <option value="ACCEPTED">{translate('crownApp.ClaimStatusEnum.ACCEPTED')}</option>
+                  <option value="FORSHIPPING">{translate('crownApp.ClaimStatusEnum.FORSHIPPING')}</option>
+                  <option value="SHIPPED">{translate('crownApp.ClaimStatusEnum.SHIPPED')}</option>
+                  <option value="DELIVERED">{translate('crownApp.ClaimStatusEnum.DELIVERED')}</option>
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
                 <Label for="claim-receiverResource">
                   <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
                 </Label>

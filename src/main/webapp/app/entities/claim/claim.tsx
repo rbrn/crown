@@ -43,6 +43,9 @@ export const Claim = (props: IClaimProps) => {
                   <Translate contentKey="crownApp.claim.notes">Notes</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="crownApp.claim.status">Status</Translate>
+                </th>
+                <th>
                   <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
                 </th>
                 <th>
@@ -62,15 +65,18 @@ export const Claim = (props: IClaimProps) => {
                   <td>{claim.quantity}</td>
                   <td>{claim.notes}</td>
                   <td>
+                    <Translate contentKey={`crownApp.ClaimStatusEnum.${claim.status}`} />
+                  </td>
+                  <td>
                     {claim.receiverResource ? (
-                      <Link to={`receiver-resource/${claim.receiverResource.id}`}>Name: {claim.receiverResource.name}, Receiver: {claim.receiverResource.receiver.name}</Link>
+                      <Link to={`receiver-resource/${claim.receiverResource.id}`}>{claim.receiverResource.id}</Link>
                     ) : (
                       ''
                     )}
                   </td>
                   <td>
                     {claim.supplierResource ? (
-                      <Link to={`supplier-resource/${claim.supplierResource.id}`}>Supplier: {claim.supplierResource?.supplier?.name}, Type: {claim.supplierResource?.resourceType?.name}</Link>
+                      <Link to={`supplier-resource/${claim.supplierResource.id}`}>{claim.supplierResource.id}</Link>
                     ) : (
                       ''
                     )}

@@ -2,22 +2,23 @@
   "crownApp": {
     "claim": {
       "home": {
-        "title": "PPE/Offers Requests",
-        "createLabel": "Create a new PPE/Offers Requests",
-        "createOrEditLabel": "Create or edit a PPE/Offers Requests",
-        "notFound": "No PPE/Offers Requests found"
+        "title": "Claims",
+        "createLabel": "Create a new Claim",
+        "createOrEditLabel": "Create or edit a Claim",
+        "notFound": "No Claims found"
       },
-      "created": "A new PPE/Offers Requests is created with identifier {{ param }}",
-      "updated": "A PPE/Offers Requests is updated with identifier {{ param }}",
-      "deleted": "A PPE/Offers Requests is deleted with identifier {{ param }}",
+      "created": "A new Claim is created with identifier {{ param }}",
+      "updated": "A Claim is updated with identifier {{ param }}",
+      "deleted": "A Claim is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete PPE/Offers Requests {{ id }}?"
+        "question": "Are you sure you want to delete Claim {{ id }}?"
       },
       "detail": {
-        "title": "PPE/Offers Requests"
+        "title": "Claim"
       },
       "quantity": "Quantity",
       "notes": "Notes",
+      "status": "Status",
       "receiverResource": "Receiver Resource",
       "supplierResource": "Supplier Resource"
     }

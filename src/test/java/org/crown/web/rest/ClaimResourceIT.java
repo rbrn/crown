@@ -23,6 +23,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.crown.domain.enumeration.ClaimStatusEnum;
 /**
  * Integration tests for the {@link ClaimResource} REST controller.
  */
@@ -37,6 +38,9 @@ public class ClaimResourceIT {
 
     private static final String DEFAULT_NOTES = "AAAAAAAAAA";
     private static final String UPDATED_NOTES = "BBBBBBBBBB";
+
+    private static final ClaimStatusEnum DEFAULT_STATUS = ClaimStatusEnum.PENDING;
+    private static final ClaimStatusEnum UPDATED_STATUS = ClaimStatusEnum.INREVIEW;
 
     @Autowired
     private ClaimRepository claimRepository;
@@ -55,7 +59,8 @@ public class ClaimResourceIT {
     public static Claim createEntity() {
         Claim claim = new Claim()
             .quantity(DEFAULT_QUANTITY)
-            .notes(DEFAULT_NOTES);
+            .notes(DEFAULT_NOTES)
+            .status(DEFAULT_STATUS);
         // Add required entity
         ReceiverResource receiverResource;
         receiverResource = ReceiverResourceResourceIT.createEntity();
@@ -77,7 +82,8 @@ public class ClaimResourceIT {
     public static Claim createUpdatedEntity() {
         Claim claim = new Claim()
             .quantity(UPDATED_QUANTITY)
-            .notes(UPDATED_NOTES);
+            .notes(UPDATED_NOTES)
+            .status(UPDATED_STATUS);
         // Add required entity
         ReceiverResource receiverResource;
         receiverResource = ReceiverResourceResourceIT.createUpdatedEntity();
@@ -113,6 +119,7 @@ public class ClaimResourceIT {
         Claim testClaim = claimList.get(claimList.size() - 1);
         assertThat(testClaim.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testClaim.getNotes()).isEqualTo(DEFAULT_NOTES);
+        assertThat(testClaim.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -162,7 +169,8 @@ public class ClaimResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(claim.getId())))
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
-            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
+            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
     
     @Test
@@ -176,7 +184,8 @@ public class ClaimResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(claim.getId()))
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
-            .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES));
+            .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -197,7 +206,8 @@ public class ClaimResourceIT {
         Claim updatedClaim = claimRepository.findById(claim.getId()).get();
         updatedClaim
             .quantity(UPDATED_QUANTITY)
-            .notes(UPDATED_NOTES);
+            .notes(UPDATED_NOTES)
+            .status(UPDATED_STATUS);
 
         restClaimMockMvc.perform(put("/api/claims").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -210,6 +220,7 @@ public class ClaimResourceIT {
         Claim testClaim = claimList.get(claimList.size() - 1);
         assertThat(testClaim.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testClaim.getNotes()).isEqualTo(UPDATED_NOTES);
+        assertThat(testClaim.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
