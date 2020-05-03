@@ -38,6 +38,12 @@ export const ClaimDetail = (props: IClaimDetailProps) => {
           </dt>
           <dd>{claimEntity.notes}</dd>
           <dt>
+            <span id="status">
+              <Translate contentKey="crownApp.claim.status">Status</Translate>
+            </span>
+          </dt>
+          <dd>{claimEntity.status}</dd>
+          <dt>
             <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
           </dt>
           <dd>{claimEntity.receiverResource ? claimEntity.receiverResource.id : ''}</dd>

@@ -13,7 +13,7 @@ export const EntitiesMenu = props => (
     id="entity-menu"
     style={{ maxHeight: '80vh', overflow: 'auto' }}
   >
-   {/* <MenuItem icon="asterisk" to="/supply-point">
+    {/* <MenuItem icon="asterisk" to="/supply-point">
       <Translate contentKey="global.menu.entities.supplyPoint" />
     </MenuItem>
     <MenuItem icon="asterisk" to="/resource">
