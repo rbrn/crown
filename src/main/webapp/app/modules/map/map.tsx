@@ -58,10 +58,21 @@ const defaultLatLng = {
   lng: -0.09,
 };
 const types = {
-  Available: 'Available',
-  Requested: 'Requested',
-  'Get MS': 'Get MS',
-  'Supply MS': 'Supply MS',
+  'Browse Available': 'Browse Available',
+  'Browse Requested': 'Browse Requested',
+  'Request Medical Supplies': 'Request Medical Supplies',
+  'Supply Medical Supplies': 'Supply Medical Supplies',
+};
+
+const SupplTypes = {
+  'Browse Requested': 'Browse Requested',
+  'Supply Medical Supplies': 'Supply Medical Supplies',
+};
+
+const RequestTypes = {
+  'Browse Available': 'Browse Available',
+  'Request Medical Supplies': 'Request Medical Supplies',
+
 };
 const LeafIcon = L.Icon.extend({
   options: {
@@ -90,7 +101,7 @@ class MapComponent extends React.Component<MapProps, State> {
   state = {
     open: false,
     latlng: defaultLatLng,
-    type: types.Available,
+    type: types['Browse Available'],
     radius: 10,
     aroundMeSuppliers: [],
     aroundMeReceivers: [],
@@ -108,7 +119,7 @@ class MapComponent extends React.Component<MapProps, State> {
     this.setState({
       open: false,
       latlng: defaultLatLng,
-      type: types.Available,
+      type: types['Browse Available'],
     })
   }
 
@@ -214,12 +225,27 @@ class MapComponent extends React.Component<MapProps, State> {
   }
 
   showPopup = (layer, latlng) => {
-    const node = L.DomUtil.create('div', 'info-div');
-    Object.keys(types).forEach(type => {
-      const button = L.DomUtil.create('button', 'popup-button btn btn-primary', node);
-      button.innerHTML = types[type];
+    const node = L.DomUtil.create('div', {className: 'info-div'});
+
+    const requestNode = L.DomUtil.create('div', 'request-div', node);
+    requestNode.innerHTML = '<h5>I am a medical worker<h5>'
+
+    Object.keys(  RequestTypes)
+      .forEach(type => {
+      const button = L.DomUtil.create('button', 'popup-button btn btn-secondary', requestNode);
+      button.innerHTML = type;
       button.onclick = (e) => this.onButtonClicked(latlng, type, e);
     });
+
+    const supplyNode = L.DomUtil.create('div', 'request-div', node);
+    supplyNode.innerHTML = '<h5>I am a maker/manufacturer<h5>'
+
+    Object.keys(  SupplTypes )
+      .forEach(type => {
+        const button = L.DomUtil.create('button', 'popup-button btn btn-secondary', supplyNode);
+        button.innerHTML = type;
+        button.onclick = (e) => this.onButtonClicked(latlng, type, e);
+      });
     return node;
   }
 
@@ -253,9 +279,9 @@ class MapComponent extends React.Component<MapProps, State> {
 
 
 
-    if (this.state.type === types['Get MS'])
+    if (this.state.type === types['Request Medical Supplies'])
       return <Redirect to={requestPPEparam}/>
-    else if (this.state.type === types['Supply MS']) {
+    else if (this.state.type === types['Supply Medical Supplies']) {
       return <Redirect to={offerPPEparam}/>
     }
 
@@ -272,7 +298,7 @@ class MapComponent extends React.Component<MapProps, State> {
               closeOnDocumentClick
               onClose={this.closeModal}>
               {
-                this.state.type === types.Available
+                this.state.type === types['Browse Available']
                   ? <PostedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
                   : <RequestedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
               }
