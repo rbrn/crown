@@ -72,7 +72,7 @@ class RequestedItemsComponent extends React.Component<Props, State> {
 
   claimItem = (item) => () => {
     const {position: {lat, lng}} = this.props;
-    const redirect = `${config.getNewClaimUrl}?x=${lat}&y=${lng}&receiverResourceId=${item.id}`
+    const redirect = `${config.getNewClaimUrlByRequests}?x=${lat}&y=${lng}&receiverResourceId=${item.id}`
     this.setState({redirectUrl: redirect})
   }
 
