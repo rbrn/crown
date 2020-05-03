@@ -1,14 +1,16 @@
 .leaflet-container {
   height: 100vh;
-  width: 100%;
 }
 
 .info-div {
-  width: 800px;
   font-size: 9px;
   color: #615656;
-  position: absolute;
+
   //height: 100px;
+}
+
+.request-div {
+  padding-bottom: 10px;
 }
 
 .leaflet-popup-tip-container {
@@ -25,6 +27,14 @@
 
 .get-items-display {
   padding: 5px;
+}
+
+.get-items-display-details-popup {
+}
+.get-items-display .popup-overlay .popup-content {
+  border: 1px solid red !important;
+  width: 300px;
+  top: 200px;
 }
 
 .crown-header {

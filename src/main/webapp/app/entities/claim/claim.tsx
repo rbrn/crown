@@ -63,14 +63,14 @@ export const Claim = (props: IClaimProps) => {
                   <td>{claim.notes}</td>
                   <td>
                     {claim.receiverResource ? (
-                      <Link to={`receiver-resource/${claim.receiverResource.id}`}>{claim.receiverResource.id}</Link>
+                      <Link to={`receiver-resource/${claim.receiverResource.id}`}>Name: {claim.receiverResource.name}, Receiver: {claim.receiverResource.receiver.name}</Link>
                     ) : (
                       ''
                     )}
                   </td>
                   <td>
                     {claim.supplierResource ? (
-                      <Link to={`supplier-resource/${claim.supplierResource.id}`}>{claim.supplierResource.id}</Link>
+                      <Link to={`supplier-resource/${claim.supplierResource.id}`}>Supplier: {claim.supplierResource?.supplier?.name}, Type: {claim.supplierResource?.resourceType?.name}</Link>
                     ) : (
                       ''
                     )}
