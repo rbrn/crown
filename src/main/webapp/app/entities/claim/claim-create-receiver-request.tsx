@@ -12,15 +12,13 @@ import {createEntity, getEntity, reset, updateEntity} from './claim.reducer';
 import Claim from "app/entities/claim/claim";
 import {defaultValue} from "app/shared/model/claim.model";
 
-export interface IClaimRequestProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IClaimRequestByReceiverProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export const ClaimRequest = (props: IClaimRequestProps) => {
+export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProps) => {
   const [receiverResourceId, setReceiverResourceId] = useState('0');
-  const [supplierResourceId, setSupplierResourceId] = useState('0');
   const [ entity, setEntity] = useState(defaultValue);
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const { claimEntity, receiverResources, supplierResources, loading, updating } = props;
-  const [isAssistedCreation, setIsAssistedCreation] = useState(false)
 
 
   const handleClose = () => {
@@ -28,11 +26,10 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
   };
 
   useEffect(() => {
-    const localSupplierId  = new URLSearchParams(props.location.search).get("supplierResourceId");
+    const localReceiverResourceId  = new URLSearchParams(props.location.search).get("receiverResourceId");
 
-    if(localSupplierId) {
-      setSupplierResourceId( localSupplierId )
-      setIsAssistedCreation(true)
+    if(localReceiverResourceId) {
+      setReceiverResourceId( localReceiverResourceId )
     }
 
     props.getReceiverResources();
@@ -48,12 +45,11 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
 
   useEffect(() => {
 
-   const hardSupplier = props.supplierResources.find( supplierResource=> supplierResource.id === supplierResourceId);
-    if(hardSupplier) {
-        setEntity(  { supplierResource: hardSupplier})
+   const selectedReceiverResource = props.receiverResources.find( receiverResource=> receiverResource.id === receiverResourceId);
+    if(selectedReceiverResource) {
+        setEntity(  { receiverResource : selectedReceiverResource})
     }
-
-  }, [props.supplierResources]);
+  }, [props.receiverResources]);
 
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
@@ -62,8 +58,7 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
         ...values
       };
 
-        props.createEntity(persistent);
-
+      props.createEntity(persistent);
     }
   };
 
@@ -74,11 +69,6 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
           <h2 id="crownApp.claim.home.createOrEditLabel">
             <Translate contentKey="crownApp.claim.home.createOrEditLabel">Create or edit a Claim</Translate>
           </h2>
-        {/*  <pre>
-                          <code>
-                              {JSON.stringify(entity, undefined, 4)}
-                          </code>
-                      </pre>*/}
         </Col>
       </Row>
 
@@ -92,28 +82,31 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                 <Label for="claim-receiverResource">
                   <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
                 </Label>
-                <AvInput id="claim-receiverResource" type="select" className="form-control" name="receiverResource.id">
+                { entity.receiverResource ? (
+                    <Label for="claim-supplierResource">
+                      Supplier: {entity.receiverResource?.receiver.name},
+                      Resource type: {entity.receiverResource?.resourceType?.name},
+                      Quantity: {entity.receiverResource?.quantity}, Id: {entity.receiverResource?.id}
+                    </Label>) :
+                  null}
+              </AvGroup>
+
+              <AvGroup>
+                <Label for="claim-supplierResource">
+                  <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>
+                </Label>
+                <AvInput id="claim-supplierResource" type="select" className="form-control"
+                         name="supplierResource.id">
                   <option value="" key="0" />
-                  {receiverResources
-                    ? receiverResources.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                           {otherEntity.name}
-                        </option>
-                      ))
+                  {supplierResources
+                    ? supplierResources.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                       Supplier: {otherEntity.supplier?.name}, Type: {otherEntity.resourceType?.name}, Quantity: {otherEntity.quantity}, Id: {otherEntity.id}
+                      </option>
+                    ))
                     : null}
                 </AvInput>
               </AvGroup>
-              <AvGroup>
-                <Label for="claim-supplierResource">
-                  <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>:
-                </Label>
-                { entity.supplierResource ? (
-                    <Label for="claim-supplierResource">
-                  Supplier: {entity.supplierResource?.supplier.name}, Resource type: {entity.supplierResource?.resourceType?.name}, Quantity: {entity.supplierResource?.quantity}, Id: {entity.supplierResource?.id}
-                </Label>) :
-                null}
-              </AvGroup>
-
 
               <AvGroup>
                 <Label id="quantityLabel" for="claim-quantity">
@@ -178,4 +171,4 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClaimRequest);
+export default connect(mapStateToProps, mapDispatchToProps)(ClaimRequestByReceiverRequest);
