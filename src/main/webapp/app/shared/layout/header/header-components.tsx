@@ -9,7 +9,7 @@ import appConfig from 'app/config/constants';
 
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
-    <img src="content/images/logo-jhipster.png" alt="Logo" />
+    <img src="content/images/logo-jhipster.png" style={{height:'20px',width:'50px'}} alt="Logo" />
   </div>
 );
 
