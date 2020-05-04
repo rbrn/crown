@@ -18,7 +18,9 @@
         "title": "Supplier Resource"
       },
       "quantity": "Quantity",
-      "cost": "Cost"
+      "cost": "Cost",
+      "resourceType": "Resource Type",
+      "supplier": "Supplier"
     }
   }
 }

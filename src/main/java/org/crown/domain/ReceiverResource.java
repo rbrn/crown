@@ -1,15 +1,16 @@
 package org.crown.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.time.LocalDate;
 
 /**
  * A ReceiverResource.
@@ -34,11 +35,27 @@ public class ReceiverResource implements Serializable {
     @Field("daily_use")
     private Integer dailyUse;
 
+    @NotNull
+    @Field("posted_date")
+    private LocalDate postedDate;
+
     @Field("current_stock")
     private Integer currentStock;
 
+    @Field("expiration")
+    private LocalDate expiration;
+
     @Field("notes")
     private String notes;
+
+    @DBRef
+    @Field("resourceType")
+    private ResourceType resourceType;
+
+    @DBRef
+    @Field("receiver")
+    @JsonIgnoreProperties("receiverResources")
+    private ReceiverSupplier receiver;
 
     public double [] getPosition() {
         return position;
@@ -52,7 +69,7 @@ public class ReceiverResource implements Serializable {
     @GeoSpatialIndexed
     @Field("position")
     private double [] position;
-
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -101,6 +118,19 @@ public class ReceiverResource implements Serializable {
         this.dailyUse = dailyUse;
     }
 
+    public LocalDate getPostedDate() {
+        return postedDate;
+    }
+
+    public ReceiverResource postedDate(LocalDate postedDate) {
+        this.postedDate = postedDate;
+        return this;
+    }
+
+    public void setPostedDate(LocalDate postedDate) {
+        this.postedDate = postedDate;
+    }
+
     public Integer getCurrentStock() {
         return currentStock;
     }
@@ -114,6 +144,19 @@ public class ReceiverResource implements Serializable {
         this.currentStock = currentStock;
     }
 
+    public LocalDate getExpiration() {
+        return expiration;
+    }
+
+    public ReceiverResource expiration(LocalDate expiration) {
+        this.expiration = expiration;
+        return this;
+    }
+
+    public void setExpiration(LocalDate expiration) {
+        this.expiration = expiration;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -125,6 +168,32 @@ public class ReceiverResource implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+
+    public ReceiverResource resourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+        return this;
+    }
+
+    public void setResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public ReceiverSupplier getReceiver() {
+        return receiver;
+    }
+
+    public ReceiverResource receiver(ReceiverSupplier receiverSupplier) {
+        this.receiver = receiverSupplier;
+        return this;
+    }
+
+    public void setReceiver(ReceiverSupplier receiverSupplier) {
+        this.receiver = receiverSupplier;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -144,7 +213,6 @@ public class ReceiverResource implements Serializable {
         return 31;
     }
 
-
     @Override
     public String toString() {
         return "ReceiverResource{" +
@@ -152,7 +220,9 @@ public class ReceiverResource implements Serializable {
             ", name='" + getName() + "'" +
             ", quantity=" + getQuantity() +
             ", dailyUse=" + getDailyUse() +
+            ", postedDate='" + getPostedDate() + "'" +
             ", currentStock=" + getCurrentStock() +
+            ", expiration='" + getExpiration() + "'" +
             ", notes='" + getNotes() + "'" +
             "}";
     }

@@ -238,6 +238,12 @@ export const ReceiverSupplierUpdate = (props: IReceiverSupplierUpdateProps) => {
                 </Label>
                 <AvField id="receiver-supplier-notes" type="text" name="notes" />
               </AvGroup>
+              <AvGroup>
+                <Label id="tagsLabel" for="receiver-supplier-tags">
+                  <Translate contentKey="crownApp.receiverSupplier.tags">Tags</Translate>
+                </Label>
+                <AvField id="receiver-supplier-tags" type="text" name="tags" />
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/receiver-supplier" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

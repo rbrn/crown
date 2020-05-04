@@ -3,18 +3,29 @@ package org.crown.web.rest;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+
+import org.apache.logging.log4j.util.Strings;
 import org.crown.domain.ReceiverResource;
+import org.crown.domain.ReceiverSupplier;
+import org.crown.domain.SupplierResource;
 import org.crown.repository.ReceiverResourceRepository;
+import org.crown.repository.ReceiverSupplierRepository;
+import org.crown.service.ReceiverResourceService;
 import org.crown.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoPage;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -39,11 +50,15 @@ public class ReceiverResourceResource {
     private String applicationName;
 
     private final ReceiverResourceRepository receiverResourceRepository;
+    private final ReceiverResourceService receiverResourceService;
 
-
-    public ReceiverResourceResource(ReceiverResourceRepository receiverResourceRepository) {
+    public ReceiverResourceResource(ReceiverResourceRepository receiverResourceRepository, ReceiverResourceService receiverResourceService) {
         this.receiverResourceRepository = receiverResourceRepository;
+        this.receiverResourceService = receiverResourceService;
     }
+
+    @Autowired
+    private ReceiverSupplierRepository receiverSupplierRepository;
 
     /**
      * {@code POST  /receiver-resources} : Create a new receiverResource.
@@ -58,8 +73,19 @@ public class ReceiverResourceResource {
         if (receiverResource.getId() != null) {
             throw new BadRequestAlertException("A new receiverResource cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+
+        if(receiverSupplierRepository.countAllByEmail(receiverResource.getReceiver().getEmail()) == 0){
+            ReceiverSupplier receiverSupplier =  receiverSupplierRepository.save(receiverResource.getReceiver());
+            receiverResource.setReceiver(receiverSupplier);
+        } else {
+            ReceiverSupplier receiverSupplier =  receiverSupplierRepository.findByEmail(receiverResource.getReceiver().getEmail());
+            receiverResource.setReceiver(receiverSupplier);
+        }
+
+
         ReceiverResource result = receiverResourceRepository.save(receiverResource);
-        
+
         return ResponseEntity.created(new URI("/api/receiver-resources/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -81,7 +107,7 @@ public class ReceiverResourceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         ReceiverResource result = receiverResourceRepository.save(receiverResource);
-        
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, receiverResource.getId().toString()))
             .body(result);
@@ -94,11 +120,14 @@ public class ReceiverResourceResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of receiverResources in body.
      */
     @GetMapping("/receiver-resources")
+
     public ResponseEntity<List<ReceiverResource>> getAllReceiverResources(Pageable pageable) {
         log.debug("REST request to get a page of ReceiverResources");
-        Page<ReceiverResource> page = receiverResourceRepository.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+
+        List<ReceiverResource> filtered = receiverResourceService.getAllReceiverResources(pageable);
+        Page<ReceiverResource> receiverResourcePage1 = new PageImpl<ReceiverResource>(filtered);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), receiverResourcePage1);
+        return ResponseEntity.ok().headers(headers).body(filtered);
     }
 
     /**
@@ -137,12 +166,15 @@ public class ReceiverResourceResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/receiver-resources")
-    public ResponseEntity<List<ReceiverResource>> searchReceiverResources(@RequestParam double x, double y, 
+    public ResponseEntity<?> searchReceiverResources(@RequestParam double x, double y,
     		double distance, Pageable pageable, String units) {
         log.debug("REST request to search for a page of ReceiverResources for longitude: {} latitude:{} distance: {}", x, y, distance);
         Point point = new Point(x, y);
-		Distance dist = new Distance(distance);
-        Page<ReceiverResource> page = receiverResourceRepository.findByPositionNear(point, dist, pageable);
+        Metrics metrics = Metrics.MILES;
+        if(!Strings.isBlank(units) && units.equals("km"))
+        	 metrics = Metrics.KILOMETERS;
+		Distance dist = new Distance(distance, metrics);
+		GeoPage<ReceiverResource> page = receiverResourceRepository.findByPositionNear(point, dist, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

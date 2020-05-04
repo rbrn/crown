@@ -113,6 +113,8 @@ describe('ReceiverSupplier e2e test', () => {
     expect(await receiverSupplierUpdatePage.getPriorityInput()).to.eq('5');
     await receiverSupplierUpdatePage.setNotesInput('notes');
     expect(await receiverSupplierUpdatePage.getNotesInput()).to.match(/notes/);
+    await receiverSupplierUpdatePage.setTagsInput('tags');
+    expect(await receiverSupplierUpdatePage.getTagsInput()).to.match(/tags/);
     await waitUntilDisplayed(receiverSupplierUpdatePage.saveButton);
     await receiverSupplierUpdatePage.save();
     await waitUntilHidden(receiverSupplierUpdatePage.saveButton);

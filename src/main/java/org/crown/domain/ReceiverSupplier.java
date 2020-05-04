@@ -1,13 +1,15 @@
 package org.crown.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A ReceiverSupplier.
@@ -24,7 +26,6 @@ public class ReceiverSupplier implements Serializable {
     @Field("name")
     private String name;
 
-    @NotNull
     @Field("address")
     private String address;
 
@@ -36,11 +37,10 @@ public class ReceiverSupplier implements Serializable {
     @Field("primary_contact_name")
     private String primaryContactName;
 
-    @NotNull
+
     @Field("zip")
     private String zip;
 
-    @NotNull
     @Field("phonenumber")
     private String phonenumber;
 
@@ -50,15 +50,13 @@ public class ReceiverSupplier implements Serializable {
     @Field("longy")
     private Float longy;
 
-    @NotNull
     @Field("city")
     private String city;
 
-    @NotNull
+
     @Field("state")
     private String state;
 
-    @NotNull
     @Field("country")
     private String country;
 
@@ -80,7 +78,16 @@ public class ReceiverSupplier implements Serializable {
     @Field("notes")
     private String notes;
 
-	private GeoJsonPoint position;
+    @Field("tags")
+    private String tags;
+
+    @DBRef
+    @Field("receiverResource")
+    private Set<ReceiverResource> receiverResources = new HashSet<>();
+
+    @DBRef
+    @Field("supplierResource")
+    private Set<SupplierResource> supplierResources = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -311,16 +318,71 @@ public class ReceiverSupplier implements Serializable {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public ReceiverSupplier tags(String tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Set<ReceiverResource> getReceiverResources() {
+        return receiverResources;
+    }
+
+    public ReceiverSupplier receiverResources(Set<ReceiverResource> receiverResources) {
+        this.receiverResources = receiverResources;
+        return this;
+    }
+
+    public ReceiverSupplier addReceiverResource(ReceiverResource receiverResource) {
+        this.receiverResources.add(receiverResource);
+        receiverResource.setReceiver(this);
+        return this;
+    }
+
+    public ReceiverSupplier removeReceiverResource(ReceiverResource receiverResource) {
+        this.receiverResources.remove(receiverResource);
+        receiverResource.setReceiver(null);
+        return this;
+    }
+
+    public void setReceiverResources(Set<ReceiverResource> receiverResources) {
+        this.receiverResources = receiverResources;
+    }
+
+    public Set<SupplierResource> getSupplierResources() {
+        return supplierResources;
+    }
+
+    public ReceiverSupplier supplierResources(Set<SupplierResource> supplierResources) {
+        this.supplierResources = supplierResources;
+        return this;
+    }
+
+    public ReceiverSupplier addSupplierResource(SupplierResource supplierResource) {
+        this.supplierResources.add(supplierResource);
+        supplierResource.setSupplier(this);
+        return this;
+    }
+
+    public ReceiverSupplier removeSupplierResource(SupplierResource supplierResource) {
+        this.supplierResources.remove(supplierResource);
+        supplierResource.setSupplier(null);
+        return this;
+    }
+
+    public void setSupplierResources(Set<SupplierResource> supplierResources) {
+        this.supplierResources = supplierResources;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    
-    public GeoJsonPoint getPosition() {
-		return position;
-	}
-
-	public void setPosition(GeoJsonPoint pos) {
-		this.position = pos;
-	}
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -358,6 +420,7 @@ public class ReceiverSupplier implements Serializable {
             ", hasSterilization='" + isHasSterilization() + "'" +
             ", priority=" + getPriority() +
             ", notes='" + getNotes() + "'" +
+            ", tags='" + getTags() + "'" +
             "}";
     }
 }

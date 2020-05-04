@@ -1,25 +1,12 @@
 package org.crown.web.rest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.List;
-
 import org.crown.CrownApp;
 import org.crown.domain.ReceiverResource;
+import org.crown.domain.ResourceType;
 import org.crown.repository.ReceiverResourceRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,11 +14,21 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 /**
  * Integration tests for the {@link ReceiverResourceResource} REST controller.
  */
 @SpringBootTest(classes = CrownApp.class)
-@ExtendWith(MockitoExtension.class)
+
 @AutoConfigureMockMvc
 @WithMockUser
 public class ReceiverResourceResourceIT {
@@ -45,6 +42,9 @@ public class ReceiverResourceResourceIT {
     private static final Integer DEFAULT_DAILY_USE = 1;
     private static final Integer UPDATED_DAILY_USE = 2;
 
+    private static final LocalDate DEFAULT_POSTED_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_POSTED_DATE = LocalDate.now(ZoneId.systemDefault());
+
     private static final Integer DEFAULT_CURRENT_STOCK = 1;
     private static final Integer UPDATED_CURRENT_STOCK = 2;
 
@@ -53,7 +53,6 @@ public class ReceiverResourceResourceIT {
 
     @Autowired
     private ReceiverResourceRepository receiverResourceRepository;
-
 
     @Autowired
     private MockMvc restReceiverResourceMockMvc;
@@ -71,8 +70,14 @@ public class ReceiverResourceResourceIT {
             .name(DEFAULT_NAME)
             .quantity(DEFAULT_QUANTITY)
             .dailyUse(DEFAULT_DAILY_USE)
+            .postedDate(DEFAULT_POSTED_DATE)
             .currentStock(DEFAULT_CURRENT_STOCK)
             .notes(DEFAULT_NOTES);
+        // Add required entity
+        ResourceType resourceType;
+        resourceType = ResourceTypeResourceIT.createEntity();
+        resourceType.setId("fixed-id-for-tests");
+        receiverResource.setResourceType(resourceType);
         return receiverResource;
     }
     /**
@@ -86,8 +91,14 @@ public class ReceiverResourceResourceIT {
             .name(UPDATED_NAME)
             .quantity(UPDATED_QUANTITY)
             .dailyUse(UPDATED_DAILY_USE)
+            .postedDate(UPDATED_POSTED_DATE)
             .currentStock(UPDATED_CURRENT_STOCK)
             .notes(UPDATED_NOTES);
+        // Add required entity
+        ResourceType resourceType;
+        resourceType = ResourceTypeResourceIT.createUpdatedEntity();
+        resourceType.setId("fixed-id-for-tests");
+        receiverResource.setResourceType(resourceType);
         return receiverResource;
     }
 
@@ -114,9 +125,9 @@ public class ReceiverResourceResourceIT {
         assertThat(testReceiverResource.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testReceiverResource.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testReceiverResource.getDailyUse()).isEqualTo(DEFAULT_DAILY_USE);
+        assertThat(testReceiverResource.getPostedDate()).isEqualTo(DEFAULT_POSTED_DATE);
         assertThat(testReceiverResource.getCurrentStock()).isEqualTo(DEFAULT_CURRENT_STOCK);
         assertThat(testReceiverResource.getNotes()).isEqualTo(DEFAULT_NOTES);
-
     }
 
     @Test
@@ -135,7 +146,6 @@ public class ReceiverResourceResourceIT {
         // Validate the ReceiverResource in the database
         List<ReceiverResource> receiverResourceList = receiverResourceRepository.findAll();
         assertThat(receiverResourceList).hasSize(databaseSizeBeforeCreate);
-
     }
 
 
@@ -191,6 +201,23 @@ public class ReceiverResourceResourceIT {
     }
 
     @Test
+    public void checkPostedDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = receiverResourceRepository.findAll().size();
+        // set the field null
+        receiverResource.setPostedDate(null);
+
+        // Create the ReceiverResource, which fails.
+
+        restReceiverResourceMockMvc.perform(post("/api/receiver-resources").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(receiverResource)))
+            .andExpect(status().isBadRequest());
+
+        List<ReceiverResource> receiverResourceList = receiverResourceRepository.findAll();
+        assertThat(receiverResourceList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllReceiverResources() throws Exception {
         // Initialize the database
         receiverResourceRepository.save(receiverResource);
@@ -203,6 +230,7 @@ public class ReceiverResourceResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
             .andExpect(jsonPath("$.[*].dailyUse").value(hasItem(DEFAULT_DAILY_USE)))
+            .andExpect(jsonPath("$.[*].postedDate").value(hasItem(DEFAULT_POSTED_DATE.toString())))
             .andExpect(jsonPath("$.[*].currentStock").value(hasItem(DEFAULT_CURRENT_STOCK)))
             .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
     }
@@ -220,6 +248,7 @@ public class ReceiverResourceResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
             .andExpect(jsonPath("$.dailyUse").value(DEFAULT_DAILY_USE))
+            .andExpect(jsonPath("$.postedDate").value(DEFAULT_POSTED_DATE.toString()))
             .andExpect(jsonPath("$.currentStock").value(DEFAULT_CURRENT_STOCK))
             .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES));
     }
@@ -244,6 +273,7 @@ public class ReceiverResourceResourceIT {
             .name(UPDATED_NAME)
             .quantity(UPDATED_QUANTITY)
             .dailyUse(UPDATED_DAILY_USE)
+            .postedDate(UPDATED_POSTED_DATE)
             .currentStock(UPDATED_CURRENT_STOCK)
             .notes(UPDATED_NOTES);
 
@@ -259,9 +289,9 @@ public class ReceiverResourceResourceIT {
         assertThat(testReceiverResource.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testReceiverResource.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testReceiverResource.getDailyUse()).isEqualTo(UPDATED_DAILY_USE);
+        assertThat(testReceiverResource.getPostedDate()).isEqualTo(UPDATED_POSTED_DATE);
         assertThat(testReceiverResource.getCurrentStock()).isEqualTo(UPDATED_CURRENT_STOCK);
         assertThat(testReceiverResource.getNotes()).isEqualTo(UPDATED_NOTES);
-
     }
 
     @Test
@@ -279,7 +309,6 @@ public class ReceiverResourceResourceIT {
         // Validate the ReceiverResource in the database
         List<ReceiverResource> receiverResourceList = receiverResourceRepository.findAll();
         assertThat(receiverResourceList).hasSize(databaseSizeBeforeUpdate);
-
     }
 
     @Test
@@ -297,6 +326,5 @@ public class ReceiverResourceResourceIT {
         // Validate the database contains one less item
         List<ReceiverResource> receiverResourceList = receiverResourceRepository.findAll();
         assertThat(receiverResourceList).hasSize(databaseSizeBeforeDelete - 1);
-
     }
 }

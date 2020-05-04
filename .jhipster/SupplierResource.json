@@ -16,7 +16,24 @@
             ]
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "resourceType",
+            "otherEntityRelationshipName": "supplierResource",
+            "relationshipValidateRules": "required",
+            "relationshipName": "resourceType",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "receiverSupplier",
+            "otherEntityRelationshipName": "supplierResource",
+            "relationshipName": "supplier",
+            "otherEntityField": "name"
+        }
+    ],
     "changelogDate": "20200402072900",
     "entityTableName": "supplier_resource",
     "dto": "no",

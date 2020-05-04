@@ -1,0 +1,25 @@
+{
+  "crownApp": {
+    "claim": {
+      "home": {
+        "title": "Claims",
+        "createLabel": "Crear nuevo Claim",
+        "createOrEditLabel": "Crear o editar Claim",
+        "notFound": "Ningún Claims encontrado"
+      },
+      "created": "Un nuevo Claim ha sido creado con el identificador {{ param }}",
+      "updated": "Un Claim ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Claim ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Claim {{ id }}?"
+      },
+      "detail": {
+        "title": "Claim"
+      },
+      "quantity": "Quantity",
+      "notes": "Notes",
+      "receiverResource": "Receiver Resource",
+      "supplierResource": "Supplier Resource"
+    }
+  }
+}

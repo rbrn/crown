@@ -15,14 +15,18 @@ entity ReceiverSupplier {
     isSupplier Boolean,
     hasSterilization Boolean,
     priority Integer,
-    notes String
+    notes String,
+    tags String,
 }
+
 entity ReceiverResource {
-	name String required,
+    name String required,
     quantity Integer required,
     dailyUse Integer required,
+    postedDate LocalDate required,
     currentStock Integer,
-	notes String
+    expiration LocalDate,
+    notes String
 }
 
 entity SupplierResource {
@@ -36,10 +40,40 @@ entity Delivery {
 	notes String
 }
 
-
-relationship OneToOne {
-    Request{resource required} to Resource
+entity ResourceType {
+    name String required,
+    notes String
 }
 
+entity Claim {
+    quantity Integer required,
+    notes String,
+}
+
+relationship OneToOne {
+    ReceiverResource{resourceType(name) required} to ResourceType
+}
+
+relationship OneToOne {
+    SupplierResource{resourceType(name) required} to ResourceType
+}
+
+relationship OneToOne {
+    Claim{receiverResource required} to ReceiverResource
+}
+
+relationship OneToOne {
+    Claim{supplierResource required} to SupplierResource
+}
+
+relationship OneToMany {
+     ReceiverSupplier{receiverResource(name)} to ReceiverResource{receiver(name)}
+}
+
+relationship OneToMany {
+     ReceiverSupplier{supplierResource(name)} to SupplierResource{supplier(name)}
+}
+
+
 // Set pagination options
-paginate ReceiverSupplier, ReceiverResource, SupplierResource, Delivery with infinite-scroll
+paginate ReceiverSupplier, ReceiverResource, SupplierResource, Delivery, ResourceType with infinite-scroll

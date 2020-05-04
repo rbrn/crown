@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, ICrudGetAction } from 'react-jhipster';
+import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -44,17 +44,41 @@ export const ReceiverResourceDetail = (props: IReceiverResourceDetailProps) => {
           </dt>
           <dd>{receiverResourceEntity.dailyUse}</dd>
           <dt>
+            <span id="postedDate">
+              <Translate contentKey="crownApp.receiverResource.postedDate">Posted Date</Translate>
+            </span>
+          </dt>
+          <dd>
+            <TextFormat value={receiverResourceEntity.postedDate} type="date" format={APP_LOCAL_DATE_FORMAT} />
+          </dd>
+          <dt>
             <span id="currentStock">
               <Translate contentKey="crownApp.receiverResource.currentStock">Current Stock</Translate>
             </span>
           </dt>
           <dd>{receiverResourceEntity.currentStock}</dd>
           <dt>
+            <span id="expiration">
+              <Translate contentKey="crownApp.receiverResource.expiration">Expiration</Translate>
+            </span>
+          </dt>
+          <dd>
+            <TextFormat value={receiverResourceEntity.expiration} type="date" format={APP_LOCAL_DATE_FORMAT} />
+          </dd>
+          <dt>
             <span id="notes">
               <Translate contentKey="crownApp.receiverResource.notes">Notes</Translate>
             </span>
           </dt>
           <dd>{receiverResourceEntity.notes}</dd>
+          <dt>
+            <Translate contentKey="crownApp.receiverResource.resourceType">Resource Type</Translate>
+          </dt>
+          <dd>{receiverResourceEntity.resourceType ? receiverResourceEntity.resourceType.name : ''}</dd>
+          <dt>
+            <Translate contentKey="crownApp.receiverResource.receiver">Receiver</Translate>
+          </dt>
+          <dd>{receiverResourceEntity.receiver ? receiverResourceEntity.receiver.name : ''}</dd>
         </dl>
         <Button tag={Link} to="/receiver-resource" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

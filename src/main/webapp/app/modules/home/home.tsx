@@ -1,10 +1,7 @@
 import './home.scss';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
-import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import {connect} from 'react-redux';
 
 import Map from '../map/map';
 
@@ -12,7 +9,7 @@ export type IHomeProp = StateProps;
 
 export const Home = (props: IHomeProp) => {
   const { account } = props;
-  if (!(account && account.login)) {
+/*  if (!(account && account.login)) {
     return (
       <div>
         <Alert color="warning">
@@ -35,7 +32,7 @@ export const Home = (props: IHomeProp) => {
         </Alert>
       </div>
     )
-  }
+  }*/
   return (
     <Map />
   );

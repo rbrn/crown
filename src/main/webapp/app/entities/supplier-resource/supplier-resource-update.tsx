@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities as getResourceTypes} from 'app/entities/resource-type/resource-type.reducer';
+import {getEntities as getReceiverSuppliers} from 'app/entities/receiver-supplier/receiver-supplier.reducer';
+import {createEntity, getEntity, reset, updateEntity} from './supplier-resource.reducer';
 
-import { getEntity, updateEntity, createEntity, reset } from './supplier-resource.reducer';
-import { ISupplierResource } from 'app/shared/model/supplier-resource.model';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
-
-export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
+  const [resourceTypeId, setResourceTypeId] = useState('0');
+  const [supplierId, setSupplierId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { supplierResourceEntity, loading, updating } = props;
+  const {supplierResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account} = props;
+  let lat;
+  let lng;
 
   const handleClose = () => {
     props.history.push('/supplier-resource');
@@ -27,6 +30,8 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
     if (!isNew) {
       props.getEntity(props.match.params.id);
     }
+    props.getResourceTypes();
+    props.getReceiverSuppliers();
   }, []);
 
   useEffect(() => {
@@ -43,6 +48,18 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
       };
 
       if (isNew) {
+        const query = new URLSearchParams(props.location.search);
+        lat = query.get('lat');
+        lng = query.get('lng');
+        entity.position = [lat, lng]
+
+        entity.supplier = {
+          email: account.email,
+          latx: lat,
+          longy: lng,
+          name: account.firstName + " " + account.lastName,
+          primaryContactName: account.email
+        };
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);
@@ -55,7 +72,8 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="crownApp.supplierResource.home.createOrEditLabel">
-            <Translate contentKey="crownApp.supplierResource.home.createOrEditLabel">Create or edit a SupplierResource</Translate>
+            <Translate contentKey="crownApp.supplierResource.home.createOrEditLabel">Create or edit a
+              SupplierResource</Translate>
           </h2>
         </Col>
       </Row>
@@ -70,9 +88,25 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   <Label for="supplier-resource-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="supplier-resource-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="supplier-resource-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
+              <AvGroup>
+                <Label for="supplier-resource-resourceType">
+                  <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate>
+                </Label>
+                <AvInput id="supplier-resource-resourceType" type="select" className="form-control"
+                         name="resourceType.id">
+                  <option value="" key="0"/>
+                  {resourceTypes
+                    ? resourceTypes.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.name}
+                      </option>
+                    ))
+                    : null}
+                </AvInput>
+              </AvGroup>
               <AvGroup>
                 <Label id="quantityLabel" for="supplier-resource-quantity">
                   <Translate contentKey="crownApp.supplierResource.quantity">Quantity</Translate>
@@ -83,8 +117,8 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   className="form-control"
                   name="quantity"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
               </AvGroup>
@@ -98,13 +132,14 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   className="form-control"
                   name="cost"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
               </AvGroup>
+
               <Button tag={Link} id="cancel-save" to="/supplier-resource" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -112,7 +147,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>
@@ -125,13 +160,18 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  resourceTypes: storeState.resourceType.entities,
+  receiverSuppliers: storeState.receiverSupplier.entities,
   supplierResourceEntity: storeState.supplierResource.entity,
   loading: storeState.supplierResource.loading,
   updating: storeState.supplierResource.updating,
-  updateSuccess: storeState.supplierResource.updateSuccess
+  updateSuccess: storeState.supplierResource.updateSuccess,
+  account: storeState.authentication.account
 });
 
 const mapDispatchToProps = {
+  getResourceTypes,
+  getReceiverSuppliers,
   getEntity,
   updateEntity,
   createEntity,

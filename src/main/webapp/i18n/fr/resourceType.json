@@ -1,0 +1,24 @@
+{
+  "crownApp": {
+    "resourceType": {
+      "home": {
+        "title": "ResourceTypes",
+        "createLabel": "Créer un nouveau Resource Type",
+        "createOrEditLabel": "Créer ou éditer un Resource Type",
+        "search": "Recherche pour Resource Type",
+        "notFound": "Aucun Resource Type trouvé"
+      },
+      "created": "Un nouveau Resource Type a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Resource Type avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Resource Type avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Resource Type {{ id }} ?"
+      },
+      "detail": {
+        "title": "Resource Type"
+      },
+      "name": "Name",
+      "notes": "Notes"
+    }
+  }
+}

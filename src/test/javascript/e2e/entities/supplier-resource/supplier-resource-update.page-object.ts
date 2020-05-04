@@ -6,6 +6,8 @@ export default class SupplierResourceUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   quantityInput: ElementFinder = element(by.css('input#supplier-resource-quantity'));
   costInput: ElementFinder = element(by.css('input#supplier-resource-cost'));
+  resourceTypeSelect: ElementFinder = element(by.css('select#supplier-resource-resourceType'));
+  supplierSelect: ElementFinder = element(by.css('select#supplier-resource-supplier'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -25,6 +27,44 @@ export default class SupplierResourceUpdatePage {
 
   async getCostInput() {
     return this.costInput.getAttribute('value');
+  }
+
+  async resourceTypeSelectLastOption() {
+    await this.resourceTypeSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async resourceTypeSelectOption(option) {
+    await this.resourceTypeSelect.sendKeys(option);
+  }
+
+  getResourceTypeSelect() {
+    return this.resourceTypeSelect;
+  }
+
+  async getResourceTypeSelectedOption() {
+    return this.resourceTypeSelect.element(by.css('option:checked')).getText();
+  }
+
+  async supplierSelectLastOption() {
+    await this.supplierSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async supplierSelectOption(option) {
+    await this.supplierSelect.sendKeys(option);
+  }
+
+  getSupplierSelect() {
+    return this.supplierSelect;
+  }
+
+  async getSupplierSelectedOption() {
+    return this.supplierSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

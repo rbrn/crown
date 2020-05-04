@@ -13,6 +13,8 @@ import Request from './request';
 import ReceiverSupplier from './receiver-supplier';
 import ReceiverResource from './receiver-resource';
 import SupplierResource from './supplier-resource';
+import ResourceType from './resource-type';
+import Claim from './claim';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -28,6 +30,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}receiver-supplier`} component={ReceiverSupplier} />
       <ErrorBoundaryRoute path={`${match.url}receiver-resource`} component={ReceiverResource} />
       <ErrorBoundaryRoute path={`${match.url}supplier-resource`} component={SupplierResource} />
+      <ErrorBoundaryRoute path={`${match.url}resource-type`} component={ResourceType} />
+      <ErrorBoundaryRoute path={`${match.url}claim`} component={Claim} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

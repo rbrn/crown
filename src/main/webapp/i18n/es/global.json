@@ -16,6 +16,8 @@
         "receiverSupplier": "Receiver Supplier",
         "receiverResource": "Receiver Resource",
         "supplierResource": "Supplier Resource",
+        "resourceType": "Resource Type",
+        "claim": "Claim",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

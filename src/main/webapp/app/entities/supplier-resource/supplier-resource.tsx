@@ -160,6 +160,12 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
                   <th className="hand" onClick={sort('cost')}>
                     <Translate contentKey="crownApp.supplierResource.cost">Cost</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th>
+                    <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th>
+                    <Translate contentKey="crownApp.supplierResource.supplier">Supplier</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -173,6 +179,20 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
                     </td>
                     <td>{supplierResource.quantity}</td>
                     <td>{supplierResource.cost}</td>
+                    <td>
+                      {supplierResource.resourceType ? (
+                        <Link to={`resource-type/${supplierResource.resourceType.id}`}>{supplierResource.resourceType.name}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </td>
+                    <td>
+                      {supplierResource.supplier ? (
+                        <Link to={`receiver-supplier/${supplierResource.supplier.id}`}>{supplierResource.supplier.name}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${supplierResource.id}`} color="info" size="sm">
@@ -218,7 +238,7 @@ const mapStateToProps = ({ supplierResource }: IRootState) => ({
   totalItems: supplierResource.totalItems,
   links: supplierResource.links,
   entity: supplierResource.entity,
-  updateSuccess: supplierResource.updateSuccess
+  updateSuccess: supplierResource.updateSuccess,
 });
 
 const mapDispatchToProps = {

@@ -37,6 +37,14 @@ export const SupplierResourceDetail = (props: ISupplierResourceDetailProps) => {
             </span>
           </dt>
           <dd>{supplierResourceEntity.cost}</dd>
+          <dt>
+            <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate>
+          </dt>
+          <dd>{supplierResourceEntity.resourceType ? supplierResourceEntity.resourceType.name : ''}</dd>
+          <dt>
+            <Translate contentKey="crownApp.supplierResource.supplier">Supplier</Translate>
+          </dt>
+          <dd>{supplierResourceEntity.supplier ? supplierResourceEntity.supplier.name : ''}</dd>
         </dl>
         <Button tag={Link} to="/supplier-resource" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

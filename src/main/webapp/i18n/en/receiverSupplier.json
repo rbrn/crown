@@ -5,7 +5,6 @@
         "title": "Receiver Suppliers",
         "createLabel": "Create a new Receiver Supplier",
         "createOrEditLabel": "Create or edit a Receiver Supplier",
-        "search": "Search for Receiver Supplier",
         "notFound": "No Receiver Suppliers found"
       },
       "created": "A new Receiver Supplier is created with identifier {{ param }}",
@@ -33,7 +32,10 @@
       "isSupplier": "Is Supplier",
       "hasSterilization": "Has Sterilization",
       "priority": "Priority",
-      "notes": "Notes"
+      "notes": "Notes",
+      "tags": "Tags",
+      "receiverResource": "Receiver Resource",
+      "supplierResource": "Supplier Resource"
     }
   }
 }

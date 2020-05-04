@@ -127,6 +127,12 @@ export const ReceiverSupplierDetail = (props: IReceiverSupplierDetailProps) => {
             </span>
           </dt>
           <dd>{receiverSupplierEntity.notes}</dd>
+          <dt>
+            <span id="tags">
+              <Translate contentKey="crownApp.receiverSupplier.tags">Tags</Translate>
+            </span>
+          </dt>
+          <dd>{receiverSupplierEntity.tags}</dd>
         </dl>
         <Button tag={Link} to="/receiver-supplier" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

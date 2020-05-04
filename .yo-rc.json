@@ -1,5 +1,4 @@
-{
-  "generator-jhipster": {
+{  "generator-jhipster": {
     "promptValues": {
       "packageName": "org.crown",
       "nativeLanguage": "en"
@@ -17,7 +16,6 @@
     "databaseType": "mongodb",
     "devDatabaseType": "mongodb",
     "prodDatabaseType": "mongodb",
-    "searchEngine": "elasticsearch",
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
