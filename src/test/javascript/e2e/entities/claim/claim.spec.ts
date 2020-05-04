@@ -63,6 +63,7 @@ describe('Claim e2e test', () => {
         expect(await claimUpdatePage.getQuantityInput()).to.eq('5');
         await claimUpdatePage.setNotesInput('notes');
         expect(await claimUpdatePage.getNotesInput()).to.match(/notes/);
+        await claimUpdatePage.statusSelectLastOption();
         await claimUpdatePage.receiverResourceSelectLastOption();
         await claimUpdatePage.supplierResourceSelectLastOption();
         await waitUntilDisplayed(claimUpdatePage.saveButton);
