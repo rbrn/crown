@@ -1,4 +1,5 @@
-{  "generator-jhipster": {
+{
+  "generator-jhipster": {
     "promptValues": {
       "packageName": "org.crown",
       "nativeLanguage": "en"
