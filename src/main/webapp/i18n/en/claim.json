@@ -18,6 +18,7 @@
       },
       "quantity": "Quantity",
       "notes": "Notes",
+      "status": "Status",
       "receiverResource": "Receiver Resource",
       "supplierResource": "Supplier Resource"
     }

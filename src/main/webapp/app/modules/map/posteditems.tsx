@@ -6,198 +6,198 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Popup from "reactjs-popup";
 import {LatLng} from './map';
 import config from './apiConfig.json';
-import NumberFormat from 'react-number-format';
+import {Redirect} from "react-router-dom";
 
 export interface OwnProps {
-    position: LatLng,
-    radius: number,
+  position: LatLng,
+  radius: number,
 };
 
 type Props = StateProps & DispatchProps & OwnProps
 
 // make this header based on given information
 const headers = ["Item Type", "Quantity", "Action"]
-const drilDownheaders = ["Supplier Name", "Email", "Quantity", "Claim"]
-const columns = ["Item Type", "Quantity"]
-
-const actionItems = [
-    {
-        icon: 'trash',
-        color: 'red',
-        style: {cursor: 'pointer'},
-    },
-    {
-        icon: 'pencil-alt',
-        color: 'blue',
-        style: {cursor: 'pointer'},
-    },
-    {
-        icon: 'eye',
-        color: 'green',
-        style: {cursor: 'pointer'},
-    },
-]
+const drilDownheaders = ["Supplier Name", "Email", "Quantity", "Request"]
 
 type State = {
-    viewIndex: number,
-    fetchedData: any
+  viewIndex: number,
+  fetchedData: any,
+  redirectUrl: string,
 };
 
 class PostedItemsComponent extends React.Component<Props, State> {
-    state = {
-        viewIndex: -1,
-        fetchedData: [], // mocking the data
-    }
+  state = {
+    viewIndex: -1,
+    fetchedData: [], // mocking the data
+    redirectUrl: ""
+  }
 
-    componentDidMount() {
-        const {position: {lat, lng}, radius} = this.props;
+  componentDidMount() {
+    const {position: {lat, lng}, radius} = this.props;
 
-        axios.get(`${config.getSupplierResourcesAggregatedUri}?distance=${radius}&page=0&size=1000&units=km&x=${lat}&y=${lng}`)
-            .then(({data}) => {
-                this.setState({
-                    fetchedData: data,
-                });
-            })
-    }
-    claimItem = (supplierResourceId, quantity) => () => {
-    	axios.get(`${config.createClaimSupplyUri}?supplierResourceId=${supplierResourceId}&quantity=${quantity}`)
-            .then(() => {
-                alert("claimed");
-            })
-    }
-
-    closeModel = () => {
+    axios.get(`${config.getSupplierResourcesAggregatedUri}?distance=${radius}&page=0&size=1000&units=km&x=${lat}&y=${lng}`)
+      .then(({data}) => {
         this.setState({
-            viewIndex: -1,
+          fetchedData: data,
         });
+      })
+  }
+
+  claimItem = (supplierResourceId, quantity) => () => {
+    const {position: {lat, lng}} = this.props;
+    const redirect = `${config.getNewClaimUrl}?x=${lat}&y=${lng}&supplierResourceId=${supplierResourceId}`
+    this.setState({redirectUrl: redirect})
+  }
+
+  closeModel = () => {
+    this.setState({
+      viewIndex: -1,
+    });
+  }
+
+  handleView = (index) => () => {
+    // implement view feature here
+    this.setState({
+      viewIndex: index
+    });
+  }
+
+
+  render() {
+    if (this.state.redirectUrl !== "") {
+     return <Redirect to={this.state.redirectUrl}/>
     }
 
-    handleView = (index) => () => {
-        // implement view feature here
-        this.setState({
-            viewIndex: index
-        });
-    }
+    const {lat, lng} = this.props.position;
+    const {radius} = this.props;
+    return (
+      <div className="scroll-container">
+      <div className="get-items-display">
+        <div className="panel-heading">Items available in your area</div>
+      
+          {<div className="info-div">
+            <p> Getting data for user: {this.props.account.login} </p>
+            <p> lat, lng: {lat}, {lng} </p>
+            <p> Radius: {radius} KM </p>
+          </div>}
 
-
-    render() {
-        const {lat, lng} = this.props.position;
-        const {radius} = this.props;
-        return (
-            <div className="get-items-display">
-                <div className="panel-heading">Items available in your area</div>
+          <div className="panel-row">
+                <div className="col-sm-6 col-md-6 col-lg-6">
                 <div className="table-responsive">
-                    {<div className="info-div">
-                        <p> Getting data for user: {this.props.account.login} </p>
-                        <p> lat, lng: {lat}, {lng} </p>
-                        <p> Radius: {radius} KM </p>
-                    </div>}
-                    <Table striped bordered hover size="sm">
-                        <thead>
-                        {
-                            headers.map(item => (
-                                <th key={item} scope="col">
-                                    {item}
-                                </th>
-                            ))
-                        }
-                        </thead>
-                        <tbody>
-                        {
-                            // change dummy data with required data
-                            this.state.fetchedData.map((item, index) => (
-                                <tr key={item.itemType}>
-                                    <td key={`${item.itemType}-Type`}>
-                                        {item.itemType}
-                                    </td>
-                                    <td key={`${item.countItems}-Name`}>
-                                        {item.countItems}
-                                    </td>
-                                    <td>
-                                        <div className='action-items flex'>
-                                            {/* <FontAwesomeIcon onClick={this.handleDelete} icon='trash' color='red' style={{cursor: 'pointer'}}/>{' '} */}
-                                            {/* <FontAwesomeIcon onClick={this.handleEdit} icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>{' '} */}
-                                            <FontAwesomeIcon onClick={this.handleView(index)} icon='eye' color='green'
-                                                             style={{cursor: 'pointer'}}/>{' '}
-                                        </div>
-                                        <div>
-                                        </div>
-                                        <div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                        </tbody>
-                    </Table>
-
-                </div>
-                {/* change this accordingly */}
+          <Table striped bordered hover size="sm">
+            <thead>
+            <tr>
+              {
+                headers.map(item => (
+                  <th key={item} scope="col">
+                    {item}
+                  </th>
+                ))
+              }
+            </tr>
+            </thead>
+            <tbody>
+            {
+              // change dummy data with required data
+              this.state.fetchedData.map((item, index) => (
+                <tr key={item.itemType}>
+                  <td key={`${item.itemType}-Type`}>
+                    {item.itemType}
+                  </td>
+                  <td key={`${item.countItems}-Name`}>
+                    {item.countItems}
+                  </td>
+                  <td>
+                    <div className='action-items flex'>
+                      {/* <FontAwesomeIcon onClick={this.handleDelete} icon='trash' color='red' style={{cursor: 'pointer'}}/>{' '} */}
+                      {/* <FontAwesomeIcon onClick={this.handleEdit} icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>{' '} */}
+                      <a onClick={this.handleView(index)}>
+                        <FontAwesomeIcon icon='eye' color='green'
+                                         style={{cursor: 'pointer'}}/>{' Details '}
+                      </a>
+                    </div>
+                    <div>
+                    </div>
+                    <div>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            }
+            </tbody>
+          </Table>
+          </div>
+        </div>
+        {/* change this accordingly */}
+        {
+          this.state.viewIndex !== -1 &&
+          
+          <div className="col-sm-6 col-md-6 col-lg-6" style={{float:'right'}}>
+            <div className="get-items-display-details">
+              <div className="panel-heading">Detailed View</div>
+              <div className="table-responsive">
                 {
-                    this.state.viewIndex !== -1 &&
-                    <Popup
-                        open={this.state.viewIndex !== -1}
-                        closeOnDocumentClick
-                        onClose={this.closeModel}
-                    >
-                        <div className="get-items-display">
-                            <div className="panel-heading">Detailed View</div>
-                            <div className="table-responsive">
-                 {
                   /*   <pre>
                         <code>
                             {JSON.stringify(this.state.fetchedData[this.state.viewIndex].itemTypesList, undefined, 4)}
                         </code>
                     </pre>*/
-                 }
-                            <Table striped bordered hover size="sm">
-                                <thead>
-                                {
-                                    drilDownheaders.map(item => (
-                                        <th key={item} scope="col">
-                                            {item}
-                                        </th>
-                                    ))
-                                }
-                                </thead>
-                                <tbody>
-                                {
-                                    // change dummy data with required data
-                                    this.state.fetchedData[this.state.viewIndex].itemTypesList.map((item, index) => (
-
-                                        <tr key={item.toString() + index}>
-                                          {
-                                              <td key={`${index.toString()}-Name`}>
-                                                  {item.supplier  && item.supplier.name ?  item.supplier.name : ""}
-                                            </td>
-                                          }
-                                            <td key={`${index.toString()}-Email`}>
-                                                {item.supplier  && item.supplier.email ?  item.supplier.email : ""}
-                                            </td>
-                                            <td key={`${item.quantity}-Type`}>
-                                                { item.quantity}
-                                            </td>
-                                            <td>
-                                                <FontAwesomeIcon onClick={ this.claimItem(item.id, item.quantity)} icon='pencil-alt' color='blue'
-                                                             style={{cursor: 'pointer'}}/>{' '}
-                                            </td>
-                                        </tr>
-
-                                    ))
-                                }
-                                </tbody>
-                            </Table>
-                            </div>
-                        </div>
-                    </Popup>
                 }
+                <Table striped bordered hover size="sm">
+                  <thead>
+                  <tr>
+                    {
+                      drilDownheaders.map(item => (
+                        <th key={item} scope="col">
+                          {item}
+                        </th>
+                      ))
+                    }
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {
+                    // change dummy data with required data
+                    this.state.fetchedData[this.state.viewIndex].itemTypesList.map((item, index) => (
+
+                      <tr key={item.toString() + index}>
+                        {
+                          <td key={`${index.toString()}-Name`}>
+                            {item.supplier && item.supplier.name ? item.supplier.name : ""}
+                          </td>
+                        }
+                        <td key={`${index.toString()}-Email`}>
+                          {item.supplier && item.supplier.email ? item.supplier.email : ""}
+                        </td>
+                        <td key={`${item.quantity}-Type`}>
+                          {item.quantity}
+                        </td>
+                        <td>
+                          <button className={'btn btn-primary'} onClick={this.claimItem(item.id, item.quantity)}>
+                            <FontAwesomeIcon
+                              icon='pencil-alt' color='blue'
+                              style={{cursor: 'pointer'}}/> {' Request this resource '}
+                          </button>
+                        </td>
+                      </tr>
+
+                    ))
+                  }
+                  </tbody>
+                </Table>
+                </div>
+              </div>
             </div>
-        )
-    }
+        }
+        </div>
+      </div>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = storeState => ({
-    account: storeState.authentication.account,
+  account: storeState.authentication.account,
 });
 const mapDispatchToProps = {};
 

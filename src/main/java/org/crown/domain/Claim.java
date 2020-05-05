@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.crown.domain.enumeration.ClaimStatusEnum;
+
 /**
  * A Claim.
  */
@@ -26,6 +28,9 @@ public class Claim implements Serializable {
 
     @Field("notes")
     private String notes;
+
+    @Field("status")
+    private ClaimStatusEnum status;
 
     @DBRef
     @Field("receiverResource")
@@ -68,6 +73,19 @@ public class Claim implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public ClaimStatusEnum getStatus() {
+        return status;
+    }
+
+    public Claim status(ClaimStatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(ClaimStatusEnum status) {
+        this.status = status;
     }
 
     public ReceiverResource getReceiverResource() {
@@ -119,6 +137,7 @@ public class Claim implements Serializable {
             "id=" + getId() +
             ", quantity=" + getQuantity() +
             ", notes='" + getNotes() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

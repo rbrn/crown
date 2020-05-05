@@ -1,14 +1,40 @@
+html {
+  --scrollbarBG: #bdd8e7;
+  --thumbBG: #00a1ff;
+  --scrollbarBGDialog: #00a1ff;
+  --thumbBGDialog: #fff;
+}
+body::-webkit-scrollbar {
+  width: 11px;
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border-top-left-radius: 0px;
+  //border: 3px solid var(--scrollbarBG);
+}
+
 .leaflet-container {
   height: 100vh;
   width: 100%;
 }
 
 .info-div {
-  width: 800px;
   font-size: 9px;
   color: #615656;
-  position: absolute;
+
   //height: 100px;
+}
+
+.request-div {
+  padding-bottom: 10px;
 }
 
 .leaflet-popup-tip-container {
@@ -25,6 +51,19 @@
 
 .get-items-display {
   padding: 5px;
+}
+
+.panel-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.get-items-display-details-popup {
+}
+.get-items-display .popup-overlay .popup-content {
+  //  border: 1px solid red !important;
+  width: 300px;
+  top: 200px;
 }
 
 .crown-header {
@@ -96,7 +135,6 @@
 }
 
 .left-panel {
-  height: 100vh;
   background-color: #00a1ff;
   img {
     max-width: 100%;
@@ -105,4 +143,38 @@
     margin: 15px;
     text-align: center;
   }
+}
+
+.scroll-container {
+  max-height: 150px;
+  background: #fff;
+  overflow-y: scroll;
+  max-width: auto;
+  margin: 0 auto;
+  padding: 0.5rem;
+  font: 100%/1.4 serif;
+  //border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 2px !important ;
+  scrollbar-width: auto;
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 14px;
+  -webkit-appearance: none;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: var(--scrollbarBGDialog);
+  border-radius: 20px !important ;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBGDialog);
+  border-radius: 6px;
+  // border: 3px solid var(--scrollbarBGDialog);
+  //box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+/* Handle on hover */
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: whitesmoke;
 }
