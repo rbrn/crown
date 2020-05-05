@@ -2,7 +2,7 @@ import './map.scss';
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Col, Row} from 'reactstrap';
+import {Col, Row, Container} from 'reactstrap';
 import Popup from "reactjs-popup";
 
 import PostedItemsComponent from './posteditems';
@@ -286,12 +286,13 @@ class MapComponent extends React.Component<MapProps, State> {
     }
 
     return (
+      <Container>
       <Row>
         <Col md="3">
           <LeftPanel radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius}/>
         </Col>
         <Col md="9">
-          <div>
+          <div className="shadow-lg p-3 mb-5 bg-white rounded">
             <div id='map-container'></div>
             <Popup
               open={this.state.open}
@@ -307,6 +308,7 @@ class MapComponent extends React.Component<MapProps, State> {
           </div>
         </Col>
       </Row>
+      </Container>
     )
   }
 }
