@@ -71,14 +71,19 @@ class PostedItemsComponent extends React.Component<Props, State> {
     const {lat, lng} = this.props.position;
     const {radius} = this.props;
     return (
+      <div className="scroll-container">
       <div className="get-items-display">
         <div className="panel-heading">Items available in your area</div>
-        <div className="table-responsive">
+      
           {<div className="info-div">
             <p> Getting data for user: {this.props.account.login} </p>
             <p> lat, lng: {lat}, {lng} </p>
             <p> Radius: {radius} KM </p>
           </div>}
+
+          <div className="panel-row">
+                <div className="col-sm-6 col-md-6 col-lg-6">
+                <div className="table-responsive">
           <Table striped bordered hover size="sm">
             <thead>
             <tr>
@@ -121,16 +126,13 @@ class PostedItemsComponent extends React.Component<Props, State> {
             }
             </tbody>
           </Table>
-
+          </div>
         </div>
         {/* change this accordingly */}
         {
           this.state.viewIndex !== -1 &&
-          <Popup position="bottom left"
-                 open={this.state.viewIndex !== -1}
-                 closeOnDocumentClick
-                 onClose={this.closeModel}
-          >
+          
+          <div className="col-sm-6 col-md-6 col-lg-6" style={{float:'right'}}>
             <div className="get-items-display-details">
               <div className="panel-heading">Detailed View</div>
               <div className="table-responsive">
@@ -183,10 +185,12 @@ class PostedItemsComponent extends React.Component<Props, State> {
                   }
                   </tbody>
                 </Table>
+                </div>
               </div>
             </div>
-          </Popup>
         }
+        </div>
+      </div>
       </div>
     )
   }

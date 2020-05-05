@@ -1,0 +1,8 @@
+export const enum ClaimStatusEnum {
+  PENDING = 'PENDING',
+  INREVIEW = 'INREVIEW',
+  ACCEPTED = 'ACCEPTED',
+  FORSHIPPING = 'FORSHIPPING',
+  SHIPPED = 'SHIPPED',
+  DELIVERED = 'DELIVERED'
+}
