@@ -1,13 +1,14 @@
 import React, {createRef} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios'
-import {Table} from 'reactstrap';
+import {Table, Button} from 'reactstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Popup from "reactjs-popup";
 import {LatLng} from './map';
 import config from './apiConfig.json';
 import NumberFormat from 'react-number-format';
 import { toast } from 'react-toastify';
+import {Redirect} from "react-router-dom";
 export interface OwnProps {
   position: LatLng,
   radius: number,
@@ -19,7 +20,7 @@ type Props = StateProps & DispatchProps & OwnProps
 const headers = ["Item Type", "Quantity", "Action"]
 const columns = ["Item Type", "Quantity"]
 
-const drilDownheaders = ["Requested By", "Email", "Quantity", "Claim"]
+const drilDownheaders = ["Requested By", "Email", "Quantity", "Offer"]
 
 const actionItems = [
   {
@@ -41,13 +42,15 @@ const actionItems = [
 
 type State = {
   viewIndex: number,
-  fetchedData: any
+  fetchedData: any,
+  redirectUrl: string,
 };
 
 class RequestedItemsComponent extends React.Component<Props, State> {
   state = {
     viewIndex: -1,
-    fetchedData: [], // mocking the data
+    fetchedData: [],
+    redirectUrl: ''// mocking the data
   }
 
   componentDidMount() {
@@ -67,12 +70,10 @@ class RequestedItemsComponent extends React.Component<Props, State> {
     });
   }
 
-  claimItem(item) {
-    toast.success("This is till a mockup. Will be finished")
-  /*  axios.get(`${config.createClaimUri}?supplierResourceId=${item}&quantity=${item.quantity}`)
-      .then(() => {
-        alert("claimed");
-      })*/
+  claimItem = (item) => () => {
+    const {position: {lat, lng}} = this.props;
+    const redirect = `${config.getNewClaimUrlByRequests}?x=${lat}&y=${lng}&receiverResourceId=${item.id}`
+    this.setState({redirectUrl: redirect})
   }
 
 
@@ -84,10 +85,17 @@ class RequestedItemsComponent extends React.Component<Props, State> {
   }
 
 
+
   render() {
     const {lat, lng} = this.props.position;
     const {radius} = this.props;
+
+    if (this.state.redirectUrl !== "") {
+      return <Redirect to={this.state.redirectUrl}/>
+    }
+
     return (
+      <div className="scroll-container">
       <div className="get-items-display">
         {<div className="info-div">
           <h4>Items requested in your area</h4>
@@ -95,6 +103,8 @@ class RequestedItemsComponent extends React.Component<Props, State> {
           <p> lat, lng: {lat}, {lng} </p>
           <p> Radius: {radius} KM </p>
         </div>}
+        <div className="panel-row">
+        <div className="col-sm-6">
         <div className="table-responsive">
           <Table striped bordered hover size="sm">
             <thead>
@@ -121,8 +131,8 @@ class RequestedItemsComponent extends React.Component<Props, State> {
                     <div className='action-items flex'>
                       {/* <FontAwesomeIcon onClick={this.handleDelete} icon='trash' color='red' style={{cursor: 'pointer'}}/>{' '} */}
                       {/* <FontAwesomeIcon onClick={this.handleEdit} icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>{' '} */}
-                      <FontAwesomeIcon onClick={this.handleView(index)} icon='eye' color='green'
-                                       style={{cursor: 'pointer'}}/>{' '}
+                     <a  onClick={this.handleView(index)}><FontAwesomeIcon icon='eye' color='green'
+                                       style={{cursor: 'pointer'}}/>  {' Details '}</a>
                     </div>
                     <div>
                     </div>
@@ -135,65 +145,64 @@ class RequestedItemsComponent extends React.Component<Props, State> {
             </tbody>
           </Table>
         </div>
+        </div>
         {/* change this accordingly */}
         {
           this.state.viewIndex !== -1 &&
-          <Popup
-            open={this.state.viewIndex !== -1}
-            closeOnDocumentClick
-            onClose={this.closeModel}
-          >
-            <div className="get-items-display">
-              <div className="panel-heading">Detailed View</div>
-              <div className="table-responsive">
-                {
-                  /*   <pre>
-                        <code>
-                            {JSON.stringify(this.state.fetchedData[this.state.viewIndex].itemTypesList, undefined, 4)}
-                        </code>
-                    </pre>*/
-                }
-                <Table striped bordered hover size="sm">
-                  <thead>
+          <div className="col-sm-6" style={{float:'right'}}>
+              <div className="get-items-display-details">
+                <div className="panel-heading">Detailed View</div>
+                <div className="table-responsive">
                   {
-                    drilDownheaders.map(item => (
-                      <th key={item} scope="col">
-                        {item}
-                      </th>
-                    ))
+                    /*   <pre>
+                          <code>
+                              {JSON.stringify(this.state.fetchedData[this.state.viewIndex].itemTypesList, undefined, 4)}
+                          </code>
+                      </pre>*/
                   }
-                  </thead>
-                  <tbody>
-                  {
-                    // change dummy data with required data
-                    this.state.fetchedData[this.state.viewIndex].itemTypesList.map((item, index) => (
+                  <Table striped bordered hover size="sm">
+                    <thead>
+                    {
+                      drilDownheaders.map(item => (
+                        <th key={item} scope="col">
+                          {item}
+                        </th>
+                      ))
+                    }
+                    </thead>
+                    <tbody>
+                    {
+                      // change dummy data with required data
+                      this.state.fetchedData[this.state.viewIndex].itemTypesList.map((item, index) => (
 
-                      <tr key={item.toString() + index}>
-                        {
-                          <td key={`${index.toString()}-Name`}>
-                            {item.name ?  item.name : ""}
+                        <tr key={item.toString() + index}>
+                          {
+                            <td key={`${index.toString()}-Name`}>
+                              {item.name ?  item.name : ""}
+                            </td>
+                          }
+                          <td key={`${index.toString()}-Email`}>
+                            {item  && item.receiver.email ?  item.receiver.email : ""}
                           </td>
-                        }
-                        <td key={`${index.toString()}-Email`}>
-                          {item  && item.receiver.email ?  item.receiver.email : ""}
-                        </td>
-                        <td key={`${item.quantity}-Type`}>
-                          { item.quantity}
-                        </td>
-                        <td>
-                          <FontAwesomeIcon onClick={ event => this.claimItem(item) } icon='pencil-alt' color='blue'
-                                           style={{cursor: 'pointer'}}/>{' '}
-                        </td>
-                      </tr>
+                          <td key={`${item.quantity}-Type`}>
+                            { item.quantity}
+                          </td>
+                          <td>
+                            <button className={'btn btn-primary'} onClick={ this.claimItem(item) }><FontAwesomeIcon  icon='pencil-alt' color='blue'
+                                                                                                                     style={{cursor: 'pointer'}}/>{' Offer to fulfil '}</button>
+                          </td>
+                        </tr>
 
-                    ))
-                  }
-                  </tbody>
-                </Table>
+                      ))
+                    }
+                    </tbody>
+                  </Table>
+                </div>
               </div>
-            </div>
-          </Popup>
+           </div>
         }
+      </div>
+      </div>
       </div>
     )
   }

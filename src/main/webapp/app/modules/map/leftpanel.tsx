@@ -18,14 +18,10 @@ class LeftPanelComponent extends React.Component<Props> {
   render() {
     const {position: {lat, lng}, radius, changeRadius} = this.props;
     return (
-      <div className="left-panel">
-        <img src={img}/>
+      <div className="left-panel shadow-lg p-3 mb-5 bg-blue rounded">
+        <img src={img} style={{borderTopLeftRadius:'10px',borderTopRightRadius:'10px'}}/>
         <div className="align-content-center">
-          <div className="align-content-center crown-header">CROWDSOURCED</div>
-          <div className="align-content-center crown-header">NETWORK</div>
-          <div className="align-content-center crown-header">FOR</div>
-          <div className="align-content-center crown-header">DISASTER</div>
-          <div className="align-content-center crown-header">RELIEF</div>
+          <div className="align-content-center crown-header" style={{padding:'5px',color:'#fff'}}>A COVID-19 Open Data Network for Rapid, Affordable and Standardized Procurement of Manufactured Medical Supplies (MS)</div>
         </div>
         <div className="align-content-center">
           <div className="align-content-center crown-header-white">LOCATION</div>
@@ -34,10 +30,10 @@ class LeftPanelComponent extends React.Component<Props> {
         <div className="radius-info-div">
           <p className="latlong">Coord: {lat}, {lng}</p>
           <div className="align-content-center">
-            <div className="align-content-center crown-header-white">RADIUS(KM)</div>
+            <div className="align-content-center crown-header-white">RADIUS (KM)</div>
           </div>
 
-          <AvForm onSubmit={changeRadius}>
+          <AvForm className="radius-submit" onSubmit={changeRadius}>
             <AvField
               name="radius"
               type="number"
@@ -45,7 +41,7 @@ class LeftPanelComponent extends React.Component<Props> {
               required
               value={radius}
             />
-            <Button type="submit"> Change </Button>
+            <Button className="radius-button" type="submit"> Change </Button>
           </AvForm>
         </div>
       </div>

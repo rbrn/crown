@@ -1,6 +1,10 @@
 // Override Boostrap variables
 // Import Bootstrap source files from node_modules
+//@import 'bootstrap-variables';
+//@import '~bootswatch/dist/materia/variables';
 @import 'node_modules/bootstrap/scss/bootstrap';
+
+//@import '~bootswatch/dist/materia/bootswatch';
 body {
   background: #fafafa;
   margin: 0;
@@ -31,6 +35,7 @@ a {
     padding: 1rem;
     .card {
       padding: 1rem;
+      border: none;
     }
     .view-routes {
       height: 100%;

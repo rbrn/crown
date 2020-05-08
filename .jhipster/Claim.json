@@ -11,6 +11,11 @@
         {
             "fieldName": "notes",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ClaimStatusEnum",
+            "fieldValues": "PENDING,INREVIEW,ACCEPTED,FORSHIPPING,SHIPPED,DELIVERED"
         }
     ],
     "relationships": [
@@ -43,5 +48,6 @@
     "readOnly": false,
     "embedded": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "databaseType": "mongodb"
 }
