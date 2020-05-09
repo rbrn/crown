@@ -89,6 +89,10 @@ let position = [51.505, -0.09];
 
 let currentMarker = undefined;
 
+//const map = L.map('map-container').setView([51.505, -0.09], 13);
+
+//const pane = map.createPane('fixed', document.getElementById('map-container'));
+
 
 class MapComponent extends React.Component<MapProps, State> {
   private resourceSuppliersMap: Map;
@@ -282,13 +286,13 @@ class MapComponent extends React.Component<MapProps, State> {
     }
 
     return (
-      <Container className="myclass col-auto ml-auto">
-        <Row>
-        <Col className="col-sm-3 p-0">
+      <Container>
+      <Row>
+        <Col md="3">
           <LeftPanel radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius}/>
         </Col>
-        <Col className="col-lg-9 p-0">
-          <div className="rounded">
+        <Col md="9">
+          <div className="shadow-lg p-3 mb-5 bg-white rounded">
             <div id='map-container'></div>
             <Popup
               open={this.state.open}
@@ -299,6 +303,7 @@ class MapComponent extends React.Component<MapProps, State> {
                   ? <PostedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
                   : <RequestedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
               }
+
             </Popup>
           </div>
         </Col>
