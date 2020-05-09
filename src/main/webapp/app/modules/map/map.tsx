@@ -160,7 +160,7 @@ class MapComponent extends React.Component<MapProps, State> {
       lng: position[1],
     };
 
-    axios.get(`${config.getSupplierGetAroundMeUri}?distance=100&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
+    axios.get(`${config.getSupplierGetAroundMeUri}?distance=300&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
       .then(({data}) => {
         this.setState({
           aroundMeSuppliers: data,
@@ -168,7 +168,7 @@ class MapComponent extends React.Component<MapProps, State> {
       })
 
 
-    axios.get(`${config.getReceiversAroundMeUri}?distance=100&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
+    axios.get(`${config.getReceiversAroundMeUri}?distance=300&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
       .then(({data}) => {
         this.setState({
           aroundMeReceivers: data,
