@@ -220,6 +220,7 @@ class MapComponent extends React.Component<MapProps, State> {
     currentMarker = new L.Marker(event.latlng).addTo(this.resourceSuppliersMap);
   }
 
+  // MAKER-WORKER POP-UP ON THE MAP
   showPopup = (layer, latlng) => {
     const node = L.DomUtil.create('div', {className: 'info-div'});
 
@@ -282,7 +283,7 @@ class MapComponent extends React.Component<MapProps, State> {
     }
 
     return (
-      <Container className="myclass col-auto ml-auto">
+      <Container className="col-auto ml-auto">
         <Row>
         <Col className="col-sm-3 p-0">
           <LeftPanel radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius}/>
