@@ -14,6 +14,7 @@ import {Redirect} from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
 import axios from "axios";
 import config from "app/modules/map/apiConfig.json";
+import {toast} from "react-toastify";
 
 declare global {
   interface Window {
@@ -24,11 +25,22 @@ declare global {
 const {L} = window;
 
 delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
+
+/* L.Icon.Default.mergeOptions({
   iconRetinaUrl: "content/images/marker-icon-2x.png",
   iconUrl: "content/images/marker-icon.png",
   shadowUrl: "content/images/marker-shadow.png",
+}); */
+
+const myIcon = L.divIcon({
+  className: 'location-pin',
+  html: '<center><h1>1</h1></center><div class="pin"></div><div class="pulse"></div>',
+  iconSize: [30, 30],
+  iconAnchor: [10, 33]
 });
+
+L.Icon.Default.imagePath = '';
+L.Marker.prototype.options.icon = myIcon;
 
 export interface MapProps extends StateProps, DispatchProps {
 }
@@ -123,6 +135,11 @@ class MapComponent extends React.Component<MapProps, State> {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.latlng !== prevState.latlng)
+      this.loadMarkersAroundMe()
+  }
+
   componentDidMount() {
     // use this.props.account to set view after the geo location of user is obtained
 
@@ -131,7 +148,7 @@ class MapComponent extends React.Component<MapProps, State> {
     if (window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition((pos) => {
         position = [pos.coords.latitude, pos.coords.longitude]
-        this.extracted(position);
+        this.onClientPositionIdentified(position);
       }, (error) => {
         alert("Problem getting geolocation " + error.message);
         /**
@@ -154,7 +171,7 @@ class MapComponent extends React.Component<MapProps, State> {
     }
   }
 
-  private extracted(pos) {
+  private onClientPositionIdentified(pos) {
     this.resourceSuppliersMap = L.map('map-container').setView(pos, 10);
     this.resourceSuppliersMap.on('click', (event) => this.onMapClicked(event));
 
@@ -164,21 +181,6 @@ class MapComponent extends React.Component<MapProps, State> {
       lng: position[1],
     };
 
-    axios.get(`${config.getSupplierGetAroundMeUri}?distance=100&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
-      .then(({data}) => {
-        this.setState({
-          aroundMeSuppliers: data,
-        });
-      })
-
-
-    axios.get(`${config.getReceiversAroundMeUri}?distance=100&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
-      .then(({data}) => {
-        this.setState({
-          aroundMeReceivers: data,
-        });
-      })
-
     this.circle = L.circle(browserLatLng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
     this.setState({
       latlng: browserLatLng
@@ -187,7 +189,6 @@ class MapComponent extends React.Component<MapProps, State> {
     this.setState({
       resourceSuppliersMap: this.resourceSuppliersMap}
       )
-
     currentMarker = new L.Marker(browserLatLng).addTo(this.resourceSuppliersMap);
   }
 
@@ -203,6 +204,29 @@ class MapComponent extends React.Component<MapProps, State> {
   removeCircle = () => {
     this.resourceSuppliersMap.removeLayer(this.circle)
     this.resourceSuppliersMap.removeLayer(currentMarker)
+  }
+
+  /**
+   * Load the available requests/offers on a distance of 300 km
+   */
+  private loadMarkersAroundMe() {
+
+    toast.success("Reloading PPE requests on different location")
+    axios.get(`${config.getSupplierGetAroundMeUri}?distance=300&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
+      .then(({data}) => {
+        this.setState({
+          aroundMeSuppliers: data,
+        });
+      })
+
+
+    axios.get(`${config.getReceiversAroundMeUri}?distance=300&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
+      .then(({data}) => {
+        this.setState({
+          aroundMeReceivers: data,
+        });
+      })
+
   }
 
   onMapClicked = (event) => {
@@ -224,6 +248,7 @@ class MapComponent extends React.Component<MapProps, State> {
     currentMarker = new L.Marker(event.latlng).addTo(this.resourceSuppliersMap);
   }
 
+  // MAKER-WORKER POP-UP ON THE MAP
   showPopup = (layer, latlng) => {
     const node = L.DomUtil.create('div', {className: 'info-div'});
 
@@ -286,9 +311,9 @@ class MapComponent extends React.Component<MapProps, State> {
     }
 
     return (
-      <Container>
-      <Row>
-        <Col md="3">
+      <Container className="col-auto ml-auto">
+        <Row>
+        <Col className="col-sm-3 p-0">
           <LeftPanel radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius}/>
         </Col>
         <Col md="9">
