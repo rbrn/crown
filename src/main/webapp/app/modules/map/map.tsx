@@ -1,8 +1,8 @@
 import './map.scss';
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { Col, Row, Container } from 'reactstrap';
+import {connect} from 'react-redux';
+import {Col, Row, Container} from 'reactstrap';
 import Popup from "reactjs-popup";
 
 import PostedItemsComponent from './posteditems';
@@ -10,11 +10,12 @@ import PostedItemsComponent from './posteditems';
 import LeftPanel from './leftpanel';
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
 import axios from "axios";
 import config from "app/modules/map/apiConfig.json";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
+
 
 declare global {
   interface Window {
@@ -22,7 +23,7 @@ declare global {
   }
 }
 
-const { L } = window;
+const {L} = window;
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -57,7 +58,7 @@ type State = {
   radius: number,
   aroundMeSuppliers: any,
   aroundMeReceivers: any,
-  resourceSuppliersMap: {}
+  resourceSuppliersMap : {}
 };
 type Map = {
   on: Function,
@@ -88,24 +89,24 @@ const RequestTypes = {
 };
 const LeafIcon = L.Icon.extend({
   options: {
-    iconSize: [25, 65]
+    iconSize:     [25, 65]
   }
 });
 
-const supplierIcon = new LeafIcon({ iconUrl: '../../../content/images/supplies-svgrepo-com.svg' });
+const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-svgrepo-com.svg'});
 const requesterIcon = new LeafIcon({
   iconSize: [25, 35],
   iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'
 });
 
+
 let position = [51.505, -0.09];
 
 let currentMarker = undefined;
 
-// const map = L.map('map-container').setView([51.505, -0.09], 13);
+//const map = L.map('map-container').setView([51.505, -0.09], 13);
 
-// const pane = map.createPane('fixed', document.getElementById('map-container'));
-
+//const pane = map.createPane('fixed', document.getElementById('map-container'));
 
 class MapComponent extends React.Component<MapProps, State> {
   private resourceSuppliersMap: Map;
@@ -118,14 +119,14 @@ class MapComponent extends React.Component<MapProps, State> {
     radius: 10,
     aroundMeSuppliers: [],
     aroundMeReceivers: [],
-    resourceSuppliersMap: {}
+    resourceSuppliersMap : {}
   };
 
 
   changeRadius = (event, error, values) => {
     this.setState({
       radius: values.radius
-    }, this.updateCircle)
+    })
   }
 
   closeModal = () => {
@@ -137,7 +138,7 @@ class MapComponent extends React.Component<MapProps, State> {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.latlng !== prevState.latlng)
+    if(this.state.latlng !== prevState.latlng)
       this.loadMarkersAroundMe()
   }
 
@@ -145,7 +146,7 @@ class MapComponent extends React.Component<MapProps, State> {
     // use this.props.account to set view after the geo location of user is obtained
 
 
-    // check for Geolocation support
+// check for Geolocation support
     if (window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition((pos) => {
         position = [pos.coords.latitude, pos.coords.longitude]
@@ -188,9 +189,8 @@ class MapComponent extends React.Component<MapProps, State> {
     });
 
     this.setState({
-      resourceSuppliersMap: this.resourceSuppliersMap
-    }
-    )
+      resourceSuppliersMap: this.resourceSuppliersMap}
+      )
     currentMarker = new L.Marker(browserLatLng).addTo(this.resourceSuppliersMap);
   }
 
@@ -215,7 +215,7 @@ class MapComponent extends React.Component<MapProps, State> {
 
     toast.success("Reloading PPE requests on different location")
     axios.get(`${config.getSupplierGetAroundMeUri}?distance=300&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
-      .then(({ data }) => {
+      .then(({data}) => {
         this.setState({
           aroundMeSuppliers: data,
         });
@@ -223,12 +223,11 @@ class MapComponent extends React.Component<MapProps, State> {
 
 
     axios.get(`${config.getReceiversAroundMeUri}?distance=300&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
-      .then(({ data }) => {
+      .then(({data}) => {
         this.setState({
           aroundMeReceivers: data,
         });
       })
-
   }
 
   onMapClicked = (event) => {
@@ -260,22 +259,22 @@ class MapComponent extends React.Component<MapProps, State> {
 
   // MAKER-WORKER POP-UP ON THE MAP
   showPopup = (layer, latlng) => {
-    const node = L.DomUtil.create('div', { className: 'info-div' });
+    const node = L.DomUtil.create('div', {className: 'info-div'});
 
     const requestNode = L.DomUtil.create('div', 'request-div', node);
     requestNode.innerHTML = '<h5>I am a medical worker<h5>'
 
-    Object.keys(RequestTypes)
+    Object.keys(  RequestTypes)
       .forEach(type => {
-        const button = L.DomUtil.create('button', 'popup-button btn btn-secondary', requestNode);
-        button.innerHTML = type;
-        button.onclick = (e) => this.onButtonClicked(latlng, type, e);
-      });
+      const button = L.DomUtil.create('button', 'popup-button btn btn-secondary', requestNode);
+      button.innerHTML = type;
+      button.onclick = (e) => this.onButtonClicked(latlng, type, e);
+    });
 
     const supplyNode = L.DomUtil.create('div', 'request-div', node);
     supplyNode.innerHTML = '<h5>I am a maker/manufacturer<h5>'
 
-    Object.keys(SupplTypes)
+    Object.keys(  SupplTypes )
       .forEach(type => {
         const button = L.DomUtil.create('button', 'popup-button btn btn-secondary', supplyNode);
         button.innerHTML = type;
@@ -302,47 +301,47 @@ class MapComponent extends React.Component<MapProps, State> {
 
     if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
       this.state.aroundMeSuppliers.forEach(function (value) {
-        L.marker(value.latLng, { icon: supplierIcon }).addTo(map).bindPopup(value.supplyType);
+        L.marker(value.latLng, {icon: supplierIcon}).addTo(map).bindPopup(value.supplyType);
       });
     }
 
     if (this.state.aroundMeReceivers.length > 0 && map !== null) {
       this.state.aroundMeReceivers.forEach(function (value) {
-        L.marker(value.latLng, { icon: requesterIcon }).addTo(map).bindPopup(value.supplyType);
+        L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.supplyType);
       });
     }
 
 
 
     if (this.state.type === types['Request Medical Supplies'])
-      return <Redirect to={requestPPEparam} />
+      return <Redirect to={requestPPEparam}/>
     else if (this.state.type === types['Supply Medical Supplies']) {
-      return <Redirect to={offerPPEparam} />
+      return <Redirect to={offerPPEparam}/>
     }
 
     return (
       <Container className="col-auto ml-auto">
         <Row>
-          <Col className="col-sm-3 p-0">
-            <LeftPanel radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius} />
-          </Col>
-          <Col md="9">
-            <div className="shadow-lg p-3 mb-5 bg-white rounded">
-              <div id='map-container'></div>
-              <Popup
-                open={this.state.open}
-                closeOnDocumentClick
-                onClose={this.closeModal}>
-                {
-                  this.state.type === types['Browse Available']
-                    ? <PostedItemsComponent position={this.state.latlng} radius={this.state.radius} />
-                    : <RequestedItemsComponent position={this.state.latlng} radius={this.state.radius} />
-                }
+        <Col className="col-sm-3 p-0">
+          <LeftPanel radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius}/>
+        </Col>
+        <Col md="9">
+          <div className="shadow-lg p-3 mb-5 bg-white rounded">
+            <div id='map-container'></div>
+            <Popup
+              open={this.state.open}
+              closeOnDocumentClick
+              onClose={this.closeModal}>
+              {
+                this.state.type === types['Browse Available']
+                  ? <PostedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
+                  : <RequestedItemsComponent position={this.state.latlng} radius={this.state.radius}/>
+              }
 
-              </Popup>
-            </div>
-          </Col>
-        </Row>
+            </Popup>
+          </div>
+        </Col>
+      </Row>
       </Container>
     )
   }
