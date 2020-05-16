@@ -14,6 +14,7 @@ import { Redirect } from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
 import axios from "axios";
 import config from "app/modules/map/apiConfig.json";
+import { toast } from "react-toastify";	
 
 declare global {
   interface Window {
@@ -24,11 +25,23 @@ declare global {
 const { L } = window;
 
 delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
+
+/*L.Icon.Default.mergeOptions({
   iconRetinaUrl: "content/images/marker-icon-2x.png",
   iconUrl: "content/images/marker-icon.png",
   shadowUrl: "content/images/marker-shadow.png",
+}); */
+
+
+const myIcon = L.divIcon({
+  className: 'location-pin',
+  html: '<center><h1>1</h1></center><div class="pin"></div><div class="pulse"></div>',
+  iconSize: [30, 30],
+  iconAnchor: [10, 33]
 });
+
+L.Icon.Default.imagePath = '';
+L.Marker.prototype.options.icon = myIcon;
 
 export interface MapProps extends StateProps, DispatchProps {
 }
@@ -83,13 +96,15 @@ const LeafIcon = L.Icon.extend({
 const supplierIcon = new LeafIcon({ iconUrl: '../../../content/images/supplies-svgrepo-com.svg' });
 const requesterIcon = new LeafIcon({
   iconSize: [25, 35],
-  iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'
-});
+  iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'});
 
 let position = [51.505, -0.09];
 
 let currentMarker = undefined;
 
+// const map = L.map('map-container').setView([51.505, -0.09], 13);	
+
+// const pane = map.createPane('fixed', document.getElementById('map-container'));
 
 class MapComponent extends React.Component<MapProps, State> {
   private resourceSuppliersMap: Map;
