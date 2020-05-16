@@ -55,7 +55,7 @@ export const ReceiverSupplierUpdate = (props: IReceiverSupplierUpdateProps) => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="crownApp.receiverSupplier.home.createOrEditLabel">
-            <Translate contentKey="crownApp.receiverSupplier.home.createOrEditLabel">Create or edit a ReceiverSupplier</Translate>
+            <Translate contentKey="crownApp.receiverSupplier.home.createOrEditLabel">Create or edit a Receiver Supplier</Translate>
           </h2>
         </Col>
       </Row>
