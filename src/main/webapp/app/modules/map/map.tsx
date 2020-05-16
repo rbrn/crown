@@ -16,6 +16,7 @@ import axios from "axios";
 import config from "app/modules/map/apiConfig.json";
 import {toast} from "react-toastify";
 
+
 declare global {
   interface Window {
     L: any;
@@ -94,8 +95,10 @@ const LeafIcon = L.Icon.extend({
 
 const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-svgrepo-com.svg'});
 const requesterIcon = new LeafIcon({
-  iconSize:     [25, 35],
-  iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'});
+  iconSize: [25, 35],
+  iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'
+});
+
 
 let position = [51.505, -0.09];
 
@@ -104,7 +107,6 @@ let currentMarker = undefined;
 //const map = L.map('map-container').setView([51.505, -0.09], 13);
 
 //const pane = map.createPane('fixed', document.getElementById('map-container'));
-
 
 class MapComponent extends React.Component<MapProps, State> {
   private resourceSuppliersMap: Map;
@@ -226,26 +228,33 @@ class MapComponent extends React.Component<MapProps, State> {
           aroundMeReceivers: data,
         });
       })
-
   }
 
   onMapClicked = (event) => {
+    this.removeAndAddCircle(event.latlng)
+  }
+
+  updateCircle = () => {
+    this.removeAndAddCircle(this.state.latlng)
+  }
+
+  removeAndAddCircle = (latlng) => {
     this.removeCircle()
-    position = [event.latlng.lat, event.latlng.lng]
+    position = [latlng.lat, latlng.lng]
 
     L.popup()
-      .setLatLng(event.latlng)
-      .setContent((layer) => this.showPopup(layer, event.latlng))
+      .setLatLng(latlng)
+      .setContent((layer) => this.showPopup(layer, latlng))
       .openOn(this.resourceSuppliersMap)
       .on('remove', () => {
         this.removeCircle();
       })
 
-    this.circle = L.circle(event.latlng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
+    this.circle = L.circle(latlng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
     this.setState({
-      latlng: event.latlng
+      latlng
     });
-    currentMarker = new L.Marker(event.latlng).addTo(this.resourceSuppliersMap);
+    currentMarker = new L.Marker(latlng).addTo(this.resourceSuppliersMap);
   }
 
   // MAKER-WORKER POP-UP ON THE MAP
