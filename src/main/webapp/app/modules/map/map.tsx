@@ -104,9 +104,9 @@ let position = [51.505, -0.09];
 
 let currentMarker = undefined;
 
-//const map = L.map('map-container').setView([51.505, -0.09], 13);
+// const map = L.map('map-container').setView([51.505, -0.09], 13);
 
-//const pane = map.createPane('fixed', document.getElementById('map-container'));
+// const pane = map.createPane('fixed', document.getElementById('map-container'));
 
 class MapComponent extends React.Component<MapProps, State> {
   private resourceSuppliersMap: Map;
@@ -126,7 +126,7 @@ class MapComponent extends React.Component<MapProps, State> {
   changeRadius = (event, error, values) => {
     this.setState({
       radius: values.radius
-    })
+    }, this.updateCircle)
   }
 
   closeModal = () => {
