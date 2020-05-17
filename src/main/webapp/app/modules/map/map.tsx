@@ -129,10 +129,12 @@ class MapComponent extends React.Component<MapProps, State> {
     }, this.updateCircle)
   }
 
+  // latlng no longer defaults to London
+  // after closing the pop-ups
   closeModal = () => {
     this.setState({
       open: false,
-      latlng: defaultLatLng,
+      latlng: this.state.latlng, // Changed from defaultLatLng
       type: types['Browse Available'],
     })
   }
