@@ -15,6 +15,7 @@ import { getEntity, updateEntity, createEntity, reset } from './receiver-resourc
 import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
+import ReceiverSupplierFields from "app/entities/receiver-supplier/receiver-supplier-fields";
 
 export interface IReceiverResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -24,7 +25,9 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
   const { receiverResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account } = props;
-
+  const receiverProfile = receiverSuppliers.filter((receiver) => (
+    receiver.email === account.email && receiver.isReceiver
+  ));
   const handleClose = () => {
     props.history.push('/receiver-resource');
   };
@@ -44,6 +47,20 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
     }
   }, [props.updateSuccess]);
 
+  const mayBeReceiverFields = () => {
+    if (receiverProfile.length > 0) {
+      return null;
+    }
+    return (
+      <React.Fragment>
+        <h2 id="crownApp.supplierResource.home.createReceiverLabel">
+          <Translate contentKey="crownApp.supplierResource.home.createReceiverLabel">Who is requesting this resource</Translate>
+        </h2>
+        <ReceiverSupplierFields fieldPrefix="receiver."/>
+      </React.Fragment>
+    )
+  };
+
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const entity = {
@@ -53,18 +70,26 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
 
       if (isNew) {
         const query = new URLSearchParams(props.location.search);
-        const lat = query.get('lat');
-        const  lng = query.get('lng');
-        entity.position = [lat, lng]
+        const lat = query.get('lat') || '';
+        const  lng = query.get('lng') || '';
+        entity.position = [lat, lng];
 
-        entity.receiver = {
-          email: account.email,
-          latx: lat,
-          longy: lng,
-          name: account.firstName + " " + account.lastName,
-          primaryContactName: account.email
-        };
-
+        if (receiverProfile.length === 0 && entity.receiver) {
+          if (!entity.receiver.latx) {
+            entity.receiver.latx = lat;
+          }
+          if (!entity.receiver.longy) {
+            entity.receiver.longy = lng;
+          }
+        } else {
+          entity.receiver = {
+            email: account.email,
+            latx: lat,
+            longy: lng,
+            name: account.firstName + " " + account.lastName,
+            primaryContactName: account.email
+          };
+        }
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);
@@ -185,6 +210,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                     : null}
                 </AvInput>
               </AvGroup>
+              {mayBeReceiverFields()}
               <Button tag={Link} id="cancel-save" to="/receiver-resource" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
