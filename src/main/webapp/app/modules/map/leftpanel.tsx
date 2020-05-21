@@ -2,7 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {LatLng} from './map';
 import {Button} from 'reactstrap';
-import {AvField, AvForm} from 'availity-reactstrap-validation';
+import { AvField, AvForm } from 'availity-reactstrap-validation';
+// import { L } from './map';
+// import Popup from "reactjs-popup";
+// import PostedItemsComponent from './posteditems';
+// import RequestedItemsComponent from "app/modules/map/requestedItems";
 
 export interface OwnProps {
   position: LatLng,
@@ -10,7 +14,6 @@ export interface OwnProps {
   changeRadius: Function,
 };
 type Props = StateProps & DispatchProps & OwnProps
-
 
 const img = "content/images/crown.png";
 

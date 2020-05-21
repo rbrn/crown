@@ -25,6 +25,7 @@ declare global {
 
 const {L} = window;
 
+
 delete L.Icon.Default.prototype._getIconUrl;
 
 /* L.Icon.Default.mergeOptions({
@@ -46,7 +47,7 @@ L.Marker.prototype.options.icon = myIcon;
 export interface MapProps extends StateProps, DispatchProps {
 }
 
-
+// type for latitude and longitude
 export type LatLng = {
   lat: number,
   lng: number,
@@ -70,6 +71,8 @@ const defaultLatLng = {
   lat: 51.505,
   lng: -0.09,
 };
+
+// Used for buttons on map
 const types = {
   'Browse Available': 'Browse Available',
   'Browse Requested': 'Browse Requested',
@@ -244,6 +247,7 @@ class MapComponent extends React.Component<MapProps, State> {
     this.removeCircle()
     position = [latlng.lat, latlng.lng]
 
+
     L.popup()
       .setLatLng(latlng)
       .setContent((layer) => this.showPopup(layer, latlng))
@@ -301,18 +305,19 @@ class MapComponent extends React.Component<MapProps, State> {
     const requestPPEparam = "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
     const map = this.state.resourceSuppliersMap;
 
+    // Supply icons on the map
     if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
       this.state.aroundMeSuppliers.forEach(function (value) {
-        L.marker(value.latLng, {icon: supplierIcon}).addTo(map).bindPopup(value.supplyType);
+        L.marker(value.latLng, {icon: supplierIcon}).addTo(map).bindPopup(value.supplyType + ' Icon');
       });
     }
 
+    // Request icons on the map
     if (this.state.aroundMeReceivers.length > 0 && map !== null) {
       this.state.aroundMeReceivers.forEach(function (value) {
-        L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.supplyType);
+         L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.requestType + ' Icon');
       });
     }
-
 
 
     if (this.state.type === types['Request Medical Supplies'])
