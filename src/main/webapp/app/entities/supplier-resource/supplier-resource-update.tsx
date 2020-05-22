@@ -9,25 +9,21 @@ import {IRootState} from 'app/shared/reducers';
 import {getEntities as getResourceTypes} from 'app/entities/resource-type/resource-type.reducer';
 import {getEntities as getReceiverSuppliers} from 'app/entities/receiver-supplier/receiver-supplier.reducer';
 import {createEntity, getEntity, reset, updateEntity} from './supplier-resource.reducer';
+import ReceiverSupplierFields from "app/entities/receiver-supplier/receiver-supplier-fields";
 
 export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
 
 export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
+
   const [resourceTypeId, setResourceTypeId] = useState('0');
   const [supplierId, setSupplierId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { supplierResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account } = props;
-
-  // check if account email is on the receiver-supplier list
-  /*
-   * if (!receiverSuppliers.contains(account.email)) -- if(isNew){
-   *      props.history.push('/receiver-supplier-update');
-   * }
-   *  
-   */
-  // console.log(receiverSuppliers, account);
+  const {supplierResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account} = props;
+  const supplierProfile = receiverSuppliers.filter((supplier) => (
+    supplier.email === account.email && supplier.isSupplier
+  ));
 
   let lat;
   let lng;
@@ -50,6 +46,20 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
     }
   }, [props.updateSuccess]);
 
+  const mayBeSupplierFields = () => {
+    if (supplierProfile.length > 0) {
+      return null;
+    }
+    return (
+      <React.Fragment>
+        <h2 id="crownApp.supplierResource.home.createSupplierLabel">
+          <Translate contentKey="crownApp.supplierResource.home.createSupplierLabel">Who is offering this resource</Translate>
+        </h2>
+        <ReceiverSupplierFields fieldPrefix="supplier."/>
+      </React.Fragment>
+    )
+  };
+
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const entity = {
@@ -61,15 +71,24 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
         const query = new URLSearchParams(props.location.search);
         lat = query.get('lat');
         lng = query.get('lng');
-        entity.position = [lat, lng]
+        entity.position = [lat, lng];
 
-        entity.supplier = {
-          email: account.email,
-          latx: lat,
-          longy: lng,
-          name: account.firstName + " " + account.lastName,
-          primaryContactName: account.email
-        };
+        if (supplierProfile.length === 0 && entity.supplier) {
+          if (!entity.supplier.latx) {
+            entity.supplier.latx = lat;
+          }
+          if (!entity.supplier.longy) {
+            entity.supplier.longy = lng;
+          }
+        } else {
+          entity.supplier = {
+            email: account.email,
+            latx: lat,
+            longy: lng,
+            name: account.firstName + " " + account.lastName,
+            primaryContactName: account.email
+          };
+        }
         props.createEntity(entity);
       } else {
         props.updateEntity(entity);
@@ -147,7 +166,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   }}
                 />
               </AvGroup>
-
+              {mayBeSupplierFields()}
               <Button tag={Link} id="cancel-save" to="/supplier-resource" replace color="info">
                 <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;

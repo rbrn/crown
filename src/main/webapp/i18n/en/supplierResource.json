@@ -4,6 +4,8 @@
       "home": {
         "title": "Supplier Resources",
         "createLabel": "Create a new Supplier Resource",
+        "createSupplierLabel": "Who is offering this resource",
+        "createReceiverLabel": "Who is requesting this resource",
         "createOrEditLabel": "Create or edit a Supplier Resource",
         "search": "Search for Supplier Resource",
         "notFound": "No Supplier Resources found"
