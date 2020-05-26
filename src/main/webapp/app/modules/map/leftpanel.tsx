@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { LatLng } from './map';
-import { Button, Card } from 'reactstrap';
+import {connect} from 'react-redux';
+import {LatLng} from './map';
+import {Button} from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
+
 
 export interface OwnProps {
   position: LatLng,
@@ -12,7 +13,6 @@ export interface OwnProps {
   showOptions: boolean
 };
 type Props = StateProps & DispatchProps & OwnProps
-
 
 const img = "content/images/crown.png";
 
