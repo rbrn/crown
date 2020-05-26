@@ -92,7 +92,7 @@ const RequestTypes = {
 };
 const LeafIcon = L.Icon.extend({
   options: {
-    iconSize:     [25, 65]
+    iconSize: [25, 65]
   }
 });
 
@@ -298,27 +298,41 @@ class MapComponent extends React.Component<MapProps, State> {
     L.tileLayer(baseTileString, options).addTo(this.resourceSuppliersMap);
   }
 
-
   render() {
 
     const offerPPEparam = "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
     const requestPPEparam = "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
     const map = this.state.resourceSuppliersMap;
 
+
     // Supply icons on the map
     if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
       this.state.aroundMeSuppliers.forEach(function (value) {
-        L.marker(value.latLng, {icon: supplierIcon}).addTo(map).bindPopup(value.supplyType + ' Icon');
+
+        const SupplyID = value.supplyType;
+
+        // HTML for ' request this resource ' button on pin
+        // Button does not redirect
+        const domSupplyPin = document.createElement('button');
+        domSupplyPin.innerHTML = " Request this item ";
+        domSupplyPin.onclick = function () {
+          const redirect = `${config.getNewClaimUrl}?x=${position[0]}&y=${position[1]}&supplierResourceId=${SupplyID}`
+          return <Redirect to={redirect} />
+        };
+
+        L.marker(value.latLng, { icon: supplierIcon }).addTo(map).bindPopup(domSupplyPin);
+
       });
     }
 
     // Request icons on the map
     if (this.state.aroundMeReceivers.length > 0 && map !== null) {
       this.state.aroundMeReceivers.forEach(function (value) {
-         L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.requestType + ' Icon');
+         L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.requestType);
       });
     }
 
+   // console.log(this.state.aroundMeReceivers);
 
     if (this.state.type === types['Request Medical Supplies'])
       return <Redirect to={requestPPEparam}/>
