@@ -15,8 +15,6 @@ import { Redirect } from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
 import axios from "axios";
 import config from "app/modules/map/apiConfig.json";
-import { toast } from "react-toastify";
-
 
 declare global {
   interface Window {
@@ -218,7 +216,6 @@ class MapComponent extends React.Component<MapProps, State> {
    */
   private loadMarkersAroundMe() {
 
-    toast.success("Reloading PPE requests on different location")
     axios.get(`${config.getSupplierGetAroundMeUri}?distance=300&page=0&size=1000&units=km&x=${position[0]}&y=${position[1]}`)
       .then(({ data }) => {
         this.setState({
