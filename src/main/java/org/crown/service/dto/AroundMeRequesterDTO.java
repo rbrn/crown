@@ -1,8 +1,10 @@
 package org.crown.service.dto;
 
 import org.crown.domain.ReceiverResource;
-import org.crown.domain.SupplierResource;
+import org.crown.domain.ResourceType;
 import org.springframework.data.geo.GeoResult;
+
+import java.util.Optional;
 
 public class AroundMeRequesterDTO {
 
@@ -32,8 +34,16 @@ public class AroundMeRequesterDTO {
     private String requestType;
 
     public static AroundMeRequesterDTO of(GeoResult<ReceiverResource> supplierResourceGeoResult) {
+        ResourceType resourceType =  supplierResourceGeoResult.getContent().getResourceType();
+        Optional<ResourceType> resourceTypeOptional = Optional.ofNullable(resourceType);
         AroundMeRequesterDTO aroundMeSuppliesDTO = new AroundMeRequesterDTO(supplierResourceGeoResult.getContent().getPosition(),
-            supplierResourceGeoResult.getContent().getResourceType().getName());
+            resourceTypeOptional.orElseGet( ()-> emptyResourceType()) .getName());
         return aroundMeSuppliesDTO;
+    }
+
+    private static ResourceType emptyResourceType() {
+        ResourceType resourceType = new ResourceType();
+        resourceType.setName("Undefined");
+        return resourceType;
     }
 }
