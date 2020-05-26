@@ -319,3 +319,11 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 .get-items-display table * {
   font-size: x-small;
 }
+
+.cw-btn {
+  background-color: rgb(0, 161, 255);
+  border: none;
+  &:hover {
+    background-color: rgb(19, 130, 194);
+  }
+}

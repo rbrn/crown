@@ -1,17 +1,15 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {LatLng} from './map';
-import {Button} from 'reactstrap';
+import { connect } from 'react-redux';
+import { LatLng } from './map';
+import { Button, Card } from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
-// import { L } from './map';
-// import Popup from "reactjs-popup";
-// import PostedItemsComponent from './posteditems';
-// import RequestedItemsComponent from "app/modules/map/requestedItems";
 
 export interface OwnProps {
   position: LatLng,
   radius: number,
   changeRadius: Function,
+  onButtonClicked: Function,
+  showOptions: boolean
 };
 type Props = StateProps & DispatchProps & OwnProps
 
@@ -19,12 +17,12 @@ const img = "content/images/crown.png";
 
 class LeftPanelComponent extends React.Component<Props> {
   render() {
-    const {position: {lat, lng}, radius, changeRadius} = this.props;
+    const { position: { lat, lng }, radius, changeRadius, onButtonClicked, showOptions } = this.props;
     return (
       <div className="left-panel shadow-lg p-3 mb-5 bg-blue rounded">
-        <img src={img} style={{borderTopLeftRadius:'10px',borderTopRightRadius:'10px'}}/>
+        <img src={img} style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
         <div className="align-content-center">
-          <div className="align-content-center crown-header" style={{padding:'5px',color:'#fff'}}>A COVID-19 Open Data Network for Rapid, Affordable and Standardized Procurement of Manufactured Medical Supplies (MS)</div>
+          <div className="align-content-center crown-header" style={{ padding: '5px', color: '#fff' }}>A COVID-19 Open Data Network for Rapid, Affordable and Standardized Procurement of Manufactured Medical Supplies (MS)</div>
         </div>
         <div className="align-content-center">
           <div className="align-content-center crown-header-white">LOCATION</div>
@@ -46,6 +44,23 @@ class LeftPanelComponent extends React.Component<Props> {
             />
             <Button className="radius-button" type="submit"> Change </Button>
           </AvForm>
+
+          <hr />
+          {
+            showOptions ? <Card>
+              <h6>I am a medical worker</h6>
+              <div className=''>
+                <Button onClick={() => onButtonClicked('Browse Available')} className='w-100 mb-2 cw-btn'>Browse Available</Button>
+                <Button onClick={() => onButtonClicked('Request Medical Supplies')} className='w-100 mb-2 cw-btn'>Request Medical Supplies</Button>
+              </div>
+              <h6>I am a maker/manufacturer</h6>
+              <div className=''>
+                <Button onClick={() => onButtonClicked('Browse Requeste')} className='w-100 mb-2 cw-btn'>Browse Requested</Button>
+                <Button onClick={() => onButtonClicked('Supply Medical Supplies')} className='w-100 cw-btn'>Supply Medical Supplies</Button>
+              </div>
+            </Card> :
+              <Card> <h5 className='align-content-center crown-header-white'> Click on the map to start requesting/offering resources!! </h5> </Card>
+          }
         </div>
       </div>
     )
@@ -54,7 +69,8 @@ class LeftPanelComponent extends React.Component<Props> {
 
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  isAuthenticated: storeState.authentication.isAuthenticated,
+  showMapPopup: storeState.applicationProfile.showMapPopup
 });
 
 const mapDispatchToProps = {};

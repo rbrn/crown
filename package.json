@@ -43,6 +43,7 @@
     "uuid": "3.3.3"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "1.0.10-4.2.3",
     "@types/chai": "4.1.7",
     "@types/enzyme": "3.9.1",
     "@types/jest": "24.0.23",
@@ -81,7 +82,7 @@
     "file-loader": "5.0.2",
     "fork-ts-checker-webpack-plugin": "3.1.1",
     "friendly-errors-webpack-plugin": "1.7.0",
-    "generator-jhipster": "6.8.0",
+    "generator-jhipster": "^6.9.0",
     "html-webpack-plugin": "3.2.0",
     "husky": "3.1.0",
     "identity-obj-proxy": "3.0.0",
@@ -118,10 +119,9 @@
     "ts-node": "8.5.4",
     "typescript": "3.7.3",
     "webdriver-manager": "12.1.7",
-    "@openapitools/openapi-generator-cli": "1.0.10-4.2.3",
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
-    "webpack-dev-server": "3.9.0",
+    "webpack-dev-server": "^3.11.0",
     "webpack-merge": "4.2.2",
     "webpack-notifier": "1.8.0",
     "workbox-webpack-plugin": "4.3.1",
