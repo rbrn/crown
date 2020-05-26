@@ -3,7 +3,7 @@
     "receiverResource": {
       "home": {
         "title": "Receiver Resources",
-        "createLabel": "Create a new Receiver Resource",
+        "createLabel": "Request a  Resource",
         "createOrEditLabel": "Create or edit a Receiver Resource",
         "notFound": "No Receiver Resources found"
       },
@@ -17,14 +17,15 @@
         "title": "Receiver Resource"
       },
       "name": "Name",
-      "quantity": "Quantity",
+      "quantity": "Quantity Requested",
       "dailyUse": "Daily Use",
       "postedDate": "Posted Date",
       "currentStock": "Current Stock",
-      "expiration": "Expiration",
+      "expiration": "Resource to be delivered before this Date",
       "notes": "Notes",
       "resourceType": "Resource Type",
-      "receiver": "Receiver"
+      "receiver": "Receiver",
+	"zip":"Zip/Postal Code"
     }
   }
 }
