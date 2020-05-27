@@ -112,7 +112,7 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp;
-          <Translate contentKey="crownApp.supplierResource.home.createLabel">Create new Supplier Resource</Translate>
+          <Translate contentKey="crownApp.supplierResource.home.createLabel">Supply a Resource</Translate>
         </Link>
       </h2>
       <Row>
