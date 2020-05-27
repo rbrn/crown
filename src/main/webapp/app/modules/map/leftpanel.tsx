@@ -4,6 +4,7 @@ import { LatLng } from './map';
 import { Button, Card } from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 
+
 export interface OwnProps {
   position: LatLng,
   radius: number,
@@ -12,7 +13,6 @@ export interface OwnProps {
   showOptions: boolean
 };
 type Props = StateProps & DispatchProps & OwnProps
-
 
 const img = "content/images/crown.png";
 
