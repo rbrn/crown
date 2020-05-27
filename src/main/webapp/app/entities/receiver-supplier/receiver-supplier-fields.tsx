@@ -82,7 +82,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
       </AvGroup>
       <AvGroup>
         <Label id="phonenumberLabel" for="receiver-supplier-phonenumber">
-          <Translate contentKey="crownApp.receiverSupplier.phonenumber">Phonenumber</Translate>
+          <Translate contentKey="crownApp.receiverSupplier.phonenumber">Phone Number</Translate>
         </Label>
         <AvField
           id="receiver-supplier-phonenumber"
@@ -94,7 +94,8 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
- 
+
+      
       <AvGroup>
         <Label id="cityLabel" for="receiver-supplier-city">
           <Translate contentKey="crownApp.receiverSupplier.city">City</Translate>
@@ -138,6 +139,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         />
       </AvGroup>
 
+
       <AvGroup check>
         <Label id="isReceiverLabel">
           <AvInput id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isReceiver`}/>
@@ -169,6 +171,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField id="receiver-supplier-notes" type="text" name={`${fieldPrefix || ''}notes`}/>
       </AvGroup>
+
  
     </React.Fragment>
   )
