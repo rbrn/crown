@@ -138,22 +138,18 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
               </AvGroup>
               <AvGroup>
                 <Label id="quantityLabel" for="supplier-resource-quantity">
-                  <Translate contentKey="crownApp.supplierResource.quantity">Quantity</Translate>
+                  <Translate contentKey="crownApp.supplierResource.quantity"> Quantity Offering </Translate>
                 </Label>
                 <AvField
                   id="supplier-resource-quantity"
                   type="string"
                   className="form-control"
                   name="quantity"
-                  validate={{
-                    required: {value: true, errorMessage: translate('entity.validation.required')},
-                    number: {value: true, errorMessage: translate('entity.validation.number')}
-                  }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="costLabel" for="supplier-resource-cost">
-                  <Translate contentKey="crownApp.supplierResource.cost">Cost</Translate>
+                  <Translate contentKey="crownApp.supplierResource.cost">Cost/per Unit</Translate>
                 </Label>
                 <AvField
                   id="supplier-resource-cost"
