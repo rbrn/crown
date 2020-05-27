@@ -19,8 +19,8 @@
       "detail": {
         "title": "Supplier Resource"
       },
-      "quantity": "Quantity",
-      "cost": "Cost",
+      "quantity": "Quantity Offered",
+      "cost": "Cost/per Unit",
       "resourceType": "Resource Type",
       "supplier": "Supplier"
     }
