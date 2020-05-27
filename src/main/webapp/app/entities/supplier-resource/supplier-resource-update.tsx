@@ -125,11 +125,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate>
                 </Label>
                 <AvInput id="supplier-resource-resourceType" type="select" className="form-control"
-                    name="resourceType.id"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                    }}
-                  >
+                         name="resourceType.id">
                   <option value="" key="0"/>
                   {resourceTypes
                     ? resourceTypes.map(otherEntity => (
@@ -142,7 +138,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
               </AvGroup>
               <AvGroup>
                 <Label id="quantityLabel" for="supplier-resource-quantity">
-                  <Translate contentKey="crownApp.supplierResource.quantity"> Quantity Offered </Translate>
+                  <Translate contentKey="crownApp.supplierResource.quantity">Quantity</Translate>
                 </Label>
                 <AvField
                   id="supplier-resource-quantity"
@@ -157,7 +153,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
               </AvGroup>
               <AvGroup>
                 <Label id="costLabel" for="supplier-resource-cost">
-                  <Translate contentKey="crownApp.supplierResource.cost">Cost/per Unit</Translate>
+                  <Translate contentKey="crownApp.supplierResource.cost">Cost</Translate>
                 </Label>
                 <AvField
                   id="supplier-resource-cost"
