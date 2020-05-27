@@ -155,10 +155,10 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('quantity')}>
-                    <Translate contentKey="crownApp.supplierResource.quantity">Quantity Offered</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="crownApp.supplierResource.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('cost')}>
-                    <Translate contentKey="crownApp.supplierResource.cost">Cost/per Unit</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="crownApp.supplierResource.cost">Cost</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
                     <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate> <FontAwesomeIcon icon="sort" />
