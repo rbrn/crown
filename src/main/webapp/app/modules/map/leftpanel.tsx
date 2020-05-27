@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { LatLng } from './map';
-import { Button, Card } from 'reactstrap';
+import {connect} from 'react-redux';
+import {LatLng} from './map';
+import {Button, Card} from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 
 export interface OwnProps {

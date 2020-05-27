@@ -277,7 +277,7 @@ class MapComponent extends React.Component<MapProps, State> {
 
     if (this.state.aroundMeReceivers.length > 0 && map !== null) {
       this.state.aroundMeReceivers.forEach(function (value) {
-        L.marker(value.latLng, { icon: requesterIcon }).addTo(map).bindPopup(value.supplyType);
+         L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.supplyType);
       });
     }
 
