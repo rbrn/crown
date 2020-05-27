@@ -25,7 +25,7 @@
       "notes": "Notes",
       "resourceType": "Resource Type",
       "receiver": "Receiver",
-      "zip": "Zip/Postal Code"
+	"zip":"Zip/Postal Code"
     }
   }
 }
