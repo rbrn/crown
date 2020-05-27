@@ -62,18 +62,6 @@ export const ReceiverSupplierDetail = (props: IReceiverSupplierDetailProps) => {
           </dt>
           <dd>{receiverSupplierEntity.phonenumber}</dd>
           <dt>
-            <span id="latx">
-              <Translate contentKey="crownApp.receiverSupplier.latx">Latx</Translate>
-            </span>
-          </dt>
-          <dd>{receiverSupplierEntity.latx}</dd>
-          <dt>
-            <span id="longy">
-              <Translate contentKey="crownApp.receiverSupplier.longy">Longy</Translate>
-            </span>
-          </dt>
-          <dd>{receiverSupplierEntity.longy}</dd>
-          <dt>
             <span id="city">
               <Translate contentKey="crownApp.receiverSupplier.city">City</Translate>
             </span>
@@ -91,12 +79,6 @@ export const ReceiverSupplierDetail = (props: IReceiverSupplierDetailProps) => {
             </span>
           </dt>
           <dd>{receiverSupplierEntity.country}</dd>
-          <dt>
-            <span id="npi">
-              <Translate contentKey="crownApp.receiverSupplier.npi">Npi</Translate>
-            </span>
-          </dt>
-          <dd>{receiverSupplierEntity.npi}</dd>
           <dt>
             <span id="isReceiver">
               <Translate contentKey="crownApp.receiverSupplier.isReceiver">Is Receiver</Translate>
@@ -127,12 +109,6 @@ export const ReceiverSupplierDetail = (props: IReceiverSupplierDetailProps) => {
             </span>
           </dt>
           <dd>{receiverSupplierEntity.notes}</dd>
-          <dt>
-            <span id="tags">
-              <Translate contentKey="crownApp.receiverSupplier.tags">Tags</Translate>
-            </span>
-          </dt>
-          <dd>{receiverSupplierEntity.tags}</dd>
         </dl>
         <Button tag={Link} to="/receiver-supplier" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}

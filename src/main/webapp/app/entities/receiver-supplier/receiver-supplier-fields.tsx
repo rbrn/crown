@@ -23,6 +23,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
+
       <AvGroup>
         <Label id="addressLabel" for="receiver-supplier-address">
           <Translate contentKey="crownApp.receiverSupplier.address">Address</Translate>
@@ -37,6 +38,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
+
       <AvGroup>
         <Label id="emailLabel" for="receiver-supplier-email">
           <Translate contentKey="crownApp.receiverSupplier.email">Email</Translate>
@@ -51,6 +53,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
+
       <AvGroup>
         <Label id="primaryContactNameLabel" for="receiver-supplier-primaryContactName">
           <Translate contentKey="crownApp.receiverSupplier.primaryContactName">Primary Contact Name</Translate>
@@ -66,6 +69,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
+
       <AvGroup>
         <Label id="zipLabel" for="receiver-supplier-zip">
           <Translate contentKey="crownApp.receiverSupplier.zip">Zip</Translate>
@@ -80,6 +84,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
+
       <AvGroup>
         <Label id="phonenumberLabel" for="receiver-supplier-phonenumber">
           <Translate contentKey="crownApp.receiverSupplier.phonenumber">Phone Number</Translate>
@@ -95,7 +100,6 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         />
       </AvGroup>
 
-      
       <AvGroup>
         <Label id="cityLabel" for="receiver-supplier-city">
           <Translate contentKey="crownApp.receiverSupplier.city">City</Translate>
@@ -110,6 +114,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
+
       <AvGroup>
         <Label id="stateLabel" for="receiver-supplier-state">
           <Translate contentKey="crownApp.receiverSupplier.state">State</Translate>
@@ -124,6 +129,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
+
       <AvGroup>
         <Label id="countryLabel" for="receiver-supplier-country">
           <Translate contentKey="crownApp.receiverSupplier.country">Country</Translate>
@@ -138,7 +144,6 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
-
 
       <AvGroup check>
         <Label id="isReceiverLabel">
@@ -159,6 +164,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           <Translate contentKey="crownApp.receiverSupplier.hasSterilization">Has Sterilization</Translate>
         </Label>
       </AvGroup>
+
       <AvGroup>
         <Label id="priorityLabel" for="receiver-supplier-priority">
           <Translate contentKey="crownApp.receiverSupplier.priority">Priority</Translate>

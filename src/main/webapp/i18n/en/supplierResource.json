@@ -3,10 +3,10 @@
     "supplierResource": {
       "home": {
         "title": "Supplier Resources",
-        "createLabel": "Create a new Supplier Resource",
+        "createLabel": "Supply a Resource",
         "createSupplierLabel": "Who is offering this resource",
         "createReceiverLabel": "Who is requesting this resource",
-        "createOrEditLabel": "Create or edit a Supplier Resource",
+        "createOrEditLabel": "Supply a Resource",
         "search": "Search for Supplier Resource",
         "notFound": "No Supplier Resources found"
       },
@@ -19,8 +19,8 @@
       "detail": {
         "title": "Supplier Resource"
       },
-      "quantity": "Quantity",
-      "cost": "Cost",
+      "quantity": "Quantity Offered",
+      "cost": "Cost/per Unit",
       "resourceType": "Resource Type",
       "supplier": "Supplier"
     }

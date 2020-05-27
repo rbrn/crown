@@ -111,12 +111,6 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
                   <th className="hand" onClick={sort('phonenumber')}>
                     <Translate contentKey="crownApp.receiverSupplier.phonenumber">Phonenumber</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('latx')}>
-                    <Translate contentKey="crownApp.receiverSupplier.latx">Latx</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('longy')}>
-                    <Translate contentKey="crownApp.receiverSupplier.longy">Longy</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th className="hand" onClick={sort('city')}>
                     <Translate contentKey="crownApp.receiverSupplier.city">City</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -125,9 +119,6 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
                   </th>
                   <th className="hand" onClick={sort('country')}>
                     <Translate contentKey="crownApp.receiverSupplier.country">Country</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('npi')}>
-                    <Translate contentKey="crownApp.receiverSupplier.npi">Npi</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('isReceiver')}>
                     <Translate contentKey="crownApp.receiverSupplier.isReceiver">Is Receiver</Translate> <FontAwesomeIcon icon="sort" />
@@ -144,9 +135,6 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
                   </th>
                   <th className="hand" onClick={sort('notes')}>
                     <Translate contentKey="crownApp.receiverSupplier.notes">Notes</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('tags')}>
-                    <Translate contentKey="crownApp.receiverSupplier.tags">Tags</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
@@ -165,18 +153,14 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
                     <td>{receiverSupplier.primaryContactName}</td>
                     <td>{receiverSupplier.zip}</td>
                     <td>{receiverSupplier.phonenumber}</td>
-                    <td>{receiverSupplier.latx}</td>
-                    <td>{receiverSupplier.longy}</td>
                     <td>{receiverSupplier.city}</td>
                     <td>{receiverSupplier.state}</td>
                     <td>{receiverSupplier.country}</td>
-                    <td>{receiverSupplier.npi}</td>
                     <td>{receiverSupplier.isReceiver ? 'true' : 'false'}</td>
                     <td>{receiverSupplier.isSupplier ? 'true' : 'false'}</td>
                     <td>{receiverSupplier.hasSterilization ? 'true' : 'false'}</td>
                     <td>{receiverSupplier.priority}</td>
                     <td>{receiverSupplier.notes}</td>
-                    <td>{receiverSupplier.tags}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${receiverSupplier.id}`} color="info" size="sm">

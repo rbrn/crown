@@ -21,24 +21,18 @@
       "email": "Email",
       "primaryContactName": "Primary Contact Name",
       "zip": "Zip/Postal Code",
-
       "phonenumber": "Phone number",
-
-      //"latx": "Latx",
-      //"longy": "Longy",
 
       "city": "City",
       "state": "State/Province",
       "country": "Country",
 
-      //"npi": "Npi",
-
       "isReceiver": "Is Receiver",
       "isSupplier": "Is Supplier",
       "hasSterilization": "Has Sterilization",
+
       "priority": "Priority",
       "notes": "Notes",
-      "tags": "Tags",
       "receiverResource": "Receiver Resource",
       "supplierResource": "Supplier Resource"
     }

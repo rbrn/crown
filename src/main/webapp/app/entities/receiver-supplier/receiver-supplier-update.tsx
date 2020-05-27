@@ -76,8 +76,8 @@ export const ReceiverSupplierUpdate = (props: IReceiverSupplierUpdateProps) => {
               ) : null}
               <ReceiverSupplierFields/>
               <Button tag={Link} id="cancel-save" to="/receiver-supplier" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
-                &nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
                 </span>
