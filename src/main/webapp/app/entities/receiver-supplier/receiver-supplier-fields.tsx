@@ -1,7 +1,7 @@
 import React from "react";
 import {translate, Translate} from "react-jhipster";
 import {AvField, AvGroup, AvInput} from 'availity-reactstrap-validation';
-import { Label } from 'reactstrap';
+import {Label} from 'reactstrap';
 
 interface ReceiverSupplierFieldsProps {
   fieldPrefix?: string
@@ -95,7 +95,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         />
       </AvGroup>
 
-
+      
       <AvGroup>
         <Label id="cityLabel" for="receiver-supplier-city">
           <Translate contentKey="crownApp.receiverSupplier.city">City</Translate>
