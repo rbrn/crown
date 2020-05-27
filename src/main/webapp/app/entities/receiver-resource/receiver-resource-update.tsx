@@ -101,8 +101,8 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="crownApp.receiverResource.home.createOrEditLabel">
-            <Translate contentKey="crownApp.receiverResource.home.createOrEditLabel">Create or edit a ReceiverResource</Translate>
+          <h2 id="crownApp.receiverResource.home.createLable">
+            <Translate contentKey="crownApp.receiverResource.home.createLabel">Request a Resource</Translate>
           </h2>
         </Col>
       </Row>
@@ -126,6 +126,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                 </Label>
                 <AvField
                   id="receiver-resource-name"
+                  helpMessage="*this is required"
                   type="text"
                   name="name"
                   validate={{
@@ -139,6 +140,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                 </Label>
                 <AvField
                   id="receiver-resource-quantity"
+                  helpMessage="*this is required"
                   type="string"
                   className="form-control"
                   name="quantity"
@@ -154,6 +156,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                 </Label>
                 <AvField
                   id="receiver-resource-dailyUse"
+                  helpMessage="*this is required"
                   type="string"
                   className="form-control"
                   name="dailyUse"
@@ -169,6 +172,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                 </Label>
                 <AvField
                   id="receiver-resource-postedDate"
+                  helpMessage="*this is required"
                   type="date"
                   className="form-control"
                   name="postedDate"

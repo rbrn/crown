@@ -1,7 +1,7 @@
 import React from "react";
 import {translate, Translate} from "react-jhipster";
 import {AvField, AvGroup, AvInput} from 'availity-reactstrap-validation';
-import {Label} from 'reactstrap';
+import { Label } from 'reactstrap';
 
 interface ReceiverSupplierFieldsProps {
   fieldPrefix?: string
@@ -15,6 +15,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-name"
+	  helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}name`}
           validate={{
@@ -28,6 +29,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-address"
+	helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}address`}
           validate={{
@@ -41,6 +43,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-email"
+	  helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}email`}
           validate={{
@@ -54,6 +57,8 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-primaryContactName"
+	helpMessage="*this is required"
+		
           type="text"
           name={`${fieldPrefix || ''}primaryContactName`}
           validate={{
@@ -67,6 +72,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-zip"
+	   helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}zip`}
           validate={{
@@ -76,35 +82,26 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
       </AvGroup>
       <AvGroup>
         <Label id="phonenumberLabel" for="receiver-supplier-phonenumber">
-          <Translate contentKey="crownApp.receiverSupplier.phonenumber">Phonenumber</Translate>
+          <Translate contentKey="crownApp.receiverSupplier.phonenumber">Phone number</Translate>
         </Label>
         <AvField
           id="receiver-supplier-phonenumber"
           type="text"
+		helpMessage="*this is required"
           name={`${fieldPrefix || ''}phonenumber`}
           validate={{
             required: {value: true, errorMessage: translate('entity.validation.required')}
           }}
         />
       </AvGroup>
-      <AvGroup>
-        <Label id="latxLabel" for="receiver-supplier-latx">
-          <Translate contentKey="crownApp.receiverSupplier.latx">Latx</Translate>
-        </Label>
-        <AvField id="receiver-supplier-latx" type="string" className="form-control" name={`${fieldPrefix || ''}latx`}/>
-      </AvGroup>
-      <AvGroup>
-        <Label id="longyLabel" for="receiver-supplier-longy">
-          <Translate contentKey="crownApp.receiverSupplier.longy">Longy</Translate>
-        </Label>
-        <AvField id="receiver-supplier-longy" type="string" className="form-control" name={`${fieldPrefix || ''}longy`}/>
-      </AvGroup>
+
       <AvGroup>
         <Label id="cityLabel" for="receiver-supplier-city">
           <Translate contentKey="crownApp.receiverSupplier.city">City</Translate>
         </Label>
         <AvField
           id="receiver-supplier-city"
+	   helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}city`}
           validate={{
@@ -118,6 +115,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-state"
+	   helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}state`}
           validate={{
@@ -131,6 +129,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-country"
+	   helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}country`}
           validate={{
@@ -138,12 +137,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
-      <AvGroup>
-        <Label id="npiLabel" for="receiver-supplier-npi">
-          <Translate contentKey="crownApp.receiverSupplier.npi">Npi</Translate>
-        </Label>
-        <AvField id="receiver-supplier-npi" type="string" className="form-control" name={`${fieldPrefix || ''}npi`}/>
-      </AvGroup>
+
       <AvGroup check>
         <Label id="isReceiverLabel">
           <AvInput id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isReceiver`}/>
@@ -175,12 +169,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField id="receiver-supplier-notes" type="text" name={`${fieldPrefix || ''}notes`}/>
       </AvGroup>
-      <AvGroup>
-        <Label id="tagsLabel" for="receiver-supplier-tags">
-          <Translate contentKey="crownApp.receiverSupplier.tags">Tags</Translate>
-        </Label>
-        <AvField id="receiver-supplier-tags" type="text" name={`${fieldPrefix || ''}tags`}/>
-      </AvGroup>
+ 
     </React.Fragment>
   )
 };

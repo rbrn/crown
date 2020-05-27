@@ -4,6 +4,7 @@ import { LatLng } from './map';
 import { Button, Card } from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 
+
 export interface OwnProps {
   position: LatLng,
   radius: number,
@@ -59,7 +60,7 @@ class LeftPanelComponent extends React.Component<Props> {
                 <Button onClick={() => onButtonClicked('Supply Medical Supplies')} className='w-100 cw-btn'>Supply Medical Supplies</Button>
               </div>
             </Card> :
-              <Card> <h5 className='align-content-center crown-header-white'> Click on the map to start requesting/offering resources!! </h5> </Card>
+              null
           }
         </div>
       </div>
