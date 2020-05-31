@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import appConfig from 'app/config/constants';
 
+const img = 'content/images/crown-img.jpg';
+
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
     <img src="content/images/logo-jhipster.png" style={{height:'20px',width:'50px'}} alt="Logo" />
@@ -15,21 +17,19 @@ export const BrandIcon = props => (
 
 export const Brand = props => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
-    <BrandIcon />
     <span className="brand-title">
-      <Translate contentKey="global.title">Crown</Translate>
+      <img src={img} style={{height: '80px', width:'250px'}} />
     </span>
-    <span className="navbar-version">{appConfig.VERSION}</span>
   </NavbarBrand>
 );
 
 export const Home = props => (
   <NavItem>
     <NavLink tag={Link} to="/" className="d-flex align-items-center">
-      <FontAwesomeIcon icon="home" />
       <span>
-        <Translate contentKey="global.menu.home">Home</Translate>
+        <div>Home</div>
       </span>
     </NavLink>
   </NavItem>
+
 );

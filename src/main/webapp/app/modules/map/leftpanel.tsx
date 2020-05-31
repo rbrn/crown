@@ -48,7 +48,7 @@ class LeftPanelComponent extends React.Component<Props> {
 
           <hr />
           {
-            showOptions ? <Card>
+            showOptions ? <Card className="details-card">
               <h6>I am a medical worker</h6>
               <div className=''>
                 <Button onClick={() => onButtonClicked('Browse Available')} className='w-100 mb-2 cw-btn'>Browse Available</Button>
