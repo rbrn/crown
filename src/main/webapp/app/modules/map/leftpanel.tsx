@@ -18,7 +18,7 @@ class LeftPanelComponent extends React.Component<Props> {
     const { position: { lat, lng }, radius, changeRadius, onButtonClicked, showOptions } = this.props;
     return (
       <div className="left-panel shadow-lg p-3 mb-5 bg-blue rounded">
-        <img src="content/images/crown.png" style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
+        <img src="content/images/crown-logo.png" style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
         <div className="align-content-center">
           <div className="align-content-center crown-header" style={{ padding: '5px', color: '#fff' }}>A COVID-19 Open Data Network for Rapid, Affordable and Standardized Procurement of Manufactured Medical Supplies (MS)</div>
         </div>
