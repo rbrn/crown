@@ -295,8 +295,8 @@ class MapComponent extends React.Component<MapProps, State> {
           <Col className="col-sm-3 p-0">
             <LeftPanel showOptions={this.state.showOptions} onButtonClicked={this.onButtonClicked.bind(this)} radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius} />
           </Col>
-          <Col md="9">
-            <div className="shadow-lg p-3 mb-5 bg-white rounded">
+          <Col md="9" className="p-0">
+            <div className="shadow-lg mb-5 bg-white rounded">
               <div id='map-container'></div>
               <Popup
                 open={this.state.open}
