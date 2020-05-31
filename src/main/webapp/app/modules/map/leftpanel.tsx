@@ -4,7 +4,6 @@ import {LatLng} from './map';
 import {Button, Card} from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 
-
 export interface OwnProps {
   position: LatLng,
   radius: number,
@@ -13,6 +12,7 @@ export interface OwnProps {
   showOptions: boolean
 };
 type Props = StateProps & DispatchProps & OwnProps
+
 
 const img = "content/images/crown.png";
 
@@ -48,7 +48,7 @@ class LeftPanelComponent extends React.Component<Props> {
 
           <hr />
           {
-            showOptions ? <Card>
+            showOptions ? <Card className="details-card">
               <h6>I am a medical worker</h6>
               <div className=''>
                 <Button onClick={() => onButtonClicked('Browse Available')} className='w-100 mb-2 cw-btn'>Browse Available</Button>

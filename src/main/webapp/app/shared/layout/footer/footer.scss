@@ -1,6 +1,28 @@
 .footer {
   height: 50px;
+  position: fixed;
+  bottom: 0;
+  background-color: black;
+  width: 100%;
+  left: 0;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  z-index: 1200;
 }
-.pfooter {
-  text-align: center;
+.copyright {
+  text-align: left;
+  flex: 1 1 auto;
+}
+.links {
+  font-size: 12px;
+  a {
+    color: white;
+    font-weight: normal;
+  }
+  .link {
+    padding-right: 10px;
+  }
 }

@@ -24,7 +24,6 @@ declare global {
 
 const { L } = window;
 
-
 delete L.Icon.Default.prototype._getIconUrl;
 
 /* L.Icon.Default.mergeOptions({
@@ -46,7 +45,7 @@ L.Marker.prototype.options.icon = myIcon;
 export interface MapProps extends StateProps, DispatchProps {
 }
 
-// type for latitude and longitude
+
 export type LatLng = {
   lat: number,
   lng: number,
@@ -71,8 +70,6 @@ const defaultLatLng = {
   lat: 51.505,
   lng: -0.09,
 };
-
-// Used for buttons on map
 const types = {
   'Browse Available': 'Browse Available',
   'Browse Requested': 'Browse Requested',
@@ -265,28 +262,26 @@ class MapComponent extends React.Component<MapProps, State> {
     L.tileLayer(baseTileString, options).addTo(this.resourceSuppliersMap);
   }
 
+
   render() {
 
     const offerPPEparam = "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
     const requestPPEparam = "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
     const map = this.state.resourceSuppliersMap;
 
-
-    // Supply icons on the map
     if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
       this.state.aroundMeSuppliers.forEach(function (value) {
         L.marker(value.latLng, { icon: supplierIcon }).addTo(map).bindPopup(value.supplyType);
       });
     }
 
-    // Request icons on the map
     if (this.state.aroundMeReceivers.length > 0 && map !== null) {
       this.state.aroundMeReceivers.forEach(function (value) {
          L.marker(value.latLng, {icon: requesterIcon}).addTo(map).bindPopup(value.requestType);
       });
     }
 
-   // console.log(this.state.aroundMeReceivers);
+
 
     if (this.state.type === types['Request Medical Supplies'])
       return <Redirect to={requestPPEparam} />
@@ -300,8 +295,8 @@ class MapComponent extends React.Component<MapProps, State> {
           <Col className="col-sm-3 p-0">
             <LeftPanel showOptions={this.state.showOptions} onButtonClicked={this.onButtonClicked.bind(this)} radius={this.state.radius} position={this.state.latlng} changeRadius={this.changeRadius} />
           </Col>
-          <Col md="9">
-            <div className="shadow-lg p-3 mb-5 bg-white rounded">
+          <Col md="9" className="p-0">
+            <div className="shadow-lg mb-5 bg-white rounded">
               <div id='map-container'></div>
               <Popup
                 open={this.state.open}

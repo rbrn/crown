@@ -15,7 +15,6 @@ export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps,
 }
 
 export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
-
   const [resourceTypeId, setResourceTypeId] = useState('0');
   const [supplierId, setSupplierId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
