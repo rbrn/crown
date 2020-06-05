@@ -1,16 +1,12 @@
 import React, {Component} from "react";
 import 'antd/dist/antd.css';
-import { Row, Calendar, Select, Layout, Button, Upload, Popconfirm, Space, Card, Col, DatePicker } from 'antd'
-import { UploadOutlined } from '@ant-design/icons';
+import { Input } from 'reactstrap'
+import { Row, Space, Col } from 'antd'
 class Inventory extends Component {
 
   render() {
     
     const dateFormat = 'YYYY/MM/DD';
-    const { Header, Footer, Sider, Content } = Layout;
-
-    const { Option } = Select;
-
     const handleChange = (value) => {
        // console.log(`selected ${value}`);
       }
@@ -30,13 +26,14 @@ class Inventory extends Component {
         <Col span={24} style={{textAlign:"center"}}>
         <Space>
             <h5 style={{margin:"10px"}}>Choose Date</h5>
-            <DatePicker style={{fontSize:"16px", height:"50px", fontWeight:"bold", marginTop:"45px"}} className="shadow p-1 mb-5 bg-white rounded" placeholder="03/03/2021" format={dateFormat}/>
+            <Input type="date" name="date" style={{fontSize:"16px", height:"50px", fontWeight:"bold", marginTop:"45px"}} className="shadow p-1 mb-5 bg-white rounded"/>
             <h5 style={{margin:"10px"}}>Choose Department</h5>
-            <Select defaultValue="Emergency Department" style={{fontSize:"16px", height:"50px", fontWeight:"bold", marginTop:"45px"}} className="shadow p-1 mb-5 bg-white rounded" onChange={handleChange}>
-            <Option value="Emergency Department">Emergency Department</Option>
-            <Option value="Recruiting Department">Recruiting Department</Option>
-            <Option value="Wholesale Department">Wholesale Department</Option>
-        </Select>
+            <Input type="select" name="select" style={{fontSize:"16px", height:"50px", fontWeight:"bold", marginTop:"45px"}} className="shadow p-1 mb-5 bg-white rounded">
+          <option> </option>
+          <option>Emergency Department</option>
+          <option>Recruiting Department</option>
+          <option>Wholesale Department</option>
+        </Input>
         </Space>
         </Col>
        </Row>
@@ -44,7 +41,7 @@ class Inventory extends Component {
      <div>
      <Row>
          <Col span={3}></Col>
-      <Col span={8} style={{padding:"10px"}} className="shadow-lg p-3 mb-5 bg-blue rounded">
+      <Col span={8} style={{padding:"10px"}} className="shadow p-3 mb-5 bg-blue rounded">
       <p><h5>Medical Supplies will be needed</h5></p>
       <p>
           <Row style={{fontSize:"18px"}}>
@@ -68,7 +65,7 @@ class Inventory extends Component {
       </p>
       </Col>
       <Col span={2}></Col>
-      <Col span={8} style={{padding:"10px"}} className="shadow-lg p-3 mb-5 bg-blue rounded">
+      <Col span={8} style={{padding:"10px"}} className="shadow p-3 mb-5 bg-blue rounded">
       <p><h5>Medical Equipments will be needed</h5></p>
       <p>
       <Row style={{fontSize:"18px"}}>
