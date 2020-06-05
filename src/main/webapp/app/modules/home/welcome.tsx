@@ -16,7 +16,6 @@ const Welcome = props => (
       <Row>
         <Col className=".col-md-3 .offset-md-3">
           <Card className="welcome-card">
-            <h6>I&#39;m a</h6>
             <div className=''>
               <Button onClick={() => 'Browse Available'} className='w-100 mb-2 cw-btn'>Wholesaler</Button>
               <Button onClick={() => 'Request Medical Supplies'} className='w-100 mb-2 cw-btn'>Inventory Specialist</Button>

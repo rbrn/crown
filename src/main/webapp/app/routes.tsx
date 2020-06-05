@@ -5,6 +5,7 @@ import Loadable from 'react-loadable';
 import Login from 'app/modules/login/login';
 import Inventory from 'app/modules/inventory/inventory';
 import Welcome from 'app/modules/home/welcome';
+import WholeSalerSearch from 'app/modules/search/wholesaler-search';
 import Register from 'app/modules/account/register/register';
 import Activate from 'app/modules/account/activate/activate';
 import PasswordResetInit from 'app/modules/account/password-reset/init/password-reset-init';
@@ -30,6 +31,7 @@ const Admin = Loadable({
 const Routes = () => (
   <div className="view-routes">
     <Switch>
+      <ErrorBoundaryRoute path="/search" component={WholeSalerSearch} />
       <ErrorBoundaryRoute path="/welcome" component={Welcome} />
       <ErrorBoundaryRoute path="/login" component={Login} />
       <ErrorBoundaryRoute path="/inventory" component={Inventory} />
