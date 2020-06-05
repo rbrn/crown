@@ -3,6 +3,7 @@ import { Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
+import Inventory from 'app/modules/inventory/inventory';
 import Welcome from 'app/modules/home/welcome';
 import Register from 'app/modules/account/register/register';
 import Activate from 'app/modules/account/activate/activate';
@@ -31,6 +32,7 @@ const Routes = () => (
     <Switch>
       <ErrorBoundaryRoute path="/welcome" component={Welcome} />
       <ErrorBoundaryRoute path="/login" component={Login} />
+      <ErrorBoundaryRoute path="/inventory" component={Inventory} />
       <ErrorBoundaryRoute path="/logout" component={Logout} />
       <ErrorBoundaryRoute path="/account/register" component={Register} />
       <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
