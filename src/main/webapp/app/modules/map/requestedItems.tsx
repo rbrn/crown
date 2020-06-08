@@ -131,8 +131,12 @@ class RequestedItemsComponent extends React.Component<Props, State> {
                     <div className='action-items flex'>
                       {/* <FontAwesomeIcon onClick={this.handleDelete} icon='trash' color='red' style={{cursor: 'pointer'}}/>{' '} */}
                       {/* <FontAwesomeIcon onClick={this.handleEdit} icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>{' '} */}
-                     <a  onClick={this.handleView(index)}><FontAwesomeIcon icon='eye' color='green'
-                                       style={{cursor: 'pointer'}}/>  {' Details '}</a>
+                      {/* <a  onClick={this.handleView(index)}><FontAwesomeIcon icon='eye' color='green'
+                                       style={{cursor: 'pointer'}}/>  {' Details '}</a>*/}
+                      <button className={'btn btn-primary'} onClick={ this.claimItem(item) }>
+                        <FontAwesomeIcon  icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>
+                        {' Offer to fulfil '}
+                      </button>
                     </div>
                     <div>
                     </div>

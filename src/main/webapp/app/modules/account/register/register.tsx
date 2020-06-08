@@ -88,22 +88,6 @@ export const RegisterPage = (props: IRegisterProps) => {
               <Translate contentKey="register.form.button">Register</Translate>
             </Button>
           </AvForm>
-          <p>&nbsp;</p>
-          <Alert color="warning">
-            <span>
-              <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-            </span>
-            <a className="alert-link">
-              <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-            </a>
-            <span>
-              <Translate contentKey="global.messages.info.authenticated.suffix">
-                , you can try the default accounts:
-                <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-              </Translate>
-            </span>
-          </Alert>
         </Col>
       </Row>
     </div>

@@ -74,7 +74,7 @@ class PostedItemsComponent extends React.Component<Props, State> {
       <div className="scroll-container">
       <div className="get-items-display">
         <div className="panel-heading">Items available in your area</div>
-      
+
           {<div className="info-div">
             <p> Getting data for user: {this.props.account.login} </p>
             <p> lat, lng: {lat}, {lng} </p>
@@ -111,10 +111,15 @@ class PostedItemsComponent extends React.Component<Props, State> {
                     <div className='action-items flex'>
                       {/* <FontAwesomeIcon onClick={this.handleDelete} icon='trash' color='red' style={{cursor: 'pointer'}}/>{' '} */}
                       {/* <FontAwesomeIcon onClick={this.handleEdit} icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>{' '} */}
-                      <a onClick={this.handleView(index)}>
+                      {/* <a onClick={this.handleView(index)}>
                         <FontAwesomeIcon icon='eye' color='green'
                                          style={{cursor: 'pointer'}}/>{' Details '}
-                      </a>
+                      </a>*/}
+                      <button className={'btn btn-primary'} onClick={this.claimItem(item.id, item.quantity)}>
+                        <FontAwesomeIcon
+                          icon='pencil-alt' color='blue'
+                          style={{cursor: 'pointer'}}/> {' Request this resource '}
+                      </button>
                     </div>
                     <div>
                     </div>
@@ -131,7 +136,7 @@ class PostedItemsComponent extends React.Component<Props, State> {
         {/* change this accordingly */}
         {
           this.state.viewIndex !== -1 &&
-          
+
           <div className="col-sm-6 col-md-6 col-lg-6" style={{float:'right'}}>
             <div className="get-items-display-details">
               <div className="panel-heading">Detailed View</div>
