@@ -6,7 +6,7 @@
       "home": "Home",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
-        "main": "My Requests",
+        "main": "My Dashboard",
         "supplyPoint": "Supply Point",
         "resource": "Resource",
         "supplyPointResource": "Supply Point Resource",
@@ -14,8 +14,8 @@
         "requestPoint": "Request Point",
         "request": "Request",
         "receiverSupplier": "Receiver Supplier",
-        "receiverResource": "Receiver Resource",
-        "supplierResource": "Supplier Resource",
+        "receiverResource": "My Requests",
+        "supplierResource": "My Supplies",
         "resourceType": "Resource Type",
         "claim": "Claim",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
