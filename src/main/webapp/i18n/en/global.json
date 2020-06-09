@@ -13,11 +13,11 @@
         "delivery": "Delivery",
         "requestPoint": "Request Point",
         "request": "Request",
-        "receiverSupplier": "Receiver Supplier",
+        "receiverSupplier": "Receiver/Supplier list",
         "receiverResource": "My Requests",
         "supplierResource": "My Supplies",
         "resourceType": "Resource Type",
-        "claim": "Claim",
+        "claim": "My Open Orders",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
