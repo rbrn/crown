@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import 'antd/dist/antd.css';
 import { Input } from 'reactstrap'
 import { Row, Space, Col } from 'antd'
-class Inventory extends Component {
+class InventorySupply extends Component {
 
   render() {
     
@@ -12,7 +12,7 @@ class Inventory extends Component {
       }
     
     return (
-       <div>
+       <div style={{ backgroundImage:`url('../../../content/images/background.png')` }}>
 
     <br/>
     <div>
@@ -44,9 +44,9 @@ class Inventory extends Component {
       <Col span={8} style={{padding:"10px"}} className="shadow p-3 mb-5 bg-blue rounded">
       <p><h5>Medical Supplies will be needed</h5></p>
       <p>
-          <Row style={{fontSize:"18px"}}>
+          <Row style={{fontSize:"18px", lineHeight:'45px'}}>
       <Col span={12}>
-          <p>ITEM</p><br/>
+          <p>ITEM</p>
           <p>Anesthesia</p>
           <p>Masks</p>
           <p>Sanitizers</p>
@@ -54,7 +54,7 @@ class Inventory extends Component {
           <p>Medicine B</p>
           </Col> 
       <Col span={12}>
-      <p>QTY</p><br/>
+      <p>QTY</p>
       <p>50</p>
       <p>1000</p>
       <p>1000</p>
@@ -68,9 +68,9 @@ class Inventory extends Component {
       <Col span={8} style={{padding:"10px"}} className="shadow p-3 mb-5 bg-blue rounded">
       <p><h5>Medical Equipments will be needed</h5></p>
       <p>
-      <Row style={{fontSize:"18px"}}>
+      <Row style={{fontSize:"18px", lineHeight:'45px'}}>
       <Col span={12}>
-          <p>ITEM</p><br/>
+          <p>ITEM</p>
           <p>Respironics</p>
           <p>Bed</p>
           <p>Sanitizers</p>
@@ -78,7 +78,7 @@ class Inventory extends Component {
           <p>Medicine B</p>
           </Col> 
       <Col span={12}>
-      <p>QTY</p><br/>
+      <p>QTY</p>
       <p>50</p>
       <p>1000</p>
       <p>1000</p>
@@ -97,4 +97,4 @@ class Inventory extends Component {
   }
 }
 
-export default Inventory;
+export default InventorySupply;

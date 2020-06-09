@@ -3,7 +3,8 @@ import { Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
-import Inventory from 'app/modules/inventory/inventory';
+import InventorySupply from 'app/modules/inventory/inventory_supply';
+import InventoryBuy from 'app/modules/inventory/inventory_buy';
 import Welcome from 'app/modules/home/welcome';
 import WholeSalerSearch from 'app/modules/search/wholesaler-search';
 import Register from 'app/modules/account/register/register';
@@ -34,7 +35,8 @@ const Routes = () => (
       <ErrorBoundaryRoute path="/search" component={WholeSalerSearch} />
       <ErrorBoundaryRoute path="/welcome" component={Welcome} />
       <ErrorBoundaryRoute path="/login" component={Login} />
-      <ErrorBoundaryRoute path="/inventory" component={Inventory} />
+      <ErrorBoundaryRoute path="/inventory-supply" component={InventorySupply} />
+      <ErrorBoundaryRoute path="/inventory-buy" component={InventoryBuy} />
       <ErrorBoundaryRoute path="/logout" component={Logout} />
       <ErrorBoundaryRoute path="/account/register" component={Register} />
       <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
