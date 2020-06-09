@@ -6,7 +6,7 @@ import { Translate, translate } from 'react-jhipster';
 import { NavLink as Link } from 'react-router-dom';
 import { NavDropdown } from './menu-components';
 
-export const EntitiesMenu = props => (
+export const EntitiesMenu = ({isAdmin}) => (
   <NavDropdown
     icon="th-list"
     name={translate('global.menu.entities.main')}
@@ -31,9 +31,9 @@ export const EntitiesMenu = props => (
     <MenuItem icon="asterisk" to="/request">
       <Translate contentKey="global.menu.entities.request" />
     </MenuItem>*/}
-    <MenuItem icon="asterisk" to="/receiver-supplier">
+    {isAdmin && <MenuItem icon="asterisk" to="/receiver-supplier">
       <Translate contentKey="global.menu.entities.receiverSupplier" />
-    </MenuItem>
+    </MenuItem>}
     <MenuItem icon="asterisk" to="/receiver-resource">
       <Translate contentKey="global.menu.entities.receiverResource" />
     </MenuItem>
