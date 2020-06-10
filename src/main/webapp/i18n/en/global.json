@@ -17,7 +17,7 @@
         "receiverResource": "My Requests",
         "supplierResource": "My Supplies",
         "resourceType": "Resource Type",
-        "claim": "Claim",
+        "claim": "My Open Orders",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
