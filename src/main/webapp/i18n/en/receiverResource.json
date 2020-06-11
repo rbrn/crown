@@ -2,19 +2,19 @@
   "crownApp": {
     "receiverResource": {
       "home": {
-        "title": "Receiver Resources",
+        "title": "My Requests",
         "createLabel": "Request a  Resource",
-        "createOrEditLabel": "Create or edit a Receiver Resource",
-        "notFound": "No Receiver Resources found"
+        "createOrEditLabel": "Create or edit a Request",
+        "notFound": "No Request found"
       },
-      "created": "A new Receiver Resource is created with identifier {{ param }}",
-      "updated": "A Receiver Resource is updated with identifier {{ param }}",
-      "deleted": "A Receiver Resource is deleted with identifier {{ param }}",
+      "created": "A new Request is created with identifier {{ param }}",
+      "updated": "A Request is updated with identifier {{ param }}",
+      "deleted": "A Request is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Receiver Resource {{ id }}?"
+        "question": "Are you sure you want to delete Request {{ id }}?"
       },
       "detail": {
-        "title": "Receiver Resource"
+        "title": "My Requests"
       },
       "name": "Name",
       "quantity": "Quantity Requested",
@@ -24,8 +24,8 @@
       "expiration": "Resource to be delivered before this Date",
       "notes": "Notes",
       "resourceType": "Resource Type",
-      "receiver": "Receiver",
-	"zip":"Zip/Postal Code"
+      "receiver": "Buyer",
+      "zip": "Zip/Postal Code"
     }
   }
 }

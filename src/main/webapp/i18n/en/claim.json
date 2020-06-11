@@ -2,25 +2,25 @@
   "crownApp": {
     "claim": {
       "home": {
-        "title": "Claims",
-        "createLabel": "Create a new Claim",
-        "createOrEditLabel": "Create or edit a Claim",
+        "title": "My Open Orders",
+        "createLabel": "Make a new Order",
+        "createOrEditLabel": "Create or edit an Open Order",
         "notFound": "No Claims found"
       },
-      "created": "A new Claim is created with identifier {{ param }}",
-      "updated": "A Claim is updated with identifier {{ param }}",
-      "deleted": "A Claim is deleted with identifier {{ param }}",
+      "created": "A new Order is created with identifier {{ param }}",
+      "updated": "A Order is updated with identifier {{ param }}",
+      "deleted": "A Order is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Claim {{ id }}?"
+        "question": "Are you sure you want to delete Order {{ id }}?"
       },
       "detail": {
-        "title": "Claim"
+        "title": "My Open Orders"
       },
       "quantity": "Quantity",
       "notes": "Notes",
       "status": "Status",
-      "receiverResource": "Receiver Resource",
-      "supplierResource": "Supplier Resource"
+      "receiverResource": "Request",
+      "supplierResource": "Supply"
     }
   }
 }
