@@ -21,7 +21,7 @@ export const Claim = (props: IClaimProps) => {
   return (
     <div>
       <h2 id="claim-heading">
-        <Translate contentKey="crownApp.claim.home.title">Claims</Translate>
+        <Translate contentKey="crownApp.claim.home.title">My ims</Translate>
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp;
