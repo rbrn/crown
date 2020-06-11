@@ -97,4 +97,6 @@ class InventorySupply extends Component {
   }
 }
 
+
 export default InventorySupply;
+
