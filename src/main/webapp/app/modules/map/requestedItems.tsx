@@ -104,7 +104,7 @@ class RequestedItemsComponent extends React.Component<Props, State> {
           <p> Radius: {radius} KM </p>
         </div>}
         <div className="panel-row">
-        <div className="col-sm-6">
+        <div className="col-sm-9">
         <div className="table-responsive">
           <Table striped bordered hover size="sm">
             <thead>

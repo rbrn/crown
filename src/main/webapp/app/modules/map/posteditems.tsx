@@ -82,7 +82,7 @@ class PostedItemsComponent extends React.Component<Props, State> {
           </div>}
 
           <div className="panel-row">
-                <div className="col-sm-6 col-md-6 col-lg-6">
+                <div className="col-sm-9 col-md-6 col-lg-6">
                 <div className="table-responsive">
           <Table striped bordered hover size="sm">
             <thead>
