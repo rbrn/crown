@@ -18,6 +18,7 @@
       },
       "name": "Name",
       "address": "Address",
+      "company": "Company",
       "email": "Email",
       "primaryContactName": "Primary Contact Name",
       "zip": "Zip/Postal Code",

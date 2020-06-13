@@ -15,11 +15,26 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-name"
-	  helpMessage="*this is required"
+	        helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}name`}
           validate={{
             required: {value: true, errorMessage: translate('entity.validation.required')}
+          }}
+        />
+      </AvGroup>
+
+      <AvGroup>
+        <Label id="companyLabel" for="receiver-supplier-company">
+          <Translate contentKey="crownApp.receiverSupplier.company">Company</Translate>
+        </Label>
+        <AvField
+          id="receiver-supplier-company"
+          helpMessage="*this is required"
+          type="text"
+          name={`${fieldPrefix || ''}company`}
+          validate={{
+            required: { value: true, errorMessage: translate('entity.validation.required') }
           }}
         />
       </AvGroup>
@@ -30,7 +45,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-address"
-	helpMessage="*this is required"
+	        helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}address`}
           validate={{
@@ -45,7 +60,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-email"
-	  helpMessage="*this is required"
+	        helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}email`}
           validate={{
@@ -60,8 +75,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-primaryContactName"
-	helpMessage="*this is required"
-		
+	        helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}primaryContactName`}
           validate={{
@@ -76,7 +90,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-zip"
-	   helpMessage="*this is required"
+	        helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}zip`}
           validate={{
@@ -92,7 +106,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         <AvField
           id="receiver-supplier-phonenumber"
           type="text"
-		helpMessage="*this is required"
+		      helpMessage="*this is required"
           name={`${fieldPrefix || ''}phonenumber`}
           validate={{
             required: {value: true, errorMessage: translate('entity.validation.required')}
@@ -106,7 +120,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-city"
-	   helpMessage="*this is required"
+	        helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}city`}
           validate={{
@@ -121,7 +135,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-state"
-	   helpMessage="*this is required"
+	        helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}state`}
           validate={{
@@ -136,7 +150,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
         </Label>
         <AvField
           id="receiver-supplier-country"
-	   helpMessage="*this is required"
+	        helpMessage="*this is required"
           type="text"
           name={`${fieldPrefix || ''}country`}
           validate={{
