@@ -22,7 +22,7 @@ export const ReceiverSupplierDetail = (props: IReceiverSupplierDetailProps) => {
     <Row>
       <Col md="8">
         <h2>
-          <Translate contentKey="crownApp.receiverSupplier.detail.title">ReceiverSupplier</Translate> [<b>{receiverSupplierEntity.id}</b>]
+          <Translate contentKey="crownApp.receiverSupplier.detail.title">ReceiverSupplier</Translate> {/* [<b>{receiverSupplierEntity.id}</b>] */}
         </h2>
         <dl className="jh-entity-details">
           <dt>
@@ -31,6 +31,12 @@ export const ReceiverSupplierDetail = (props: IReceiverSupplierDetailProps) => {
             </span>
           </dt>
           <dd>{receiverSupplierEntity.name}</dd>
+          <dt>
+            <span id="company">
+              <Translate contentKey="crownApp.receiverSupplier.company">Company</Translate>
+            </span>
+          </dt>
+          <dd>{receiverSupplierEntity.company}</dd>
           <dt>
             <span id="address">
               <Translate contentKey="crownApp.receiverSupplier.address">Address</Translate>
