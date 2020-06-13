@@ -69,6 +69,8 @@ type Map = {
   on: Function,
   removeLayer: Function,
   addControl: Function,
+  fitBounds: Function,
+  setView: Function
 }
 
 // change this after user is tagged with geo location
@@ -195,13 +197,10 @@ class MapComponent extends React.Component<MapProps, State> {
 
     this.circle = L.circle(browserLatLng, this.state.radius * 1000).addTo(this.resourceSuppliersMap);
     this.setState({
-      latlng: browserLatLng
+      latlng: browserLatLng,
+      resourceSuppliersMap: this.resourceSuppliersMap
     });
 
-    this.setState({
-        resourceSuppliersMap: this.resourceSuppliersMap
-      }
-    )
     currentMarker = new L.Marker(browserLatLng).addTo(this.resourceSuppliersMap);
     // This can be used to display user's current location if available
     // const geocoder = L.Control.Geocoder.nominatim();
@@ -278,7 +277,29 @@ class MapComponent extends React.Component<MapProps, State> {
     };
 
     L.tileLayer(baseTileString, options).addTo(this.resourceSuppliersMap);
-    L.Control.geocoder().addTo(this.resourceSuppliersMap);
+
+    // Add the search bar
+    const self = this;
+    L.Control.geocoder({
+      defaultMarkGeocode: false,
+      collapsed: false
+    }).on('markgeocode', function(e) {
+      const bbox = e.geocode.bbox;
+      const poly = L.polygon([
+        bbox.getSouthEast(),
+        bbox.getNorthEast(),
+        bbox.getNorthWest(),
+        bbox.getSouthWest()
+      ]);
+
+      // Move to searched location
+      self.resourceSuppliersMap.fitBounds(poly.getBounds()).setMinZoom(3);
+      // Reset circle
+      self.removeAndAddCircle(e.geocode.center);
+      // Clear the input
+      this._input.value = '';
+
+    }).addTo(this.resourceSuppliersMap);
   }
 
 
