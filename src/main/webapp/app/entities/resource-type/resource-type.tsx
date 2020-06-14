@@ -115,7 +115,7 @@ export const ResourceType = (props: IResourceTypeProps) => {
           <Translate contentKey="crownApp.resourceType.home.createLabel">Create new Resource Type</Translate>
         </Link>
       </h2>
-      <Row>
+      {/* <Row>
         <Col sm="12">
           <AvForm onSubmit={startSearching}>
             <AvGroup>
@@ -137,7 +137,7 @@ export const ResourceType = (props: IResourceTypeProps) => {
             </AvGroup>
           </AvForm>
         </Col>
-      </Row>
+      </Row> */}
       <div className="table-responsive">
         <InfiniteScroll
           pageStart={paginationState.activePage}
@@ -151,9 +151,9 @@ export const ResourceType = (props: IResourceTypeProps) => {
             <Table responsive>
               <thead>
                 <tr>
-                  <th className="hand" onClick={sort('id')}>
+                  {/* <th className="hand" onClick={sort('id')}>
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
+                  </th> */}
                   <th className="hand" onClick={sort('name')}>
                     <Translate contentKey="crownApp.resourceType.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -166,35 +166,17 @@ export const ResourceType = (props: IResourceTypeProps) => {
               <tbody>
                 {resourceTypeList.map((resourceType, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
+                    {/* <td>
                       <Button tag={Link} to={`${match.url}/${resourceType.id}`} color="link" size="sm">
                         {resourceType.id}
                       </Button>
+                    </td> */}
+                    <td>
+                      <Button tag={Link} to={`${match.url}/${resourceType.id}`} color="link" size="sm">
+                        {resourceType.name}
+                      </Button>
                     </td>
-                    <td>{resourceType.name}</td>
                     <td>{resourceType.notes}</td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${resourceType.id}`} color="info" size="sm">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${resourceType.id}/edit`} color="primary" size="sm">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${resourceType.id}/delete`} color="danger" size="sm">
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
-                          </span>
-                        </Button>
-                      </div>
-                    </td>
                   </tr>
                 ))}
               </tbody>

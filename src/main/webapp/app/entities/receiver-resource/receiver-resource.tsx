@@ -89,9 +89,9 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
             <Table responsive>
               <thead>
                 <tr>
-                  <th className="hand" onClick={sort('id')}>
+                  {/* <th className="hand" onClick={sort('id')}>
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
+                  </th> */}
                   <th className="hand" onClick={sort('name')}>
                     <Translate contentKey="crownApp.receiverResource.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -125,12 +125,16 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
               <tbody>
                 {receiverResourceList.map((receiverResource, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
+                    {/* <td>
                       <Button tag={Link} to={`${match.url}/${receiverResource.id}`} color="link" size="sm">
                         {receiverResource.id}
                       </Button>
+                    </td> */}
+                    <td>
+                      <Button tag={Link} to={`${match.url}/${receiverResource.id}`} color="link" size="sm">
+                        {receiverResource.name}
+                      </Button>
                     </td>
-                    <td>{receiverResource.name}</td>
                     <td>{receiverResource.quantity}</td>
                     <td>{receiverResource.dailyUse}</td>
                     <td>
