@@ -151,9 +151,9 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
             <Table responsive>
               <thead>
                 <tr>
-                  {/* <th className="hand" onClick={sort('id')}>
+                  { <th className="hand" onClick={sort('id')}>
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th> */}
+                  </th> }
                   <th className="hand" onClick={sort('quantity')}>
                     <Translate contentKey="crownApp.supplierResource.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
                   </th>

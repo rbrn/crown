@@ -4,8 +4,8 @@
       "home": {
         "title": "My Open Orders",
         "createLabel": "Make a new Order",
-        "createOrEditLabel": "Create or edit an Open Order",
-        "notFound": "No Claims found"
+        "createOrEditLabel": "Place Order",
+        "notFound": "No Orders found"
       },
       "created": "A new Order is created with identifier {{ param }}",
       "updated": "A Order is updated with identifier {{ param }}",
