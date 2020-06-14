@@ -325,7 +325,8 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 }
 
 .cw-btn,
-.btn-primary {
+.btn-primary,
+.ant-form .ant-btn-primary {
   background-color: #ff7c48;
   border: none;
   text-align: left;
@@ -358,4 +359,8 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
   &:active {
     background-color: #ff7c48;
   }
+}
+
+.padding-all-15 {
+  padding: 15px;
 }
