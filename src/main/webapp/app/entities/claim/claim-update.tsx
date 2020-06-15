@@ -167,6 +167,10 @@ export const ClaimUpdate = (props: IClaimUpdateProps) => {
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>
+                &nbsp;
+              <Button style={{backgroundColor: 'green'}} id="save-entity" type="submit" disabled={updating}>
+                Confirm Order
+              </Button>
             </AvForm>
           )}
         </Col>
