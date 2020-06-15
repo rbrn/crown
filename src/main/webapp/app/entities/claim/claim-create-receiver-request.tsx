@@ -109,7 +109,7 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
                        Supplier: {otherEntity.supplier?.name}, Type: {otherEntity.resourceType?.name}, Quantity: {otherEntity.quantity}, Id: {otherEntity.id}
                       </option>
                     ))
-                    : null}
+                      : null}
                 </AvInput>
               </AvGroup>
 
@@ -147,6 +147,10 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
+              </Button>
+                &nbsp;
+              <Button style={{ backgroundColor: 'green' }} id="save-entity" type="submit" disabled={updating}>
+                  Confirm Order
               </Button>
             </AvForm>
           )}
