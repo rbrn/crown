@@ -115,7 +115,7 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
           <Translate contentKey="crownApp.supplierResource.home.createLabel">Supply a Resource</Translate>
         </Link>
       </h2>
-      <Row>
+      {/* <Row>
         <Col sm="12">
           <AvForm onSubmit={startSearching}>
             <AvGroup>
@@ -137,7 +137,7 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
             </AvGroup>
           </AvForm>
         </Col>
-      </Row>
+      </Row> */}
       <div className="table-responsive">
         <InfiniteScroll
           pageStart={paginationState.activePage}
@@ -151,9 +151,9 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
             <Table responsive>
               <thead>
                 <tr>
-                  <th className="hand" onClick={sort('id')}>
+                  { <th className="hand" onClick={sort('id')}>
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
+                  </th> }
                   <th className="hand" onClick={sort('quantity')}>
                     <Translate contentKey="crownApp.supplierResource.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
                   </th>

@@ -88,7 +88,7 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
             <p>Loading...</p>
           ) : (
             <AvForm model={entity} onSubmit={saveEntity}>
-              <AvGroup>
+                {/* <AvGroup>
                 <Label for="claim-receiverResource">
                   <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
                 </Label>
@@ -102,16 +102,20 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                       ))
                     : null}
                 </AvInput>
-              </AvGroup>
+              </AvGroup> */}
+
               <AvGroup>
                 <Label for="claim-supplierResource">
                   <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>:
                 </Label>
                 { entity.supplierResource ? (
                     <Label for="claim-supplierResource">
-                  Supplier: {entity.supplierResource?.supplier.name}, Resource type: {entity.supplierResource?.resourceType?.name}, Quantity: {entity.supplierResource?.quantity}, Id: {entity.supplierResource?.id}
-                </Label>) :
-                null}
+                      Supplier: {entity.supplierResource ?.supplier.name},
+                      Resource type: {entity.supplierResource ?.resourceType ?.name},
+                      Quantity: {entity.supplierResource ?.quantity},
+                      Id: {entity.supplierResource ?.id}
+                    </Label>) :
+                       null}
               </AvGroup>
 
 
@@ -131,6 +135,12 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                 />
               </AvGroup>
               <AvGroup>
+                  {/* Quantity * Price = Approximate Price -- Need some backend assistance*/}
+                  <Label id="approximatePrice" for="claim-price">
+                    <Translate contentKey="crownApp.claim.ApproximatePrice">Approximate Price</Translate>
+                  </Label>
+              </AvGroup>
+              <AvGroup>
                 <Label id="notesLabel" for="claim-notes">
                   <Translate contentKey="crownApp.claim.notes">Notes</Translate>
                 </Label>
@@ -145,10 +155,8 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                 </span>
               </Button>
               &nbsp;
-              <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
-                &nbsp;
-                <Translate contentKey="entity.action.save">Save</Translate>
+              <Button style={{ backgroundColor: 'green' }} id="save-entity" type="submit" disabled={updating}>
+                  Confirm Order
               </Button>
             </AvForm>
           )}

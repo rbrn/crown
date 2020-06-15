@@ -11,12 +11,18 @@ import { getEntities, reset } from './receiver-supplier.reducer';
 import { IReceiverSupplier } from 'app/shared/model/receiver-supplier.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import { IHeaderProps } from 'app/shared/layout/header/header';
 
-export interface IReceiverSupplierProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { AUTHORITIES } from 'app/config/constants';
+
+
+export interface IReceiverSupplierProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
 
 export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
   const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
   const [sorting, setSorting] = useState(false);
+
 
   const getAllEntities = () => {
     props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
@@ -89,28 +95,49 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
             <Table responsive>
               <thead>
                 <tr>
-                  <th className="hand" onClick={sort('id')}>
+                  {/* <th className="hand" onClick={sort('id')}>
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
+                  </th> */}
+
                   <th className="hand" onClick={sort('name')}>
                     <Translate contentKey="crownApp.receiverSupplier.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('address')}>
-                    <Translate contentKey="crownApp.receiverSupplier.address">Address</Translate> <FontAwesomeIcon icon="sort" />
+
+                  <th className="hand" onClick={sort('company')}>
+                    <Translate contentKey="crownApp.receiverSupplier.company">Company</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('email')}>
-                    <Translate contentKey="crownApp.receiverSupplier.email">Email</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('primaryContactName')}>
-                    <Translate contentKey="crownApp.receiverSupplier.primaryContactName">Primary Contact Name</Translate>{' '}
-                    <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('zip')}>
-                    <Translate contentKey="crownApp.receiverSupplier.zip">Zip</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('phonenumber')}>
-                    <Translate contentKey="crownApp.receiverSupplier.phonenumber">Phonenumber</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
+                  {
+                    props.isAdmin &&
+                    <th className="hand" onClick={sort('address')}>
+                      <Translate contentKey="crownApp.receiverSupplier.address">Address</Translate> <FontAwesomeIcon icon="sort" />
+                    </th>
+                  }
+                  {
+                    props.isAdmin &&
+                    <th className="hand" onClick={sort('email')}>
+                      <Translate contentKey="crownApp.receiverSupplier.email">Email</Translate> <FontAwesomeIcon icon="sort" />
+                    </th>
+                  }
+                  {
+                    props.isAdmin &&
+                    <th className="hand" onClick={sort('primaryContactName')}>
+                      <Translate contentKey="crownApp.receiverSupplier.primaryContactName">Primary Contact Name</Translate>{' '}
+                      <FontAwesomeIcon icon="sort" />
+                    </th>
+                  }
+                  {
+                    props.isAdmin &&
+                    <th className="hand" onClick={sort('zip')}>
+                      <Translate contentKey="crownApp.receiverSupplier.zip">Zip</Translate> <FontAwesomeIcon icon="sort" />
+                    </th>
+                  }
+                  {
+                    props.isAdmin &&
+                    <th className="hand" onClick={sort('phonenumber')}>
+                      <Translate contentKey="crownApp.receiverSupplier.phonenumber">Phonenumber</Translate> <FontAwesomeIcon icon="sort" />
+                    </th>
+                  }
+     
                   <th className="hand" onClick={sort('city')}>
                     <Translate contentKey="crownApp.receiverSupplier.city">City</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -142,17 +169,22 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
               <tbody>
                 {receiverSupplierList.map((receiverSupplier, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>
+                    {/* <td>
                       <Button tag={Link} to={`${match.url}/${receiverSupplier.id}`} color="link" size="sm">
                         {receiverSupplier.id}
                       </Button>
+                    </td> */}
+                    <td>
+                      <Button tag={Link} to={`${match.url}/${receiverSupplier.id}`} color="link" size="sm">
+                        {receiverSupplier.name}
+                      </Button>
                     </td>
-                    <td>{receiverSupplier.name}</td>
-                    <td>{receiverSupplier.address}</td>
-                    <td>{receiverSupplier.email}</td>
-                    <td>{receiverSupplier.primaryContactName}</td>
-                    <td>{receiverSupplier.zip}</td>
-                    <td>{receiverSupplier.phonenumber}</td>
+                    <td>{receiverSupplier.company}</td>
+                    {props.isAdmin && <td>{receiverSupplier.address}</td>}
+                    {props.isAdmin && <td>{receiverSupplier.email}</td>}
+                    {props.isAdmin && <td>{receiverSupplier.primaryContactName}</td>}
+                    {props.isAdmin && <td>{receiverSupplier.zip}</td>}
+                    {props.isAdmin && <td>{receiverSupplier.phonenumber}</td>}
                     <td>{receiverSupplier.city}</td>
                     <td>{receiverSupplier.state}</td>
                     <td>{receiverSupplier.country}</td>
@@ -161,28 +193,30 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
                     <td>{receiverSupplier.hasSterilization ? 'true' : 'false'}</td>
                     <td>{receiverSupplier.priority}</td>
                     <td>{receiverSupplier.notes}</td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${receiverSupplier.id}`} color="info" size="sm">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${receiverSupplier.id}/edit`} color="primary" size="sm">
-                          <FontAwesomeIcon icon="pencil-alt" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.edit">Edit</Translate>
-                          </span>
-                        </Button>
-                        <Button tag={Link} to={`${match.url}/${receiverSupplier.id}/delete`} color="danger" size="sm">
-                          <FontAwesomeIcon icon="trash" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.delete">Delete</Translate>
-                          </span>
-                        </Button>
-                      </div>
-                    </td>
+                    {props.isAdmin &&
+                      <td className="text-right">
+                        <div className="btn-group flex-btn-group-container">
+                          <Button tag={Link} to={`${match.url}/${receiverSupplier.id}`} color="info" size="sm">
+                            <FontAwesomeIcon icon="eye" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.view">View</Translate>
+                            </span>
+                          </Button>
+                          <Button tag={Link} to={`${match.url}/${receiverSupplier.id}/edit`} color="primary" size="sm">
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.edit">Edit</Translate>
+                            </span>
+                          </Button>
+                          <Button tag={Link} to={`${match.url}/${receiverSupplier.id}/delete`} color="danger" size="sm">
+                            <FontAwesomeIcon icon="trash" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.delete">Delete</Translate>
+                            </span>
+                          </Button>
+                        </div>
+                      </td>
+                    }
                   </tr>
                 ))}
               </tbody>
@@ -200,9 +234,10 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
   );
 };
 
-const mapStateToProps = ({ receiverSupplier }: IRootState) => ({
+const mapStateToProps = ({ authentication, receiverSupplier }: IRootState) => ({
   receiverSupplierList: receiverSupplier.entities,
   loading: receiverSupplier.loading,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
   totalItems: receiverSupplier.totalItems,
   links: receiverSupplier.links,
   entity: receiverSupplier.entity,

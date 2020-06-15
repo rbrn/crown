@@ -18,6 +18,9 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
+import Support from "app/modules/home/support";
+import About from "app/modules/home/about";
+import PolicyAndTerms from "app/modules/home/policyAndTerms";
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -34,6 +37,9 @@ const Routes = () => (
     <Switch>
       <ErrorBoundaryRoute path="/search" component={WholeSalerSearch} />
       <ErrorBoundaryRoute path="/welcome" component={Welcome} />
+      <ErrorBoundaryRoute path="/support" component={Support} />
+      <ErrorBoundaryRoute path="/about" component={About} />
+      <ErrorBoundaryRoute path="/policy" component={PolicyAndTerms} />
       <ErrorBoundaryRoute path="/login" component={Login} />
       <ErrorBoundaryRoute path="/inventory-supply" component={InventorySupply} />
       <ErrorBoundaryRoute path="/inventory-buy" component={InventoryBuy} />

@@ -4,6 +4,7 @@ import { ISupplierResource } from 'app/shared/model/supplier-resource.model';
 export interface IReceiverSupplier {
   id?: string;
   name?: string;
+  company?: string;
   address?: string;
   email?: string;
   primaryContactName?: string;

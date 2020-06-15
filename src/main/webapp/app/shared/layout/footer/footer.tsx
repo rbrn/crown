@@ -12,13 +12,13 @@ const Footer = props => (
       &copy; 2020 CROWN International
     </div>
     <div className="links">
-      <Link to={`/`} className="link">
-        Home
+      <Link to={`/policy`} className="link">
+        Policy & Terms
       </Link>
-      <Link to={`/`} className="link">
+      <Link to={`/support`} className="link">
         Support
       </Link>
-      <Link to={`/`} className="">
+      <Link to={`/about`} className="">
         About
       </Link>
     </div>

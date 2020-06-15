@@ -4,10 +4,10 @@
       "home": {
         "title": "My Open Orders",
         "createLabel": "Make a new Order",
-        "createOrEditLabel": "Create or edit an Open Order",
-        "notFound": "No Claims found"
+        "createOrEditLabel": "Place Order",
+        "notFound": "No Orders found"
       },
-      "created": "A new Order is created with identifier {{ param }}",
+      "created": "Your order # {{ param }} is confirmed. CROWN INTERNATIONAL team will get in touch with you.",
       "updated": "A Order is updated with identifier {{ param }}",
       "deleted": "A Order is deleted with identifier {{ param }}",
       "delete": {
@@ -20,7 +20,8 @@
       "notes": "Notes",
       "status": "Status",
       "receiverResource": "Request",
-      "supplierResource": "Supply"
+      "supplierResource": "Supply",
+      "ApproximatePrice": "Approximate Price"
     }
   }
 }
