@@ -19,6 +19,8 @@ import RequestedItemsComponent from "app/modules/map/requestedItems";
 import axios from "axios";
 import config from "app/modules/map/apiConfig.json";
 
+import CookieConsent from "react-cookie-consent";
+
 declare global {
   interface Window {
     L: any;
@@ -330,6 +332,7 @@ class MapComponent extends React.Component<MapProps, State> {
 
     return (
       <Container className="col-auto ml-auto">
+
         <TopPanel
           radius={this.state.radius}
           changeRadius={this.changeRadius}
@@ -339,6 +342,16 @@ class MapComponent extends React.Component<MapProps, State> {
           onButtonClicked={this.onButtonClicked.bind(this)}
           showOptions={this.state.showOptions}
         />
+
+          <CookieConsent
+            buttonText="I accept"
+            style={{position: "absolute", bottom:"0px"}}
+            buttonStyle={{ fontSize: "13px" }}
+            expires={150}
+          >
+            This website uses cookies to enhance the user experience.{" "}
+          </CookieConsent>
+
         <Row>
           <Col md="12" className="p-0">
             <div className="shadow-lg bg-white rounded">
