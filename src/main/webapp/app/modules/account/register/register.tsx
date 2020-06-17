@@ -98,6 +98,7 @@ export const RegisterPage = (props: IRegisterProps) => {
               </div>
             </AvCheckboxGroup>
 
+
             <Button id="register-submit" color="primary" type="submit">
               <Translate contentKey="register.form.button">Register</Translate>
             </Button>
