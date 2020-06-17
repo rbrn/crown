@@ -1,7 +1,7 @@
 {
   "*": {
-    "target": "https://crown-dev.herokuapp.com",
-    "secure": true,
+    "target": "localhost:8080",
+    "secure": false,
     "loglevel": "debug"
   }
 }

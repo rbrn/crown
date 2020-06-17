@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { AvForm, AvField, AvCheckboxGroup, AvCheckbox} from 'availity-reactstrap-validation';
+import { AvForm, AvField, AvRadioGroup, AvRadio} from 'availity-reactstrap-validation';
 import { Row, Col, Alert, Button } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
@@ -87,16 +87,16 @@ export const RegisterPage = (props: IRegisterProps) => {
               }}
             />
 
-            <AvCheckboxGroup name="terms-and-policy">
+            <AvRadioGroup name="terms-and-policy">
               <div style={{ display: 'inline-flex' }}>
-                <AvCheckbox
+                <AvRadio
                   label='I agree to the '
                   validate={{ required: {value: true, errorMessage: 'Required'}}}
                 />
                 &nbsp;
                 <Link to={`/policy`} className="link">terms and conditions</Link>
               </div>
-            </AvCheckboxGroup>
+            </AvRadioGroup>
 
             <Button id="register-submit" color="primary" type="submit">
               <Translate contentKey="register.form.button">Register</Translate>
