@@ -39,10 +39,6 @@
     "languages": ["en", "fr", "es"],
     "blueprints": [],
     "herokuAppName": "crown-dev",
-    "herokuDeployType": "git",
-    "azureAppServicePlan": "crown-webapp-plan",
-    "azureApplicationInsightsName": "crown-webapp-insights",
-    "azureAppServiceName": "crown-webapp-app-service",
-    "azureAppServiceDeploymentType": "github-action"
+    "herokuDeployType": "git"
   }
 }
