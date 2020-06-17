@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { AvForm, AvField, AvCheckboxGroup, AvCheckbox} from 'availity-reactstrap-validation';
+import { AvForm, AvField, AvRadioGroup, AvRadio} from 'availity-reactstrap-validation';
 import { Row, Col, Alert, Button } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
