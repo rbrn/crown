@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { AvForm, AvField, AvRadioGroup, AvRadio} from 'availity-reactstrap-validation';
 import { Row, Col, Alert, Button } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export interface IRegisterProps extends StateProps, DispatchProps {}
 
@@ -24,6 +24,8 @@ export const RegisterPage = (props: IRegisterProps) => {
   };
 
   const updatePassword = event => setPassword(event.target.value);
+
+
 
   return (
     <div>
@@ -84,6 +86,18 @@ export const RegisterPage = (props: IRegisterProps) => {
                 match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
               }}
             />
+
+            <AvRadioGroup name="terms-and-policy">
+              <div style={{ display: 'inline-flex' }}>
+                <AvRadio
+                  label='I agree to the '
+                  validate={{ required: {value: true, errorMessage: 'Required'}}}
+                />
+                &nbsp;
+                <Link to={`/policy`} className="link">terms and conditions</Link>
+              </div>
+            </AvRadioGroup>
+
             <Button id="register-submit" color="primary" type="submit">
               <Translate contentKey="register.form.button">Register</Translate>
             </Button>
