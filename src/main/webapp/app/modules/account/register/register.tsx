@@ -87,16 +87,16 @@ export const RegisterPage = (props: IRegisterProps) => {
               }}
             />
 
-            <AvRadioGroup name="terms-and-policy">
-              <div style={{ display: 'inline-flex' }}>
-                <AvRadio
+            < AvCheckboxGroup name="terms-and-policy" >
+              < div style={{ display: 'inline-flex' }}>
+                < AvCheckbox
                   label='I agree to the '
                   validate={{ required: {value: true, errorMessage: 'Required'}}}
                 />
                 &nbsp;
                 <Link to={`/policy`} className="link">terms and conditions</Link>
-              </div>
-            </AvRadioGroup>
+              </ div >
+            </ AvCheckboxGroup >
 
             <Button id="register-submit" color="primary" type="submit">
               <Translate contentKey="register.form.button">Register</Translate>
