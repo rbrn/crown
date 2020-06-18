@@ -332,15 +332,11 @@ class MapComponent extends React.Component<MapProps, State> {
 
     return (
       <Container className="col-auto ml-auto">
-
-        <TopPanel
-          radius={this.state.radius}
-          changeRadius={this.changeRadius}
-          address={this.state.currentLocation}
-        />
         <LeftPanel
           onButtonClicked={this.onButtonClicked.bind(this)}
           showOptions={this.state.showOptions}
+          radius={this.state.radius}
+          changeRadius={this.changeRadius}
         />
 
           <CookieConsent

@@ -134,7 +134,7 @@ class RequestedItemsComponent extends React.Component<Props, State> {
                       {/* <FontAwesomeIcon onClick={this.handleEdit} icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>{' '} */}
                        <a  onClick={this.handleView(index)}><FontAwesomeIcon icon='eye' color='green'
                                        style={{cursor: 'pointer'}}/>  {' Details '}</a>
-                      {/*<button className={'btn btn-primary'} onClick={ this.claimItem(item) }>
+                      {/* <button className={'btn btn-primary'} onClick={ this.claimItem(item) }>
                         <FontAwesomeIcon  icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>
                         {' Offer to fulfil '}
                       </button>*/}
