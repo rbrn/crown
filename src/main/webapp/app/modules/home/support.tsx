@@ -62,6 +62,21 @@ const Support = props => {
             </Form.Item>
           </Form>
         </Col>
+
+        <Col style={{borderLeft: 'shadow'}}>
+
+          <div style={{position:"absolute", textAlign:'center', width: '250px', left: '350px'}}>
+
+          <div id="reach-out">
+            If you are interested in supporting us Feel free to reach out at 
+          </div>
+
+            <div id="partner-with" style={{ position: 'absolute', top:'75px' }}>
+            If you would like to partner with us, please email us at
+          </div>
+
+          </div>
+        </Col>
       </Row>
     </div>
   )

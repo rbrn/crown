@@ -110,13 +110,13 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                 </Label>
                 { entity.supplierResource ? (
                     <Label for="claim-supplierResource">
-                      Supplier: {entity.supplierResource ?.supplier.name},
-                      Resource type: {entity.supplierResource ?.resourceType ?.name},
-                      Quantity: {entity.supplierResource ?.quantity},
-                      Id: {entity.supplierResource ?.id}
+                      Supplier: {entity.supplierResource.supplier.name},
+                      Resource type: {entity.supplierResource.resourceType.name},
+                      Quantity: {entity.supplierResource.quantity},
+                      Id: {entity.supplierResource.id}
                     </Label>) :
                        null}
-              </AvGroup>
+                </AvGroup>
 
 
               <AvGroup>

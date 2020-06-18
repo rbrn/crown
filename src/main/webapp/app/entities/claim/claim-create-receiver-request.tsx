@@ -89,9 +89,9 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
                 </Label>
                 { entity.receiverResource ? (
                     <Label for="claim-supplierResource">
-                      Supplier: {entity.receiverResource?.receiver.name},
-                      Resource type: {entity.receiverResource?.resourceType?.name},
-                      Quantity: {entity.receiverResource?.quantity}, Id: {entity.receiverResource?.id}
+                      Supplier: {entity.receiverResource.receiver.name},
+                      Resource type: {entity.receiverResource.resourceType.name},
+                      Quantity: {entity.receiverResource.quantity}, Id: {entity.receiverResource.id}
                     </Label>) :
                   null}
               </AvGroup>
@@ -106,7 +106,7 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
                   {supplierResources
                     ? supplierResources.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                       Supplier: {otherEntity.supplier?.name}, Type: {otherEntity.resourceType?.name}, Quantity: {otherEntity.quantity}, Id: {otherEntity.id}
+                       Supplier: {otherEntity.supplier.name}, Type: {otherEntity.resourceType.name}, Quantity: {otherEntity.quantity}, Id: {otherEntity.id}
                       </option>
                     ))
                       : null}
