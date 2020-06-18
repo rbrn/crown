@@ -1,22 +1,37 @@
-import React from 'react';
+import React, {ReactText} from 'react';
 import {connect} from 'react-redux';
 import {LatLng} from './map';
 import {Button, Card} from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
+import {Slider} from "antd";
+import {SliderValue} from "antd/lib/slider";
 
 export interface OwnProps {
   onButtonClicked: Function,
   showOptions: boolean
+  radius: number,
+  changeRadius: (value: SliderValue | ReactText) => void
 };
 type Props = StateProps & DispatchProps & OwnProps
 
 class LeftPanelComponent extends React.Component<Props> {
   render() {
-    const { onButtonClicked, showOptions } = this.props;
+    const { onButtonClicked, showOptions, radius, changeRadius } = this.props;
     return (
       <div className="left-panel shadow-lg rounded">
           {
             showOptions ? <Card className="details-card">
+              <div className="radius-container">
+                <span>Radius</span>
+                <span className="radius-display">{radius} KM</span>
+              </div>
+              <Slider
+                min={10}
+                max={300}
+                onChange={changeRadius}
+                value={typeof radius === 'number' ? radius : 10}
+                tooltipPlacement="bottom"
+              />
               <h6>I am a medical worker</h6>
               <div className=''>
                 <Button onClick={() => onButtonClicked('Browse Available')} className='w-100 mb-2 cw-btn'>

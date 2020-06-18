@@ -9,16 +9,19 @@ import {IRootState} from 'app/shared/reducers';
 import {getEntities as getReceiverResources} from 'app/entities/receiver-resource/receiver-resource.reducer';
 import {getEntities as getSupplierResources} from 'app/entities/supplier-resource/supplier-resource.reducer';
 import {createEntity, getEntity, reset, updateEntity} from './claim.reducer';
+import {getEntity as getReceiverResourceEntity} from 'app/entities/receiver-resource/receiver-resource.reducer';
+
 import Claim from "app/entities/claim/claim";
 import {defaultValue} from "app/shared/model/claim.model";
 
-export interface IClaimRequestByReceiverProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IClaimRequestByReceiverProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProps) => {
   const [receiverResourceId, setReceiverResourceId] = useState('0');
-  const [ entity, setEntity] = useState(defaultValue);
+  const [entity, setEntity] = useState(defaultValue);
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
-  const { claimEntity, receiverResources, supplierResources, loading, updating } = props;
+  const {claimEntity, receiverResources, supplierResources, loading, updating} = props;
 
 
   const handleClose = () => {
@@ -26,14 +29,16 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
   };
 
   useEffect(() => {
-    const localReceiverResourceId  = new URLSearchParams(props.location.search).get("receiverResourceId");
+    const localReceiverResourceId = new URLSearchParams(props.location.search).get("receiverResourceId");
 
-    if(localReceiverResourceId) {
-      setReceiverResourceId( localReceiverResourceId )
+    if (localReceiverResourceId) {
+      setReceiverResourceId(localReceiverResourceId)
     }
 
-    props.getReceiverResources();
-    props.getSupplierResources();
+    // props.getReceiverResources();
+    // props.getSupplierResources();
+    props.getReceiverResourceEntity(localReceiverResourceId);
+
   }, []);
 
   useEffect(() => {
@@ -44,12 +49,13 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
 
 
   useEffect(() => {
+    setEntity({receiverResource: props.receiverResourceEntity})
 
-   const selectedReceiverResource = props.receiverResources.find( receiverResource=> receiverResource.id === receiverResourceId);
-    if(selectedReceiverResource) {
-        setEntity(  { receiverResource : selectedReceiverResource})
-    }
-  }, [props.receiverResources]);
+    // const selectedReceiverResource = props.receiverResources.find( receiverResource=> receiverResource.id === receiverResourceId);
+    //  if(selectedReceiverResource) {
+    //      setEntity(  { receiverResource : selectedReceiverResource})
+    //  }
+  }, [props.receiverResourceEntity]);
 
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
@@ -58,8 +64,8 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
         ...values
       };
 
-      const selectedSupplierResource = props.supplierResources.find( supplierResource=> supplierResource.id === persistent.supplierResource.id);
-      if(selectedSupplierResource) {
+      const selectedSupplierResource = props.supplierResources.find(supplierResource => supplierResource.id === persistent.supplierResource.id);
+      if (selectedSupplierResource) {
         persistent.supplierResource = selectedSupplierResource
       }
 
@@ -82,6 +88,7 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
           {loading ? (
             <p>Loading...</p>
           ) : (
+<<<<<<< HEAD
             <AvForm model={entity} onSubmit={saveEntity}>
               <AvGroup>
                 <Label for="claim-receiverResource">
@@ -139,20 +146,77 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
+=======
+            <div>
+              {entity.receiverResource ? (
+                  <div style={{paddingBottom:"20px"}}>
+                    <div>Item: {entity.receiverResource?.resourceType?.name}</div>
+                    <div>Requested Quantity: {entity.receiverResource?.quantity}</div>
+                  </div>
+                ) :
+                null}
+              <AvForm model={entity} onSubmit={saveEntity}>
+                {
+                  /* <AvGroup>
+                  <Label for="claim-supplierResource">
+                    <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>
+                  </Label>
+                  <AvInput id="claim-supplierResource" type="select" className="form-control"
+                           name="supplierResource.id">
+                    <option value="" key="0" />
+                    {supplierResources
+                      ? supplierResources.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                         Supplier: {otherEntity.supplier?.name}, Type: {otherEntity.resourceType?.name}, Quantity: {otherEntity.quantity}, Id: {otherEntity.id}
+                        </option>
+                      ))
+                        : null}
+                  </AvInput>
+                </AvGroup> */
+                }
+
+                <AvGroup>
+                  <Label id="quantityLabel" for="claim-quantity">
+                    <Translate contentKey="crownApp.claim.quantity">Quantity</Translate>
+                  </Label>
+                  <AvField
+                    id="claim-quantity"
+                    type="string"
+                    className="form-control"
+                    name="quantity"
+                    validate={{
+                      required: {value: true, errorMessage: translate('entity.validation.required')},
+                      number: {value: true, errorMessage: translate('entity.validation.number')}
+                    }}
+                  />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="notesLabel" for="claim-notes">
+                    <Translate contentKey="crownApp.claim.notes">Notes</Translate>
+                  </Label>
+                  <AvField id="claim-notes" type="textarea" name="notes"/>
+                </AvGroup>
+
+                <Button tag={Link} id="cancel-save" to="/claim" replace color="info">
+                  <FontAwesomeIcon icon="arrow-left"/>
+                  &nbsp;
+                  <span className="d-none d-md-inline">
+>>>>>>> 05113de953af34b8cf70a2c7bd582c22fddc482a
                   <Translate contentKey="entity.action.back">Back</Translate>
                 </span>
-              </Button>
-              &nbsp;
-              <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                </Button>
                 &nbsp;
-                <Translate contentKey="entity.action.save">Save</Translate>
-              </Button>
+                <Button color="primary" id="save-entity" type="submit" disabled={updating}>
+                  <FontAwesomeIcon icon="save"/>
+                  &nbsp;
+                  <Translate contentKey="entity.action.save">Save</Translate>
+                </Button>
                 &nbsp;
-              <Button style={{ backgroundColor: 'green' }} id="save-entity" type="submit" disabled={updating}>
+                <Button style={{backgroundColor: 'green'}} id="save-entity" type="submit" disabled={updating}>
                   Confirm Order
-              </Button>
-            </AvForm>
+                </Button>
+              </AvForm>
+            </div>
           )}
         </Col>
       </Row>
@@ -163,6 +227,7 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
 const mapStateToProps = (storeState: IRootState) => ({
   receiverResources: storeState.receiverResource.entities,
   supplierResources: storeState.supplierResource.entities,
+  receiverResourceEntity: storeState.receiverResource.entity,
   claimEntity: storeState.claim.entity,
   loading: storeState.claim.loading,
   updating: storeState.claim.updating,
@@ -174,7 +239,8 @@ const mapDispatchToProps = {
   getSupplierResources,
   getEntity,
   updateEntity,
-  createEntity
+  createEntity,
+  getReceiverResourceEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

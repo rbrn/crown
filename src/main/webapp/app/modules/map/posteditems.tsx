@@ -17,7 +17,8 @@ type Props = StateProps & DispatchProps & OwnProps
 
 // make this header based on given information
 const headers = ["Item Type", "Quantity", "Action"]
-const drilDownheaders = ["Supplier Name", "Email", "Quantity", "Request"]
+// const drilDownheaders = ["Supplier Name", "Email", "Quantity", "Request"]
+const drilDownheaders = ["Quantity", "Approx. cost per unit",  "Request"]
 
 type State = {
   viewIndex: number,
@@ -111,15 +112,19 @@ class PostedItemsComponent extends React.Component<Props, State> {
                     <div className='action-items flex'>
                       {/* <FontAwesomeIcon onClick={this.handleDelete} icon='trash' color='red' style={{cursor: 'pointer'}}/>{' '} */}
                       {/* <FontAwesomeIcon onClick={this.handleEdit} icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>{' '} */}
-                      {/* <a onClick={this.handleView(index)}>
+                      <a onClick={this.handleView(index)}>
                         <FontAwesomeIcon icon='eye' color='green'
                                          style={{cursor: 'pointer'}}/>{' Details '}
-                      </a>*/}
-                      <button className={'btn btn-primary'} onClick={this.claimItem(item.id, item.quantity)}>
+                      </a>
+                      {
+                        /*
+                        <button className={'btn btn-primary'} onClick={this.claimItem(item.id, item.quantity)}>
                         <FontAwesomeIcon
                           icon='pencil-alt' color='blue'
                           style={{cursor: 'pointer'}}/> {' Request this resource '}
-                      </button>
+                        </button>
+                        */
+                      }
                     </div>
                     <div>
                     </div>
@@ -167,15 +172,24 @@ class PostedItemsComponent extends React.Component<Props, State> {
 
                       <tr key={item.toString() + index}>
                         {
+                          /*
                           <td key={`${index.toString()}-Name`}>
                             {item.supplier && item.supplier.name ? item.supplier.name : ""}
                           </td>
+                          */
                         }
-                        <td key={`${index.toString()}-Email`}>
-                          {item.supplier && item.supplier.email ? item.supplier.email : ""}
-                        </td>
+                        {
+                          /*
+                          <td key={`${index.toString()}-Email`}>
+                            {item.supplier && item.supplier.email ? item.supplier.email : ""}
+                          </td>
+                           */
+                        }
                         <td key={`${item.quantity}-Type`}>
                           {item.quantity}
+                        </td>
+                        <td key={`${item.cost}-Type`}>
+                          {item.cost}
                         </td>
                         <td>
                           <button className={'btn btn-primary'} onClick={this.claimItem(item.id, item.quantity)}>
