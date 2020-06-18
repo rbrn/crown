@@ -157,15 +157,17 @@ body::-webkit-scrollbar-thumb {
 }
 
 .radius-display {
-  padding: 4px;
-  border: 1px solid #dde4eb;
+  float: right;
+}
+
+.radius-container {
+  font-weight: bold;
 }
 
 .ant-slider {
   padding: 0;
   display: inline-block;
-  width: 30%;
-  margin: 0 5px 0 10px;
+  width: 97%;
   .ant-slider-handle,
   .ant-slider-track,
   .ant-slider-rail {
