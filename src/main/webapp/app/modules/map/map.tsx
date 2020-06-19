@@ -360,7 +360,7 @@ class MapComponent extends React.Component<MapProps, State> {
 
             <CookieConsent
               buttonText="Accept all Cookies"
-              style={{ backgroundColor: 'white', color: 'black', position: "absolute", top: '485px', height: '70px', boxShadow: '0px 3px 20px #00000085' }}
+              style={{ backgroundColor: 'white', color: 'black', position:'absolute', bottom:'0px', height: '70px', boxShadow: '0px 3px 20px #00000085' }}
               expires={150}
               buttonStyle={{ background: '#5E5E5E 0% 0% no-repeat padding-box', color: 'white' }}
             >
