@@ -76,11 +76,11 @@ const Support = props => {
             <FontAwesomeIcon icon={faHandshake} color='#FF7C48' style={{height: '50px', width: '50px'}}/>{''}
 
             <div id="reach-out" style={{marginBottom: '20px'}}>
-              If you are interested in supporting us, feel free to reach out at <a href="https://www.gmail.com">wearecrown@gmail.com</a> 
+              If you are interested in supporting us, feel free to reach out at <a href="mailto:wearecrown@gmail.com">wearecrown@gmail.com</a>
             </div>
 
             <div id="partner-with" style={{marginBottom:'20px'}}>
-              If you would like to partner with us, please email us at <a href="https://www.gmail.com">crown.partner@gmail.com</a>
+              If you would like to partner with us, please email us at <a href="mailto:crown.partner@gmail.com">crown.partner@gmail.com</a>
           </div>
 
             <div id="icons">
