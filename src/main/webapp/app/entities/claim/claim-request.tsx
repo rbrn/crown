@@ -12,6 +12,7 @@ import { createEntity, getEntity, reset, updateEntity } from './claim.reducer';
 import { getEntity as getSupplierResourceEntity } from 'app/entities/supplier-resource/supplier-resource.reducer';
 import Claim from "app/entities/claim/claim";
 import { defaultValue } from "app/shared/model/claim.model";
+import supplierResource from '../supplier-resource/supplier-resource';
 
 export interface IClaimRequestProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -19,11 +20,11 @@ export interface IClaimRequestProps extends StateProps, DispatchProps, RouteComp
 export const ClaimRequest = (props: IClaimRequestProps) => {
   const [receiverResourceId, setReceiverResourceId] = useState('0');
   const [supplierResourceId, setSupplierResourceId] = useState('0');
+  const [ApproximatePriceValue] = useState('0');
   const [entity, setEntity] = useState(defaultValue);
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
   const { claimEntity, receiverResources, supplierResources, loading, updating } = props;
-  const [isAssistedCreation, setIsAssistedCreation] = useState(false)
-
+  const [isAssistedCreation, setIsAssistedCreation] = useState(false);
 
   const handleClose = () => {
     props.history.push('/claim');
@@ -47,7 +48,6 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
     }
   }, [props.updateSuccess]);
 
-
   useEffect(() => {
     setEntity({ supplierResource: props.supplierResourceEntity })
     // const hardSupplier = props.supplierResources.find( supplierResource=> supplierResource.id === supplierResourceId);
@@ -55,7 +55,6 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
     //  if(hardSupplier) {
     //      setEntity(  { supplierResource: hardSupplier})
     //  }
-
   }, [props.supplierResourceEntity]);
 
   const saveEntity = (event, errors, values) => {
@@ -70,7 +69,10 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
     }
   };
 
+
+
   return (
+
     <div>
       <Row className="justify-content-center">
         <Col md="8">
@@ -117,12 +119,14 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
               </AvGroup> */}
 
                   <AvGroup>
-                    <Label id="quantityLabel" for="claim-quantity">
+                    <Label id="quantityLabel" for="claim-quantity"
+                    >
                       <Translate contentKey="crownApp.claim.quantity">Quantity</Translate>
                     </Label>
                     <AvField
                       id="claim-quantity"
-                      type="string"
+                      // value={ApproximatePriceValue}
+                      type="number"
                       className="form-control"
                       name="quantity"
                       validate={{
@@ -131,12 +135,14 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                       }}
                     />
                   </AvGroup>
-                  <AvGroup>
-                    {/* Quantity * Price = Approximate Price -- Need some backend assistance*/}
+                  {/*
+                  { <AvGroup>
                     <Label id="approximatePrice" for="claim-price">
-                      <Translate contentKey="crownApp.claim.ApproximatePrice">Approximate Price</Translate>
+                      <Translate contentKey="crownApp.claim.ApproximatePrice">Approximate Price</Translate>{': '}
+                      <span> {entity.supplierResource ?.cost * ApproximatePriceValue} </span>
                     </Label>
-                  </AvGroup>
+                  </AvGroup>}
+                  */ }
                   <AvGroup>
                     <Label id="notesLabel" for="claim-notes">
                       <Translate contentKey="crownApp.claim.notes">Notes</Translate>
@@ -144,7 +150,7 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                     <AvField id="claim-notes" type="textarea" name="notes" />
                   </AvGroup>
 
-                  <Button tag={Link} id="cancel-save" to="/claim" replace color="info">
+                  <Button tag={Link} id="cancel-save" to="/" replace color="info">
                     <FontAwesomeIcon icon="arrow-left" />
                     &nbsp;
                   <span className="d-none d-md-inline">
@@ -171,7 +177,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   claimEntity: storeState.claim.entity,
   loading: storeState.claim.loading,
   updating: storeState.claim.updating,
-  updateSuccess: storeState.claim.updateSuccess
+  updateSuccess: storeState.claim.updateSuccess,
 });
 
 const mapDispatchToProps = {
