@@ -90,7 +90,7 @@ jhipster:
       # security key (this key should be unique for your application, and kept secret)
       key: 2a84683611374cce7d7e793936e596c1efd64843bf46298bec94cb0147e5576e6163f440a159d97afaa1173b066acaedb8aa
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://my-server-url-to-change # Modify according to your server's URL
+    base-url: https://crown-dev.herokuapp.com # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
       enabled: false
