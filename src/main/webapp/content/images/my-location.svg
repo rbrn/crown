@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="97" height="97" viewBox="0 0 97 97">
+  <defs>
+    <filter id="Oval" x="0" y="0" width="97" height="97" filterUnits="userSpaceOnUse">
+      <feOffset dy="7" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feFlood flood-opacity="0.071"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Oval-2" x="3" y="3" width="91" height="91" filterUnits="userSpaceOnUse">
+      <feOffset dy="7" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="12" result="blur-2"/>
+      <feFlood flood-opacity="0.071"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="My_location" data-name="My location" transform="translate(-962 -443)">
+    <g transform="matrix(1, 0, 0, 1, 962, 443)" filter="url(#Oval)">
+      <g id="Oval-3" data-name="Oval" transform="translate(40 33)" fill="#538df1" stroke="rgba(83,141,241,0.63)" stroke-width="4">
+        <circle cx="8.5" cy="8.5" r="8.5" stroke="none"/>
+        <circle cx="8.5" cy="8.5" r="10.5" fill="none"/>
+      </g>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 962, 443)" filter="url(#Oval-2)">
+      <g id="Oval-4" data-name="Oval" transform="translate(41 34)" fill="#538df1" stroke="#f4f9ff" stroke-width="2">
+        <circle cx="7.5" cy="7.5" r="7.5" stroke="none"/>
+        <circle cx="7.5" cy="7.5" r="8.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

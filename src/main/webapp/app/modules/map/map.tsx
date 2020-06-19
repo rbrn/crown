@@ -36,11 +36,15 @@ delete L.Icon.Default.prototype._getIconUrl;
   shadowUrl: "content/images/marker-shadow.png",
 }); */
 
-const myIcon = L.divIcon({
-  className: 'location-pin',
-  html: '<center><h1>1</h1></center><div class="pin"></div><div class="pulse"></div>',
-  iconSize: [30, 30],
-  iconAnchor: [10, 33]
+const LeafIcon = L.Icon.extend({
+  options: {
+    iconSize: [25, 25]
+  }
+});
+
+const myIcon = new LeafIcon({
+  iconSize: [70, 70],
+  iconUrl: '../../../content/images/my-location.svg'
 });
 
 L.Icon.Default.imagePath = '';
@@ -96,16 +100,11 @@ const RequestTypes = {
   'Request Medical Supplies': 'Request Medical Supplies',
 
 };
-const LeafIcon = L.Icon.extend({
-  options: {
-    iconSize: [25, 25]
-  }
-});
 
-const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-map.png'});
+const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-map.svg'});
 const requesterIcon = new LeafIcon({
   iconSize: [25, 25],
-  iconUrl: '../../../content/images/requests-map.png'
+  iconUrl: '../../../content/images/requests-map.svg'
 });
 
 
