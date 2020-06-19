@@ -99,14 +99,14 @@ const RequestTypes = {
 };
 const LeafIcon = L.Icon.extend({
   options: {
-    iconSize: [25, 65]
+    iconSize: [25, 25]
   }
 });
 
-const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-svgrepo-com.svg'});
+const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-map.png'});
 const requesterIcon = new LeafIcon({
-  iconSize: [25, 35],
-  iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'
+  iconSize: [25, 25],
+  iconUrl: '../../../content/images/requests-map.png'
 });
 
 
