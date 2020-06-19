@@ -46,7 +46,7 @@ class PostedItemsComponent extends React.Component<Props, State> {
 
   claimItem = (supplierResourceId, quantity) => () => {
     const {position: {lat, lng}} = this.props;
-    const redirect = `${config.getNewClaimUrl}?x=${lat}&y=${lng}&supplierResourceId=${supplierResourceId}`
+    const redirect = `${config.getNewClaimUrl}?x=${lat}&y=${lng}&supplierResourceId=${supplierResourceId}&quantity=${quantity}`
     this.setState({redirectUrl: redirect})
   }
 

@@ -278,6 +278,7 @@ class MapComponent extends React.Component<MapProps, State> {
       attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
     };
 
+
     L.tileLayer(baseTileString, options).addTo(this.resourceSuppliersMap);
 
     // Add the search bar

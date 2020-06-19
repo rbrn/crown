@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import {Link, RouteComponentProps} from 'react-router-dom';
-import {Button, Col, Label, Row} from 'reactstrap';
-import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
-import {Translate, translate} from 'react-jhipster';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {IRootState} from 'app/shared/reducers';
-import {getEntities as getReceiverResources} from 'app/entities/receiver-resource/receiver-resource.reducer';
-import {getEntities as getSupplierResources} from 'app/entities/supplier-resource/supplier-resource.reducer';
-import {createEntity, getEntity, reset, updateEntity} from './claim.reducer';
-import {getEntity as getReceiverResourceEntity} from 'app/entities/receiver-resource/receiver-resource.reducer';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { Button, Col, Label, Row } from 'reactstrap';
+import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { Translate, translate } from 'react-jhipster';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IRootState } from 'app/shared/reducers';
+import { getEntities as getReceiverResources } from 'app/entities/receiver-resource/receiver-resource.reducer';
+import { getEntities as getSupplierResources } from 'app/entities/supplier-resource/supplier-resource.reducer';
+import { createEntity, getEntity, reset, updateEntity } from './claim.reducer';
+import { getEntity as getReceiverResourceEntity } from 'app/entities/receiver-resource/receiver-resource.reducer';
 
 import Claim from "app/entities/claim/claim";
-import {defaultValue} from "app/shared/model/claim.model";
+import { defaultValue } from "app/shared/model/claim.model";
 
 export interface IClaimRequestByReceiverProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -21,7 +21,7 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
   const [receiverResourceId, setReceiverResourceId] = useState('0');
   const [entity, setEntity] = useState(defaultValue);
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
-  const {claimEntity, receiverResources, supplierResources, loading, updating} = props;
+  const { claimEntity, receiverResources, supplierResources, loading, updating } = props;
 
 
   const handleClose = () => {
@@ -49,7 +49,7 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
 
 
   useEffect(() => {
-    setEntity({receiverResource: props.receiverResourceEntity})
+    setEntity({ receiverResource: props.receiverResourceEntity })
 
     // const selectedReceiverResource = props.receiverResources.find( receiverResource=> receiverResource.id === receiverResourceId);
     //  if(selectedReceiverResource) {
@@ -88,76 +88,76 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <div>
-              {entity.receiverResource ? (
-                  <div style={{paddingBottom:"20px"}}>
-                    <div>Item: {entity.receiverResource?.resourceType?.name}</div>
-                    <div>Requested Quantity: {entity.receiverResource?.quantity}</div>
+              <div>
+                {entity.receiverResource ? (
+                  <div style={{ paddingBottom: "20px" }}>
+                    <div>Item: {entity.receiverResource ?.resourceType ?.name}</div>
+                    <div>Requested Quantity: {entity.receiverResource ?.quantity}</div>
                   </div>
                 ) :
-                null}
-              <AvForm model={entity} onSubmit={saveEntity}>
-                {
-                  /* <AvGroup>
-                  <Label for="claim-supplierResource">
-                    <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>
-                  </Label>
-                  <AvInput id="claim-supplierResource" type="select" className="form-control"
-                           name="supplierResource.id">
-                    <option value="" key="0" />
-                    {supplierResources
-                      ? supplierResources.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                         Supplier: {otherEntity.supplier?.name}, Type: {otherEntity.resourceType?.name}, Quantity: {otherEntity.quantity}, Id: {otherEntity.id}
-                        </option>
-                      ))
-                        : null}
-                  </AvInput>
-                </AvGroup> */
-                }
+                  null}
+                <AvForm model={entity} onSubmit={saveEntity}>
+                  {
+                    /* <AvGroup>
+                    <Label for="claim-supplierResource">
+                      <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>
+                    </Label>
+                    <AvInput id="claim-supplierResource" type="select" className="form-control"
+                             name="supplierResource.id">
+                      <option value="" key="0" />
+                      {supplierResources
+                        ? supplierResources.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                           Supplier: {otherEntity.supplier?.name}, Type: {otherEntity.resourceType?.name}, Quantity: {otherEntity.quantity}, Id: {otherEntity.id}
+                          </option>
+                        ))
+                          : null}
+                    </AvInput>
+                  </AvGroup> */
+                  }
 
-                <AvGroup>
-                  <Label id="quantityLabel" for="claim-quantity">
-                    <Translate contentKey="crownApp.claim.quantity">Quantity</Translate>
-                  </Label>
-                  <AvField
-                    id="claim-quantity"
-                    type="string"
-                    className="form-control"
-                    name="quantity"
-                    validate={{
-                      required: {value: true, errorMessage: translate('entity.validation.required')},
-                      number: {value: true, errorMessage: translate('entity.validation.number')}
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="notesLabel" for="claim-notes">
-                    <Translate contentKey="crownApp.claim.notes">Notes</Translate>
-                  </Label>
-                  <AvField id="claim-notes" type="textarea" name="notes"/>
-                </AvGroup>
+                  <AvGroup>
+                    <Label id="quantityLabel" for="claim-quantity">
+                      <Translate contentKey="crownApp.claim.quantity">Quantity</Translate>
+                    </Label>
+                    <AvField
+                      id="claim-quantity"
+                      type="string"
+                      className="form-control"
+                      name="quantity"
+                      validate={{
+                        required: { value: true, errorMessage: translate('entity.validation.required') },
+                        number: { value: true, errorMessage: translate('entity.validation.number') }
+                      }}
+                    />
+                  </AvGroup>
+                  <AvGroup>
+                    <Label id="notesLabel" for="claim-notes">
+                      <Translate contentKey="crownApp.claim.notes">Notes</Translate>
+                    </Label>
+                    <AvField id="claim-notes" type="textarea" name="notes" />
+                  </AvGroup>
 
-                <Button tag={Link} id="cancel-save" to="/claim" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left"/>
-                  &nbsp;
+                  <Button tag={Link} id="cancel-save" to="/claim" replace color="info">
+                    <FontAwesomeIcon icon="arrow-left" />
+                    &nbsp;
                   <span className="d-none d-md-inline">
-                  <Translate contentKey="entity.action.back">Back</Translate>
-                </span>
-                </Button>
-                &nbsp;
-                <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save"/>
+                      <Translate contentKey="entity.action.back">Back</Translate>
+                    </span>
+                  </Button>
                   &nbsp;
+                <Button color="primary" id="save-entity" type="submit" disabled={updating}>
+                    <FontAwesomeIcon icon="save" />
+                    &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
+                  </Button>
+                  &nbsp;
+                <Button style={{ backgroundColor: 'green' }} id="save-entity" type="submit" disabled={updating}>
+                    Confirm Order
                 </Button>
-                &nbsp;
-                <Button style={{backgroundColor: 'green'}} id="save-entity" type="submit" disabled={updating}>
-                  Confirm Order
-                </Button>
-              </AvForm>
-            </div>
-          )}
+                </AvForm>
+              </div>
+            )}
         </Col>
       </Row>
     </div>

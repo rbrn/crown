@@ -13,7 +13,7 @@ const Footer = props => (
     </div>
     <div className="links">
       <Link to={`/policy`} className="link">
-        Policy & Terms
+        Terms and Policy
       </Link>
       <Link to={`/support`} className="link">
         Support
