@@ -21,3 +21,8 @@ spring:
     mongodb:
       uri: ${MONGODB_URI}
       database: crown
+  mail:
+    host: smtp.sendgrid.net
+    port: 25
+    username: apikey
+    password: ${MAIL_KEY}
