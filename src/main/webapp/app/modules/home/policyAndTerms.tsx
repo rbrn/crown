@@ -8,7 +8,7 @@ const PolicyAndTerms = props => (
     <Row>
       <Col className=".col-sm-12 .col-md-6 .offset-md-3">
         <h2>
-          Policy and terms page
+          Terms and Policy
         </h2>
 
         <div>Last updated [month day, year]</div>
