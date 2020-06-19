@@ -1,14 +1,8 @@
 package org.crown.service;
 
-import org.crown.domain.User;
-
 import io.github.jhipster.config.JHipsterProperties;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
+import org.crown.domain.Support;
+import org.crown.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -19,6 +13,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 /**
  * Service for sending emails.
@@ -72,6 +71,26 @@ public class MailService {
     }
 
     @Async
+    public void sendEmail(Support support) {
+        log.debug("Send email from '{}' to email support with content={}", support.getEmail(),support.getMessage());
+
+        // Prepare message using a Spring helper
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());
+            message.setFrom(jHipsterProperties.getMail().getFrom());
+            message.setTo("meenus646@gmail.com");
+            message.setSubject("Email Support: " + support.getName() + " : " +
+                support.getEmail() + " : " + support.getPhoneNumber());
+            message.setText(support.getMessage());
+            javaMailSender.send(mimeMessage);
+            log.debug("Sent email from User '{}'", support.getEmail());
+        }  catch (MailException | MessagingException e) {
+            log.warn("Email could not be sent from user '{}'", support.getEmail(), e);
+        }
+    }
+
+    @Async
     public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
         if (user.getEmail() == null) {
             log.debug("Email doesn't exist for user '{}'", user.getLogin());
@@ -102,5 +121,11 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendSupportEmail(Support support) {
+        log.debug("Sending email support from '{}'", support.getEmail());
+        sendEmail(support);
     }
 }
