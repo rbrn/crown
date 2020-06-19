@@ -48,7 +48,7 @@ spring:
     host: smtp.sendgrid.net
     port: 25
     username: apikey
-    password:
+    password: ${MAIL_KEY}
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
