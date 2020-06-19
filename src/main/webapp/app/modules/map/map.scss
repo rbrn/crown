@@ -146,7 +146,7 @@ body::-webkit-scrollbar-thumb {
 
 .left-panel {
   position: fixed;
-  bottom: 80px;
+  bottom: 100px;
   left: 0;
   z-index: 500;
   background-color: #fefefe;
@@ -157,15 +157,17 @@ body::-webkit-scrollbar-thumb {
 }
 
 .radius-display {
-  padding: 4px;
-  border: 1px solid #dde4eb;
+  float: right;
+}
+
+.radius-container {
+  font-weight: bold;
 }
 
 .ant-slider {
   padding: 0;
   display: inline-block;
-  width: 30%;
-  margin: 0 5px 0 10px;
+  width: 97%;
   .ant-slider-handle,
   .ant-slider-track,
   .ant-slider-rail {
@@ -227,8 +229,8 @@ body::-webkit-scrollbar-thumb {
   background: #32383e;
 }
 .pin {
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   border-radius: 50% 50% 50% 0;
   background: #32383e;
   position: absolute;
