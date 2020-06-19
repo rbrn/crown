@@ -3,7 +3,7 @@ import './map.scss';
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Col, Row, Container} from 'reactstrap';
+import {Col, Row, Container, Button} from 'reactstrap';
 import Popup from "reactjs-popup";
 
 import PostedItemsComponent from './posteditems';
@@ -18,8 +18,6 @@ import {Redirect} from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
 import axios from "axios";
 import config from "app/modules/map/apiConfig.json";
-
-import CookieConsent from "react-cookie-consent";
 
 declare global {
   interface Window {
@@ -340,14 +338,7 @@ class MapComponent extends React.Component<MapProps, State> {
           changeRadius={this.changeRadius}
         />
 
-          <CookieConsent
-            buttonText="I accept"
-            style={{position: "absolute", bottom:"0px"}}
-            buttonStyle={{ fontSize: "13px" }}
-            expires={150}
-          >
-            This website uses cookies to enhance the user experience.{" "}
-          </CookieConsent>
+
 
         <Row>
           <Col md="12" className="p-0">
