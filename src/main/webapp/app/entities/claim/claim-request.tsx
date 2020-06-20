@@ -135,14 +135,18 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                       }}
                     />
                   </AvGroup>
-                  {/*
+
+                  {
+                    /*
                   { <AvGroup>
                     <Label id="approximatePrice" for="claim-price">
                       <Translate contentKey="crownApp.claim.ApproximatePrice">Approximate Price</Translate>{': '}
                       <span> {entity.supplierResource ?.cost * ApproximatePriceValue} </span>
                     </Label>
                   </AvGroup>}
-                  */ }
+                  */
+                  }
+
                   <AvGroup>
                     <Label id="notesLabel" for="claim-notes">
                       <Translate contentKey="crownApp.claim.notes">Notes</Translate>
