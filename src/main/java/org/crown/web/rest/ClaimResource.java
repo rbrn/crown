@@ -1,16 +1,17 @@
 package org.crown.web.rest;
 
-import org.crown.domain.Claim;
-import org.crown.repository.ClaimRepository;
-import org.crown.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.crown.domain.Claim;
+import org.crown.domain.User;
+import org.crown.repository.ClaimRepository;
+import org.crown.service.MailService;
+import org.crown.service.UserService;
+import org.crown.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,8 +36,14 @@ public class ClaimResource {
 
     private final ClaimRepository claimRepository;
 
-    public ClaimResource(ClaimRepository claimRepository) {
+    private final UserService userService;
+
+    private final MailService mailService;
+
+    public ClaimResource(ClaimRepository claimRepository, UserService userService, MailService mailService) {
         this.claimRepository = claimRepository;
+        this.userService = userService;
+        this.mailService = mailService;
     }
 
     /**
@@ -53,6 +60,8 @@ public class ClaimResource {
             throw new BadRequestAlertException("A new claim cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Claim result = claimRepository.save(claim);
+        User user = userService.getUserWithAuthorities().orElseThrow(() -> new RuntimeException("User could not be found"));
+        mailService.sendClaimEmail(user, result);
         return ResponseEntity.created(new URI("/api/claims/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
