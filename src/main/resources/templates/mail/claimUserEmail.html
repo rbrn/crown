@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.claim.title}">user order email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}" />
+</head>
+<body>
+<p th:text="#{email.claim.greeting2(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.claim.message3(${claim.id})}">
+    Your order was successfully placed.
+</p>
+<p th:text="#{email.claim.message2}">
+    Please click on the URL below to view order:
+</p>
+<p>
+    <a th:with="url=(@{|${baseUrl}/claim/${claim.id}|})" th:href="${url}"
+       th:text="${url}">Claim link</a>
+</p>
+<p>
+    <span th:text="#{email.claim.text}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">JHipster.</em>
+</p>
+</body>
+</html>
