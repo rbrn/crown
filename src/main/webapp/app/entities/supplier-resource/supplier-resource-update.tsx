@@ -162,7 +162,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                 />
               </AvGroup>
               {mayBeSupplierFields()}
-              <Button tag={Link} id="cancel-save" to="/supplier-resource" replace color="info">
+              <Button tag={Link} id="cancel-save" to="/" replace color="info">
                 <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
