@@ -338,7 +338,19 @@ class MapComponent extends React.Component<MapProps, State> {
           changeRadius={this.changeRadius}
         />
 
+        <CookieConsent
+          buttonText="Accept all Cookies"
+          style={{ backgroundColor: 'white', color: 'black', position: 'absolute', bottom: '0px', height: '70px', boxShadow: '0px 3px 20px #00000085' }}
+          expires={150}
+          buttonStyle={{ background: '#5E5E5E 0% 0% no-repeat padding-box', color: 'white' }}
+        >
+          <div><h5 style={{ position: 'absolute', top: '0px', fontSize: '15px' }}>We value your privacy</h5></div>
 
+          <div style={{ fontSize: '10px' }}>
+            We use cookies and related technologies to help identify you and your devices, to operate our site, enhance your experience, and conduct advertising and analysis. Some of these cookies are optional and are only used when you have agreed to them. You can consent to all our optional cookies at once, or manage your own preferences through the <a href=" " color='blue'>manage choices link.</a> You can read more about these uses in our <a href="/policy" color='blue'>Privacy Statement</a>.
+              </div>
+
+        </CookieConsent>
 
         <Row>
           <Col md="12" className="p-0">
@@ -357,19 +369,7 @@ class MapComponent extends React.Component<MapProps, State> {
               </Popup>
             </div>
 
-            <CookieConsent
-              buttonText="Accept all Cookies"
-              style={{ backgroundColor: 'white', color: 'black', position:'absolute', bottom:'0px', height: '70px', boxShadow: '0px 3px 20px #00000085' }}
-              expires={150}
-              buttonStyle={{ background: '#5E5E5E 0% 0% no-repeat padding-box', color: 'white' }}
-            >
-              <div><h5 style={{ position: 'absolute', top: '0px', fontSize: '15px' }}>We value your privacy</h5></div>
 
-              <div style={{ fontSize: '10px' }}>
-                We use cookies and related technologies to help identify you and your devices, to operate our site, enhance your experience, and conduct advertising and analysis. Some of these cookies are optional and are only used when you have agreed to them. You can consent to all our optional cookies at once, or manage your own preferences through the <a href=" " color='blue'>manage choices link.</a> You can read more about these uses in our <a href="/policy" color='blue'>Privacy Statement</a>.
-          </div>
-
-            </CookieConsent>
           </Col>
         </Row>
       </Container>
