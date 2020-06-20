@@ -1,14 +1,19 @@
 import './welcome.scss';
 
 import React from 'react';
-import { Form, Input, Button, Col, Row } from 'antd';
+import { Form, Input, Button, Col, Row, Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-
+import axios from "axios";
 
 const Support = props => {
   const onFinish = values => {
-    // console.log('Received values of form: ', values);
+    axios.post('api/support', values)
+      .then(({data}) => {
+        Modal.success({
+          content: 'Thank you for contacting us! We will get back to you shortly.',
+        });
+      })
   };
 
   return (
@@ -52,6 +57,7 @@ const Support = props => {
             </Form.Item>
             <Form.Item
               name="message"
+              rules={[{required: true, message: 'Please input your message!'}]}
             >
               <Input.TextArea
                 placeholder="Message"
