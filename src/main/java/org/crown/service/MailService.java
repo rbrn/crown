@@ -46,7 +46,7 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
 
     public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+                       MessageSource messageSource, SpringTemplateEngine templateEngine) {
 
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
@@ -69,7 +69,7 @@ public class MailService {
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);
             log.debug("Sent email to User '{}'", to);
-        }  catch (MailException | MessagingException e) {
+        } catch (MailException | MessagingException e) {
             log.warn("Email could not be sent to user '{}'", to, e);
         }
     }
@@ -96,9 +96,7 @@ public class MailService {
         context.setVariable(SUPPORT, support);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
-        String output = String.format("%s : %s : %s : %s", titleKey, support.getName(),
-            support.getEmail(), support.getPhoneNumber());
-        String subject = messageSource.getMessage(output, null, locale);
+        String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail("crownteaminternational@gmail.com", subject, content, false, true);
     }
 
