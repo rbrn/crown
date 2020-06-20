@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.support.title}">JHipster activation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}" />
+</head>
+<body>
+<p th:text="#{email.support.greeting}">
+    Dear Sir/Madam
+</p>
+<p th:text="${support.message}">
+</p>
+<p>
+<p>Customer contact: </p>
+
+<span
+    th:text="${support.name}"
+    th:text="${support.email}"
+    th:text="${support.phoneNumber}">
+</span>
+</p>
+<p>
+    <span th:text="#{email.activation.text2}">Regards, </span>
+    <br/>
+    <em th:text="${support.name}">.</em>
+</p>
+</body>
+</html>

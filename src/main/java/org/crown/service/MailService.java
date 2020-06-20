@@ -33,6 +33,10 @@ public class MailService {
 
     private static final String BASE_URL = "baseUrl";
 
+    private static final String CLAIM = "claim";
+
+    private static final String SUPPORT = "support";
+
     private final JHipsterProperties jHipsterProperties;
 
     private final JavaMailSender javaMailSender;
@@ -71,26 +75,6 @@ public class MailService {
     }
 
     @Async
-    public void sendEmail(Support support) {
-        log.debug("Send email from '{}' to email support with content={}", support.getEmail(),support.getMessage());
-
-        // Prepare message using a Spring helper
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        try {
-            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());
-            message.setFrom(jHipsterProperties.getMail().getFrom());
-            message.setTo("meenus646@gmail.com");
-            message.setSubject("Email Support: " + support.getName() + " : " +
-                support.getEmail() + " : " + support.getPhoneNumber());
-            message.setText(support.getMessage());
-            javaMailSender.send(mimeMessage);
-            log.debug("Sent email from User '{}'", support.getEmail());
-        }  catch (MailException | MessagingException e) {
-            log.warn("Email could not be sent from user '{}'", support.getEmail(), e);
-        }
-    }
-
-    @Async
     public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
         if (user.getEmail() == null) {
             log.debug("Email doesn't exist for user '{}'", user.getLogin());
@@ -103,6 +87,19 @@ public class MailService {
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
+    }
+
+    @Async
+    public void sendSupportEmailFromTemplate(Support support, String templateName, String titleKey) {
+        Locale locale = Locale.forLanguageTag("US");
+        Context context = new Context(locale);
+        context.setVariable(SUPPORT, support);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String output = String.format("%s : %s : %s : %s", titleKey, support.getName(),
+            support.getEmail(), support.getPhoneNumber());
+        String subject = messageSource.getMessage(output, null, locale);
+        sendEmail("crownteaminternational@gmail.com", subject, content, false, true);
     }
 
     @Async
@@ -126,6 +123,6 @@ public class MailService {
     @Async
     public void sendSupportEmail(Support support) {
         log.debug("Sending email support from '{}'", support.getEmail());
-        sendEmail(support);
+        sendSupportEmailFromTemplate(support, "mail/supportEmail", "email.support.title");
     }
 }
