@@ -13,7 +13,12 @@ const Support = props => {
 
   return (
     <div className="support padding-all-15" data-name="support">
-      <Row>
+
+      <h1 style={{ alignItems: 'center', textAlign:'center' }}>
+        <b>Have Questions?</b> <FontAwesomeIcon icon={faPaperPlane} color='#FF7C48' />
+      </h1>
+
+      <Row style={{alignItems:'center', textAlign:'center'}}>
         <Col span={6}>
           <Form
             name="normal_login"
@@ -21,10 +26,6 @@ const Support = props => {
             initialValues={{remember: true}}
             onFinish={onFinish}
           >
-            <h3 style={{ textAlign: 'center' }}>
-              <b>Have Questions?</b> <FontAwesomeIcon icon={faPaperPlane} color='#FF7C48' />
-            </h3>
-
             <Form.Item
               name="name"
               rules={[{ required: true, message: 'Please input your name!' }]}
@@ -69,7 +70,7 @@ const Support = props => {
           </Form>
         </Col>
 
-        <Col className='rounded' style={{ boxShadow: '10px 0 1px -2px grey', marginLeft: '300px', width: '5px', height:'470px' }}>
+        <Col className='rounded' style={{ boxShadow: '10px 0 1px -2px grey', marginLeft: '300px', width: '5px', height:'420px' }}>
 
           <div style={{ position: "absolute", textAlign: 'center', alignItems: 'center', width: '300px', left: '200px', top: '70px' }}>
 
