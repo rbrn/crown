@@ -1,6 +1,7 @@
 package org.crown.service;
 
 import io.github.jhipster.config.JHipsterProperties;
+import org.crown.domain.Claim;
 import org.crown.domain.Support;
 import org.crown.domain.User;
 import org.slf4j.Logger;
@@ -101,6 +102,25 @@ public class MailService {
     }
 
     @Async
+    public void sendClaimEmailFromTemplate(User user, Claim claim, String templateName,
+                                           String otherTemplateName, String titleKey) {
+        if (user.getEmail() == null) {
+            log.debug("Email doesn't exist for user '{}'", user.getLogin());
+            return;
+        }
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable(CLAIM, claim);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String otherContent = templateEngine.process(otherTemplateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
+        sendEmail("crownteaminternational@gmail.com", subject, otherContent, false, true);
+    }
+
+    @Async
     public void sendActivationEmail(User user) {
         log.debug("Sending activation email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/activationEmail", "email.activation.title");
@@ -122,5 +142,12 @@ public class MailService {
     public void sendSupportEmail(Support support) {
         log.debug("Sending email support from '{}'", support.getEmail());
         sendSupportEmailFromTemplate(support, "mail/supportEmail", "email.support.title");
+    }
+
+    @Async
+    public void sendClaimEmail(User user, Claim claim) {
+        log.debug("Sending email to Crown Admin and '{}'", user.getEmail());
+        sendClaimEmailFromTemplate(user, claim, "mail/claimUserEmail",
+            "mail/claimAdminEmail", "email.claim.title");
     }
 }
