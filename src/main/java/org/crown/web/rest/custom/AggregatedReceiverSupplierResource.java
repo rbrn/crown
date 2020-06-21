@@ -90,10 +90,17 @@ public class AggregatedReceiverSupplierResource {
                                                      double distance, Pageable pageable, String units) {
         log.debug("REST request to search for a page of SupplierResources for longitude: {} latitude:{} distance: {}", x, y, distance);
         CreateDistance createDistance = new CreateDistance(x, y, distance, units).invoke();
+        System.out.println(createDistance.x + "; " + createDistance.y + ": " + createDistance.point);
         Point point = createDistance.getPoint();
         Distance dist = createDistance.getDist();
 
-            GeoResults<SupplierResource> page = supplierResourceRepository.findByPositionNear(point, dist);
+        System.out.println(point.getX() + "; " + point.getY());
+//        GeoResults<SupplierResource> page = supplierResourceRepository.findByPositionNear(point, dist);
+
+        Circle area = new Circle(point, dist);
+        System.out.println(area + ". " + area.getCenter() + "; " + area.getRadius());
+        GeoPage<SupplierResource> page = supplierResourceRepository.findByPositionWithin(area, pageable);
+
         List<AroundMeSuppliesDTO> aggregatedDTOS = getAroundMe(page);
         return ResponseEntity.ok().body(aggregatedDTOS);
     }
@@ -126,7 +133,7 @@ public class AggregatedReceiverSupplierResource {
     }
 
 
-    private List<AroundMeSuppliesDTO> getAroundMe(GeoResults<SupplierResource> page) {
+    private List<AroundMeSuppliesDTO> getAroundMe(GeoPage<SupplierResource> page) {
         return page.getContent().stream().map(AroundMeSuppliesDTO::of).collect(toList());
     }
 
