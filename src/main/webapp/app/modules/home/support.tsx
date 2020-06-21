@@ -14,15 +14,15 @@ const Support = props => {
   return (
     <div className="support padding-all-15" data-name="support">
 
-      <h1 style={{ alignItems: 'center', textAlign:'center' }}>
-        <b>Have Questions?</b> <FontAwesomeIcon icon={faPaperPlane} color='#FF7C48' />
-      </h1>
+      <Row>
+        <Col span={11} style={{ boxShadow: '5px 0 1px -2px grey', textAlign: 'center', marginLeft: '60px', paddingRight: '45px'}}>
 
-      <Row style={{alignItems:'center', textAlign:'center'}}>
-        <Col span={6}>
+          <h1 style={{ marginTop: '5vh' }}>
+            <b>Have Questions?</b> <FontAwesomeIcon icon={faPaperPlane} color='#FF7C48' />
+          </h1>
+
           <Form
             name="normal_login"
-            style={{width: '500px', height: '400px', marginTop: '20px'}}
             initialValues={{remember: true}}
             onFinish={onFinish}
           >
@@ -59,10 +59,10 @@ const Support = props => {
               />
             </Form.Item>
 
-            <Form.Item style={{ position: 'absolute', left: '390px' }}>
+            <Form.Item>
               <Button type="primary" htmlType="submit"
+                style={{ position: 'absolute', right: '0px', borderRadius: '10px', fontSize: '20px', height:'40px'}}
                 className="contact-form-button"
-                style={{ borderRadius: '5px', height: '40px', width: '110px', textAlign: 'center', fontSize: '20px' }}
               >
                 Submit
               </Button>
@@ -70,18 +70,22 @@ const Support = props => {
           </Form>
         </Col>
 
-        <Col className='rounded' style={{ boxShadow: '10px 0 1px -2px grey', marginLeft: '300px', width: '5px', height:'420px' }}>
+        <Col span={10} style={{ textAlign: 'center', marginLeft:'110px', marginTop: '15vh'}}
+        >
 
-          <div style={{ position: "absolute", textAlign: 'center', alignItems: 'center', width: '300px', left: '200px', top: '70px' }}>
+          {
+            <div
+              style={{ alignItems: 'center', width: '50vh' }}
+          >
 
             <FontAwesomeIcon icon={faHandshake} color='#FF7C48' style={{height: '50px', width: '50px'}}/>{''}
 
             <div id="reach-out" style={{marginBottom: '20px'}}>
-              If you are interested in supporting us, feel free to reach out at <a href="mailto:wearecrown@gmail.com">wearecrown@gmail.com</a>
+              If you are interested in supporting us, feel free to reach out at <a href="mailto:crownteaminternational@gmail.com">crownteaminternational@gmail.com</a>
             </div>
 
             <div id="partner-with" style={{marginBottom:'20px'}}>
-              If you would like to partner with us, please email us at <a href="mailto:crown.partner@gmail.com">crown.partner@gmail.com</a>
+              If you would like to partner with us, please email us at <a href="mailto:crownteaminternational@gmail.com">crownteaminternational@gmail.com</a>
           </div>
 
             <div id="icons">
@@ -92,7 +96,7 @@ const Support = props => {
               <a href="https://www.instagram.com"><img src='content/images/ig-icon.png' style={{ height: '25px', width: '25px' }} /></a>
             </div>
 
-          </div>
+          </div> }
         </Col>
       </Row>
     </div>
