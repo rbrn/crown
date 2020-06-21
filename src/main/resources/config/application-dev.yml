@@ -54,10 +54,6 @@ spring:
   thymeleaf:
     cache: false
 
-azure:
-  endpoint: http://crownwebapp.blob.core.windows.net
-  sasToken:
-
 server:
   port: 8080
 
