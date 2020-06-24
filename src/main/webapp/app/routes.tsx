@@ -21,6 +21,7 @@ import { AUTHORITIES } from 'app/config/constants';
 import Support from "app/modules/home/support";
 import About from "app/modules/home/about";
 import PolicyAndTerms from "app/modules/home/policyAndTerms";
+import UploadDocuments from "app/entities/supplier-resource/buyer-seller-document-component";
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -37,6 +38,7 @@ const Routes = () => (
     <Switch>
       <ErrorBoundaryRoute path="/search" component={WholeSalerSearch} />
       <ErrorBoundaryRoute path="/welcome" component={Welcome} />
+      <ErrorBoundaryRoute path="/doc" component={UploadDocuments} />
       <ErrorBoundaryRoute path="/support" component={Support} />
       <ErrorBoundaryRoute path="/about" component={About} />
       <ErrorBoundaryRoute path="/policy" component={PolicyAndTerms} />

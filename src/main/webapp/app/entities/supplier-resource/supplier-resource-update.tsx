@@ -10,6 +10,7 @@ import {getEntities as getResourceTypes} from 'app/entities/resource-type/resour
 import {getEntities as getReceiverSuppliers} from 'app/entities/receiver-supplier/receiver-supplier.reducer';
 import {createEntity, getEntity, reset, updateEntity} from './supplier-resource.reducer';
 import ReceiverSupplierFields from "app/entities/receiver-supplier/receiver-supplier-fields";
+import UploadDocuments  from 'app/entities/supplier-resource/buyer-seller-document-component';
 
 export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -161,8 +162,9 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   }}
                 />
               </AvGroup>
+                <UploadDocuments/>
               {mayBeSupplierFields()}
-              <Button tag={Link} id="cancel-save" to="/supplier-resource" replace color="info">
+              <Button tag={Link} id="cancel-save" to="/" replace color="info">
                 <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">

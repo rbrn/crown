@@ -87,7 +87,9 @@ export const RegisterPage = (props: IRegisterProps) => {
               }}
             />
 
-            <AvCheckboxGroup name="terms-and-policy">
+            <AvCheckboxGroup
+              validate={{ required: { value: true, errorMessage: 'This Field is Required!' } }}
+              name="terms-and-policy">
               <div style={{ display: 'inline-flex' }}>
                 <AvCheckbox
                   label='I have read and agree to the '

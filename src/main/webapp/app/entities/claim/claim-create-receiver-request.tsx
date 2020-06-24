@@ -138,19 +138,18 @@ export const ClaimRequestByReceiverRequest = (props: IClaimRequestByReceiverProp
                     <AvField id="claim-notes" type="textarea" name="notes" />
                   </AvGroup>
 
-                  <Button tag={Link} id="cancel-save" to="/claim" replace color="info">
+                  <Button tag={Link} id="cancel-save" to="/" replace color="info">
                     <FontAwesomeIcon icon="arrow-left" />
                     &nbsp;
                   <span className="d-none d-md-inline">
                       <Translate contentKey="entity.action.back">Back</Translate>
                     </span>
                   </Button>
-                  &nbsp;
-                <Button color="primary" id="save-entity" type="submit" disabled={updating}>
+                {/* <Button color="primary" id="save-entity" type="submit" disabled={updating}>
                     <FontAwesomeIcon icon="save" />
                     &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
-                  </Button>
+                  </Button> */}
                   &nbsp;
                 <Button style={{ backgroundColor: 'green' }} id="save-entity" type="submit" disabled={updating}>
                     Confirm Order

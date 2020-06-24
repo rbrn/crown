@@ -16,6 +16,7 @@ import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import ReceiverSupplierFields from "app/entities/receiver-supplier/receiver-supplier-fields";
+import UploadDocuments from "app/entities/supplier-resource/buyer-seller-document-component"
 
 export interface IReceiverResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -213,9 +214,10 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                       ))
                     : null}
                 </AvInput>
-              </AvGroup>
+                </AvGroup>
+                <UploadDocuments />
               {mayBeReceiverFields()}
-              <Button tag={Link} id="cancel-save" to="/receiver-resource" replace color="info">
+              <Button tag={Link} id="cancel-save" to="/" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">

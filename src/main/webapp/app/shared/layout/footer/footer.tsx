@@ -19,7 +19,7 @@ const Footer = props => (
         Support
       </Link>
       <Link to={`/about`} className="">
-        About
+        About Us
       </Link>
     </div>
   </div>
