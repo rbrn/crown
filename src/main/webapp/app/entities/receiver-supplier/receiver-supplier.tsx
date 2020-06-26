@@ -22,12 +22,23 @@ export interface IReceiverSupplierProps extends StateProps, DispatchProps, Route
 export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
   const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
   const [sorting, setSorting] = useState(false);
-  const containerDiv = useRef(null);
 
   const getAllEntities = () => {
     props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
   };
 
+  const queryGET = new URLSearchParams(props.location.search);
+        const typePPE = {
+          type: queryGET.get('typePPE') || '' // "typePPE" 
+        };
+
+        if (typePPE.type === "request") {
+          typePPE.type = "request";
+        }
+        if (typePPE.type === "supply") {
+          typePPE.type = "supply";;
+        }
+        
   const resetAll = () => {
     props.reset();
     setPaginationState({
@@ -148,7 +159,8 @@ export const ReceiverSupplier = (props: IReceiverSupplierProps) => {
                     <Translate contentKey="crownApp.receiverSupplier.country">Country</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('isReceiver')}>
-                    <Translate contentKey="crownApp.receiverSupplier.isReceiver">Is Receiver</Translate> <FontAwesomeIcon icon="sort" />
+                    <Translate contentKey="crownApp.receiverSupplier.isReceiver">Is Receiver
+                    </Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={sort('isSupplier')}>
                     <Translate contentKey="crownApp.receiverSupplier.isSupplier">Is Supplier</Translate> <FontAwesomeIcon icon="sort" />
