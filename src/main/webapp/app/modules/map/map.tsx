@@ -3,7 +3,7 @@ import './map.scss';
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Col, Row, Container} from 'reactstrap';
+import {Col, Row, Container, Button} from 'reactstrap';
 import Popup from "reactjs-popup";
 
 import PostedItemsComponent from './posteditems';
@@ -18,6 +18,7 @@ import {Redirect} from "react-router-dom";
 import RequestedItemsComponent from "app/modules/map/requestedItems";
 import axios from "axios";
 import config from "app/modules/map/apiConfig.json";
+import CookieConsent from "react-cookie-consent";
 
 declare global {
   interface Window {
@@ -35,11 +36,15 @@ delete L.Icon.Default.prototype._getIconUrl;
   shadowUrl: "content/images/marker-shadow.png",
 }); */
 
-const myIcon = L.divIcon({
-  className: 'location-pin',
-  html: '<center><h1>1</h1></center><div class="pin"></div><div class="pulse"></div>',
-  iconSize: [30, 30],
-  iconAnchor: [10, 33]
+const LeafIcon = L.Icon.extend({
+  options: {
+    iconSize: [25, 25]
+  }
+});
+
+const myIcon = new LeafIcon({
+  iconSize: [70, 70],
+  iconUrl: '../../../content/images/my-location.svg'
 });
 
 L.Icon.Default.imagePath = '';
@@ -95,16 +100,11 @@ const RequestTypes = {
   'Request Medical Supplies': 'Request Medical Supplies',
 
 };
-const LeafIcon = L.Icon.extend({
-  options: {
-    iconSize: [25, 65]
-  }
-});
 
-const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-svgrepo-com.svg'});
+const supplierIcon = new LeafIcon({iconUrl: '../../../content/images/supplies-map.svg'});
 const requesterIcon = new LeafIcon({
-  iconSize: [25, 35],
-  iconUrl: '../../../content/images/iconfinder_hospital_5932161.png'
+  iconSize: [25, 25],
+  iconUrl: '../../../content/images/requests-map.svg'
 });
 
 
@@ -170,7 +170,7 @@ class MapComponent extends React.Component<MapProps, State> {
          */
         position = [this.state.latlng.lat, this.state.latlng.lng]
 
-        this.resourceSuppliersMap = L.map('map-container').setView(position, 10);
+        this.resourceSuppliersMap = L.map('map-container').setView(position, 3);
         this.resourceSuppliersMap.on('click', (event) => this.onMapClicked(event));
         this.setTitleLayer();
 
@@ -276,6 +276,7 @@ class MapComponent extends React.Component<MapProps, State> {
       attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
     };
 
+
     L.tileLayer(baseTileString, options).addTo(this.resourceSuppliersMap);
 
     // Add the search bar
@@ -330,15 +331,27 @@ class MapComponent extends React.Component<MapProps, State> {
 
     return (
       <Container className="col-auto ml-auto">
-        <TopPanel
-          radius={this.state.radius}
-          changeRadius={this.changeRadius}
-          address={this.state.currentLocation}
-        />
         <LeftPanel
           onButtonClicked={this.onButtonClicked.bind(this)}
           showOptions={this.state.showOptions}
+          radius={this.state.radius}
+          changeRadius={this.changeRadius}
         />
+
+        <CookieConsent
+          buttonText="Accept all Cookies"
+          style={{ backgroundColor: 'white', color: 'black', position: 'absolute', bottom: '0px', height: '70px', boxShadow: '0px 3px 20px #00000085' }}
+          expires={150}
+          buttonStyle={{ background: '#5E5E5E 0% 0% no-repeat padding-box', color: 'white' }}
+        >
+          <div><h5 style={{ position: 'absolute', top: '0px', fontSize: '15px' }}>We value your privacy</h5></div>
+
+          <div style={{ fontSize: '10px' }}>
+            We use cookies and related technologies to help identify you and your devices, to operate our site, enhance your experience, and conduct advertising and analysis. Some of these cookies are optional and are only used when you have agreed to them. You can consent to all our optional cookies at once, or manage your own preferences through the <a href=" " color='blue'>manage choices link.</a> You can read more about these uses in our <a href="/policy" color='blue'>Privacy Statement</a>.
+              </div>
+
+        </CookieConsent>
+
         <Row>
           <Col md="12" className="p-0">
             <div className="shadow-lg bg-white rounded">
@@ -355,6 +368,8 @@ class MapComponent extends React.Component<MapProps, State> {
 
               </Popup>
             </div>
+
+
           </Col>
         </Row>
       </Container>

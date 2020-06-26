@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
@@ -17,6 +17,7 @@ export interface IReceiverResourceProps extends StateProps, DispatchProps, Route
 export const ReceiverResource = (props: IReceiverResourceProps) => {
   const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
   const [sorting, setSorting] = useState(false);
+  const containerDiv = useRef(null);
 
   const getAllEntities = () => {
     props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
@@ -39,12 +40,10 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
   }, [paginationState.activePage]);
 
   const handleLoadMore = () => {
-    if (window.pageYOffset > 0) {
-      setPaginationState({
-        ...paginationState,
-        activePage: paginationState.activePage + 1
-      });
-    }
+    setPaginationState({
+      ...paginationState,
+      activePage: paginationState.activePage + 1
+    });
   };
 
   useEffect(() => {
@@ -67,7 +66,7 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
 
   const { receiverResourceList, match, loading } = props;
   return (
-    <div>
+    <div className="list-container" ref={containerDiv}>
       <h2 id="receiver-resource-heading">
         <Translate contentKey="crownApp.receiverResource.home.title">Receiver Resources</Translate>
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
@@ -84,6 +83,8 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
           loader={<div className="loader">Loading ...</div>}
           threshold={0}
           initialLoad={false}
+          useWindow={false}
+          getScrollParent={() => containerDiv.current}
         >
           {receiverResourceList && receiverResourceList.length > 0 ? (
             <Table responsive>

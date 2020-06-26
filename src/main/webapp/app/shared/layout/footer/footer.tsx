@@ -9,17 +9,17 @@ import {Link} from "react-router-dom";
 const Footer = props => (
   <div className="footer page-content container-fluid">
     <div className="copyright">
-      &copy; 2020 CROWN International
+      &copy; 2020 CROWN
     </div>
     <div className="links">
       <Link to={`/policy`} className="link">
-        Policy & Terms
+        Terms and Policy
       </Link>
       <Link to={`/support`} className="link">
         Support
       </Link>
       <Link to={`/about`} className="">
-        About
+        About Us
       </Link>
     </div>
   </div>

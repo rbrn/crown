@@ -20,7 +20,8 @@ type Props = StateProps & DispatchProps & OwnProps
 const headers = ["Item Type", "Quantity", "Action"]
 const columns = ["Item Type", "Quantity"]
 
-const drilDownheaders = ["Requested By", "Email", "Quantity", "Offer"]
+// const drilDownheaders = ["Requested By", "Email", "Quantity", "Offer"]
+const drilDownheaders = ["Quantity", "Offer"]
 
 const actionItems = [
   {
@@ -131,12 +132,12 @@ class RequestedItemsComponent extends React.Component<Props, State> {
                     <div className='action-items flex'>
                       {/* <FontAwesomeIcon onClick={this.handleDelete} icon='trash' color='red' style={{cursor: 'pointer'}}/>{' '} */}
                       {/* <FontAwesomeIcon onClick={this.handleEdit} icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>{' '} */}
-                      {/* <a  onClick={this.handleView(index)}><FontAwesomeIcon icon='eye' color='green'
-                                       style={{cursor: 'pointer'}}/>  {' Details '}</a>*/}
-                      <button className={'btn btn-primary'} onClick={ this.claimItem(item) }>
+                       <a  onClick={this.handleView(index)}><FontAwesomeIcon icon='eye' color='green'
+                                       style={{cursor: 'pointer'}}/>  {' Details '}</a>
+                      {/* <button className={'btn btn-primary'} onClick={ this.claimItem(item) }>
                         <FontAwesomeIcon  icon='pencil-alt' color='blue' style={{cursor: 'pointer'}}/>
                         {' Offer to fulfil '}
-                      </button>
+                      </button>*/}
                     </div>
                     <div>
                     </div>
@@ -181,13 +182,20 @@ class RequestedItemsComponent extends React.Component<Props, State> {
 
                         <tr key={item.toString() + index}>
                           {
+                            /*
                             <td key={`${index.toString()}-Name`}>
                               {item.name ?  item.name : ""}
                             </td>
+                            */
                           }
-                          <td key={`${index.toString()}-Email`}>
-                            {item  && item.receiver.email ?  item.receiver.email : ""}
-                          </td>
+                          {
+                            /*
+                            <td key={`${index.toString()}-Email`}>
+                              {item  && item.receiver.email ?  item.receiver.email : ""}
+                            </td>
+                            */
+                          }
+
                           <td key={`${item.quantity}-Type`}>
                             { item.quantity}
                           </td>

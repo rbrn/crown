@@ -22,11 +22,11 @@ export const Claim = (props: IClaimProps) => {
     <div>
       <h2 id="claim-heading">
         <Translate contentKey="crownApp.claim.home.title">My Open Orders</Translate>
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+        {/* <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp;
           <Translate contentKey="crownApp.claim.home.createLabel">Create new Claim</Translate>
-        </Link>
+        </Link> */}
       </h2>
       <div className="table-responsive">
         {claimList && claimList.length > 0 ? (
