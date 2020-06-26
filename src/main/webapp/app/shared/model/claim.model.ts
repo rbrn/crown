@@ -11,4 +11,6 @@ export interface IClaim {
   supplierResource?: ISupplierResource;
 }
 
-export const defaultValue: Readonly<IClaim> = {};
+export const defaultValue: Readonly<IClaim> = {
+  status: ClaimStatusEnum.PENDING
+};

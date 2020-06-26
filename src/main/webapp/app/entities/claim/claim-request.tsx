@@ -49,7 +49,7 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
   }, [props.updateSuccess]);
 
   useEffect(() => {
-    setEntity({ supplierResource: props.supplierResourceEntity })
+    setEntity({ ...entity, supplierResource: props.supplierResourceEntity })
     // const hardSupplier = props.supplierResources.find( supplierResource=> supplierResource.id === supplierResourceId);
     //  console.log('hardSupplier', hardSupplier)
     //  if(hardSupplier) {
