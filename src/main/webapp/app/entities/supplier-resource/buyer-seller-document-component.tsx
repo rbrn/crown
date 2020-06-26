@@ -1,46 +1,29 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const API_BASE = "http://localhost:8080"
+const Input = (props) => (
+  <input type="file" name="file-input" multiple {...props} />
+)
 
-function submitForm(contentType, data, setResponse) {
-  axios({
-    url: `${API_BASE}/upload`,
-    method: 'POST',
-    data() { },
-    headers: {
-      'Content-Type': contentType
-    }
-  }).then((response) => {
-    setResponse(response.data);
-  }).catch((error) => {
-    setResponse("error");
-  })
-}
+const UploadDocuments = () => {
 
-function UploadDocuments() {
-  const [title, setTitle] = useState("");
-  const [file, setFile] = useState(null);
-  const [desc, setDesc] = useState("");
+  const onSubmit = (e) => {
+    e.preventDefault();
+  }
 
-  function uploadWithFormData() {
-
+  const onChange = (e) => {
+    (e.target.files);
   }
 
   return (
-    <div className="App">
-      <h4>Upload Form</h4>
-      <form style={{ marginBottom: '10px' }}>
-
-        <label>
-          File
-          <input type="file" name="file" onChange={(e) => setFile(e.target.files[0])} />
-        </label>
-
-        <input type="button" value="Upload" onClick={uploadWithFormData} />
+    <div className="container">
+      <form className="form" onSubmit={onSubmit}>
+        <div>
+          <Input onChange={onChange} />
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
-  );
+  )
 }
 
-export default UploadDocuments;
+export default UploadDocuments

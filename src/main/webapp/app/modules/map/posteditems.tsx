@@ -70,7 +70,7 @@ class PostedItemsComponent extends React.Component<Props, State> {
     }
 
     const {lat, lng} = this.props.position;
-    const {radius} = this.props;
+    const { radius } = this.props;
     return (
       <div className="scroll-container">
       <div className="get-items-display">
