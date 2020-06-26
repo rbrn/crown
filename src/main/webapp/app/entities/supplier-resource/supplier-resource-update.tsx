@@ -50,7 +50,6 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
     if (supplierProfile.length > 0) {
       return null;
     }
-  
     return (
       <React.Fragment>
         <h2 id="crownApp.supplierResource.home.createSupplierLabel">
@@ -60,17 +59,6 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
       </React.Fragment>
     )
   };
-
-  const queryGET = new URLSearchParams(props.location.search);
-        const typePPE = {
-          type: queryGET.get('typePPE') || '' // "typePPE" 
-        };
-
-        if (typePPE.type === "request") {
-          typePPE.type = "request";
-        } else {
-          typePPE.type = "supply";;
-        }
 
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
