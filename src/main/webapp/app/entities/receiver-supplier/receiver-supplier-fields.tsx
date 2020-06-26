@@ -3,18 +3,16 @@ import {translate, Translate} from "react-jhipster";
 import {AvField, AvGroup, AvInput} from 'availity-reactstrap-validation';
 import {Label} from 'reactstrap';
 
-import { SupplierResourceUpdate } from '../supplier-resource/supplier-resource-update'
-
 interface ReceiverSupplierFieldsProps {
   fieldPrefix?: string
 }
+
 const queryGET = new URLSearchParams(location.search);
         const typePPE = {
           type: queryGET.get('typePPE') || ''
         };
-        
+
 const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPrefix}) => {
-  
   return (
     <React.Fragment>
       <AvGroup>
@@ -166,23 +164,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           }}
         />
       </AvGroup>
-      {/* {(() => {
-        switch (typePPE.type) {
-          case "request":   return <AvGroup check>
-          <Label id="isReceiverLabel">
-            <AvInput required id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isReceiver`}/>
-            <Translate contentKey="crownApp.receiverSupplier.isReceiver">Is Receiver</Translate>
-          </Label>
-        </AvGroup>;
-          case "supply": return <AvGroup check>
-        <Label id="isSupplierLabel">
-          <AvInput required id="receiver-supplier-isSupplier" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isSupplier`}/>
-          <Translate contentKey="crownApp.receiverSupplier.isSupplier">Is Supplier</Translate>
-        </Label>
-      </AvGroup>;
-          default:      return ;
-        }
-      })()} */}
+
       <AvGroup check>
         <Label id="isReceiverLabel">
           {/* <AvInput checked value="true" id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isReceiver`}/> */}
@@ -205,6 +187,18 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
           <Translate contentKey="crownApp.receiverSupplier.isSupplier">Is Supplier</Translate>
         </Label>
       </AvGroup>
+      {/* <AvGroup check>
+        <Label id="isReceiverLabel">
+          <AvInput id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isReceiver`}/>
+          <Translate contentKey="crownApp.receiverSupplier.isReceiver">Is Receiver</Translate>
+        </Label>
+      </AvGroup> 
+      <AvGroup check>
+        <Label id="isSupplierLabel">
+          <AvInput id="receiver-supplier-isSupplier" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isSupplier`}/>
+          <Translate contentKey="crownApp.receiverSupplier.isSupplier">Is Supplier</Translate>
+        </Label>
+      </AvGroup> */}
       <AvGroup check>
         <Label id="hasSterilizationLabel">
           <AvInput id="receiver-supplier-hasSterilization" type="checkbox" className="form-check-input"
