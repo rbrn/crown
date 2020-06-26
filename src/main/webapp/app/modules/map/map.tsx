@@ -306,8 +306,8 @@ class MapComponent extends React.Component<MapProps, State> {
 
   render() {
 
-    const offerPPEparam = "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
-    const requestPPEparam = "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng;
+    const offerPPEparam = "/supplier-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng + "&typePPE=supply";
+    const requestPPEparam = "/receiver-resource/new?lat=" + this.state.latlng.lat + "&lng=" + this.state.latlng.lng + "&typePPE=request";
     const map = this.state.resourceSuppliersMap;
 
     if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
