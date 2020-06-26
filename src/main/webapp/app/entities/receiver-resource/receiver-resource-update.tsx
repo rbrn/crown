@@ -16,7 +16,9 @@ import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import ReceiverSupplierFields from "app/entities/receiver-supplier/receiver-supplier-fields";
-import UploadDocuments from "app/entities/supplier-resource/buyer-seller-document-component"
+import queryString from 'query-string';
+import UploadDocuments from "app/entities/supplier-resource/buyer-seller-document-component";
+
 
 export interface IReceiverResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -62,6 +64,18 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
     )
   };
 
+
+
+        const queryGET = new URLSearchParams(props.location.search);
+        const typePPE = {
+          type: queryGET.get('typePPE') || '' // "typePPE" 
+        };
+
+        if (typePPE.type === "request") {
+          typePPE.type = "request";
+        } else {
+          typePPE.type = "supply";;
+        }
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const entity = {
@@ -73,6 +87,10 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
         const query = new URLSearchParams(props.location.search);
         const lat = query.get('lat') || '';
         const  lng = query.get('lng') || '';
+        {/* const typePPE = query.get('typePPE') || '';
+        var options = {
+          typePPE: typePPE
+         } */}
         entity.position = [lat, lng];
 
         if (receiverProfile.length === 0 && entity.receiver) {
@@ -105,6 +123,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
           <h2 id="crownApp.receiverResource.home.createLable">
             <Translate contentKey="crownApp.receiverResource.home.createLabel">Request a Resource</Translate>
           </h2>
+      
         </Col>
       </Row>
       <Row className="justify-content-center">
