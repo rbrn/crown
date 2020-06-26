@@ -11,7 +11,7 @@ const queryGET = new URLSearchParams(location.search);
         const typePPE = {
           type: queryGET.get('typePPE') || ''
         };
-
+        
 const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPrefix}) => {
   return (
     <React.Fragment>
@@ -167,23 +167,13 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({fieldPre
 
       <AvGroup check>
         <Label id="isReceiverLabel">
-          {/* <AvInput checked value="true" id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isReceiver`}/> */}
-          {typePPE.type=== "request" ? 
-            <input name="receiver.isReceiver" checked id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" />
-          :
-            <input name="receiver.isReceiver" id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" />
-          }
+          <AvInput id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isReceiver`}/>
           <Translate contentKey="crownApp.receiverSupplier.isReceiver">Is Receiver</Translate>
         </Label>
       </AvGroup>
       <AvGroup check>
         <Label id="isSupplierLabel">
-        {typePPE.type=== "supply" ? 
-          <input name="receiver.isSupplier" checked id="receiver-supplier-isSupplier" type="checkbox" className="form-check-input" />
-        :
-          <input name="receiver.isSupplier" id="receiver-supplier-isSupplier" type="checkbox" className="form-check-input" /> 
-        }
-        {/* <AvInput id="receiver-supplier-isSupplier" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isSupplier`}/> */}
+          <AvInput id="receiver-supplier-isSupplier" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isSupplier`}/>
           <Translate contentKey="crownApp.receiverSupplier.isSupplier">Is Supplier</Translate>
         </Label>
       </AvGroup>
