@@ -43,6 +43,10 @@ a {
       h2 {
         padding-top: 20px;
       }
+      .list-container {
+        max-height: calc(100vh - 45px);
+        overflow: auto;
+      }
     }
     .jh-card {
       margin-bottom: 50px;
