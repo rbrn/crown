@@ -23,7 +23,7 @@ const UploadDocuments = () => {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default UploadDocuments
+export default UploadDocuments;
