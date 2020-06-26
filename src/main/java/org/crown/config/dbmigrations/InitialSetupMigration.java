@@ -3,14 +3,10 @@ package org.crown.config.dbmigrations;
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
 import org.crown.domain.Authority;
-import org.crown.domain.ReceiverResource;
-import org.crown.domain.SupplierResource;
 import org.crown.domain.ResourceType;
 import org.crown.domain.User;
 import org.crown.security.AuthoritiesConstants;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
-import org.springframework.data.mongodb.core.index.GeospatialIndex;
 
 import java.time.Instant;
 
@@ -93,20 +89,6 @@ public class InitialSetupMigration {
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(userUser);
-
-    	mongoTemplate.indexOps(SupplierResource.class).ensureIndex(new GeospatialIndex("position"));
-    	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(new GeospatialIndex("position"));
-
-    }
-
-    @ChangeSet(order = "03", author = "initiator", id = "03-create-geospatial-index")
-    public void createGeospatialIndex(MongoTemplate mongoTemplate) {
-
-    	/*GeospatialIndex idx1 = new GeospatialIndex("position");
-    	idx1.typed(GeoSpatialIndexType.GEO_2DSPHERE);
-    	mongoTemplate.indexOps(SupplierResource.class).ensureIndex(idx1);
-    	mongoTemplate.indexOps(ReceiverResource.class).ensureIndex(idx1	);*/
-
     }
 
     @ChangeSet(order = "04", author = "initiator", id = "05-addResourceTypes")
