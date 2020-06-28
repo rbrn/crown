@@ -161,7 +161,8 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
-              </AvGroup>
+                </AvGroup>
+                <Label>Supporting Documents</Label>
                 <UploadDocuments/>
               {mayBeSupplierFields()}
               <Button tag={Link} id="cancel-save" to="/" replace color="info">
