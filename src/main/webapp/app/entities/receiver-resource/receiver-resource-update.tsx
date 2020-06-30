@@ -215,6 +215,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                     : null}
                 </AvInput>
                 </AvGroup>
+                <p>Proof of Association</p>
                 <UploadDocuments />
               {mayBeReceiverFields()}
               <Button tag={Link} id="cancel-save" to="/" replace color="info">
