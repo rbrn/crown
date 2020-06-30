@@ -60,17 +60,6 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
     )
   };
 
-  const queryGET = new URLSearchParams(props.location.search);
-        const typePPE = {
-          type: queryGET.get('typePPE') || '' // "typePPE" 
-        };
-
-        if (typePPE.type === "request") {
-          typePPE.type = "request";
-        } else {
-          typePPE.type = "supply";;
-        }
-        
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const entity = {

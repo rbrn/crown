@@ -46,8 +46,8 @@ module.exports = options =>
       proxy: [
         {
           context: ['/api', '/services', '/management', '/swagger-resources', '/v2/api-docs', '/h2-console', '/auth'],
-          target: `http${options.tls ? 's' : ''}://localhost:8080`,
-          secure: false,
+          target: `http${options.tls ? 's' : ''}://crown-dev.herokuapp.com`,
+          secure: true,
           changeOrigin: options.tls
         }
       ],
