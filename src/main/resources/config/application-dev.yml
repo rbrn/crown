@@ -54,6 +54,11 @@ spring:
   thymeleaf:
     cache: false
 
+azure:
+  accountName: crownwebapp
+  endpoint: https://crownwebapp.blob.core.windows.net
+  accountKey: ${AZURE_ACCOUNT_KEY}
+
 server:
   port: 8080
 
