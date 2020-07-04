@@ -48,13 +48,12 @@ public class ReceiverResource implements Serializable {
     @Field("notes")
     private String notes;
 
+    @Field("proofOfFunds")
+    private String proofOfFunds;
+
     @DBRef
     @Field("resourceType")
     private ResourceType resourceType;
-
-    @DBRef
-    @Field("proofOfFunds")
-    private String proofOfFunds;
 
     @DBRef
     @Field("receiver")
