@@ -100,6 +100,10 @@
         {
             "fieldName": "tags",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "proofOfAssociation",
+            "fieldValue": "String"
         }
     ],
     "relationships": [

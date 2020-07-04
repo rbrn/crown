@@ -48,6 +48,9 @@ public class ReceiverResource implements Serializable {
     @Field("notes")
     private String notes;
 
+    @Field("proofOfFunds")
+    private String proofOfFunds;
+
     @DBRef
     @Field("resourceType")
     private ResourceType resourceType;
@@ -69,7 +72,7 @@ public class ReceiverResource implements Serializable {
     @GeoSpatialIndexed
     @Field("position")
     private double [] position;
-    
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -181,6 +184,19 @@ public class ReceiverResource implements Serializable {
 
     public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
+    }
+
+    public String getProofOfFunds() {
+        return proofOfFunds;
+    }
+
+    public void setProofOfFunds(String proofOfFunds) {
+        this.proofOfFunds = proofOfFunds;
+    }
+
+    public ReceiverResource proofOfFunds(String proofOfFunds) {
+        this.proofOfFunds = proofOfFunds;
+        return this;
     }
 
     public ReceiverSupplier getReceiver() {

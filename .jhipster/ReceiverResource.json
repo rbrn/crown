@@ -40,6 +40,10 @@
         {
             "fieldName": "notes",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "proofOfFunds",
+            "fieldType": "string"
         }
     ],
     "relationships": [

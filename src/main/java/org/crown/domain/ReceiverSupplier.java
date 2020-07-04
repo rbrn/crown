@@ -81,6 +81,9 @@ public class ReceiverSupplier implements Serializable {
     @Field("tags")
     private String tags;
 
+    @Field("proofOfAssociation")
+    private String proofOfAssociation;
+
     @DBRef
     @Field("receiverResource")
     private Set<ReceiverResource> receiverResources = new HashSet<>();
@@ -325,6 +328,19 @@ public class ReceiverSupplier implements Serializable {
 
     public ReceiverSupplier tags(String tags) {
         this.tags = tags;
+        return this;
+    }
+
+    public String getProofOfAssociation() {
+        return proofOfAssociation;
+    }
+
+    public void setProofOfAssociation(String proofOfAssociation) {
+        this.proofOfAssociation = proofOfAssociation;
+    }
+
+    public ReceiverSupplier proofOfAssociation(String proofOfAssociation) {
+        this.proofOfAssociation = proofOfAssociation;
         return this;
     }
 
