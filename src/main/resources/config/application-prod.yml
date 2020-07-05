@@ -42,6 +42,11 @@ spring:
     username: apikey
     password: ${SENDGRID_KEY}
 
+  azure:
+    accountName: crownwebapp
+    endpoint: https://crownwebapp.blob.core.windows.net
+    accountKey: ${AZURE_ACCOUNT_KEY}
+
   thymeleaf:
     cache: true
 
