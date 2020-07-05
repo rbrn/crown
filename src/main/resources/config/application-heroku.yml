@@ -26,3 +26,8 @@ spring:
     port: 25
     username: apikey
     password: ${MAIL_KEY}
+
+azure:
+  accountName: crownwebapp
+  endpoint: https://crownwebapp.blob.core.windows.net
+  accountKey: ${AZURE_ACCOUNT_KEY}
