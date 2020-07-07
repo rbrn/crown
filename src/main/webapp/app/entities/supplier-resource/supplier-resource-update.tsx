@@ -1,25 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {RouteComponentProps} from 'react-router-dom';
+import { RouteComponentProps, Link} from 'react-router-dom';
 import {Translate, translate} from 'react-jhipster';
 import {IRootState} from 'app/shared/reducers';
 import {getEntities as getResourceTypes} from 'app/entities/resource-type/resource-type.reducer';
 import {getEntities as getReceiverSuppliers} from 'app/entities/receiver-supplier/receiver-supplier.reducer';
 import {createEntity, getEntity, reset, updateEntity} from './supplier-resource.reducer';
 
-import {Button, Col, DatePicker, Form, Input, InputNumber, Row, Select} from 'antd';
+import { Button, Col, DatePicker, Form, Input, InputNumber, Row, Select, Checkbox } from 'antd';
 import {ArrowLeftOutlined, SaveOutlined} from '@ant-design/icons';
 import moment from "moment";
 import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
 
 const { Option } = Select;
-const normFile = e => {
-  // console.log(e)
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e && e.fileList;
-};
+import UploadFile from 'app/commonComponents/UploadFile';
+import { normFile } from "app/helpers/utils";
 
 export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -263,8 +258,58 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
               >
                 <InputNumber min={1} style={{ width: '100%' }} />
               </Form.Item>
-              <Form.Item name="isSupplier" hidden={true}>
-                <Input />
+              <Form.Item
+                name="SupportingDocuments"
+                label={translate('crownApp.supplierResource.supportingDocuments')}
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              >
+                  <UploadFile
+                    action="api/document/upload"
+                    onSuccess={updatePoaFileList}
+                    data={{
+                      entityType: 'sell',
+                      fieldType: 'poa'
+                    }}
+                  />
+              </Form.Item>
+                <Form.Item
+                  name="productAssets"
+                  label={translate('crownApp.supplierResource.productAssets')}
+                  valuePropName="fileList"
+                  getValueFromEvent={normFile}
+                >
+                  <UploadFile
+                    action="api/document/upload"
+                    onSuccess={updatePoaFileList}
+                    data={{
+                      entityType: 'sell',
+                      fieldType: 'poa'
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="ProofOfLife"
+                  label={translate('crownApp.supplierResource.proofOfLife')}
+                  valuePropName="fileList"
+                  getValueFromEvent={normFile}
+                >
+                  <UploadFile
+                    action="api/document/upload"
+                    onSuccess={updatePoaFileList}
+                    data={{
+                      entityType: 'sell',
+                      fieldType: 'poa'
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item name="publicationPermission" valuePropName="checked">
+                  <Checkbox>
+                    I give permission for publication of my product and have read the <Link to='/policy'>Terms and Policy</Link>
+                  </Checkbox>
+                </Form.Item>
+              <Form.Item name="isSupplier">
+                <Input hidden={true} />
               </Form.Item>
               {mayBeSupplierFields()}
               <Row gutter={[0, 8]}>
