@@ -21,6 +21,11 @@
       },
       "quantity": "Quantity Offered",
       "cost": "Cost/per Unit",
+      "quantityValidUntil": "Date Quantity Valid Until",
+      "productAvailabilityLeadTime": "Expected Lead Time in days for product availability at manufacturer or warehouse location",
+      "minOrderQuantity": "Minimum Order Quantity",
+      "quantityOnHand": "Quantity Currently On Hand",
+      "supportingDocuments": "Upload Document such as ID picture",
       "resourceType": "Resource Type",
       "supplier": "Supplier"
     }

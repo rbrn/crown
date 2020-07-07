@@ -31,7 +31,7 @@ public class AzureBlobStorageRepository implements BlobStorageRepository {
             BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
             /* Upload the file to the container */
             BlobClient blobClient = containerClient.getBlobClient(name);
-            blobClient.upload(data, length);
+            blobClient.upload(data, length, true);
         } catch (BlobStorageException ex) {
             throw ex;
         }
