@@ -26,6 +26,9 @@
       "minOrderQuantity": "Minimum Order Quantity",
       "quantityOnHand": "Quantity Currently On Hand",
       "supportingDocuments": "Upload Document such as ID picture",
+      "productAssets": "Product pictures/videos",
+      "proofOfLife": "Proof of Life Video with Crown and Date and a view of the product",
+      "publicationPermission": "Publication Permission",
       "resourceType": "Resource Type",
       "supplier": "Supplier"
     }

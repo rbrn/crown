@@ -295,11 +295,8 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                   }}
                 />
               </Form.Item>
-              <Form.Item name="proofOfFunds" hidden={true}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="isBuyer" hidden={true}>
-                <Input />
+              <Form.Item name="isBuyer">
+                  <Input hidden={true} />
               </Form.Item>
               {mayBeReceiverFields()}
               <Row gutter={[0, 8]}>
