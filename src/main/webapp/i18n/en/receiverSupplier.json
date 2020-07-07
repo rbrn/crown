@@ -23,7 +23,6 @@
       "primaryContactName": "Primary Contact Name",
       "zip": "Zip/Postal Code",
       "phonenumber": "Phone number",
-      "secondaryPhoneNumber": "Secondary Phone number",
 
       "city": "City",
       "state": "State/Province",
@@ -36,21 +35,7 @@
       "priority": "Priority",
       "notes": "Notes",
       "receiverResource": "Request",
-      "supplierResource": "Supply",
-      "orgName": "Organization Name",
-      "orgWebsite": "Organization website",
-      "orgAddress": "Organization Address",
-      "orgDetails": "Organization Details",
-      "contactDetails": "Person of Contact details",
-      "position": "Role/ Title/ Position",
-      "proofOfAssociation": "Proof of Association with the organization such as ID",
-      "proofOfAssociationLink": "Link to organization’s directory or social media link",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "differentDeliveryAddress": "Delivery address is the same as organization address?",
-      "deliveryAddress": "Delivery Address",
-      "differentSellerAddress": "Location of seller is the same as organization address?",
-      "sellerAddress": "Location of seller"
+      "supplierResource": "Supply"
     }
   }
 }

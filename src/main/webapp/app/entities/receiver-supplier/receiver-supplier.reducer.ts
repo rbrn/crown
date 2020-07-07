@@ -15,7 +15,6 @@ import { IReceiverSupplier, defaultValue } from 'app/shared/model/receiver-suppl
 
 export const ACTION_TYPES = {
   FETCH_RECEIVERSUPPLIER_LIST: 'receiverSupplier/FETCH_RECEIVERSUPPLIER_LIST',
-  FETCH_RECEIVERSUPPLIER_LIST_ALL: 'receiverSupplier/FETCH_RECEIVERSUPPLIER_LIST_ALL',
   FETCH_RECEIVERSUPPLIER: 'receiverSupplier/FETCH_RECEIVERSUPPLIER',
   CREATE_RECEIVERSUPPLIER: 'receiverSupplier/CREATE_RECEIVERSUPPLIER',
   UPDATE_RECEIVERSUPPLIER: 'receiverSupplier/UPDATE_RECEIVERSUPPLIER',
@@ -41,7 +40,6 @@ export type ReceiverSupplierState = Readonly<typeof initialState>;
 export default (state: ReceiverSupplierState = initialState, action): ReceiverSupplierState => {
   switch (action.type) {
     case REQUEST(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST):
-    case REQUEST(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST_ALL):
     case REQUEST(ACTION_TYPES.FETCH_RECEIVERSUPPLIER):
       return {
         ...state,
@@ -59,7 +57,6 @@ export default (state: ReceiverSupplierState = initialState, action): ReceiverSu
         updating: true
       };
     case FAILURE(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST):
-    case FAILURE(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST_ALL):
     case FAILURE(ACTION_TYPES.FETCH_RECEIVERSUPPLIER):
     case FAILURE(ACTION_TYPES.CREATE_RECEIVERSUPPLIER):
     case FAILURE(ACTION_TYPES.UPDATE_RECEIVERSUPPLIER):
@@ -80,13 +77,6 @@ export default (state: ReceiverSupplierState = initialState, action): ReceiverSu
         links,
         entities: loadMoreDataWhenScrolled(state.entities, action.payload.data, links),
         totalItems: parseInt(action.payload.headers['x-total-count'], 10)
-      };
-    }
-    case SUCCESS(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST_ALL): {
-      return {
-        ...state,
-        loading: false,
-        entities: action.payload.data
       };
     }
     case SUCCESS(ACTION_TYPES.FETCH_RECEIVERSUPPLIER):
@@ -120,21 +110,10 @@ export default (state: ReceiverSupplierState = initialState, action): ReceiverSu
 };
 
 const apiUrl = 'api/receiver-suppliers';
-const apiAllUrl = 'api/receiver-suppliers-all';
 
 // Actions
-const getAllEntities: ICrudGetAllAction<IReceiverSupplier> = () => {
-  const requestUrl = `${apiAllUrl}`;
-  return {
-    type: ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST_ALL,
-    payload: axios.get<IReceiverSupplier>(`${requestUrl}?cacheBuster=${new Date().getTime()}`)
-  };
-};
 
 export const getEntities: ICrudGetAllAction<IReceiverSupplier> = (page, size, sort) => {
-  if (!sort) {
-    return getAllEntities();
-  }
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST,

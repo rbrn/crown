@@ -10,7 +10,6 @@ This application was generated using JHipster 6.8.0, you can find documentation 
 
 NodeJs
 Git
-Java 1.8 - 11
 
 ## Steps to setup local dev environment
 
