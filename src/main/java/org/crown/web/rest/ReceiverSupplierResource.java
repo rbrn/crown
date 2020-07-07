@@ -88,6 +88,17 @@ public class ReceiverSupplierResource {
     /**
      * {@code GET  /receiver-suppliers} : get all the receiverSuppliers.
      *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of receiverSuppliers in body.
+     */
+    @GetMapping("/receiver-suppliers-all")
+    public List<ReceiverSupplier> getAllReceiverSuppliersList() {
+        log.debug("REST request to get a page of ReceiverSuppliers");
+        return receiverSupplierRepository.findAll();
+    }
+
+    /**
+     * {@code GET  /receiver-suppliers} : get all the receiverSuppliers.
+     *
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of receiverSuppliers in body.
      */
