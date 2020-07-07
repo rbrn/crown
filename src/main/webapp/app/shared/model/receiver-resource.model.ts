@@ -11,6 +11,12 @@ export interface IReceiverResource {
   currentStock?: number;
   expiration?: Moment;
   notes?: string;
+  proofOfFunds?: string;
+  productInspection?: boolean;
+  productInspectDays?: number;
+  fundsAvailable?: boolean;
+  acceptUnpackagedGoods?: boolean;
+  fundRestrictions?: string;
   resourceType?: IResourceType;
   receiver?: IReceiverSupplier;
 }
