@@ -5,8 +5,10 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.crown.domain.Claim;
 import org.crown.domain.User;
 import org.crown.repository.ClaimRepository;
+import org.crown.service.ClaimResourceService;
 import org.crown.service.MailService;
 import org.crown.service.UserService;
+import org.crown.service.dto.UserDTO;
 import org.crown.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link org.crown.domain.Claim}.
@@ -40,10 +43,14 @@ public class ClaimResource {
 
     private final MailService mailService;
 
-    public ClaimResource(ClaimRepository claimRepository, UserService userService, MailService mailService) {
+    private final ClaimResourceService claimResourceService;
+
+    public ClaimResource(ClaimRepository claimRepository, UserService userService,
+                         MailService mailService, ClaimResourceService claimResourceService) {
         this.claimRepository = claimRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.claimResourceService = claimResourceService;
     }
 
     /**
@@ -96,7 +103,17 @@ public class ClaimResource {
     @GetMapping("/claims")
     public List<Claim> getAllClaims() {
         log.debug("REST request to get all Claims");
-        return claimRepository.findAll();
+        UserDTO user = userService.getUserWithAuthorities()
+            .map(UserDTO::new)
+            .orElseThrow(() -> new RuntimeException("User could not be found"));
+        Set<String> aList = user.getAuthorities();
+
+        if(aList.contains("ROLE_ADMIN")){
+            return claimRepository.findAll();
+        } else {
+            log.debug(user.getEmail());
+            return claimResourceService.getAllClaims();
+        }
     }
 
     /**
