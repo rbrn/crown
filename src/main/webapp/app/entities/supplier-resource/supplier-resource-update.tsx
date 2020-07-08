@@ -15,6 +15,7 @@ import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-s
 const { Option } = Select;
 import UploadFile from 'app/commonComponents/UploadFile';
 import { normFile } from "app/helpers/utils";
+import {ISupplierResource} from "app/shared/model/supplier-resource.model";
 
 export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -79,7 +80,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
 
   const saveEntity = values => {
     const entity = {
-      ...supplierResourceEntity,
+      ...(!isNew && {...supplierResourceEntity}),
       ...values
     };
 
@@ -111,11 +112,11 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
     }
   };
 
-  const initialValues = {
-    ...supplierResourceEntity,
-    isSupplier: true,
+  const initialValues: ISupplierResource = {
+    ...(!isNew && {...supplierResourceEntity}),
     supplier: {
-      'email': account.email
+      'email': account.email,
+      isSupplier: true
     }
   }
   if (supplierResourceEntity.quantityValidUntil) {
