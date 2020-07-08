@@ -12,6 +12,7 @@ import UploadFile from 'app/commonComponents/UploadFile';
 import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
 import {normFile} from "app/helpers/utils";
 import moment from "moment";
+import {IReceiverResource} from "app/shared/model/receiver-resource.model";
 
 const { Option } = Select;
 
@@ -88,7 +89,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
 
   const saveEntity = values => {
     const entity = {
-      ...receiverResourceEntity,
+      ...(!isNew && {...receiverResourceEntity}),
       ...values
     };
 
@@ -119,11 +120,11 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
       props.updateEntity(entity);
     }
   };
-  const initialValues = {
-    ...receiverResourceEntity,
-    isBuyer: true,
+  const initialValues: IReceiverResource = {
+    ...(!isNew && {...receiverResourceEntity}),
     receiver: {
-      'email': account.email
+      'email': account.email,
+      isReceiver: true
     }
   }
   if (receiverResourceEntity.postedDate) {
