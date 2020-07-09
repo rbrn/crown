@@ -5,6 +5,8 @@ import Loadable from 'react-loadable';
 import Login from 'app/modules/login/login';
 import InventorySupply from 'app/modules/inventory/inventory_supply';
 import InventoryBuy from 'app/modules/inventory/inventory_buy';
+import BuyerJourney from 'app/modules/buyer_seller_journey/buyer_journey';
+import SellerJourney from 'app/modules/buyer_seller_journey/seller_journey';
 import Welcome from 'app/modules/home/welcome';
 import WholeSalerSearch from 'app/modules/search/wholesaler-search';
 import Register from 'app/modules/account/register/register';
@@ -45,6 +47,8 @@ const Routes = () => (
       <ErrorBoundaryRoute path="/login" component={Login} />
       <ErrorBoundaryRoute path="/inventory-supply" component={InventorySupply} />
       <ErrorBoundaryRoute path="/inventory-buy" component={InventoryBuy} />
+      <ErrorBoundaryRoute path="/buyer-journey" component={BuyerJourney} />
+      <ErrorBoundaryRoute path="/seller-journey" component={SellerJourney} />
       <ErrorBoundaryRoute path="/logout" component={Logout} />
       <ErrorBoundaryRoute path="/account/register" component={Register} />
       <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
