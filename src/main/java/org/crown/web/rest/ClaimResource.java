@@ -111,7 +111,6 @@ public class ClaimResource {
         if(aList.contains("ROLE_ADMIN")){
             return claimRepository.findAll();
         } else {
-            log.debug(user.getEmail());
             return claimResourceService.getAllClaims();
         }
     }
