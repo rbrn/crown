@@ -22,6 +22,7 @@ public class ReceiverSupplier implements Serializable {
     @Id
     private String id;
 
+    
     @NotNull
     @Field("name")
     private String name;
@@ -36,8 +37,21 @@ public class ReceiverSupplier implements Serializable {
     @NotNull
     @Field("primary_contact_name")
     private String primaryContactName;
+    
 
+    @Field("org_name")
+    private String orgName;
 
+    @Field("org_website")
+    private String orgWebsite;
+    
+    @Field("address_line1")
+    private String addressLine1;
+    
+    @Field("address_line2")
+    private String addressLine2;
+    
+    
     @Field("zip")
     private String zip;
 
@@ -153,7 +167,39 @@ public class ReceiverSupplier implements Serializable {
         this.primaryContactName = primaryContactName;
     }
 
-    public String getZip() {
+    public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public String getOrgWebsite() {
+		return orgWebsite;
+	}
+
+	public void setOrgWebsite(String orgWebsite) {
+		this.orgWebsite = orgWebsite;
+	}
+
+	public String getAddressLine1() {
+		return addressLine1;
+	}
+
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return addressLine2;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	public String getZip() {
         return zip;
     }
 

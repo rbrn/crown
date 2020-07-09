@@ -54,7 +54,22 @@ public class ReceiverResource implements Serializable {
     @DBRef
     @Field("resourceType")
     private ResourceType resourceType;
+    
+    @Field("productInspection")
+    private boolean productInspection;
+    
+    @Field("productInspectDays")
+    private int productInspectDays;
 
+    @Field("fundRestrictions")
+    private String fundRestrictions;
+    
+    @Field("fundsAvailable")
+    private boolean fundsAvailable;
+
+    @Field("acceptUnpackagedGoods")
+    private boolean acceptUnpackagedGoods;
+    
     @DBRef
     @Field("receiver")
     @JsonIgnoreProperties("receiverResources")
@@ -186,7 +201,51 @@ public class ReceiverResource implements Serializable {
         this.resourceType = resourceType;
     }
 
-    public String getProofOfFunds() {
+    public boolean isProductInspection() {
+		return productInspection;
+	}
+
+	public void setProductInspection(boolean productInspection) {
+		this.productInspection = productInspection;
+	}
+
+	public int getProductInspectDays() {
+		return productInspectDays;
+	}
+
+	public void setProductInspectDays(int productInspectDays) {
+		this.productInspectDays = productInspectDays;
+	}
+
+	public String getFundRestrictions() {
+		return fundRestrictions;
+	}
+
+	public void setFundRestrictions(String fundRestrictions) {
+		this.fundRestrictions = fundRestrictions;
+	}
+
+	public boolean isFundsAvailable() {
+		return fundsAvailable;
+	}
+
+	public void setFundsAvailable(boolean fundsAvailable) {
+		this.fundsAvailable = fundsAvailable;
+	}
+
+	public boolean isAcceptUnpackagedGoods() {
+		return acceptUnpackagedGoods;
+	}
+
+	public void setAcceptUnpackagedGoods(boolean acceptUnpackagedGoods) {
+		this.acceptUnpackagedGoods = acceptUnpackagedGoods;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getProofOfFunds() {
         return proofOfFunds;
     }
 
