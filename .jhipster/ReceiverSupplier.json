@@ -31,6 +31,22 @@
             ]
         },
         {
+            "fieldName": "orgName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "orgWebsite",
+            "fieldType": "String"
+        },
+		{
+            "fieldName": "addressLine1",
+            "fieldType": "String"
+        },
+		{
+            "fieldName": "addressLine2",
+            "fieldType": "String"
+        },        
+        {
             "fieldName": "zip",
             "fieldType": "String",
             "fieldValidateRules": [
