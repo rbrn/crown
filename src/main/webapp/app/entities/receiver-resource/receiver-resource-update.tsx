@@ -296,7 +296,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                   }}
                 />
               </Form.Item>
-              <Form.Item name="isBuyer">
+              <Form.Item name="isBuyer" style={{ display: 'none' }}>
                   <Input hidden={true} />
               </Form.Item>
               {mayBeReceiverFields()}

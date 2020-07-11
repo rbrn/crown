@@ -24,7 +24,6 @@ const AddressFields: React.FC<AddressFieldsProps> = ({ fieldPrefix }) => {
             message: 'Please select country!'
           }
         ]}
-        initialValue="US"
       >
         <Select placeholder="Select country">
           {countriesList
