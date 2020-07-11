@@ -309,7 +309,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     I give permission for publication of my product and have read the <Link to='/policy'>Terms and Policy</Link>
                   </Checkbox>
                 </Form.Item>
-              <Form.Item name="isSupplier">
+              <Form.Item name="isSupplier" style={{ display: 'none' }}>
                 <Input hidden={true} />
               </Form.Item>
               {mayBeSupplierFields()}

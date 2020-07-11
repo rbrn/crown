@@ -47,10 +47,12 @@
       "proofOfAssociationLink": "Link to organization’s directory or social media link",
       "firstName": "First Name",
       "lastName": "Last Name",
-      "differentDeliveryAddress": "Delivery address is the same as organization address?",
+      "differentDeliveryAddress": "Delivery address is different from organization address?",
       "deliveryAddress": "Delivery Address",
-      "differentSellerAddress": "Location of seller is the same as organization address?",
-      "sellerAddress": "Location of seller"
+      "differentSellerAddress": "Location of seller is different from organization address?",
+      "sellerAddress": "Location of seller",
+      "sellerType": "Seller type",
+      "manufacturerCountry": "Manufacturer country"
     }
   }
 }
