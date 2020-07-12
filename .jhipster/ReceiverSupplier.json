@@ -2,17 +2,18 @@
 	"name": "ReceiverSupplier",
 	"fields": [
 		{
+			"fieldName": "sellerType",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "manufacturerCountry",
+			"fieldType": "String"
+		},
+		{
 			"fieldName": "orgName",
 			"fieldType": "String",
 			"fieldValidateRules": [
 				"unique"
-			]
-		},
-		{
-			"fieldName": "phonenumber",
-			"fieldType": "String",
-			"fieldValidateRules": [
-				"required"
 			]
 		},
 		{
@@ -83,8 +84,8 @@
 			]
 		},
 		{
-			"fieldName": "phoneNumber",
-			"fieldValue": "String"
+			"fieldName": "phonenumber",
+			"fieldType": "String"
 		},
 		{
 			"fieldName": "secondaryPhoneNumber",

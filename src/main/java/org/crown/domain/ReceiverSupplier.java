@@ -24,6 +24,12 @@ public class ReceiverSupplier implements Serializable {
 	// TODO: All the fields below constitute 'Organization Details'.
 	// Candidate to be defined in a custom type
 
+	@Field("seller_type")
+	private String sellerType;
+
+	@Field("manufacturer_country")
+	private String manufacturerCountry;
+
 	@Field("org_name")
 	private String orgName;
 
@@ -63,11 +69,11 @@ public class ReceiverSupplier implements Serializable {
 	@Field("proof_of_association_link")
 	private URI proofOfAssociationLink;
 
-	@Field("poc_first_name")
+	@Field("first_name")
 	private String firstName;
 
-	@Field("poc_last_name")
-	private String pocLastName;
+	@Field("last_name")
+	private String lastName;
 
 	@Field("email")
 	private String email;
@@ -75,8 +81,8 @@ public class ReceiverSupplier implements Serializable {
 	@Field("phone_number")
 	private String phonenumber;
 
-	@Field("poc_secondary_phone_number")
-	private String pocSecondaryPhoneNumber;
+	@Field("secondary_phone_number")
+	private String secondaryPhoneNumber;
 
 	@Field("poc_address_line1")
 	private String pocAddressLine11;
@@ -146,6 +152,34 @@ public class ReceiverSupplier implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the sellerType
+	 */
+	public String getSellerType() {
+		return sellerType;
+	}
+
+	/**
+	 * @param sellerType the sellerType to set
+	 */
+	public void setSellerType(String sellerType) {
+		this.sellerType = sellerType;
+	}
+
+	/**
+	 * @return the manufacturerCountry
+	 */
+	public String getManufacturerCountry() {
+		return manufacturerCountry;
+	}
+
+	/**
+	 * @param manufacturerCountry the manufacturerCountry to set
+	 */
+	public void setManufacturerCountry(String manufacturerCountry) {
+		this.manufacturerCountry = manufacturerCountry;
 	}
 
 	public String getOrgName() {
@@ -567,17 +601,17 @@ public class ReceiverSupplier implements Serializable {
 	}
 
 	/**
-	 * @return the pocLastName
+	 * @return the lastName
 	 */
-	public String getPocLastName() {
-		return pocLastName;
+	public String getLastName() {
+		return lastName;
 	}
 
 	/**
-	 * @param pocLastName the pocLastName to set
+	 * @param lastName the lastName to set
 	 */
-	public void setPocLastName(String pocLastName) {
-		this.pocLastName = pocLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	/**
@@ -609,17 +643,17 @@ public class ReceiverSupplier implements Serializable {
 	}
 
 	/**
-	 * @return the pocSecondaryPhoneNumber
+	 * @return the secondaryPhoneNumber
 	 */
-	public String getPocSecondaryPhoneNumber() {
-		return pocSecondaryPhoneNumber;
+	public String getSecondaryPhoneNumber() {
+		return secondaryPhoneNumber;
 	}
 
 	/**
-	 * @param pocSecondaryPhoneNumber the pocSecondaryPhoneNumber to set
+	 * @param secondaryPhoneNumber the secondaryPhoneNumber to set
 	 */
-	public void setPocSecondaryPhoneNumber(String pocSecondaryPhoneNumber) {
-		this.pocSecondaryPhoneNumber = pocSecondaryPhoneNumber;
+	public void setSecondaryPhoneNumber(String secondaryPhoneNumber) {
+		this.secondaryPhoneNumber = secondaryPhoneNumber;
 	}
 
 	/**
