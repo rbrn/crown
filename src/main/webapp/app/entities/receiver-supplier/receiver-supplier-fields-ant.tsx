@@ -6,6 +6,7 @@ import UploadFile from "app/commonComponents/UploadFile";
 import {normFile} from "app/helpers/utils";
 import * as i18nIsoCountries from 'i18n-iso-countries';
 import i18nEnIsoCountriesJson from 'i18n-iso-countries/langs/en.json';
+import PocAddressFields from "app/entities/receiver-supplier/poc-address-fields";
 
 i18nIsoCountries.registerLocale(i18nEnIsoCountriesJson)
 
@@ -25,7 +26,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
         <h6 id="crownApp.receiverSupplier.orgAddress">
           <Translate contentKey="crownApp.receiverSupplier.orgAddress">Organization Address</Translate>
         </h6>
-        <AddressFields fieldPrefix={[fieldPrefix, 'orgAddress']}/>
+        <AddressFields fieldPrefix={[fieldPrefix]}/>
       </React.Fragment>
     )
   };
@@ -39,7 +40,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
         <h6 id={addressKey}>
           <Translate contentKey={addressKey}>Delivery Address</Translate>
         </h6>
-        <AddressFields fieldPrefix={[fieldPrefix, 'location']}/>
+        <PocAddressFields fieldPrefix={[fieldPrefix]}/>
       </React.Fragment>
     )
   };
