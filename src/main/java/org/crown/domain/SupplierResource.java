@@ -61,7 +61,7 @@ public class SupplierResource implements Serializable {
 	private String proofOfLife;
 
 	@Field("publicationPermission")
-	private String publicationPermission;
+	private Boolean publicationPermission;
 
 	@DBRef
 	@Field("supplier")
@@ -200,14 +200,14 @@ public class SupplierResource implements Serializable {
 	/**
 	 * @return the publicationPermission
 	 */
-	public String getPublicationPermission() {
+	public Boolean getPublicationPermission() {
 		return publicationPermission;
 	}
 
 	/**
 	 * @param publicationPermission the publicationPermission to set
 	 */
-	public void setPublicationPermission(String publicationPermission) {
+	public void setPublicationPermission(Boolean publicationPermission) {
 		this.publicationPermission = publicationPermission;
 	}
 

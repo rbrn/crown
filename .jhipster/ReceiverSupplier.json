@@ -17,13 +17,6 @@
 			]
 		},
 		{
-			"fieldName": "phonenumber",
-			"fieldType": "String",
-			"fieldValidateRules": [
-				"required"
-			]
-		},
-		{
 			"fieldName": "orgWebsite",
 			"fieldType": "String"
 		},
@@ -91,8 +84,8 @@
 			]
 		},
 		{
-			"fieldName": "phoneNumber",
-			"fieldValue": "String"
+			"fieldName": "phonenumber",
+			"fieldType": "String"
 		},
 		{
 			"fieldName": "secondaryPhoneNumber",

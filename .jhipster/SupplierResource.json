@@ -2,10 +2,6 @@
 	"name": "SupplierResource",
 	"fields": [
 		{
-			"fieldName": "resourceType",
-			"fieldType": "String"
-		},
-		{
 			"fieldName": "quantity",
 			"fieldType": "Integer",
 			"fieldValidateRules": [
@@ -53,7 +49,7 @@
 		},
 		{
 			"fieldName": "publicationPermission",
-			"fieldType": "String"
+			"fieldType": "Boolean"
 		}
 	],
 	"relationships": [

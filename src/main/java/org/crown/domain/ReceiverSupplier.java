@@ -69,11 +69,11 @@ public class ReceiverSupplier implements Serializable {
 	@Field("proof_of_association_link")
 	private URI proofOfAssociationLink;
 
-	@Field("poc_first_name")
+	@Field("first_name")
 	private String firstName;
 
-	@Field("poc_last_name")
-	private String pocLastName;
+	@Field("last_name")
+	private String lastName;
 
 	@Field("email")
 	private String email;
@@ -81,8 +81,8 @@ public class ReceiverSupplier implements Serializable {
 	@Field("phone_number")
 	private String phonenumber;
 
-	@Field("poc_secondary_phone_number")
-	private String pocSecondaryPhoneNumber;
+	@Field("secondary_phone_number")
+	private String secondaryPhoneNumber;
 
 	@Field("poc_address_line1")
 	private String pocAddressLine11;
@@ -601,17 +601,17 @@ public class ReceiverSupplier implements Serializable {
 	}
 
 	/**
-	 * @return the pocLastName
+	 * @return the lastName
 	 */
-	public String getPocLastName() {
-		return pocLastName;
+	public String getLastName() {
+		return lastName;
 	}
 
 	/**
-	 * @param pocLastName the pocLastName to set
+	 * @param lastName the lastName to set
 	 */
-	public void setPocLastName(String pocLastName) {
-		this.pocLastName = pocLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	/**
@@ -643,17 +643,17 @@ public class ReceiverSupplier implements Serializable {
 	}
 
 	/**
-	 * @return the pocSecondaryPhoneNumber
+	 * @return the secondaryPhoneNumber
 	 */
-	public String getPocSecondaryPhoneNumber() {
-		return pocSecondaryPhoneNumber;
+	public String getSecondaryPhoneNumber() {
+		return secondaryPhoneNumber;
 	}
 
 	/**
-	 * @param pocSecondaryPhoneNumber the pocSecondaryPhoneNumber to set
+	 * @param secondaryPhoneNumber the secondaryPhoneNumber to set
 	 */
-	public void setPocSecondaryPhoneNumber(String pocSecondaryPhoneNumber) {
-		this.pocSecondaryPhoneNumber = pocSecondaryPhoneNumber;
+	public void setSecondaryPhoneNumber(String secondaryPhoneNumber) {
+		this.secondaryPhoneNumber = secondaryPhoneNumber;
 	}
 
 	/**

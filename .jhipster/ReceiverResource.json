@@ -46,10 +46,6 @@
             "fieldType": "string"
         },
         {
-        	"fieldName": "resourceType",
-        	"fieldType": "ResourceType"
-        },
-        {
         	"fieldName": "productInspection",
         	"fieldType": "Boolean"
         },
