@@ -2,8 +2,10 @@ package org.crown.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -14,6 +16,8 @@ import org.crown.domain.SupplierResource;
 import org.crown.repository.ReceiverSupplierRepository;
 import org.crown.repository.SupplierResourceRepository;
 import org.crown.service.SupplierResourceService;
+import org.crown.service.UserService;
+import org.crown.service.dto.UserDTO;
 import org.crown.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,11 +65,12 @@ public class SupplierResourceResource {
 
     private final SupplierResourceRepository supplierResourceRepository;
     private final SupplierResourceService supplierResourceService;
+    private final UserService userService;
 
-
-    public SupplierResourceResource(SupplierResourceRepository supplierResourceRepository, SupplierResourceService supplierResourceService) {
+    public SupplierResourceResource(SupplierResourceRepository supplierResourceRepository, SupplierResourceService supplierResourceService, UserService userService) {
         this.supplierResourceRepository = supplierResourceRepository;
         this.supplierResourceService = supplierResourceService;
+        this.userService = userService;
     }
 
 
@@ -130,8 +135,22 @@ public class SupplierResourceResource {
     @GetMapping("/supplier-resources")
     public ResponseEntity<List<SupplierResource>> getAllSupplierResources(Pageable pageable) {
         log.debug("REST request to get a page of ReceiverResources");
-        List<SupplierResource> filtered = supplierResourceService.getAllSupplierResources(pageable);
-        Page<SupplierResource> receiverResourcePage1 = new PageImpl<>(filtered);
+
+        UserDTO user = userService.getUserWithAuthorities().map(UserDTO::new).orElseThrow(()->new RuntimeException("User could not be found"));
+        Set<String> adminList = user.getAuthorities();
+
+        List<SupplierResource> filtered;
+
+        if(adminList.contains("ROLE_ADMIN")){
+            ArrayList<SupplierResource> supplierResource = new ArrayList<>();
+            supplierResource.addAll(supplierResourceRepository.findAll(pageable).getContent());
+            filtered = supplierResource;
+        }
+        else {
+            filtered = supplierResourceService.getAllSupplierResources(pageable);
+        }
+
+        Page<SupplierResource> receiverResourcePage1 = new PageImpl<>(filtered, pageable, filtered.size());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), receiverResourcePage1);
         return ResponseEntity.ok().headers(headers).body(filtered);
     }
