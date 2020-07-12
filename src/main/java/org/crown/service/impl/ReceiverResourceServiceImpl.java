@@ -20,7 +20,7 @@ public class ReceiverResourceServiceImpl implements ReceiverResourceService {
     @Override
     public List<ReceiverResource> getAllReceiverResources(Pageable pageable) {
         ArrayList<ReceiverResource> receiverResources = new ArrayList<>();
-        receiverResources.addAll(receiverResourceRepository.findAll(pageable).getContent());
+        receiverResources.addAll(receiverResourceRepository.findAll());
         return receiverResources;
     }
 }
