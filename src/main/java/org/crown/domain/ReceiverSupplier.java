@@ -24,6 +24,12 @@ public class ReceiverSupplier implements Serializable {
 	// TODO: All the fields below constitute 'Organization Details'.
 	// Candidate to be defined in a custom type
 
+	@Field("seller_type")
+	private String sellerType;
+
+	@Field("manufacturer_country")
+	private String manufacturerCountry;
+
 	@Field("org_name")
 	private String orgName;
 
@@ -146,6 +152,34 @@ public class ReceiverSupplier implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the sellerType
+	 */
+	public String getSellerType() {
+		return sellerType;
+	}
+
+	/**
+	 * @param sellerType the sellerType to set
+	 */
+	public void setSellerType(String sellerType) {
+		this.sellerType = sellerType;
+	}
+
+	/**
+	 * @return the manufacturerCountry
+	 */
+	public String getManufacturerCountry() {
+		return manufacturerCountry;
+	}
+
+	/**
+	 * @param manufacturerCountry the manufacturerCountry to set
+	 */
+	public void setManufacturerCountry(String manufacturerCountry) {
+		this.manufacturerCountry = manufacturerCountry;
 	}
 
 	public String getOrgName() {

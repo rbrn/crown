@@ -2,6 +2,14 @@
 	"name": "ReceiverSupplier",
 	"fields": [
 		{
+			"fieldName": "sellerType",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "manufacturerCountry",
+			"fieldType": "String"
+		},
+		{
 			"fieldName": "orgName",
 			"fieldType": "String",
 			"fieldValidateRules": [
