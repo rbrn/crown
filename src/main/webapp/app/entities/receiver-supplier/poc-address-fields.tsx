@@ -11,12 +11,12 @@ interface AddressFieldsProps {
   fieldPrefix: string[]
 }
 
-const AddressFields: React.FC<AddressFieldsProps> = ({ fieldPrefix }) => {
+const PocAddressFields: React.FC<AddressFieldsProps> = ({ fieldPrefix }) => {
   const countriesList = i18nIsoCountries.getNames("en");
   return (
     <React.Fragment>
       <Form.Item
-        name={[...fieldPrefix, 'country']}
+        name={[...fieldPrefix, 'pocCountry']}
         label={translate('address.country')}
         rules={[
           {
@@ -37,7 +37,7 @@ const AddressFields: React.FC<AddressFieldsProps> = ({ fieldPrefix }) => {
       </Form.Item>
 
       <Form.Item
-        name={[...fieldPrefix, 'addressLine1']}
+        name={[...fieldPrefix, 'pocAddressLine1']}
         label={translate('address.addressLine1')}
         rules={[
           {
@@ -50,14 +50,14 @@ const AddressFields: React.FC<AddressFieldsProps> = ({ fieldPrefix }) => {
       </Form.Item>
 
       <Form.Item
-        name={[...fieldPrefix, 'addressLine2']}
+        name={[...fieldPrefix, 'pocAddressLine2']}
         label={translate('address.addressLine2')}
       >
         <Input placeholder="Enter Address line 2" />
       </Form.Item>
 
       <Form.Item
-        name={[...fieldPrefix, 'city']}
+        name={[...fieldPrefix, 'pocCity']}
         label={translate('address.city')}
         rules={[
           {
@@ -70,7 +70,7 @@ const AddressFields: React.FC<AddressFieldsProps> = ({ fieldPrefix }) => {
       </Form.Item>
 
       <Form.Item
-        name={[...fieldPrefix, 'state']}
+        name={[...fieldPrefix, 'pocState']}
         label={translate('address.stateProvinceRegion')}
         rules={[
           {
@@ -83,7 +83,7 @@ const AddressFields: React.FC<AddressFieldsProps> = ({ fieldPrefix }) => {
       </Form.Item>
 
       <Form.Item
-        name={[...fieldPrefix, 'zip']}
+        name={[...fieldPrefix, 'pocZip']}
         label={translate('address.postalCode')}
         rules={[
           {
@@ -99,4 +99,4 @@ const AddressFields: React.FC<AddressFieldsProps> = ({ fieldPrefix }) => {
   )
 };
 
-export default AddressFields;
+export default PocAddressFields;
