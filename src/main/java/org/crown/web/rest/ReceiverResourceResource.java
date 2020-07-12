@@ -141,7 +141,7 @@ public class ReceiverResourceResource {
         if(adminList.contains("ROLE_ADMIN")){
             log.debug(String.valueOf(receiverResourceRepository.findAll(pageable)));
             ArrayList<ReceiverResource> receiverResources = new ArrayList<>();
-            receiverResources.addAll(receiverResourceRepository.findAll(pageable).getContent());
+            receiverResources.addAll(receiverResourceRepository.findAll());
             filtered = receiverResources;
         }
         else {

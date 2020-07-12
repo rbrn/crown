@@ -143,7 +143,7 @@ public class SupplierResourceResource {
 
         if(adminList.contains("ROLE_ADMIN")){
             ArrayList<SupplierResource> supplierResource = new ArrayList<>();
-            supplierResource.addAll(supplierResourceRepository.findAll(pageable).getContent());
+            supplierResource.addAll(supplierResourceRepository.findAll());
             filtered = supplierResource;
         }
         else {
