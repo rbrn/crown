@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, getSortState, TextFormat, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -158,8 +158,20 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
                   <th className="hand" onClick={sort('quantity')}>
                     <Translate contentKey="crownApp.supplierResource.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('quantityValidUntil')}>
+                    <Translate contentKey="crownApp.supplierResource.quantityValidUntil">Quantity Valid Until</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={sort('cost')}>
                     <Translate contentKey="crownApp.supplierResource.cost">Cost</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('productAvailabilityLeadTime')}>
+                    <Translate contentKey="crownApp.supplierResource.productAvailabilityLeadTime">Expected Lead Time</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('minOrderQuantity')}>
+                    <Translate contentKey="crownApp.supplierResource.minOrderQuantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('quantityOnHand')}>
+                    <Translate contentKey="crownApp.supplierResource.quantityOnHand">Quantity</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
                     <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate> <FontAwesomeIcon icon="sort" />
@@ -179,7 +191,13 @@ export const SupplierResource = (props: ISupplierResourceProps) => {
                       </Button>
                     </td>
                     <td>{supplierResource.quantity}</td>
+                    <td>
+                      <TextFormat type="date" value={supplierResource.quantityValidUntil} format={APP_LOCAL_DATE_FORMAT} />
+                    </td>
                     <td>{supplierResource.cost}</td>
+                    <td>{supplierResource.productAvailabilityLeadTime}</td>
+                    <td>{supplierResource.minOrderQuantity}</td>
+                    <td>{supplierResource.quantityOnHand}</td>
                     <td>
                       {supplierResource.resourceType ? (
                         <Link to={`resource-type/${supplierResource.resourceType.id}`}>{supplierResource.resourceType.name}</Link>

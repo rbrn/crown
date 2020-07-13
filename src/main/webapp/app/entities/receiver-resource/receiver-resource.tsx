@@ -117,19 +117,19 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                   <th>
                     <Translate contentKey="crownApp.receiverResource.resourceType">Resource Type</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
+                  <th className="hand" onClick={sort('productInspection')}>
                     <Translate contentKey="crownApp.receiverResource.productInspection">Product Inspection</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
+                  <th className="hand" onClick={sort('productInspectDays')}>
                     <Translate contentKey="crownApp.receiverResource.productInspectDays">Product Inspect Days</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
+                  <th className="hand" onClick={sort('acceptUnpackagedGoods')}>
                     <Translate contentKey="crownApp.receiverResource.acceptUnpackagedGoods">Accept Unpackaged Goods</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
+                  <th className="hand" onClick={sort('fundRestrictions')}>
                     <Translate contentKey="crownApp.receiverResource.fundRestrictions">Fund Restriction</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
+                  <th className="hand" onClick={sort('fundsAvailable')}>
                     <Translate contentKey="crownApp.receiverResource.fundsAvailable">Funds Available</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
