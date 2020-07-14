@@ -168,11 +168,11 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                         ''
                       )}
                     </td>
-                    <td>{receiverResource.productInspection}</td>
+                    <td>{receiverResource.productInspection ? 'true' : 'false'}</td>
                     <td>{receiverResource.productInspectDays}</td>
-                    <td>{receiverResource.acceptUnpackagedGoods}</td>
+                    <td>{receiverResource.acceptUnpackagedGoods ? 'true' : 'false'}</td>
                     <td>{receiverResource.fundRestrictions}</td>
-                    <td>{receiverResource.fundsAvailable}</td>
+                    <td>{receiverResource.fundsAvailable ? 'true' : 'false'}</td>
                     <td>
                       {receiverResource.receiver ? (
                         <Link to={`receiver-supplier/${receiverResource.receiver.id}`}>{receiverResource.receiver.name}</Link>
