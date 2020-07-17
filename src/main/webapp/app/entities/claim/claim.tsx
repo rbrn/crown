@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, ICrudGetAllAction } from 'react-jhipster';
+import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -46,6 +46,27 @@ export const Claim = (props: IClaimProps) => {
                   <Translate contentKey="crownApp.claim.status">Status</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="crownApp.claim.currentStock">current Stock</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="crownApp.claim.expiration">Expiration</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="crownApp.claim.productInspection">production Inspection</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="crownApp.claim.productInspectDays">InspectDays</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="crownApp.claim.fundsAvailable">funds available</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="crownApp.claim.acceptUnpackagedGoods">Unpackaged</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="crownApp.claim.fundRestrictions">fundRestrictions</Translate>
+                </th>
+                <th>
                   <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
                 </th>
                 <th>
@@ -67,6 +88,15 @@ export const Claim = (props: IClaimProps) => {
                   <td>
                     <Translate contentKey={`crownApp.ClaimStatusEnum.${claim.status}`} />
                   </td>
+                  <td>{claim.currentStock}</td>
+                  <td>
+                    <TextFormat type="date" value={claim.expiration} format={APP_LOCAL_DATE_FORMAT} />
+                  </td>
+                  <td>{claim.productInspection ? 'true' : 'false'}</td>
+                  <td>{claim.productInspectDays}</td>
+                  <td>{claim.fundsAvailable ? 'true' : 'false'}</td>
+                  <td>{claim.acceptUnpackagedGoods ? 'true' : 'false'}</td>
+                  <td>{claim.fundRestrictions}</td>
                   <td>
                     {claim.receiverResource ? (
                       <Link to={`receiver-resource/${claim.receiverResource.id}`}>{claim.receiverResource.id}</Link>
