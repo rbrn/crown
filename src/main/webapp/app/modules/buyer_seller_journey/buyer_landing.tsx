@@ -4,14 +4,21 @@ import '../map/map.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Col, Row, Container, Button } from 'reactstrap';
-import LeftPanel from './buyer_leftpanel';
+import Popup from 'reactjs-popup';
+
+import PostedItemsComponent from '../map/posteditems';
+
+import TopPanel from '../map/toppanel';
+import BuyerLeftPanelComponent from './buyer_leftpanel';
 import 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-control-geocoder';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 import { Redirect } from 'react-router-dom';
+import RequestedItemsComponent from 'app/modules/map/requestedItems';
 import axios from 'axios';
 import config from 'app/modules/map/apiConfig.json';
+import CookieConsent from 'react-cookie-consent';
 
 declare global {
   interface Window {
@@ -297,7 +304,7 @@ class BuyerLanding extends React.Component<MapProps, State> {
 
     return (
       <Container className="col-auto ml-auto">
-        <LeftPanel
+        <BuyerLeftPanelComponent
           onButtonClicked={this.onButtonClicked.bind(this)}
           showOptions={this.state.showOptions}
           radius={this.state.radius}
@@ -308,6 +315,13 @@ class BuyerLanding extends React.Component<MapProps, State> {
           <Col md="12" className="p-0">
             <div className="shadow-lg bg-white rounded">
               <div id="map-container"></div>
+              <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
+                {this.state.type === types['Browse Available'] ? (
+                  <PostedItemsComponent position={this.state.latlng} radius={this.state.radius} />
+                ) : (
+                  <RequestedItemsComponent position={this.state.latlng} radius={this.state.radius} />
+                )}
+              </Popup>
             </div>
           </Col>
         </Row>
