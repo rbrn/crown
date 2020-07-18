@@ -1,15 +1,10 @@
 import React, { ReactText } from 'react';
 import { connect } from 'react-redux';
+import { LatLng } from '../map/map';
 import { Button, Card } from 'reactstrap';
+import { AvField, AvForm } from 'availity-reactstrap-validation';
 import { Slider } from 'antd';
 import { SliderValue } from 'antd/lib/slider';
-
-export interface OwnProps {
-  onButtonClicked: Function;
-  showOptions: boolean;
-  radius: number;
-  changeRadius: (value: SliderValue | ReactText) => void;
-}
 
 const BoxStyles = {
   background: '#FEFEFE 0% 0% no-repeat padding-box',
@@ -45,37 +40,30 @@ const TextMStyles = {
   border: '1px solid #DDE4EB'
 };
 
+export interface OwnProps {
+  onButtonClicked: Function;
+  showOptions: boolean;
+  radius: number;
+  changeRadius: (value: SliderValue | ReactText) => void;
+}
 type Props = StateProps & DispatchProps & OwnProps;
 
-class LeftPanel extends React.Component<Props> {
+class BuyerLeftPanelComponent extends React.Component<Props> {
   render() {
     const { onButtonClicked, showOptions, radius, changeRadius } = this.props;
     return (
       <div
-        className="left-panel shadow-lg rounded"
+        className="buyer-left-panel shadow-lg rounded"
         style={{ background: 'none', backgroundColor: 'none', borderRadius: 20, overflow: 'hidden' }}
       >
-        <Card className="details-card left-panel" style={BoxStyles}>
+        <Card className="details-card buyer-left-panel" style={BoxStyles}>
           <div className="radius-container">
             <span style={TextRStyles}>Radius</span>
             <span style={TextMStyles} className="radius-display">
               {radius} miles
             </span>
           </div>
-          <Slider
-            railStyle={{
-              backgroundColor: '#fff',
-              height: '3px',
-              borderColor: '#B7B9BBBD'
-            }}
-            trackStyle={{ backgroundColor: '#FF7C48', borderColor: '#FF7C48' }}
-            handleStyle={{ borderColor: '#FF7C48' }}
-            min={20}
-            max={300}
-            onChange={changeRadius}
-            value={typeof radius === 'number' ? radius : 10}
-            tooltipPlacement="bottom"
-          />
+          <Slider min={20} max={300} onChange={changeRadius} value={typeof radius === 'number' ? radius : 10} tooltipPlacement="bottom" />
           <div className="">
             <Button style={ButtonStyles} className="w-100 mb-2 cw-btn">
               Browse Available
@@ -99,4 +87,4 @@ const mapDispatchToProps = {};
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps)(LeftPanel);
+export default connect(mapStateToProps)(BuyerLeftPanelComponent);
