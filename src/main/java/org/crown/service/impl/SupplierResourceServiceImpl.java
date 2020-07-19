@@ -19,7 +19,7 @@ public class SupplierResourceServiceImpl implements SupplierResourceService {
     @Override
     public List<SupplierResource> getAllSupplierResources(Pageable pageable) {
         ArrayList<SupplierResource> supplierResourceArrayList = new ArrayList<SupplierResource>();
-        supplierResourceArrayList.addAll(supplierResourceRepository.findAll(pageable).getContent());
+        supplierResourceArrayList.addAll(supplierResourceRepository.findAll());
         return supplierResourceArrayList;
     }
 }

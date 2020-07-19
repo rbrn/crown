@@ -155,6 +155,70 @@ body::-webkit-scrollbar-thumb {
     padding: 1rem;
   }
 }
+.seller-left-panel {
+  position: fixed;
+  bottom: 100px;
+  left: 0;
+  z-index: 500;
+  background-color: #fefefe;
+  width: 300px;
+  .details-card {
+    padding: 1rem;
+  }
+  .ant-slider {
+    padding: 0;
+    display: inline-block;
+    width: 97%;
+    .ant-slider-handle {
+      border-color: '#4698dc';
+    }
+    .ant-slider-track {
+      background-color: '#4698dc';
+      border-color: '#4698dc';
+    }
+    .ant-slider-rail {
+      background-color: '#fff';
+      height: '3px';
+      border-color: '#B7B9BBBD';
+    }
+    &:hover .ant-slider-handle:not(.ant-tooltip-open) {
+      border-color: #4698dc;
+    }
+  }
+}
+
+.buyer-left-panel {
+  position: fixed;
+  bottom: 100px;
+  left: 0;
+  z-index: 500;
+  background-color: #fefefe;
+  width: 300px;
+  .details-card {
+    padding: 1rem;
+  }
+  .ant-slider {
+    padding: 0;
+    display: inline-block;
+    width: 97%;
+    .ant-slider-handle {
+      border-color: #ff7c48;
+    }
+    .ant-slider-track {
+      background-color: #ff7c48;
+      border-color: #ff7c48;
+    }
+    .ant-slider-rail {
+      background-color: #b7b9bbbd;
+      height: 3px;
+      border-color: #b7b9bbbd;
+    }
+
+    &:hover .ant-slider-handle:not(.ant-tooltip-open) {
+      border-color: #ff7c48;
+    }
+  }
+}
 
 .radius-display {
   float: right;
@@ -164,7 +228,7 @@ body::-webkit-scrollbar-thumb {
   font-weight: bold;
 }
 
-.ant-slider {
+/*.ant-slider {
   padding: 0;
   display: inline-block;
   width: 97%;
@@ -176,7 +240,7 @@ body::-webkit-scrollbar-thumb {
   &:hover .ant-slider-handle:not(.ant-tooltip-open) {
     border-color: #ff7c48;
   }
-}
+} */
 
 .scroll-container {
   max-height: 150px;
