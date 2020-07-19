@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Label, Row } from 'reactstrap';
 import { AvField, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import {Checkbox, DatePicker, Form, Input, InputNumber, Select, Switch} from 'antd';
 import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
@@ -13,23 +14,30 @@ import { getEntity as getSupplierResourceEntity } from 'app/entities/supplier-re
 import Claim from "app/entities/claim/claim";
 import { defaultValue } from "app/shared/model/claim.model";
 import supplierResource from '../supplier-resource/supplier-resource';
-
+import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
 export interface IClaimRequestProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
-
+export interface IReceiverResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 export const ClaimRequest = (props: IClaimRequestProps) => {
   const [receiverResourceId, setReceiverResourceId] = useState('0');
   const [supplierResourceId, setSupplierResourceId] = useState('0');
   const [ApproximatePriceValue] = useState('0');
   const [entity, setEntity] = useState(defaultValue);
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
-  const { claimEntity, receiverResources, supplierResources, loading, updating } = props;
+  const { claimEntity, receiverResources, receiverSuppliers, supplierResources, loading, updating, account } = props;
   const [isAssistedCreation, setIsAssistedCreation] = useState(false);
+  const [pofFileList, setPofFileList] = useState('');
+  const [poaFileList, setPoaFileList] = useState('');
 
+  const receiverProfile = receiverSuppliers.filter(receiver => receiver.email === account.email);
   const handleClose = () => {
     props.history.push('/claim');
   };
-
+  const updatePoaFileList = fileName => {
+    if (!poaFileList.includes(fileName)) {
+      setPoaFileList(`${poaFileList.length > 0 ? `${poaFileList},` : ''}${fileName}`);
+    }
+  };
   useEffect(() => {
     const localSupplierId = new URLSearchParams(props.location.search).get("supplierResourceId");
 
@@ -69,7 +77,19 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
     }
   };
 
-
+  const mayBeReceiverFields = () => {
+    if (receiverProfile && receiverProfile.length > 0) {
+      return null;
+    }
+    return (
+      <React.Fragment>
+        <ReceiverSupplierAntFields
+          fieldPrefix="receiver"
+          updatePoaFileList={updatePoaFileList}
+        />
+      </React.Fragment>
+    );
+  };
 
   return (
 
@@ -118,24 +138,30 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                 </AvInput>
               </AvGroup> */}
 
-                  <AvGroup>
-                    <Label id="quantityLabel" for="claim-quantity"
+              <Form.Item
+                name="quantity"
+                label={translate('crownApp.claim.quantity')}
+                rules={[
+                  {
+                    required: true,
+                    message: translate('entity.validation.required')
+                  }
+                ]}
+              >
+                <InputNumber min={1} style={{ width: '100%' }} />
+              </Form.Item>
+                  <Form.Item
+                      name="expiration"
+                      label={translate('crownApp.claim.expiration')}
+                      rules={[
+                        {
+                          required: true,
+                          message: translate('entity.validation.required')
+                        }
+                      ]}
                     >
-                      <Translate contentKey="crownApp.claim.quantity">Quantity</Translate>
-                    </Label>
-                    <AvField
-                      id="claim-quantity"
-                      // value={ApproximatePriceValue}
-                      type="number"
-                      className="form-control"
-                      name="quantity"
-                      validate={{
-                        required: { value: true, errorMessage: translate('entity.validation.required') },
-                        number: { value: true, errorMessage: translate('entity.validation.number') }
-                      }}
-                    />
-                  </AvGroup>
-
+                      <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
                   {
                     /*
                   { <AvGroup>
@@ -146,14 +172,18 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                   </AvGroup>}
                   */
                   }
+              <Form.Item
+                name="notes"
+                label={translate('crownApp.claim.notes')}>
+                <Input.TextArea  style={{ width: '100%' }} />
+              </Form.Item>
 
-                  <AvGroup>
-                    <Label id="notesLabel" for="claim-notes">
-                      <Translate contentKey="crownApp.claim.notes">Notes</Translate>
-                    </Label>
-                    <AvField id="claim-notes" type="textarea" name="notes" />
-                  </AvGroup>
-
+              <Form.Item
+                name="currentStock"
+                label={translate('crownApp.claim.currentStock')}>
+                <InputNumber min={0} style={{ width: '100%' }} />
+              </Form.Item>
+                  {mayBeReceiverFields()}
                   <Button tag={Link} id="cancel-save" to="/" replace color="info">
                     <FontAwesomeIcon icon="arrow-left" />
                     &nbsp;
@@ -176,12 +206,14 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   receiverResources: storeState.receiverResource.entities,
+  receiverSuppliers: storeState.receiverSupplier.entities,
   supplierResources: storeState.supplierResource.entities,
   supplierResourceEntity: storeState.supplierResource.entity,
   claimEntity: storeState.claim.entity,
   loading: storeState.claim.loading,
   updating: storeState.claim.updating,
   updateSuccess: storeState.claim.updateSuccess,
+  account: storeState.authentication.account
 });
 
 const mapDispatchToProps = {
