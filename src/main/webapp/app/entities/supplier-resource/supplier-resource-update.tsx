@@ -122,6 +122,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
   if (supplierResourceEntity.quantityValidUntil) {
     initialValues.quantityValidUntil = moment(supplierResourceEntity.quantityValidUntil);
   }
+
   return (
     <div>
       <Row className="justify-content-center">
@@ -154,7 +155,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     }
                   ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               ) : null}
 
@@ -315,15 +316,15 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
               {mayBeSupplierFields()}
               <Row gutter={[0, 8]}>
                 <Col span={4}>
-                  <Form.Item>
-                    <Button type="default" htmlType="submit" icon={<ArrowLeftOutlined />}>
-                      {translate('entity.action.back')}
+                    <Form.Item>
+                      <Button type="default" href="/supplier-resource" icon={<ArrowLeftOutlined />}>
+                      {translate('entity.action.cancel')}
                     </Button>
                   </Form.Item>
                 </Col>
                 <Col span={4}>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
+                      <Button id="submitbutton" type="primary" htmlType="submit" icon={<SaveOutlined />}>
                       <Translate contentKey="entity.action.save">Save</Translate>
                     </Button>
                   </Form.Item>

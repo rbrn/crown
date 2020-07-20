@@ -99,10 +99,10 @@ const RequestTypes = {
 };
 
 const supplierIcon = new LeafIcon({ iconUrl: '../../../content/images/supplies-map.svg' });
-const requesterIcon = new LeafIcon({
-  iconSize: [25, 25],
-  iconUrl: '../../../content/images/requests-map.svg'
-});
+// const requesterIcon = new LeafIcon({
+//  iconSize: [25, 25],
+//  iconUrl: '../../../content/images/requests-map.svg'
+// });
 
 let position = [51.505, -0.09];
 
@@ -289,13 +289,13 @@ class BuyerLanding extends React.Component<MapProps, State> {
       });
     }
 
-    if (this.state.aroundMeReceivers.length > 0 && map !== null) {
-      this.state.aroundMeReceivers.forEach(function(value) {
-        L.marker(value.latLng, { icon: requesterIcon })
-          .addTo(map)
-          .bindPopup(value.requestType);
-      });
-    }
+    // if (this.state.aroundMeReceivers.length > 0 && map !== null) {
+    //   this.state.aroundMeReceivers.forEach(function(value) {
+    //    L.marker(value.latLng, { icon: requesterIcon })
+    //      .addTo(map)
+    //      .bindPopup(value.requestType);
+    //  });
+    // }
 
     if (this.state.type === types['Request Medical Supplies']) return <Redirect to={requestPPEparam} />;
     else if (this.state.type === types['Supply Medical Supplies']) {
