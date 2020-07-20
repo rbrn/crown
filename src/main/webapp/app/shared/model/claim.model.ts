@@ -5,17 +5,7 @@ import { Moment } from 'moment';
 
 export interface IClaim {
   id?: string;
-  quantity?: number;
-  notes?: string;
   status?: ClaimStatusEnum;
-  currentStock?: number;
-  expiration?: Moment;
-  proofOfFunds?: string;
-  productInspection?: boolean;
-  productInspectDays?: number;
-  fundsAvailable?: boolean;
-  acceptUnpackagedGoods?: boolean;
-  fundRestrictions?: string;
   receiverResource?: IReceiverResource;
   supplierResource?: ISupplierResource;
 }

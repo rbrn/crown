@@ -244,10 +244,10 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
       <Form.Item
         noStyle
-        shouldUpdate={
-          (prevValues, currentValues) =>
-            prevValues[fieldPrefix].differentLocationAddress !== currentValues[fieldPrefix].differentLocationAddress
-        }
+        // shouldUpdate={
+        //   (prevValues, currentValues) =>
+        //     prevValues[fieldPrefix].differentLocationAddress !== currentValues[fieldPrefix].differentLocationAddress
+        // }
       >
         {({getFieldValue}) => {
           return getFieldValue([fieldPrefix, 'differentLocationAddress']) ? maybeAdditionalAddressFields() : null;
