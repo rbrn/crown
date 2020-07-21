@@ -2,7 +2,7 @@ import './header.scss';
 
 import React, { useState } from 'react';
 import { Translate, Storage } from 'react-jhipster';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse, NavItem, NavLink, DropdownToggle, UncontrolledDropdown, DropdownMenu, DropdownItem, Button } from 'reactstrap';
+import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { NavLink as Link } from 'react-router-dom';
@@ -44,9 +44,8 @@ const Header = (props: IHeaderProps) => {
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
 
   return (
-    // <div id="app-header">
-    <div>
-      {/* {renderDevRibbon()}
+    <div id="app-header">
+      {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
       <Navbar dark expand="sm" fixed="top" style={{backgroundColor:'white'}} className="jh-navbar justify-content-between">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
@@ -60,52 +59,6 @@ const Header = (props: IHeaderProps) => {
             <LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} />
             <AccountMenu isAuthenticated={props.isAuthenticated} />
           </Nav>
-        </Collapse>
-      </Navbar> */}
-
-      <Navbar color="light" light expand="md" className='shadow'>
-        <NavbarBrand href="/"><Brand /></NavbarBrand>
-        <NavbarToggler onClick={() => { }} />
-        <Collapse isOpen={false} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink className='text-dark' href="/request/">REQUEST</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink className='text-dark' href="/request/">SUPPLY</NavLink>
-            </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle className='text-dark' nav caret>
-                Toronto, United States
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Option 1
-                </DropdownItem>
-                <DropdownItem>
-                  Option 2
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
-          <span>
-            <Nav>
-              <NavItem>
-                <NavLink className='text-dark' href="/request/">SUPPLY</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className='text-dark' href="/request/">SUPPORT</NavLink>
-              </NavItem>
-              <NavItem>
-                <Button className='header-btn'>SIGN UP</Button>
-              </NavItem>
-            </Nav>
-          </span>
-
         </Collapse>
       </Navbar>
     </div>
