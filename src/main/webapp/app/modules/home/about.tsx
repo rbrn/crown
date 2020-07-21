@@ -12,6 +12,7 @@ const About = props => (
           ABOUT US
           </h2>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident accusamus nobis amet dolores labore iusto quis aliquam cumque. Doloribus ipsa similique laboriosam facilis velit eligendi optio sunt, sit modi ut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, quisquam maiores. Voluptatibus atque excepturi reprehenderit iste aliquid? Modi adipisci beatae ipsam repellat consequuntur? Illum enim autem nostrum cum delectus explicabo? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident accusamus nobis amet dolores labore iusto quis aliquam cumque. Doloribus ipsa similique laboriosam facilis velit eligendi optio sunt, sit modi ut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, quisquam maiores. Voluptatibus atque excepturi reprehenderit iste aliquid? Modi adipisci beatae ipsam repellat consequuntur? Illum enim autem nostrum cum delectus explicabo?</p>
+
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident accusamus nobis amet dolores labore iusto quis aliquam cumque. Doloribus ipsa similique laboriosam facilis velit eligendi optio sunt, sit modi ut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, quisquam maiores. Voluptatibus atque excepturi reprehenderit iste aliquid? Modi adipisci beatae ipsam repellat consequuntur? Illum enim autem nostrum cum delectus explicabo?</p>
 
         <div className='text-center mt-5'>
@@ -57,6 +58,7 @@ const About = props => (
             {/* <br /> */}
             <span>user@email.com</span>
           </div>
+
 
         </div>
 
