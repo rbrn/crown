@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import image from './5816.png';
+// import image from './5816.png';
 import { Input } from 'antd';
 import { Button } from 'reactstrap';
 
@@ -8,8 +8,8 @@ import { Button } from 'reactstrap';
 export default () => {
     return (
         <div>
-            <div className='jumbotron bg-blue text-white m-0' style={{
-                backgroundImage: `url(${image})`,
+            <div className='cw-jumb jumbotron bg-blue text-white m-0' style={{
+                // backgroundImage: `url(${image})`,
                 height: '90vh',
                 backgroundSize: '100% 110%',
                 backgroundRepeat: 'no-repeat'
@@ -18,6 +18,7 @@ export default () => {
                     <h1 className='text-white'>Medical Supplies for All People, Forever.</h1>
                     <p className='text-white'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard dummy text ever since the 1500.</p>
                     <div>
+                        {/* <hi */}
                         <button type="submit" className="btn btn-primary shadow"><span>REQUEST</span></button>
                         <button style={{ backgroundColor: '#4698DC' }} type="submit" className="ml-4 shadow btn btn-primary text-white"><span>SUPPLY</span></button>
                     </div>
@@ -78,56 +79,72 @@ export default () => {
                     <div className="row">
 
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', backgroundImage: `url(${image})`, backgroundSize: '100% 100%' }}>
+                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            // backgroundImage: `url(${image})`, 
+                            backgroundSize: '100% 100%' }}>
                                 <div className="card-body">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', backgroundImage: `url(${image})`, backgroundSize: '100% 100%' }}>
+                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            // backgroundImage: `url(${image})`, 
+                            backgroundSize: '100% 100%' }}>
                                 <div className="card-body">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', backgroundImage: `url(${image})`, backgroundSize: '100% 100%' }}>
+                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            // backgroundImage: `url(${image})`, 
+                            backgroundSize: '100% 100%' }}>
                                 <div className="card-body">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', backgroundImage: `url(${image})`, backgroundSize: '100% 100%' }}>
+                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            // backgroundImage: `url(${image})`, 
+                            backgroundSize: '100% 100%' }}>
                                 <div className="card-body">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', backgroundImage: `url(${image})`, backgroundSize: '100% 100%' }}>
+                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            // backgroundImage: `url(${image})`, 
+                            backgroundSize: '100% 100%' }}>
                                 <div className="card-body">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', backgroundImage: `url(${image})`, backgroundSize: '100% 100%' }}>
+                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            // backgroundImage: `url(${image})`, 
+                            backgroundSize: '100% 100%' }}>
                                 <div className="card-body">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', backgroundImage: `url(${image})`, backgroundSize: '100% 100%' }}>
+                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            // backgroundImage: `url(${image})`, 
+                            backgroundSize: '100% 100%' }}>
                                 <div className="card-body">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', backgroundImage: `url(${image})`, backgroundSize: '100% 100%' }}>
+                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            // backgroundImage: `url(${image})`, 
+                            backgroundSize: '100% 100%' }}>
                                 <div className="card-body">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
