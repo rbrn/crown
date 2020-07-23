@@ -9,6 +9,10 @@ Main page styles
   background-size: contain;
 }
 
+
+/* ==========================================================================
+Landing Page styles
+========================================================================== */
 .subscribe-btn {
   background-color: #ffffff !important;
   border: none !important;
@@ -30,6 +34,13 @@ Main page styles
   background-color: #ff7c48 !important;
   border: none !important;
 }
-.cw-jumb{
+.cw-jumb {
   background-image: url('../home/5816.png');
+}
+.cw-about-us-footer{
+  display: flex;
+  justify-content: flex-end;
+}
+.cw-footer-logo{
+  width: 10%;
 }
