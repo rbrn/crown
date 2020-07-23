@@ -1,130 +1,200 @@
 {
-    "name": "ReceiverSupplier",
-    "fields": [
-        {
-            "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "unique"
-            ]
-        },
-        {
-            "fieldName": "address",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "email",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "primaryContactName",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "zip",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "phonenumber",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "latx",
-            "fieldType": "Float"
-        },
-        {
-            "fieldName": "longy",
-            "fieldType": "Float"
-        },
-        {
-            "fieldName": "city",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "state",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "country",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "npi",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "isReceiver",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "isSupplier",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "hasSterilization",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "priority",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "notes",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "tags",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "receiverResource",
-            "otherEntityRelationshipName": "receiver",
-            "relationshipName": "receiverResource"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "supplierResource",
-            "otherEntityRelationshipName": "supplier",
-            "relationshipName": "supplierResource"
-        }
-    ],
-    "changelogDate": "20200408051800",
-    "entityTableName": "receiver_supplier",
-    "dto": "no",
-    "pagination": "infinite-scroll",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "embedded": false,
-    "clientRootFolder": "",
-    "applications": "*"
+	"name": "ReceiverSupplier",
+	"fields": [
+		{
+			"fieldName": "sellerType",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "manufacturerCountry",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "orgName",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"unique"
+			]
+		},
+		{
+			"fieldName": "orgWebsite",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "addressLine1",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "addressLine2",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "city",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "zip",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "state",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "country",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "position",
+			"fieldValue": "String"
+		},
+		{
+			"fieldName": "proofOfAssociation",
+			"fieldValue": "String"
+		},
+		{
+			"fieldName": "proofOfAssociationLink",
+			"fieldValue": "String"
+		},
+		{
+			"fieldName": "firstName",
+			"fieldValue": "String"
+		},
+		{
+			"fieldName": "lastName",
+			"fieldValue": "String"
+		},
+		{
+			"fieldName": "email",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "phonenumber",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "secondaryPhoneNumber",
+			"fieldValue": "String"
+		},
+		{
+			"fieldName": "pocAddressLine1",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "pocAddressLine2",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "pocCity",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "pocZip",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "pocState",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "pocCountry",
+			"fieldType": "String",
+			"fieldValidateRules": [
+				"required"
+			]
+		},
+		{
+			"fieldName": "address",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "primaryContactName",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "latx",
+			"fieldType": "Float"
+		},
+		{
+			"fieldName": "longy",
+			"fieldType": "Float"
+		},
+		{
+			"fieldName": "npi",
+			"fieldType": "Integer"
+		},
+		{
+			"fieldName": "isReceiver",
+			"fieldType": "Boolean"
+		},
+		{
+			"fieldName": "isSupplier",
+			"fieldType": "Boolean"
+		},
+		{
+			"fieldName": "hasSterilization",
+			"fieldType": "Boolean"
+		},
+		{
+			"fieldName": "priority",
+			"fieldType": "Integer"
+		},
+		{
+			"fieldName": "notes",
+			"fieldType": "String"
+		},
+		{
+			"fieldName": "tags",
+			"fieldType": "String"
+		}
+	],
+	"relationships": [
+		{
+			"relationshipType": "one-to-many",
+			"otherEntityName": "receiverResource",
+			"otherEntityRelationshipName": "receiver",
+			"relationshipName": "receiverResource"
+		},
+		{
+			"relationshipType": "one-to-many",
+			"otherEntityName": "supplierResource",
+			"otherEntityRelationshipName": "supplier",
+			"relationshipName": "supplierResource"
+		}
+	],
+	"changelogDate": "20200408051800",
+	"entityTableName": "receiver_supplier",
+	"dto": "no",
+	"pagination": "infinite-scroll",
+	"service": "no",
+	"jpaMetamodelFiltering": false,
+	"fluentMethods": true,
+	"readOnly": false,
+	"embedded": false,
+	"clientRootFolder": "",
+	"applications": "*"
 }
