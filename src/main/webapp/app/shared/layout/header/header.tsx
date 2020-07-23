@@ -101,7 +101,7 @@ const Header = (props: IHeaderProps) => {
                 <NavLink className='text-dark' href="/request/">SUPPORT</NavLink>
               </NavItem>
               <NavItem>
-                <Button className='header-btn'>SIGN UP</Button>
+                <Button className='header-btn shadow rounded'>SIGN UP</Button>
               </NavItem>
             </Nav>
           </span>

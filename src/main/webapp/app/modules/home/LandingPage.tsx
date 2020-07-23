@@ -5,7 +5,7 @@ import { Input } from 'antd';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-const img = 'content/images/LOGO.png';
+const logo = 'content/images/LOGO.png';
 const image = 'content/images/5816.png';
 
 export default () => {
@@ -35,22 +35,22 @@ export default () => {
                     <div className="row">
 
                         <div className="col-md-4">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '200px' }}>
-                                <div className="card-body">
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '200px' }}>
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>Trust</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-4">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '200px' }}>
-                                <div className="card-body">
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '200px' }}>
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>Peace of Mind</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-4">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '200px' }}>
-                                <div className="card-body">
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '200px' }}>
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>Visibility</p>
                                 </div>
                             </div>
@@ -83,73 +83,73 @@ export default () => {
                     <div className="row">
 
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '150px', 
                             // backgroundImage: `url(${image})`, 
                             backgroundSize: '100% 100%' }}>
-                                <div className="card-body">
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '150px', 
                             // backgroundImage: `url(${image})`, 
                             backgroundSize: '100% 100%' }}>
-                                <div className="card-body">
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '150px', 
                             // backgroundImage: `url(${image})`, 
                             backgroundSize: '100% 100%' }}>
-                                <div className="card-body">
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '150px', 
                             // backgroundImage: `url(${image})`, 
                             backgroundSize: '100% 100%' }}>
-                                <div className="card-body">
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '150px', 
                             // backgroundImage: `url(${image})`, 
                             backgroundSize: '100% 100%' }}>
-                                <div className="card-body">
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '150px', 
                             // backgroundImage: `url(${image})`, 
                             backgroundSize: '100% 100%' }}>
-                                <div className="card-body">
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '150px', 
                             // backgroundImage: `url(${image})`, 
                             backgroundSize: '100% 100%' }}>
-                                <div className="card-body">
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="card mb-4 shadow-sm border border-secondary rounded-4" style={{ height: '150px', 
+                            <div className="card mb-4 shadow-sm border border-secondary cw-why-us-card" style={{ height: '150px', 
                             // backgroundImage: `url(${image})`, 
                             backgroundSize: '100% 100%' }}>
-                                <div className="card-body">
+                                <div className="card-body ">
                                     <p className="card-text bg-white" style={{ position: 'absolute', right: '-10px', top: '40%' }}>This is a wider .</p>
                                 </div>
                             </div>
@@ -173,44 +173,34 @@ export default () => {
             </div> */}
 
 
-            <footer className="mt-0 pt-0 my-md-5 container pt-0">
+            <footer className="mt-0 pt-0 my-md-5 container-fluid pt-0">
                 <div className="row">
-                    <div className="col-5 col-md">
-                        <h4>Legal</h4>
-                        <img src={image} alt='' className='cw-footer-logo' />
+                    <div className="col-md-2">
+                        {/* <h4>Legal</h4> */}
+                        <img src={logo} alt='' className='cw-footer-logo' />
                         <ul className="list-unstyled text-small">
-                            <li><a className="text-muted" href="#">Terms</a></li>
-                            <li><a className="text-muted" href="#">Privacy</a></li>
-                            <li><a className="text-muted" href="#">Info</a></li>
+                            <li>(C) 2020 needmoremed All Rights Reserved</li>
+                            <li>designed by bhanuprathap</li>
                         </ul>
                     </div>
-                    <div className="col-5 col-md">
+                    <div className="col-8 col-md">
                         <h4>Services</h4>
-                        <ul className="list-unstyled text-small">
-                            <li><a className="text-muted" href="#">Request</a></li>
-                            <li><a className="text-muted" href="#">Supply</a></li>
-                            <li><a className="text-muted" href="#">Demand</a></li>
-                            <li><a className="text-muted" href="#">Planning</a></li>
-                            {/* <li><a className="text-muted" href="#">Another one</a></li>
-                            <li><a className="text-muted" href="#">Last time</a></li> */}
+                        <ul className="list-unstyled text-small row">
+                            <li><a className="text-muted text-gray-1 span6" href="#">About Us</a></li>
+                            <li><a className="text-muted text-gray-1 ml-2" href="#">Request</a></li>
+                            <li><a className="text-muted text-gray-1 ml-2" href="#">Supply</a></li>
+                            <li><a className="text-muted text-gray-1 ml-2" href="#">Support Us</a></li>
+                            {/* <li><a className="text-muted text-gray-1" href="#">Another one</a></li>
+                            <li><a className="text-muted text-gray-1" href="#">Last time</a></li> */}
                         </ul>
                     </div>
-                    <div className="col-5 col-md">
-                        <h4>NeedMy Med</h4>
+                    
+                    <div className="col-3">
+                        <h4 className='text-gray-2'>Start a conversation</h4>
                         <ul className="list-unstyled text-small">
-                            <li><a className="text-muted" href="#">About Us</a></li>
-                            <li><a className="text-muted" href="#">Our Partners</a></li>
-                            <li><a className="text-muted" href="#">Support Us</a></li>
-                            {/* <li><a className="text-muted" href="#">Final resource</a></li> */}
-                        </ul>
-                    </div>
-                    <div className="col-5 col-md">
-                        <h4>Get in touch wit us</h4>
-                        <ul className="list-unstyled text-small">
-                            <li><a className="text-muted" href="#">Address: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy</a></li>
-                            <li><a className="text-muted" href="#">Tel: 604.XXX.XXXX</a></li>
-                            <li><a className="text-muted" href="#">Fax: 604.XXX.XXXX</a></li>
-                            <li><a className="text-muted" href="#">Email: info@needmymed.com</a></li>
+                            <li><a className="text-muted text-gray-1" href="#">Email: Email: info@needmoremed.com</a></li>
+                            <li><a className="text-muted text-gray-1" href="#">Address: Toronto, Canada</a></li>
+                            <li><a className="text-muted text-gray-1" href="#">Terms and Policy</a></li>
                         </ul>
                     </div>
                 </div>
