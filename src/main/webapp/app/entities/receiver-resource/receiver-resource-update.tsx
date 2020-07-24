@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {RouteComponentProps} from 'react-router-dom';
+import {RouteComponentProps, Link} from 'react-router-dom';
 import {Translate, translate} from 'react-jhipster';
 import {IRootState} from 'app/shared/reducers';
 import {getEntities as getResourceTypes} from 'app/entities/resource-type/resource-type.reducer';
@@ -12,7 +12,8 @@ import UploadFile from 'app/commonComponents/UploadFile';
 import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
 import {normFile} from "app/helpers/utils";
 import moment from "moment";
-import {IReceiverResource} from "app/shared/model/receiver-resource.model";
+import { IReceiverResource } from "app/shared/model/receiver-resource.model";
+import App from 'app/entities/receiver-resource/ant-loading-button'
 
 const { Option } = Select;
 
@@ -28,6 +29,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
 
   const { receiverResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account } = props;
   const receiverProfile = receiverSuppliers.filter(receiver => receiver.email === account.email);
+
   const handleClose = () => {
     props.history.push('/receiver-resource');
   };
@@ -88,6 +90,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
   };
 
   const saveEntity = values => {
+
     const entity = {
       ...(!isNew && {...receiverResourceEntity}),
       ...values
@@ -120,6 +123,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
       props.updateEntity(entity);
     }
   };
+
   const initialValues: IReceiverResource = {
     ...(!isNew && {...receiverResourceEntity}),
     receiver: {
@@ -133,6 +137,8 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
   if (receiverResourceEntity.expiration) {
     initialValues.expiration = moment(receiverResourceEntity.expiration);
   }
+
+
 
   return (
     <div>
@@ -166,7 +172,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                     }
                   ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               ) : null}
               <Form.Item
@@ -303,16 +309,14 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
               <Row gutter={[0, 8]}>
                 <Col span={4}>
                   <Form.Item>
-                    <Button type="default" htmlType="submit" icon={<ArrowLeftOutlined />}>
-                      {translate('entity.action.back')}
+                      <Button type="default" href="/receiver-resource" icon={<ArrowLeftOutlined />}>
+                      {translate('entity.action.cancel')}
                     </Button>
                   </Form.Item>
                 </Col>
                 <Col span={4}>
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
-                      <Translate contentKey="entity.action.save">Save</Translate>
-                    </Button>
+                    <Form.Item>
+                      <App />
                   </Form.Item>
                 </Col>
               </Row>

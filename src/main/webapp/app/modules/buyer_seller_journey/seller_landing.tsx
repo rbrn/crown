@@ -98,7 +98,7 @@ const RequestTypes = {
   'Request Medical Supplies': 'Request Medical Supplies'
 };
 
-const supplierIcon = new LeafIcon({ iconUrl: '../../../content/images/supplies-map.svg' });
+// const supplierIcon = new LeafIcon({ iconUrl: '../../../content/images/supplies-map.svg' });
 const requesterIcon = new LeafIcon({
   iconSize: [25, 25],
   iconUrl: '../../../content/images/requests-map.svg'
@@ -281,13 +281,13 @@ class SellerLanding extends React.Component<MapProps, State> {
     const requestPPEparam = '/receiver-resource/new?lat=' + this.state.latlng.lat + '&lng=' + this.state.latlng.lng + '&typePPE=request';
     const map = this.state.resourceSuppliersMap;
 
-    if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
-      this.state.aroundMeSuppliers.forEach(function(value) {
-        L.marker(value.latLng, { icon: supplierIcon })
-          .addTo(map)
-          .bindPopup(value.supplyType);
-      });
-    }
+    // if (this.state.aroundMeSuppliers.length > 0 && map !== null) {
+    //  this.state.aroundMeSuppliers.forEach(function(value) {
+    //    L.marker(value.latLng, { icon: supplierIcon })
+    //      .addTo(map)
+    //      .bindPopup(value.supplyType);
+    //  });
+    // }
 
     if (this.state.aroundMeReceivers.length > 0 && map !== null) {
       this.state.aroundMeReceivers.forEach(function(value) {
