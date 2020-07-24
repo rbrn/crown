@@ -12,7 +12,8 @@ import UploadFile from 'app/commonComponents/UploadFile';
 import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
 import {normFile} from "app/helpers/utils";
 import moment from "moment";
-import {IReceiverResource} from "app/shared/model/receiver-resource.model";
+import { IReceiverResource } from "app/shared/model/receiver-resource.model";
+import App from 'app/entities/receiver-resource/ant-loading-button'
 
 const { Option } = Select;
 
@@ -28,6 +29,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
 
   const { receiverResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account } = props;
   const receiverProfile = receiverSuppliers.filter(receiver => receiver.email === account.email);
+
   const handleClose = () => {
     props.history.push('/receiver-resource');
   };
@@ -88,6 +90,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
   };
 
   const saveEntity = values => {
+
     const entity = {
       ...(!isNew && {...receiverResourceEntity}),
       ...values
@@ -120,6 +123,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
       props.updateEntity(entity);
     }
   };
+
   const initialValues: IReceiverResource = {
     ...(!isNew && {...receiverResourceEntity}),
     receiver: {
@@ -133,6 +137,8 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
   if (receiverResourceEntity.expiration) {
     initialValues.expiration = moment(receiverResourceEntity.expiration);
   }
+
+
 
   return (
     <div>
@@ -309,10 +315,8 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                   </Form.Item>
                 </Col>
                 <Col span={4}>
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
-                      <Translate contentKey="entity.action.save">Save</Translate>
-                    </Button>
+                    <Form.Item>
+                      <App />
                   </Form.Item>
                 </Col>
               </Row>

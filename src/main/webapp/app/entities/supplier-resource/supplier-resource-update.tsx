@@ -11,6 +11,7 @@ import { Button, Col, DatePicker, Form, Input, InputNumber, Row, Select, Checkbo
 import {ArrowLeftOutlined, SaveOutlined} from '@ant-design/icons';
 import moment from "moment";
 import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
+import App from 'app/entities/receiver-resource/ant-loading-button'
 
 const { Option } = Select;
 import UploadFile from 'app/commonComponents/UploadFile';
@@ -324,9 +325,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                 </Col>
                 <Col span={4}>
                   <Form.Item>
-                      <Button id="submitbutton" type="primary" htmlType="submit" icon={<SaveOutlined />}>
-                      <Translate contentKey="entity.action.save">Save</Translate>
-                    </Button>
+                      <App />
                   </Form.Item>
                 </Col>
               </Row>
