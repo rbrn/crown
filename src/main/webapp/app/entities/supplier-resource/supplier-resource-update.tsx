@@ -306,7 +306,12 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     }}
                   />
                 </Form.Item>
-                <Form.Item name="publicationPermission" valuePropName="checked">
+                <Form.Item name="publicationPermission"
+                  valuePropName="checked"
+                  rules={[
+                    { validator: (_, value) => value ? Promise.resolve() : Promise.reject('Please Accept the Terms and Policy') },
+                  ]}
+                >
                   <Checkbox>
                     I give permission for publication of my product and have read the <Link to='/policy'>Terms and Policy</Link>
                   </Checkbox>

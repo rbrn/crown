@@ -44,9 +44,8 @@ const Header = (props: IHeaderProps) => {
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
 
   return (
-    // <div id="app-header">
-    <div>
-      {/* {renderDevRibbon()}
+    <div id="app-header">
+       {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
       <Navbar dark expand="sm" fixed="top" style={{backgroundColor:'white'}} className="jh-navbar justify-content-between">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
@@ -61,9 +60,9 @@ const Header = (props: IHeaderProps) => {
             <AccountMenu isAuthenticated={props.isAuthenticated} />
           </Nav>
         </Collapse>
-      </Navbar> */}
+      </Navbar>
 
-      <Navbar color="light" light expand="md" className='shadow'>
+      {/* <Navbar color="light" light expand="md" className='shadow'>
         <NavbarBrand href="/"><Brand /></NavbarBrand>
         <NavbarToggler onClick={() => { }} />
         <Collapse isOpen={false} navbar>
@@ -95,7 +94,7 @@ const Header = (props: IHeaderProps) => {
           <span>
             <Nav>
               <NavItem>
-                <NavLink className='text-dark' href="/request/">SUPPLY</NavLink>
+                <NavLink className='text-dark' href="/request/">ABOUT US</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink className='text-dark' href="/request/">SUPPORT</NavLink>
@@ -107,7 +106,8 @@ const Header = (props: IHeaderProps) => {
           </span>
 
         </Collapse>
-      </Navbar>
+      </Navbar> */}
+
     </div>
   );
 };
