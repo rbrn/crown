@@ -6,12 +6,17 @@ import { Label } from 'reactstrap';
 interface ReceiverSupplierFieldsProps {
   fieldPrefix?: string
 }
-
-const queryGET = new URLSearchParams(location.search);
+{/* const queryGET = new URLSearchParams(location.search);
 const typePPE = {
   type: queryGET.get('typePPE') || ''
 };
 
+  if (typePPE.type === "request") {
+    typePPE.type = "request";
+  } 
+  if (typePPE.type === "supply") {
+    typePPE.type = "supply";
+  } */}
 const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({ fieldPrefix }) => {
   return (
     <React.Fragment>
@@ -168,7 +173,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({ fieldPr
       <AvGroup check>
         <Label id="isReceiverLabel">
           {/* <AvInput checked value="true" id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" name={`${fieldPrefix || ''}isReceiver`}/> */}
-          {typePPE.type === "request" ?
+          {fieldPrefix === "receiver." ?
             <input name="receiver.isReceiver" checked id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" />
             :
             <input name="receiver.isReceiver" id="receiver-supplier-isReceiver" type="checkbox" className="form-check-input" />
@@ -178,7 +183,7 @@ const ReceiverSupplierFields: React.FC<ReceiverSupplierFieldsProps> = ({ fieldPr
       </AvGroup>
       <AvGroup check>
         <Label id="isSupplierLabel">
-          {typePPE.type === "supply" ?
+          {fieldPrefix === "supplier." ?
             <input name="receiver.isSupplier" checked id="receiver-supplier-isSupplier" type="checkbox" className="form-check-input" />
             :
             <input name="receiver.isSupplier" id="receiver-supplier-isSupplier" type="checkbox" className="form-check-input" />

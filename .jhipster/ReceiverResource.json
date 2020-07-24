@@ -40,6 +40,30 @@
         {
             "fieldName": "notes",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "proofOfFunds",
+            "fieldType": "string"
+        },
+        {
+        	"fieldName": "productInspection",
+        	"fieldType": "Boolean"
+        },
+        {
+        	"fieldName": "productInspectDays",
+        	"fieldType": "Integer"
+        },
+        {
+        	"fieldName": "fundRestrictions",
+        	"fieldType": "String"
+        },
+        {
+        	"fieldName": "fundsAvailable",
+        	"fieldType": "Boolean"
+        },
+        {
+        	"fieldName": "acceptUnpackagedGoods",
+        	"fieldType": "Boolean"
         }
     ],
     "relationships": [

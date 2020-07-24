@@ -25,7 +25,13 @@
       "notes": "Notes",
       "resourceType": "Resource Type",
       "receiver": "Buyer",
-      "zip": "Zip/Postal Code"
+      "zip": "Zip/Postal Code",
+      "productInspection": "Do you require a product inspection?",
+      "productInspectDays": "How many days do you need to inspect product quality?",
+      "fundsAvailable": "Do you have funds to pay for goods?",
+      "acceptUnpackagedGoods": "Are you willing to accept unpackaged goods?",
+      "pof": "Proof of funds",
+      "fundRestrictions": "Fund Terms are Set by Manufacturer and Negotiated, if you have restrictions please place them here "
     }
   }
 }

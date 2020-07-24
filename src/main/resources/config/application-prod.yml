@@ -45,6 +45,11 @@ spring:
   thymeleaf:
     cache: true
 
+azure:
+  accountName: crownwebapp
+  endpoint: https://crownwebapp.blob.core.windows.net
+  accountKey: ${AZURE_ACCOUNT_KEY}
+
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
 # keytool -genkey -alias crown -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650

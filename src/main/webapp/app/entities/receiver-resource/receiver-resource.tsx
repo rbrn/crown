@@ -117,6 +117,21 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                   <th>
                     <Translate contentKey="crownApp.receiverResource.resourceType">Resource Type</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('productInspection')}>
+                    <Translate contentKey="crownApp.receiverResource.productInspection">Product Inspection</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('productInspectDays')}>
+                    <Translate contentKey="crownApp.receiverResource.productInspectDays">Product Inspect Days</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('acceptUnpackagedGoods')}>
+                    <Translate contentKey="crownApp.receiverResource.acceptUnpackagedGoods">Accept Unpackaged Goods</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('fundRestrictions')}>
+                    <Translate contentKey="crownApp.receiverResource.fundRestrictions">Fund Restriction</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('fundsAvailable')}>
+                    <Translate contentKey="crownApp.receiverResource.fundsAvailable">Funds Available</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th>
                     <Translate contentKey="crownApp.receiverResource.receiver">Receiver</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -153,6 +168,11 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                         ''
                       )}
                     </td>
+                    <td>{receiverResource.productInspection ? 'true' : 'false'}</td>
+                    <td>{receiverResource.productInspectDays}</td>
+                    <td>{receiverResource.acceptUnpackagedGoods ? 'true' : 'false'}</td>
+                    <td>{receiverResource.fundRestrictions}</td>
+                    <td>{receiverResource.fundsAvailable ? 'true' : 'false'}</td>
                     <td>
                       {receiverResource.receiver ? (
                         <Link to={`receiver-supplier/${receiverResource.receiver.id}`}>{receiverResource.receiver.name}</Link>

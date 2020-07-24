@@ -11,6 +11,7 @@ import org.crown.domain.SupplierResource;
 import org.crown.repository.ReceiverResourceRepository;
 import org.crown.repository.ReceiverSupplierRepository;
 import org.crown.service.ReceiverResourceService;
+import org.crown.service.UserService;
 import org.crown.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,11 +33,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.crown.service.dto.UserDTO;
+import java.util.Set;
+
+
 /**
- * REST controller for managing {@link org.crown.domain.ReceiverResource}.
+ * REST controller for managing {@link ReceiverResource}.
  */
 @RestController
 @RequestMapping("/api")
@@ -51,10 +57,12 @@ public class ReceiverResourceResource {
 
     private final ReceiverResourceRepository receiverResourceRepository;
     private final ReceiverResourceService receiverResourceService;
+    private final UserService userService;
 
-    public ReceiverResourceResource(ReceiverResourceRepository receiverResourceRepository, ReceiverResourceService receiverResourceService) {
+    public ReceiverResourceResource(ReceiverResourceRepository receiverResourceRepository, ReceiverResourceService receiverResourceService, UserService userService) {
         this.receiverResourceRepository = receiverResourceRepository;
         this.receiverResourceService = receiverResourceService;
+        this.userService = userService;
     }
 
     @Autowired
@@ -120,12 +128,27 @@ public class ReceiverResourceResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of receiverResources in body.
      */
     @GetMapping("/receiver-resources")
+    //public ResponseEntity<List<ReceiverResource>> getAllReceiverResources(Pageable pageable) {
 
     public ResponseEntity<List<ReceiverResource>> getAllReceiverResources(Pageable pageable) {
         log.debug("REST request to get a page of ReceiverResources");
 
-        List<ReceiverResource> filtered = receiverResourceService.getAllReceiverResources(pageable);
-        Page<ReceiverResource> receiverResourcePage1 = new PageImpl<ReceiverResource>(filtered);
+        UserDTO user = userService.getUserWithAuthorities().map(UserDTO::new).orElseThrow(()->new RuntimeException("User could not be found"));
+        Set<String> adminList = user.getAuthorities();
+
+        List<ReceiverResource> filtered;
+
+        if(adminList.contains("ROLE_ADMIN")){
+            log.debug(String.valueOf(receiverResourceRepository.findAll(pageable)));
+            ArrayList<ReceiverResource> receiverResources = new ArrayList<>();
+            receiverResources.addAll(receiverResourceRepository.findAll());
+            filtered = receiverResources;
+        }
+        else {
+            filtered = receiverResourceService.getAllReceiverResources(pageable);
+        }
+
+        Page<ReceiverResource> receiverResourcePage1 = new PageImpl<ReceiverResource>(filtered, pageable, filtered.size());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), receiverResourcePage1);
         return ResponseEntity.ok().headers(headers).body(filtered);
     }

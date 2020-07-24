@@ -3,7 +3,8 @@ import './welcome.scss';
 import React from 'react';
 import { Form, Input, Button, Col, Row, Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandshake, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faHandshake, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 
 const Support = props => {
@@ -15,6 +16,10 @@ const Support = props => {
         });
       })
   };
+
+  function onChange(value) {
+    // console.log("Captcha value:", value);
+  }
 
   return (
     <div className="support padding-all-15" data-name="support">
@@ -64,6 +69,11 @@ const Support = props => {
                 style={{ height: '120px', borderRadius: '10px'}}
               />
             </Form.Item>
+
+            <ReCAPTCHA
+              sitekey="6LcurqoZAAAAANOiRbwTC2nTSPMZIW7BRnYEwgst"
+              onChange={onChange}
+            />
 
             <Form.Item>
               <Button type="primary" htmlType="submit"
