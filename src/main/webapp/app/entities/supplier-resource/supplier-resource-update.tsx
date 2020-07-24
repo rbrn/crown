@@ -11,6 +11,7 @@ import { Button, Col, DatePicker, Form, Input, InputNumber, Row, Select, Checkbo
 import {ArrowLeftOutlined, SaveOutlined} from '@ant-design/icons';
 import moment from "moment";
 import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
+import App from 'app/entities/receiver-resource/ant-loading-button'
 
 const { Option } = Select;
 import UploadFile from 'app/commonComponents/UploadFile';
@@ -122,6 +123,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
   if (supplierResourceEntity.quantityValidUntil) {
     initialValues.quantityValidUntil = moment(supplierResourceEntity.quantityValidUntil);
   }
+
   return (
     <div>
       <Row className="justify-content-center">
@@ -154,7 +156,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     }
                   ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               ) : null}
 
@@ -315,17 +317,15 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
               {mayBeSupplierFields()}
               <Row gutter={[0, 8]}>
                 <Col span={4}>
-                  <Form.Item>
-                    <Button type="default" htmlType="submit" icon={<ArrowLeftOutlined />}>
-                      {translate('entity.action.back')}
+                    <Form.Item>
+                      <Button type="default" href="/supplier-resource" icon={<ArrowLeftOutlined />}>
+                      {translate('entity.action.cancel')}
                     </Button>
                   </Form.Item>
                 </Col>
                 <Col span={4}>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
-                      <Translate contentKey="entity.action.save">Save</Translate>
-                    </Button>
+                      <App />
                   </Form.Item>
                 </Col>
               </Row>

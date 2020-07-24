@@ -15,7 +15,7 @@ const BoxStyles = {
 
 const ButtonStyles = {
   textAlign: 'left',
-  font: 'Bold 25px/26px Nunito',
+  font: 'Bold 20px/21px Nunito',
   letterSpacing: '0px',
   color: '#FFFFFF',
   background: '#FF7C48 0% 0% no-repeat padding-box',
@@ -65,7 +65,7 @@ class BuyerLeftPanelComponent extends React.Component<Props> {
           </div>
           <Slider min={20} max={300} onChange={changeRadius} value={typeof radius === 'number' ? radius : 10} tooltipPlacement="bottom" />
           <div className="">
-            <Button style={ButtonStyles} className="w-100 mb-2 cw-btn">
+            <Button style={ButtonStyles} onClick={() => onButtonClicked('Browse Available')} className="w-100 mb-2 cw-btn">
               Browse Available
               <img style={{ height: '26px', float: 'right' }} className="btn-img" src="content/images/supplies.svg" />
             </Button>
