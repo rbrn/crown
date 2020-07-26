@@ -26,18 +26,6 @@ export const ClaimDetail = (props: IClaimDetailProps) => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="quantity">
-              <Translate contentKey="crownApp.claim.quantity">Quantity</Translate>
-            </span>
-          </dt>
-          <dd>{claimEntity.quantity}</dd>
-          <dt>
-            <span id="notes">
-              <Translate contentKey="crownApp.claim.notes">Notes</Translate>
-            </span>
-          </dt>
-          <dd>{claimEntity.notes}</dd>
-          <dt>
             <span id="status">
               <Translate contentKey="crownApp.claim.status">Status</Translate>
             </span>
