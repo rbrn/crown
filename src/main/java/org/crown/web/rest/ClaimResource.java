@@ -3,8 +3,12 @@ package org.crown.web.rest;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.crown.domain.Claim;
+import org.crown.domain.ReceiverResource;
+import org.crown.domain.ReceiverSupplier;
 import org.crown.domain.User;
 import org.crown.repository.ClaimRepository;
+import org.crown.repository.ReceiverResourceRepository;
+import org.crown.repository.ReceiverSupplierRepository;
 import org.crown.service.ClaimResourceService;
 import org.crown.service.MailService;
 import org.crown.service.UserService;
@@ -39,6 +43,10 @@ public class ClaimResource {
 
     private final ClaimRepository claimRepository;
 
+    private final ReceiverResourceRepository receiverResourceRepository;
+
+    private final ReceiverSupplierRepository receiverSupplierRepository;
+
     private final UserService userService;
 
     private final MailService mailService;
@@ -46,11 +54,15 @@ public class ClaimResource {
     private final ClaimResourceService claimResourceService;
 
     public ClaimResource(ClaimRepository claimRepository, UserService userService,
-                         MailService mailService, ClaimResourceService claimResourceService) {
+                         MailService mailService, ClaimResourceService claimResourceService,
+                         ReceiverResourceRepository receiverResourceRepository,
+                         ReceiverSupplierRepository receiverSupplierRepository) {
         this.claimRepository = claimRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.claimResourceService = claimResourceService;
+        this.receiverResourceRepository = receiverResourceRepository;
+        this.receiverSupplierRepository = receiverSupplierRepository;
     }
 
     /**
@@ -66,6 +78,21 @@ public class ClaimResource {
         if (claim.getId() != null) {
             throw new BadRequestAlertException("A new claim cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        if (claim.getReceiverResource().getId() == null) {
+            ReceiverResource receiverResource = claim.getReceiverResource();
+            if(receiverSupplierRepository.countAllByEmail(receiverResource.getReceiver().getEmail()) == 0){
+                ReceiverSupplier receiverSupplier =  receiverSupplierRepository.save(receiverResource.getReceiver());
+                receiverResource.setReceiver(receiverSupplier);
+            } else {
+                ReceiverSupplier receiverSupplier =  receiverSupplierRepository.findByEmail(receiverResource.getReceiver().getEmail());
+                receiverResource.setReceiver(receiverSupplier);
+            }
+
+            ReceiverResource result = receiverResourceRepository.save(receiverResource);
+            claim.receiverResource(result);
+        }
+
         Claim result = claimRepository.save(claim);
         User user = userService.getUserWithAuthorities().orElseThrow(() -> new RuntimeException("User could not be found"));
         mailService.sendClaimEmail(user, result);

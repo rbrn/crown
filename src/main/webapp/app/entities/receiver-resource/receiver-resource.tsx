@@ -1,16 +1,15 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, ICrudGetAllAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Table} from 'reactstrap';
+import {getSortState, TextFormat, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntities, reset } from './receiver-resource.reducer';
-import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities, reset} from './receiver-resource.reducer';
+import {APP_LOCAL_DATE_FORMAT} from 'app/config/constants';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
 
 export interface IReceiverResourceProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -93,9 +92,6 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                   {/* <th className="hand" onClick={sort('id')}>
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                   </th> */}
-                  <th className="hand" onClick={sort('name')}>
-                    <Translate contentKey="crownApp.receiverResource.name">Name</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th className="hand" onClick={sort('quantity')}>
                     <Translate contentKey="crownApp.receiverResource.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -146,11 +142,6 @@ export const ReceiverResource = (props: IReceiverResourceProps) => {
                         {receiverResource.id}
                       </Button>
                     </td> */}
-                    <td>
-                      <Button tag={Link} to={`${match.url}/${receiverResource.id}`} color="link" size="sm">
-                        {receiverResource.name}
-                      </Button>
-                    </td>
                     <td>{receiverResource.quantity}</td>
                     <td>{receiverResource.dailyUse}</td>
                     <td>
