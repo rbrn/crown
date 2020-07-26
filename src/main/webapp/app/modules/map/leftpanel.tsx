@@ -45,10 +45,10 @@ class LeftPanelComponent extends React.Component<Props> {
               </div>
               <h6>I am a maker/manufacturer</h6>
               <div className=''>
-                {/* <Button onClick={() => onButtonClicked('Browse Requeste')} className='w-100 mb-2 cw-btn secondary'>
+                <Button onClick={() => onButtonClicked('Browse Requeste')} className='w-100 mb-2 cw-btn secondary'>
                   Browse Requested
                   <img className="btn-img" src='content/images/requests.svg' />
-                </Button> */}
+                </Button>
                 <Button onClick={() => onButtonClicked('Supply Medical Supplies')} className='w-100 cw-btn secondary'>
                   Supply Medical Supplies
                   <img className="btn-img" src='content/images/requests.svg' />
