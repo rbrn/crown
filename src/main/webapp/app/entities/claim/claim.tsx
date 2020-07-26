@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './claim.reducer';
 import { IClaim } from 'app/shared/model/claim.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES} from 'app/config/constants';
+import {hasAnyAuthority} from "app/shared/auth/private-route";
 
 export interface IClaimProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -66,12 +67,18 @@ export const Claim = (props: IClaimProps) => {
                 <th>
                   <Translate contentKey="crownApp.claim.fundRestrictions">fundRestrictions</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>
-                </th>
+                {
+                  props.isAdmin &&
+                  <th>
+                    <Translate contentKey="crownApp.claim.receiverResource">Receiver Resource</Translate>
+                  </th>
+                }
+                {
+                  props.isAdmin &&
+                  <th>
+                    <Translate contentKey="crownApp.claim.supplierResource">Supplier Resource</Translate>
+                  </th>
+                }
                 <th />
               </tr>
             </thead>
@@ -83,34 +90,40 @@ export const Claim = (props: IClaimProps) => {
                       {claim.id}
                     </Button>
                   </td>
-                  <td>{claim.quantity}</td>
-                  <td>{claim.notes}</td>
+                  <td>{claim.receiverResource.quantity}</td>
+                  <td>{claim.receiverResource.notes}</td>
                   <td>
                     <Translate contentKey={`crownApp.ClaimStatusEnum.${claim.status}`} />
                   </td>
-                  <td>{claim.currentStock}</td>
+                  <td>{claim.receiverResource.currentStock}</td>
                   <td>
-                    <TextFormat type="date" value={claim.expiration} format={APP_LOCAL_DATE_FORMAT} />
+                    <TextFormat type="date" value={claim.receiverResource.expiration} format={APP_LOCAL_DATE_FORMAT} />
                   </td>
-                  <td>{claim.productInspection ? 'true' : 'false'}</td>
-                  <td>{claim.productInspectDays}</td>
-                  <td>{claim.fundsAvailable ? 'true' : 'false'}</td>
-                  <td>{claim.acceptUnpackagedGoods ? 'true' : 'false'}</td>
-                  <td>{claim.fundRestrictions}</td>
-                  <td>
-                    {claim.receiverResource ? (
-                      <Link to={`receiver-resource/${claim.receiverResource.id}`}>{claim.receiverResource.id}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {claim.supplierResource ? (
-                      <Link to={`supplier-resource/${claim.supplierResource.id}`}>{claim.supplierResource.id}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
+                  <td>{claim.receiverResource.productInspection ? 'true' : 'false'}</td>
+                  <td>{claim.receiverResource.productInspectDays}</td>
+                  <td>{claim.receiverResource.fundsAvailable ? 'true' : 'false'}</td>
+                  <td>{claim.receiverResource.acceptUnpackagedGoods ? 'true' : 'false'}</td>
+                  <td>{claim.receiverResource.fundRestrictions}</td>
+                  {
+                    props.isAdmin &&
+                    <td>
+                      {claim.receiverResource ? (
+                        <Link to={`receiver-resource/${claim.receiverResource.id}`}>{claim.receiverResource.id}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </td>
+                  }
+                  {
+                    props.isAdmin &&
+                    <td>
+                      {claim.supplierResource ? (
+                        <Link to={`supplier-resource/${claim.supplierResource.id}`}>{claim.supplierResource.id}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </td>
+                  }
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${claim.id}`} color="info" size="sm">
@@ -149,9 +162,10 @@ export const Claim = (props: IClaimProps) => {
   );
 };
 
-const mapStateToProps = ({ claim }: IRootState) => ({
+const mapStateToProps = ({ authentication, claim }: IRootState) => ({
   claimList: claim.entities,
-  loading: claim.loading
+  loading: claim.loading,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = {

@@ -1,7 +1,6 @@
 import { IReceiverResource } from 'app/shared/model/receiver-resource.model';
 import { ISupplierResource } from 'app/shared/model/supplier-resource.model';
 import { ClaimStatusEnum } from 'app/shared/model/enumerations/claim-status-enum.model';
-import { Moment } from 'moment';
 
 export interface IClaim {
   id?: string;

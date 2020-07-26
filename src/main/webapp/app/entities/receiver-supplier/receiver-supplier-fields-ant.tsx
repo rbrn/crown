@@ -13,7 +13,7 @@ i18nIsoCountries.registerLocale(i18nEnIsoCountriesJson)
 const { Option } = Select;
 
 interface ReceiverSupplierFieldsProps {
-  fieldPrefix: string
+  fieldPrefix: string[]
   updatePoaFileList: (fileName) => void
 }
 
@@ -26,7 +26,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
         <h6 id="crownApp.receiverSupplier.orgAddress">
           <Translate contentKey="crownApp.receiverSupplier.orgAddress">Organization Address</Translate>
         </h6>
-        <AddressFields fieldPrefix={[fieldPrefix]}/>
+        <AddressFields fieldPrefix={[...fieldPrefix]}/>
       </React.Fragment>
     )
   };
@@ -40,7 +40,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
         <h6 id={addressKey}>
           <Translate contentKey={addressKey}>Delivery Address</Translate>
         </h6>
-        <PocAddressFields fieldPrefix={[fieldPrefix]}/>
+        <PocAddressFields fieldPrefix={[...fieldPrefix]}/>
       </React.Fragment>
     )
   };
@@ -53,7 +53,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       {
         fieldPrefix.includes('receiver') ? null : (
           <Form.Item
-            name={[fieldPrefix, 'sellerType']}
+            name={[...fieldPrefix, 'sellerType']}
             label={translate('crownApp.receiverSupplier.sellerType')}
           >
             <Select placeholder="Select seller type">
@@ -66,7 +66,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
         )
       }
       <Form.Item
-        name={[fieldPrefix, 'orgName']}
+        name={[...fieldPrefix, 'orgName']}
         label={translate('crownApp.receiverSupplier.orgName')}
         rules={[
           {
@@ -78,7 +78,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
         <Input placeholder="Enter organization name"/>
       </Form.Item>
       <Form.Item
-        name={[fieldPrefix, 'orgWebsite']}
+        name={[...fieldPrefix, 'orgWebsite']}
         label={translate('crownApp.receiverSupplier.orgWebsite')}
         rules={[
           {
@@ -97,7 +97,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       {
         fieldPrefix.includes('receiver') ? null : (
           <Form.Item
-            name={[fieldPrefix, 'manufacturerCountry']}
+            name={[...fieldPrefix, 'manufacturerCountry']}
             label={translate('crownApp.receiverSupplier.manufacturerCountry')}
           >
             <Select placeholder="Select country">
@@ -120,7 +120,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </h5>
 
       <Form.Item
-        name={[fieldPrefix, 'position']}
+        name={[...fieldPrefix, 'position']}
         label={translate('crownApp.receiverSupplier.position')}
         rules={[
           {
@@ -133,7 +133,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'pofFiles']}
+        name={[...fieldPrefix, 'pofFiles']}
         label={translate('crownApp.receiverSupplier.proofOfAssociation')}
         valuePropName="fileList"
         getValueFromEvent={normFile}
@@ -149,7 +149,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'proofOfAssociation']}
+        name={[...fieldPrefix, 'proofOfAssociation']}
         hidden={true}
         style={{ display: 'none' }}
       >
@@ -157,7 +157,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'proofOfAssociationLink']}
+        name={[...fieldPrefix, 'proofOfAssociationLink']}
         label={translate('crownApp.receiverSupplier.proofOfAssociationLink')}
         rules={[
           {
@@ -174,7 +174,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'firstName']}
+        name={[...fieldPrefix, 'firstName']}
         label={translate('crownApp.receiverSupplier.firstName')}
         rules={[
           {
@@ -187,7 +187,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'lastName']}
+        name={[...fieldPrefix, 'lastName']}
         label={translate('crownApp.receiverSupplier.lastName')}
         rules={[
           {
@@ -200,7 +200,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'email']}
+        name={[...fieldPrefix, 'email']}
         label={translate('crownApp.receiverSupplier.email')}
         rules={[{type: 'email'}]}
       >
@@ -208,7 +208,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'phonenumber']}
+        name={[...fieldPrefix, 'phonenumber']}
         label={translate('crownApp.receiverSupplier.phonenumber')}
         rules={[
           {
@@ -221,14 +221,14 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'secondaryPhoneNumber']}
+        name={[...fieldPrefix, 'secondaryPhoneNumber']}
         label={translate('crownApp.receiverSupplier.secondaryPhoneNumber')}
       >
         <Input placeholder="Enter secondary phone number of person of contact"/>
       </Form.Item>
 
       <Form.Item
-        name={[fieldPrefix, 'differentLocationAddress']}
+        name={[...fieldPrefix, 'differentLocationAddress']}
         valuePropName="checked"
       >
         <Checkbox>
@@ -244,18 +244,23 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
       </Form.Item>
       <Form.Item
         noStyle
-        // shouldUpdate={
-        //   (prevValues, currentValues) =>
-        //     prevValues[fieldPrefix].differentLocationAddress !== currentValues[fieldPrefix].differentLocationAddress
-        // }
+        shouldUpdate={
+          (prevValues, currentValues) => {
+            if (fieldPrefix.length === 2) {
+              return prevValues[fieldPrefix[0]][fieldPrefix[1]].differentLocationAddress !== currentValues[fieldPrefix[0]][fieldPrefix[1]].differentLocationAddress
+            } else {
+              return prevValues[fieldPrefix.toString()].differentLocationAddress !== currentValues[fieldPrefix.toString()].differentLocationAddress
+            }
+          }
+        }
       >
         {({getFieldValue}) => {
-          return getFieldValue([fieldPrefix, 'differentLocationAddress']) ? maybeAdditionalAddressFields() : null;
+          return getFieldValue([...fieldPrefix, 'differentLocationAddress']) ? maybeAdditionalAddressFields() : null;
         }}
       </Form.Item>
       {/* following fields will be removed in upcoming sprints, keeping them here for now as these are required in backend */}
       <Form.Item
-        name={[fieldPrefix, 'name']}
+        name={[...fieldPrefix, 'name']}
         hidden={true}
         style={{ display: 'none' }}
         initialValue="test name"
@@ -263,7 +268,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
         <Input hidden={true}/>
       </Form.Item>
       <Form.Item
-        name={[fieldPrefix, 'primaryContactName']}
+        name={[...fieldPrefix, 'primaryContactName']}
         hidden={true}
         style={{ display: 'none' }}
         initialValue="test primaryContactName"

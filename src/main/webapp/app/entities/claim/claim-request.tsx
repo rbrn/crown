@@ -16,8 +16,8 @@ import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-s
 import {normFile} from "app/helpers/utils";
 import UploadFile from "app/commonComponents/UploadFile";
 import {getEntities as getResourceTypes} from "app/entities/resource-type/resource-type.reducer";
-import {ArrowLeftOutlined, SaveOutlined} from '@ant-design/icons';
-import moment from 'moment';
+import {ArrowLeftOutlined} from '@ant-design/icons';
+import App from "app/entities/receiver-resource/ant-loading-button";
 
 const { Option } = Select;
 
@@ -39,10 +39,8 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
   const query = new URLSearchParams(props.location.search);
   const lat = query.get('lat') || 0;
   const lng = query.get('lng') || 0;
-
   const initialValues: IClaim = {
     receiverResource: {
-      postedDate: moment(),
       receiver: {
         email: account.email,
         isReceiver: true,
@@ -129,16 +127,19 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
       ...entity,
       ...values
     };
-
     if (receiverProfile.length !== 0) {
-      persistent.receiverResource.receiver = receiverProfile[0]
+      persistent.receiverResource.receiver = {
+        email: receiverProfile[0].email
+      }
     } else {
-      persistent.receiverResource.receiver =  {
+      const receiver = {
+        ...persistent.receiverResource.receiver,
         email: account.email,
         isReceiver: true,
         latx: Number(lat),
         longy: Number(lng)
       }
+      persistent.receiverResource.receiver = receiver
     }
     props.createEntity(persistent);
   };
@@ -150,7 +151,7 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
     return (
       <React.Fragment>
         <ReceiverSupplierAntFields
-          fieldPrefix="receiver"
+          fieldPrefix={['receiverResource', 'receiver']}
           updatePoaFileList={updatePoaFileList}
         />
       </React.Fragment>
@@ -336,9 +337,7 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                     </Col>
                     <Col span={4}>
                       <Form.Item>
-                        <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
-                          <Translate contentKey="entity.action.save">Save</Translate>
-                        </Button>
+                        <App />
                       </Form.Item>
                     </Col>
                   </Row>

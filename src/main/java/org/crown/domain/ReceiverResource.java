@@ -23,7 +23,6 @@ public class ReceiverResource implements Serializable {
     @Id
     private String id;
 
-    @NotNull
     @Field("name")
     private String name;
 
@@ -54,22 +53,22 @@ public class ReceiverResource implements Serializable {
     @DBRef
     @Field("resourceType")
     private ResourceType resourceType;
-    
+
     @Field("productInspection")
     private boolean productInspection;
-    
+
     @Field("productInspectDays")
     private int productInspectDays;
 
     @Field("fundRestrictions")
     private String fundRestrictions;
-    
+
     @Field("fundsAvailable")
     private boolean fundsAvailable;
 
     @Field("acceptUnpackagedGoods")
     private boolean acceptUnpackagedGoods;
-    
+
     @DBRef
     @Field("receiver")
     @JsonIgnoreProperties("receiverResources")
