@@ -11,6 +11,8 @@ import LoadingBar from 'react-redux-loading-bar';
 import { Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 
+import Auth from 'app/Components/Auth/Auth';
+
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -101,7 +103,7 @@ const Header = (props: IHeaderProps) => {
                 <NavLink className='text-dark' href="/request/">SUPPORT</NavLink>
               </NavItem>
               <NavItem>
-                <Button className='header-btn shadow rounded'>SIGN UP</Button>
+                <Auth />
               </NavItem>
             </Nav>
           </span>
