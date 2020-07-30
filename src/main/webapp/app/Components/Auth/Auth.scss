@@ -1,21 +1,27 @@
+@import 'app/Styles/Colors.scss';
+
 .auth {
-  box-shadow: -1px -0.5px 5px #00000038;
+  box-shadow: -1px -0.5px 5px $black-200;
   display: inline-block;
   font-size: 14px;
   padding: 16px;
 
   input {
-    border-radius: 4px;
-    border: 1px solid #c6c6c6;
-    border: 2px solid #ccc;
     box-sizing: border-box;
-    color: #c6c6c6;
+    color: black;
+    outline: none;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid $gray-100;
     display: inline-block;
     font-size: 14px;
     margin: 8px 0;
-    opacity: 0.6;
     padding: 12px 20px;
-    width: 100%;
+  }
+
+  input:hover,
+  input:focus {
+    border: 1px solid $blue-300;
   }
 
   input[type='checkbox'] {
@@ -23,8 +29,15 @@
     width: 13px;
   }
 
+  ::placeholder,
+  ::-webkit-input-placeholder,
+  :-ms-input-placeholder {
+    color: $gray-200;
+    opacity: 0.6;
+  }
+
   .buttons {
-    border-bottom: 1px solid #c6c6c6;
+    border-bottom: 1px solid $gray-100;
     display: flex;
     font-size: 20px;
     justify-content: center;
@@ -43,22 +56,22 @@
       }
 
       .signin-btn {
-        color: #ff7c48;
+        color: $primary-color;
       }
     }
 
     .button-container:not(:last-child) {
-      border-right: 1px solid #ddd;
+      border-right: 1px solid $gray-100;
     }
   }
 
   .strenth {
-    color: #c6c6c6;
+    color: $gray-200;
     margin: 8px 0;
     text-align: right;
 
     span {
-      background: #c6c6c6 0% 0% no-repeat padding-box;
+      background: $gray-200 0% 0% no-repeat padding-box;
       border-radius: 6px;
       display: inline-block;
       height: 4px;
@@ -70,11 +83,11 @@
   }
 
   .login-btn {
-    background: #ff7c48 0% 0% no-repeat padding-box;
+    background: $primary-color 0% 0% no-repeat padding-box;
     border-radius: 4px;
     border: none;
-    box-shadow: 1px 7px 20px #00000024;
-    color: #ffffff;
+    box-shadow: 1px 7px 20px $black-100;
+    color: white;
     cursor: pointer;
     display: block;
     font-size: 20px;
@@ -85,7 +98,7 @@
   }
 
   .terms {
-    color: #707070;
+    color: $gray-200;
     opacity: 1;
 
     strong {
