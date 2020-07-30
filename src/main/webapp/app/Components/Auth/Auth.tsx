@@ -11,34 +11,30 @@ const Auth = () => {
 		<>
 			<Button id='Popover1' className='header-btn shadow rounded Popover1'>SIGN UP</Button>
 			<Popover placement="bottom-end" isOpen={popoverOpen} target="Popover1" toggle={toggle} trigger="hover">
-				<div id="id01" className="auth">
-					<form className="animate">
-						<div className="container">
-							<div className="clearfix mm">
-								<div className="button-container">
-									<button type="button" className="signin-btn">Sign In</button>
-								</div>
-								<div className="button-container">
-									<button type="submit" className="signup-btn">Sign Up</button>
-								</div>
-							</div>
-							<input type="text" placeholder="Username" name="email" />
-							<input className='email' type="text" placeholder="Email" name="psw" />
-							<input type="password" placeholder="Password" name="psw" />
-							<div className='strenth'>
-								<span></span>
-								<span></span>
-								<span></span>
-								<span></span>
-								<span></span>
-								Password Strenth
-							</div>
-							<input type="password" placeholder="Confirm Password" name="psw-repeat" />
-							<input type="checkbox" /><span className='terms'> I have read and agree to the <strong>Terms and Policy</strong></span>
-							<button type='submit' className='login-btn'>Log In</button>
+				<form className="auth">
+					<div className="buttons">
+						<div className="button-container">
+							<button type="button" className="signin-btn">Sign In</button>
 						</div>
-					</form>
-				</div>
+						<div className="button-container">
+							<button type="button" className="signup-btn">Sign Up</button>
+						</div>
+					</div>
+					<input type="text" placeholder="Username" name="username" />
+					<input type="text" placeholder="Email" name="email" />
+					<input type="password" placeholder="Password" name="password" />
+					<div className='strenth'>
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						Password Strenth
+					</div>
+					<input type="password" placeholder="Confirm Password" name="password-repeat" />
+					<input type="checkbox" /><span className='terms'> I have read and agree to the <strong>Terms and Policy</strong></span>
+					<button type='submit' className='login-btn'>Log In</button>
+				</form>
 			</Popover>
 		</>
 	);
