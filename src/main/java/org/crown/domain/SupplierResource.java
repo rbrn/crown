@@ -25,6 +25,7 @@ public class SupplierResource implements Serializable {
 	private String id;
 
 	@DBRef
+    @NotNull
 	@Field("resourceType")
 	private ResourceType resourceType;
 
@@ -32,6 +33,7 @@ public class SupplierResource implements Serializable {
 	@Field("quantity")
 	private Integer quantity = 0;
 
+	@NotNull
 	@Field("quantityValidUntil")
 	private Date quantityValidUntil;
 
@@ -39,12 +41,15 @@ public class SupplierResource implements Serializable {
 	@Field("cost")
 	private Double cost = 0.0;
 
+	@NotNull
 	@Field("productAvailabilityLeadTime")
 	private Integer productAvailabilityLeadTime;
 
+	@NotNull
 	@Field("minOrderQuantity")
 	private Integer minOrderQuantity;
 
+	@NotNull
 	@Field("quantityOnHand")
 	private Integer quantityOnHand;
 
