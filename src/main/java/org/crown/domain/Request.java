@@ -21,18 +21,22 @@ public class Request implements Serializable {
     @Id
     private String id;
 
+    @NotNull
     @Field("item_type")
     private String itemType;
 
+    @NotNull
     @Field("num_requested")
     private Integer numRequested;
 
+    @NotNull
     @Field("daily_need")
     private Integer dailyNeed;
 
     @Field("numin_stock")
     private Integer numinStock;
 
+    @NotNull
     @Field("days_left")
     private Integer daysLeft;
 
