@@ -286,9 +286,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.azure</groupId>
-            <artifactId>azure-storage-blob</artifactId>
-            <version>12.4.0</version>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.827</version>
         </dependency>
     </dependencies>
 
