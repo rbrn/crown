@@ -17,8 +17,9 @@ const headingText = {
   letterSpacing: '0px',
   color: '#FF7C48',
   textTransform: 'uppercase' as const,
-  marginBottom: '2px',
-  opacity: 1
+  marginBottom: '20px',
+  opacity: 1,
+  lineHeight: '50px'
 };
 
 const headingTextCrew = {
@@ -36,16 +37,24 @@ const headingTextCrew = {
 };
 
 const ImageStyle = {
-  marginTop: '-130px',
+  marginTop: '-120px',
   left: '786px',
   width: '589px',
   height: '589px'
+};
+const ImageStyle3 = {
+  marginTop: '20px',
+  marginBottom: '200px',
+  left: '786px',
+  width: '589px',
+  height: '489px'
 };
 
 const headingSubText = {
   font: 'Regular 31px/50px Nunito',
   textAlign: 'left' as const,
   letterSpacing: '0px',
+  lineHeight: '30px',
   color: '#333333',
   opacity: 1
 };
@@ -87,16 +96,17 @@ const About = props => (
             March and partnered with a group of Americans and Europeans (CROWN), followed by the EUvsVirus Hackathon (the BIGGEST Hackathon
             ever!), then the MIT Hackathon, Helpful Engineering Hackathon and Taiwan Hackathon .. picking up new people all along the way.
             So here we are, 5 hackathons later and with a team of 30, we have built a supply-demand exchange platform - from manufacturer to
-            consumer - we do any size, and specialize in large exchanges! Always keeping in mind helping people, making a difference, the
-            future of product exchange and other people based needs that help - and put people first and put profit as an essential, and on
-            equal footing to the environment and human needs. This for us is the new internet .. how to order, exchange and procure - and
-            we’re doing it for the makers and buyers - so it’s easy, an anti-amazon for product exchange for medical supply - where YOU are
-            in the driving seat! And thank you for being on this journey of having the world work with us!
+            consumer - we do any size, and specialize in large exchanges!
+            <br /> Always keeping in mind helping people, making a difference, the future of product exchange and other people based needs
+            that help - and put people first and put profit as an essential, and on equal footing to the environment and human needs. This
+            for us is the new internet .. how to order, exchange and procure - and we’re doing it for the makers and buyers - so it’s easy,
+            an anti-amazon for product exchange for medical supply - where YOU are in the driving seat! And thank you for being on this
+            journey of having the world work with us!
           </p>
         </p>
       </Col>
     </Row>
-    <Row>
+    <Row style={{ marginTop: '100px' }}>
       <Col span={8}>
         <p style={headingText}>HOW WE DO IT?</p>
 
@@ -106,7 +116,9 @@ const About = props => (
             decentralized supply chain procurement and ordering model to combat inefficiency in medical supplies logistics networks.
           </p>
           <p style={{ color: '#FF7C48', textAlign: 'center' }}>
-            <i>MISSION - Medical Supplies For All People, Forever.</i>
+            <i>
+              <b>MISSION</b> - Medical Supplies For All People, Forever.
+            </i>
           </p>
           <p>
             We will match all manufacturers and brokers to purchasers by providing never before seen insights by using cutting edge
@@ -117,7 +129,7 @@ const About = props => (
         </p>
       </Col>
       <Col span={16}>
-        <Image src="../../../content/images/office-pane.svg" style={ImageStyle} />
+        <Image src="../../../content/images/why-us.svg" style={ImageStyle3} />
       </Col>
     </Row>
 
