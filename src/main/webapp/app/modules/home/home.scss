@@ -18,6 +18,7 @@ Landing Page styles
   color: black;
   border-radius: 20px;
 }
+
 .subscribe-btn:hover {
   color: rgb(70, 152, 220) !important;
 }
@@ -33,22 +34,28 @@ Landing Page styles
   background-color: #ff7c48 !important;
   border: none !important;
 }
+
 .cw-jumb {
   background-image: url('../home/5816.png');
 }
+
 .cw-about-us-footer {
   display: flex;
   justify-content: flex-end;
 }
+
 .cw-footer-logo {
   width: 50%;
 }
+
 .text-gray-1 {
   color: #bfbfbf !important;
+
   &:hover {
     color: #ff7c48 !important;
   }
 }
+
 .text-gray-2 {
   color: #707070 !important;
 }
