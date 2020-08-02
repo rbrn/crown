@@ -1,10 +1,11 @@
 package org.crown.web.rest;
 
+import com.azure.core.annotation.QueryParam;
 import io.github.jhipster.web.util.HeaderUtil;
-import org.crown.service.dto.FileUploadResponse;
-import org.crown.service.s3Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.crown.domain.User;
+import org.crown.repository.BlobStorageRepository;
+import org.crown.service.UserService;
+import org.crown.web.rest.errors.BadRequestAlertException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -12,87 +13,67 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotEmpty;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api")
 public class DocumentResource {
-
-    private final Logger logger = LoggerFactory.getLogger(DocumentResource.class);
-
-    private final s3Service s3Client;
+    private static final String ENTITY_NAME = "document";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private BlobStorageRepository blobStorageRepository;
+
+    private final UserService userService;
+
     @Autowired
-    public DocumentResource(s3Service s3Client) {
-        this.s3Client = s3Client;
+    public DocumentResource(BlobStorageRepository blobStorageRepository, UserService userService) {
+        this.blobStorageRepository = blobStorageRepository;
+        this.userService = userService;
     }
 
-    @PostMapping("file/upload")
-    public FileUploadResponse uploadDocument(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/document/upload")
+    public ResponseEntity uploadDocument(@NotEmpty @RequestParam("entityType") String entityType,
+                                         @NotEmpty @RequestParam("fieldType") String fieldType,
+                                         @RequestParam("file") MultipartFile file) throws BadRequestAlertException, URISyntaxException {
         try {
-            String[] fileData = s3Client.uploadDocument(UUID.randomUUID().toString(), file);
-            String fileDownloadUri = ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path(file.getOriginalFilename() + "_" + fileData[0] + "_" + fileData[1])
-                .toUriString();
-            return new FileUploadResponse(file.getOriginalFilename(), fileData[1], fileData[0],
-                fileDownloadUri, fileData[2]);
-        } catch (IOException e) {
-            logger.warn("Error uploading file {}. Error: {}", file.getOriginalFilename(), e.getMessage());
+            User user = userService.getUserWithAuthorities().orElseThrow(() -> new RuntimeException("User could not be found"));
+            String fileName = user.getLogin() + "/" + file.getOriginalFilename();
+            String containerName = entityType + "-" + fieldType;
+            blobStorageRepository.createBlob(containerName, fileName, file.getInputStream(), file.getSize());
+        } catch (IOException io) {
+            throw new BadRequestAlertException("Error uploading file", entityType + "-" + ENTITY_NAME, "idnull");
         }
 
-        return new FileUploadResponse();
-
+        return ResponseEntity.created(new URI("/api/documents")).
+            headers(HeaderUtil.createEntityCreationAlert(applicationName, true, entityType + "-" + ENTITY_NAME, "")).
+            build();
     }
 
-    @PostMapping("files/upload")
-    public List<FileUploadResponse> uploadDocuments(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-            .stream()
-            .map(file -> uploadDocument(file))
-            .collect(Collectors.toList());
-
-    }
-
-    @GetMapping("file/download/{filePath}/{fileName}")
-    public ResponseEntity getDocuments(@PathVariable String filePath, @PathVariable String fileName, HttpServletRequest request) {
-
+    @GetMapping("documents/{entityType}/{fieldType}")
+    public ResponseEntity getDocuments(@PathVariable String entityType,
+                                       @PathVariable String fieldType,
+                                       @QueryParam("fileName") String fileName,
+                                       HttpServletRequest request) {
         try {
-            String[] fileInfo = filePath.split("_");
-            ByteArrayOutputStream downloadInputStream = s3Client.downloadDocument(fileInfo[2], fileInfo[1]);
+            User user = userService.getUserWithAuthorities().orElseThrow(() -> new RuntimeException("User could not be found"));
+            String updatedFileName = user.getLogin() + "/" + fileName;
+            String containerName = entityType + "-" + fieldType;
+            ByteArrayOutputStream blob = blobStorageRepository.getBlob(containerName, updatedFileName);
+            String contentType = request.getServletContext().getMimeType(updatedFileName);
             return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(fileName))
+                .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
-                .body(downloadInputStream.toByteArray());
-        } catch (Exception e) {
-            logger.warn("Error downloading file {}. Error: {}", fileName, e.getMessage());
+                .body(blob.toByteArray());
+        } catch (IOException e) {
+            throw new BadRequestAlertException("Error downloading file", entityType + " - " + ENTITY_NAME + ":" + fileName, "idnull");
         }
-
-
-        return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType("crown/octet-stream"))
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
-            .body(new byte[]{});
-
     }
-
-    @DeleteMapping("/file/{id}")
-    public ResponseEntity<Void> deleteObject(@PathVariable String id) {
-        logger.debug("REST request to delete s3 document : {}", id);
-        String[] fileInfo = id.split("_");
-        s3Client.deleteDocument(fileInfo[2], fileInfo[1]);
-        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "Deleted file", id)).build();
-    }
-
 }
