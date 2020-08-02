@@ -267,8 +267,8 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     action="api/document/upload"
                     onSuccess={updatePoaFileList}
                     data={{
-                      entityType: 'sell',
-                      fieldType: 'poa'
+                      entityType: 'buy',
+                      fieldType: 'pof'
                     }}
                   />
               </Form.Item>
@@ -282,8 +282,8 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     action="api/document/upload"
                     onSuccess={updatePoaFileList}
                     data={{
-                      entityType: 'sell',
-                      fieldType: 'poa'
+                      entityType: 'buy',
+                      fieldType: 'pof'
                     }}
                   />
                 </Form.Item>
@@ -297,8 +297,8 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     action="api/document/upload"
                     onSuccess={updatePoaFileList}
                     data={{
-                      entityType: 'sell',
-                      fieldType: 'poa'
+                      entityType: 'buy',
+                      fieldType: 'pof'
                     }}
                   />
                 </Form.Item>
