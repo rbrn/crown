@@ -64,19 +64,20 @@ const Header = (props: IHeaderProps) => {
         </Collapse>
       </Navbar>
 
-      {/* <Navbar color="light" light expand="md" className='shadow'>
+
+      {/* <Navbar color="white" light expand="md" className='shadow'>
         <NavbarBrand href="/"><Brand /></NavbarBrand>
         <NavbarToggler onClick={() => { }} />
         <Collapse isOpen={false} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink className='text-dark' href="/request/">REQUEST</NavLink>
+              <Link className='text-dark nav-link' to="/buyer-journey">REQUEST</Link>
             </NavItem>
             <NavItem>
-              <NavLink className='text-dark' href="/request/">SUPPLY</NavLink>
+              <Link className='text-dark nav-link' to="/seller-journey">SUPPLY</Link>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle className='text-dark' nav caret>
+              <DropdownToggle className='text-dark nav-link' nav caret>
                 Toronto, United States
               </DropdownToggle>
               <DropdownMenu right>
@@ -96,10 +97,10 @@ const Header = (props: IHeaderProps) => {
           <span>
             <Nav>
               <NavItem>
-                <NavLink className='text-dark' href="/request/">ABOUT US</NavLink>
+                <Link className='text-dark nav-link' to="/about">ABOUT US</Link>
               </NavItem>
               <NavItem>
-                <NavLink className='text-dark' href="/request/">SUPPORT</NavLink>
+                <Link className='text-dark nav-link' to="/support">SUPPORT</Link>
               </NavItem>
               <NavItem>
                 <Auth />

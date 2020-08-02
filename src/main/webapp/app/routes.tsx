@@ -28,7 +28,6 @@ import PolicyAndTerms from 'app/modules/home/policyAndTerms'
 import UploadDocuments from 'app/entities/supplier-resource/buyer-seller-document-component'
 import LandingPage from './modules/home/LandingPage'
 
-
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
   loading: () => <div>loading ...</div>
