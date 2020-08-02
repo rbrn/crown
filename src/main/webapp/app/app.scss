@@ -3,28 +3,6 @@
 //@import 'bootstrap-variables';
 //@import '~bootswatch/dist/materia/variables';
 @import 'node_modules/bootstrap/scss/bootstrap';
-// @import '../content/fonts/MONTSERRAT-BOLD.TTF';
-
-@font-face {
-    font-family: 'MONTSERRAT-BOLD';
-    src: url("../content/fonts/MONTSERRAT-BOLD.TTF");
-}
-@font-face {
-    font-family: 'NUNITO-REGULAR';
-    src: url("../content/fonts/NUNITO-REGULAR.TTF");
-}
-@font-face {
-    font-family: 'MONTSERRAT-REGULAR';
-    src: url("../content/fonts/MONTSERRAT-REGULAR.TTF");
-}
-@font-face {
-    font-family: 'SEGOEUI';
-    src: url("../content/fonts/SEGOEUI.TTF");
-}
-// @font-face {
-//     font-family: 'MONTSERRAT-SEMIBOLD';
-//     src: url("../content/fonts/MONTSERRAT-SEMIBOLD");
-// }
 
 //@import '~bootswatch/dist/materia/bootswatch';
 body {
