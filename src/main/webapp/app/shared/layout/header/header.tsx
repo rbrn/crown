@@ -11,6 +11,8 @@ import LoadingBar from 'react-redux-loading-bar';
 import { Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 
+import Auth from 'app/Components/Auth/Auth';
+
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -44,9 +46,8 @@ const Header = (props: IHeaderProps) => {
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
 
   return (
-    // <div id="app-header">
-    <div>
-      {/* {renderDevRibbon()}
+    <div id="app-header">
+       {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
       <Navbar dark expand="sm" fixed="top" style={{backgroundColor:'white'}} className="jh-navbar justify-content-between">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
@@ -61,9 +62,10 @@ const Header = (props: IHeaderProps) => {
             <AccountMenu isAuthenticated={props.isAuthenticated} />
           </Nav>
         </Collapse>
-      </Navbar> */}
+      </Navbar>
 
-      <Navbar color="white" light expand="md" className='shadow'>
+
+      {/* <Navbar color="white" light expand="md" className='shadow'>
         <NavbarBrand href="/"><Brand /></NavbarBrand>
         <NavbarToggler onClick={() => { }} />
         <Collapse isOpen={false} navbar>
@@ -101,13 +103,14 @@ const Header = (props: IHeaderProps) => {
                 <Link className='text-dark nav-link' to="/support">SUPPORT</Link>
               </NavItem>
               <NavItem>
-                <Button className='header-btn shadow rounded'><Link to='/login'>SIGNUP</Link></Button>
+                <Auth />
               </NavItem>
             </Nav>
           </span>
 
         </Collapse>
-      </Navbar>
+      </Navbar> */}
+
     </div>
   );
 };

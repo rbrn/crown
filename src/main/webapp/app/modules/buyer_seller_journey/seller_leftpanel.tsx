@@ -65,7 +65,7 @@ class SellerLeftPanelComponent extends React.Component<Props> {
           </div>
           <Slider min={20} max={300} onChange={changeRadius} value={typeof radius === 'number' ? radius : 10} tooltipPlacement="bottom" />
           <div className="">
-            <Button style={ButtonStyles} className="w-100 mb-2 cw-btn">
+            <Button style={ButtonStyles} onClick={() => onButtonClicked('Browse Requeste')} className="w-100 mb-2 cw-btn">
               Check Demand
               <img style={{ height: '26px', float: 'right' }} className="btn-img" src="content/images/requests.svg" />
             </Button>

@@ -22,7 +22,6 @@ public class Claim implements Serializable {
     @Id
     private String id;
 
-    @NotNull
     @Field("quantity")
     private Integer quantity;
 

@@ -7,12 +7,13 @@ import {getEntities as getResourceTypes} from 'app/entities/resource-type/resour
 import {getEntities as getReceiverSuppliers} from 'app/entities/receiver-supplier/receiver-supplier.reducer';
 import {createEntity, getEntity, reset, updateEntity} from './receiver-resource.reducer';
 import {Button, Checkbox, Col, DatePicker, Form, Input, InputNumber, Row, Select, Switch} from 'antd';
-import {ArrowLeftOutlined, SaveOutlined} from '@ant-design/icons';
+import {ArrowLeftOutlined} from '@ant-design/icons';
 import UploadFile from 'app/commonComponents/UploadFile';
 import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
 import {normFile} from "app/helpers/utils";
 import moment from "moment";
 import {IReceiverResource} from "app/shared/model/receiver-resource.model";
+import App from 'app/entities/receiver-resource/ant-loading-button'
 
 const { Option } = Select;
 
@@ -28,6 +29,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
 
   const { receiverResourceEntity, resourceTypes, receiverSuppliers, loading, updating, account } = props;
   const receiverProfile = receiverSuppliers.filter(receiver => receiver.email === account.email);
+
   const handleClose = () => {
     props.history.push('/receiver-resource');
   };
@@ -80,7 +82,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
     return (
       <React.Fragment>
         <ReceiverSupplierAntFields
-          fieldPrefix="receiver"
+          fieldPrefix={['receiver']}
           updatePoaFileList={updatePoaFileList}
         />
       </React.Fragment>
@@ -88,6 +90,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
   };
 
   const saveEntity = values => {
+
     const entity = {
       ...(!isNew && {...receiverResourceEntity}),
       ...values
@@ -108,11 +111,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
         }
       } else {
         entity.receiver = {
-          email: account.email,
-          latx: lat,
-          longy: lng,
-          name: account.firstName + ' ' + account.lastName,
-          primaryContactName: account.email
+          email: receiverProfile[0].email
         };
       }
       props.createEntity(entity);
@@ -120,10 +119,11 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
       props.updateEntity(entity);
     }
   };
+
   const initialValues: IReceiverResource = {
     ...(!isNew && {...receiverResourceEntity}),
     receiver: {
-      'email': account.email,
+      email: account.email,
       isReceiver: true
     }
   }
@@ -133,6 +133,8 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
   if (receiverResourceEntity.expiration) {
     initialValues.expiration = moment(receiverResourceEntity.expiration);
   }
+
+
 
   return (
     <div>
@@ -166,7 +168,7 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                     }
                   ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               ) : null}
               <Form.Item
@@ -191,19 +193,6 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
                       ))
                     : null}
                 </Select>
-              </Form.Item>
-
-              <Form.Item
-                name="name"
-                label={translate('crownApp.receiverResource.name')}
-                rules={[
-                  {
-                    required: true,
-                    message: translate('entity.validation.required')
-                  }
-                ]}
-              >
-                <Input placeholder="Enter name of resource" />
               </Form.Item>
 
               <Form.Item
@@ -303,16 +292,14 @@ export const ReceiverResourceUpdate = (props: IReceiverResourceUpdateProps) => {
               <Row gutter={[0, 8]}>
                 <Col span={4}>
                   <Form.Item>
-                    <Button type="default" htmlType="submit" icon={<ArrowLeftOutlined />}>
-                      {translate('entity.action.back')}
+                      <Button type="default" href="/receiver-resource" icon={<ArrowLeftOutlined />}>
+                      {translate('entity.action.cancel')}
                     </Button>
                   </Form.Item>
                 </Col>
                 <Col span={4}>
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
-                      <Translate contentKey="entity.action.save">Save</Translate>
-                    </Button>
+                    <Form.Item>
+                      <App />
                   </Form.Item>
                 </Col>
               </Row>

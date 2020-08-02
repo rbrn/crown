@@ -1,21 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import { RouteComponentProps, Link} from 'react-router-dom';
+import {Link, RouteComponentProps} from 'react-router-dom';
 import {Translate, translate} from 'react-jhipster';
 import {IRootState} from 'app/shared/reducers';
 import {getEntities as getResourceTypes} from 'app/entities/resource-type/resource-type.reducer';
 import {getEntities as getReceiverSuppliers} from 'app/entities/receiver-supplier/receiver-supplier.reducer';
 import {createEntity, getEntity, reset, updateEntity} from './supplier-resource.reducer';
 
-import { Button, Col, DatePicker, Form, Input, InputNumber, Row, Select, Checkbox } from 'antd';
-import {ArrowLeftOutlined, SaveOutlined} from '@ant-design/icons';
+import {Button, Checkbox, Col, DatePicker, Form, Input, InputNumber, Row, Select} from 'antd';
+import {ArrowLeftOutlined} from '@ant-design/icons';
 import moment from "moment";
 import ReceiverSupplierAntFields from "app/entities/receiver-supplier/receiver-supplier-fields-ant";
+import App from 'app/entities/receiver-resource/ant-loading-button'
+import UploadFile from 'app/commonComponents/UploadFile';
+import {normFile} from "app/helpers/utils";
+import {ISupplierResource} from "app/shared/model/supplier-resource.model";
 
 const { Option } = Select;
-import UploadFile from 'app/commonComponents/UploadFile';
-import { normFile } from "app/helpers/utils";
-import {ISupplierResource} from "app/shared/model/supplier-resource.model";
 
 export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -71,7 +72,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
     return (
       <React.Fragment>
         <ReceiverSupplierAntFields
-          fieldPrefix="supplier"
+          fieldPrefix={['supplier']}
           updatePoaFileList={updatePoaFileList}
         />
       </React.Fragment>
@@ -99,11 +100,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
         }
       } else {
         entity.supplier = {
-          email: account.email,
-          latx: lat,
-          longy: lng,
-          name: account.firstName + ' ' + account.lastName,
-          primaryContactName: account.email
+          email: supplierProfile[0].email
         };
       }
       props.createEntity(entity);
@@ -115,13 +112,14 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
   const initialValues: ISupplierResource = {
     ...(!isNew && {...supplierResourceEntity}),
     supplier: {
-      'email': account.email,
+      email: account.email,
       isSupplier: true
     }
   }
   if (supplierResourceEntity.quantityValidUntil) {
     initialValues.quantityValidUntil = moment(supplierResourceEntity.quantityValidUntil);
   }
+
   return (
     <div>
       <Row className="justify-content-center">
@@ -154,7 +152,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     }
                   ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               ) : null}
 
@@ -304,7 +302,12 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                     }}
                   />
                 </Form.Item>
-                <Form.Item name="publicationPermission" valuePropName="checked">
+                <Form.Item name="publicationPermission"
+                  valuePropName="checked"
+                  rules={[
+                    { validator: (_, value) => value ? Promise.resolve() : Promise.reject('Please Accept the Terms and Policy') },
+                  ]}
+                >
                   <Checkbox>
                     I give permission for publication of my product and have read the <Link to='/policy'>Terms and Policy</Link>
                   </Checkbox>
@@ -315,17 +318,15 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
               {mayBeSupplierFields()}
               <Row gutter={[0, 8]}>
                 <Col span={4}>
-                  <Form.Item>
-                    <Button type="default" htmlType="submit" icon={<ArrowLeftOutlined />}>
-                      {translate('entity.action.back')}
+                    <Form.Item>
+                      <Button type="default" href="/supplier-resource" icon={<ArrowLeftOutlined />}>
+                      {translate('entity.action.cancel')}
                     </Button>
                   </Form.Item>
                 </Col>
                 <Col span={4}>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
-                      <Translate contentKey="entity.action.save">Save</Translate>
-                    </Button>
+                      <App />
                   </Form.Item>
                 </Col>
               </Row>

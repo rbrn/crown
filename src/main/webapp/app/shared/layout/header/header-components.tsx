@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import appConfig from 'app/config/constants';
 
-const img = 'content/images/LOGO.png';
+const img = 'content/images/brand.png';
 
 export const Brand = props => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
