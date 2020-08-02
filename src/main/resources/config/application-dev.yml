@@ -54,11 +54,10 @@ spring:
   thymeleaf:
     cache: false
 
-awsS3Properties:
-  access_key: ${access_key}
-  secret_key: ${secret_key}
-  bucketName: ${bucketName}
-  region: ${region}
+azure:
+  accountName: crownwebapp
+  endpoint: https://crownwebapp.blob.core.windows.net
+  accountKey: ${AZURE_ACCOUNT_KEY}
 
 server:
   port: 8080
