@@ -22,7 +22,7 @@ public class s3ServiceImpl implements s3Service {
     @Autowired
     private AmazonS3 s3client;
 
-    @Value("${awsS3Properties.bucketName}")
+    @Value("${awsS3Properties.BUCKET_NAME}")
     private String bucketName;
 
     private Logger logger = LoggerFactory.getLogger(s3ServiceImpl.class);

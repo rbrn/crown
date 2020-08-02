@@ -11,7 +11,7 @@
 # ===================================================================
 
 awsS3Properties:
-  access_key: ${access_key}
-  secret_key: ${secret_key}
-  bucketName: ${bucketName}
-  region: ${region}
+  accesskey: ${ACCESS_KEY}
+  secretkey: ${SECRET_KEY}
+  bucketName: ${BUCKET_NAME}
+  region: ${REGION}
