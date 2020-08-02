@@ -49,20 +49,21 @@ const Header = (props: IHeaderProps) => {
     <div id="app-header">
        {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
-      <Navbar dark expand="sm" fixed="top" style={{backgroundColor:'white'}} className="jh-navbar justify-content-between">
+      <Navbar dark expand="sm" fixed="top" style={{ backgroundColor: 'white' }} className="jh-navbar justify-content-between">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
         <Brand />
         <span className="brand-info">Medical Supplies for All People, Forever.</span>
         <Collapse isOpen={menuOpen} navbar>
           <Nav id="header-tabs" className="ml-auto" style={{}} >
             <Home />
-            {props.isAuthenticated && <EntitiesMenu isAdmin={props.isAdmin}/>}
+            {props.isAuthenticated && <EntitiesMenu isAdmin={props.isAdmin} />}
             {props.isAuthenticated && props.isAdmin && <AdminMenu showSwagger={props.isSwaggerEnabled} />}
             <LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} />
             <AccountMenu isAuthenticated={props.isAuthenticated} />
           </Nav>
         </Collapse>
       </Navbar>
+
 
 
       {/* <Navbar color="white" light expand="md" className='shadow'>
