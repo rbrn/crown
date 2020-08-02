@@ -17,8 +17,6 @@
         "title": "My Open Orders"
       },
       "quantity": "Quantity",
-      "expiration": "Best by",
-      "currentStock": "Current Stock",
       "notes": "Notes",
       "expiration": "Resource to be delivered before this Date",
       "currentStock": "Current Stock",
