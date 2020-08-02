@@ -10,11 +10,8 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-
-
 awsS3Properties:
-    access_key_id: ${access_key_id}
-    secret_access_key:  ${secret_access_key}
-    bucket: crownstorage
-    region: us-east-1
- 
+  access_key: ${access_key}
+  secret_key: ${secret_key}
+  bucketName: ${bucketName}
+  region: ${region}
