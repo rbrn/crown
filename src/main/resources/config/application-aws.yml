@@ -1,0 +1,20 @@
+# ===================================================================
+# Spring Boot configuration for the "awsS3" profile.
+#
+# This configuration overrides the application.yml file.
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+
+
+awsS3Properties:
+    access_key_id: ${access_key_id}
+    secret_access_key:  ${secret_access_key}
+    bucket: crownstorage
+    region: us-east-1
+ 
