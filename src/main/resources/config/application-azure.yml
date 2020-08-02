@@ -1,5 +1,5 @@
 # ===================================================================
-# Spring Boot configuration for the "awsS3" profile.
+# Spring Boot configuration for the "azure" profile.
 #
 # This configuration overrides the application.yml file.
 # ===================================================================
@@ -10,8 +10,5 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-awsS3Properties:
-  access_key: ${access_key}
-  secret_key: ${secret_key}
-  bucketName: ${bucketName}
-  region: ${region}
+server:
+  port: 80

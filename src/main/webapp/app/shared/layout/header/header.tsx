@@ -49,14 +49,14 @@ const Header = (props: IHeaderProps) => {
     <div id="app-header">
        {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
-      <Navbar dark expand="sm" fixed="top" style={{ backgroundColor: 'white' }} className="jh-navbar justify-content-between">
+      <Navbar dark expand="sm" fixed="top" style={{backgroundColor:'white'}} className="jh-navbar justify-content-between">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
         <Brand />
         <span className="brand-info">Medical Supplies for All People, Forever.</span>
         <Collapse isOpen={menuOpen} navbar>
           <Nav id="header-tabs" className="ml-auto" style={{}} >
             <Home />
-            {props.isAuthenticated && <EntitiesMenu isAdmin={props.isAdmin} />}
+            {props.isAuthenticated && <EntitiesMenu isAdmin={props.isAdmin}/>}
             {props.isAuthenticated && props.isAdmin && <AdminMenu showSwagger={props.isSwaggerEnabled} />}
             <LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} />
             <AccountMenu isAuthenticated={props.isAuthenticated} />
@@ -64,21 +64,19 @@ const Header = (props: IHeaderProps) => {
         </Collapse>
       </Navbar>
 
-
-
-      {/* <Navbar color="white" light expand="md" className='shadow'>
+      {/* <Navbar color="light" light expand="md" className='shadow'>
         <NavbarBrand href="/"><Brand /></NavbarBrand>
         <NavbarToggler onClick={() => { }} />
         <Collapse isOpen={false} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link className='text-dark nav-link' to="/buyer-journey">REQUEST</Link>
+              <NavLink className='text-dark' href="/request/">REQUEST</NavLink>
             </NavItem>
             <NavItem>
-              <Link className='text-dark nav-link' to="/seller-journey">SUPPLY</Link>
+              <NavLink className='text-dark' href="/request/">SUPPLY</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle className='text-dark nav-link' nav caret>
+              <DropdownToggle className='text-dark' nav caret>
                 Toronto, United States
               </DropdownToggle>
               <DropdownMenu right>
@@ -98,10 +96,10 @@ const Header = (props: IHeaderProps) => {
           <span>
             <Nav>
               <NavItem>
-                <Link className='text-dark nav-link' to="/about">ABOUT US</Link>
+                <NavLink className='text-dark' href="/request/">ABOUT US</NavLink>
               </NavItem>
               <NavItem>
-                <Link className='text-dark nav-link' to="/support">SUPPORT</Link>
+                <NavLink className='text-dark' href="/request/">SUPPORT</NavLink>
               </NavItem>
               <NavItem>
                 <Auth />
