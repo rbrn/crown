@@ -57,6 +57,7 @@ export default () => {
 
                 </Collapse>
             </Navbar> */}
+
             <div>
                 <div className='cw-jumb jumbotron bg-blue text-white m-0' style={{
                     // backgroundImage: `url(${image})`,

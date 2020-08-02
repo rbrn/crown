@@ -12,9 +12,7 @@ const img = 'content/images/brand.png';
 export const Brand = props => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
     <span className="brand-title">
-      <img src={img}  />
-      <div className='nav-box'></div>
-      <div className='brand-border-box'></div>
+      <img src={img} style={{ height: '45px', width: '120px' }} />
     </span>
   </NavbarBrand>
 );
