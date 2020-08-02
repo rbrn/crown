@@ -1,3 +1,5 @@
+// @import '../../../content/fonts/MONTSERRAT-BOLD.TTF';
+
 /* ==========================================================================
 Main page styles
 ========================================================================== */
@@ -13,6 +15,34 @@ Main page styles
 /* ==========================================================================
 Landing Page styles
 ========================================================================== */
+nav .nav-bar {
+  height: 90px;
+}
+nav {
+  padding-top: 30px !important;
+  padding-bottom: 30px !important;
+  font-family: 'NUNITO-REGULAR';
+  a {font-size: 20px !important;}
+}
+.nav-box{
+  padding: 50px;
+    background-color: white;
+    position: absolute;
+    z-index: 1190;
+    top: 6px;
+    width: 130px;
+    height: 117px;
+    left: 10px;
+}
+nav a a span img{
+  top: 10px;
+  z-index: 100;
+  height: 110px;
+  width: 162px;
+}
+.nav div span ul li button {
+  
+}
 .subscribe-btn {
   background-color: #ffffff !important;
   border: none !important;
@@ -33,9 +63,16 @@ Landing Page styles
 .header-btn {
   background-color: #ff7c48 !important;
   border: none !important;
+  a{
+    color: #ffffff;
+  }
 }
 .cw-jumb {
   background-image: url('../home/5816.png');
+  background-size: 100% 110%;
+}
+.jumbo-text{
+  width: 40%;
 }
 .cw-about-us-footer{
   display: flex;
@@ -50,6 +87,9 @@ Landing Page styles
     color: #FF7C48 !important;
   }
 }
+.nav-item .nav-link:hover{
+  color: #FF7C48 !important;
+}
 .text-gray-2{
   color: #707070 !important;
 }
@@ -59,4 +99,78 @@ Landing Page styles
   border-width: medium;
   font-weight: 900;
   font-size: 20px;
+}
+.brand-border-box {
+  width: 43px;
+}
+.brand-title img{
+  position: absolute;
+  z-index: 1240;
+}
+.footer-header {
+  font-weight: bold !important;
+  font-size: 30px !important;
+  color: #707070 !important;
+  text-transform: uppercase !important;
+}
+.jumbo-heading {
+  font-family: 'MONTSERRAT-BOLD';
+}
+.jumb-body{
+  font-family: 'NUNITO-REGULAR';
+  font-size: 20px;
+}
+.section-heading{
+  font-family: 'MONTSERRAT-BOLD';
+  font-size: 50px;
+}
+.footer-links{
+  font-family: 'MONTSERRAT-REGULAR';
+}
+.footer-date{
+  font-family: 'SEGOEUI';
+}
+footer {
+  margin-left: 44px;
+  margin-right: 44px;
+}
+.footer-right{
+  text-align: end;
+  font-family: 'MONTSERRAT-REGULAR';
+}
+.footer-right-heading{
+  text-align: end;
+  font-family: 'MONTSERRAT-BOLD';  
+}
+.about-us-text{
+  font-family: 'MONTSERRAT-REGULAR';
+  font-size: 20px;
+}
+.about-us-jumbo div h3{
+  font-family: 'MONTSERRAT-BOLD';
+  font-family: 30px;
+}
+.why-us-headig {
+  font-family: 'MONTSERRAT-BOLD';
+  font-size: 30px;
+}
+.why-card{
+  font-family: 'MONTSERRAT-BOLD';
+}
+
+
+
+// @media (min-width: 300px){
+@media only screen and (max-width: 600px) {
+  .navbar-expand-md .navbar-collapse{
+    margin-left: 120px;
+  }
+  .jumbo-text{
+    width: 90%;
+  }
+  .cw-jumb{
+    background-size: 200% 100%;
+    background-position: -100px;
+  }
+
 }
