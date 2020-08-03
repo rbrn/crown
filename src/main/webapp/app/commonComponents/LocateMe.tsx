@@ -19,7 +19,8 @@ export type LatLng = {
   lat: number,
   lng: number,
 };
-class locateMeComponent extends React.Component<LocateMeProps, State> {
+
+export class LocateMeComponent extends React.Component<LocateMeProps, State> {
   state = {
     currentLocation: ''
   };
@@ -27,7 +28,7 @@ componentDidMount() {
     // check for Geolocation support
     if (window.navigator.geolocation) {
         window.navigator.geolocation.getCurrentPosition((pos) => {
-          let position = [pos.coords.latitude, pos.coords.longitude]
+          const position = [pos.coords.latitude, pos.coords.longitude]
           this.onClientPositionIdentified(position);
         }, (error) => {
             alert("Problem getting geolocation " + error.message);
@@ -111,4 +112,4 @@ const locateMeStateToProps = storeState => ({
   type StateProps = ReturnType<typeof locateMeStateToProps>;
   type DispatchProps = typeof locateMeDispatchToProps;
   
-  export default connect(locateMeStateToProps)(locateMeComponent);
+  export default connect(locateMeStateToProps)(LocateMeComponent);
