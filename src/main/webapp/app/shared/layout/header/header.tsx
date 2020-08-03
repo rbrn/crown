@@ -46,31 +46,31 @@ const Header = (props: IHeaderProps) => {
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
 
   return (
-    <div id="app-header">
-       {renderDevRibbon()}
+    // <div id="app-header">
+    <div>
+
+      {/* {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
-      <Navbar dark expand="sm" fixed="top" style={{ backgroundColor: 'white' }} className="jh-navbar justify-content-between">
+      <Navbar dark expand="sm" fixed="top" style={{backgroundColor:'white'}} className="jh-navbar justify-content-between">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
         <Brand />
         <span className="brand-info">Medical Supplies for All People, Forever.</span>
         <Collapse isOpen={menuOpen} navbar>
           <Nav id="header-tabs" className="ml-auto" style={{}} >
             <Home />
-            {props.isAuthenticated && <EntitiesMenu isAdmin={props.isAdmin} />}
+            {props.isAuthenticated && <EntitiesMenu isAdmin={props.isAdmin}/>}
             {props.isAuthenticated && props.isAdmin && <AdminMenu showSwagger={props.isSwaggerEnabled} />}
             <LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} />
             <AccountMenu isAuthenticated={props.isAuthenticated} />
           </Nav>
         </Collapse>
-      </Navbar>
+      </Navbar> */}
 
-
-
-      {/* <Navbar color="white" light expand="md" className='shadow'>
+      <Navbar color="white" light expand="md" className='shadow'>
         <NavbarBrand href="/"><Brand /></NavbarBrand>
         <NavbarToggler onClick={() => { }} />
         <Collapse isOpen={false} navbar>
-          <Nav className="mr-auto" navbar>
+          <Nav className="mr-auto" style={{marginLeft: '100px'}} navbar>
             <NavItem>
               <Link className='text-dark nav-link' to="/buyer-journey">REQUEST</Link>
             </NavItem>
@@ -104,14 +104,14 @@ const Header = (props: IHeaderProps) => {
                 <Link className='text-dark nav-link' to="/support">SUPPORT</Link>
               </NavItem>
               <NavItem>
-                <Auth />
+                { <Button className='header-btn shadow rounded'><Link to='/login'>SIGN UP</Link></Button> }
+                {/* <Auth /> */}
               </NavItem>
             </Nav>
           </span>
 
         </Collapse>
-      </Navbar> */}
-
+      </Navbar>
     </div>
   );
 };
