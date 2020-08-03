@@ -45,12 +45,6 @@ spring:
   thymeleaf:
     cache: true
 
-  awsS3Properties:
-    accesskey: ${ACCESS_KEY}
-    secretkey: ${SECRET_KEY}
-    bucketName: ${BUCKET_NAME}
-    region: ${REGION}
-
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
 # keytool -genkey -alias crown -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650

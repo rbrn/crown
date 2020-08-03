@@ -26,9 +26,3 @@ spring:
     port: 25
     username: apikey
     password: ${MAIL_KEY}
-
-  awsS3Properties:
-    accesskey: ${ACCESS_KEY}
-    secretkey: ${SECRET_KEY}
-    bucketName: ${BUCKET_NAME}
-    region: ${REGION}
