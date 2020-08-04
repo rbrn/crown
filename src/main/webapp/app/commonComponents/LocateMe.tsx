@@ -1,12 +1,13 @@
-import './map.scss';
+// import './map.scss';
+import 'app/shared/layout/header/header.scss';
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Col, Row, Container, Button} from 'reactstrap';
-import Popup from "reactjs-popup";
+import { Col, Row, Container, Button } from 'reactstrap';
+import { Popover } from 'antd';
 
 const {L} = window;
-const defaultLocation = "Torronto, Canada"
+const defaultLocation = "Toronto, Canada"
 type State = {
     currentLocation: string
   };
@@ -68,11 +69,10 @@ componentDidMount() {
   }
   render() {
 
-  return (
-  
-           <div>
-               {this.state.currentLocation}
-           </div>
+    return (
+      <div>
+        <p>This is where the location popup is going to appear</p>
+      </div>
         
          /* 
          <Row>
