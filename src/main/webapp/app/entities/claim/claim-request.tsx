@@ -315,7 +315,7 @@ export const ClaimRequest = (props: IClaimRequestProps) => {
                     getValueFromEvent={normFile}
                   >
                     <UploadFile
-                      action="api/document/upload"
+                      action="api/file/upload"
                       onSuccess={updatePofFileList}
                       data={{
                         entityType: 'buy',
