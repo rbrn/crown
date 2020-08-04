@@ -264,7 +264,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                 getValueFromEvent={normFile}
               >
                   <UploadFile
-                    action="api/document/upload"
+                    action="api/file/upload"
                     onSuccess={updatePoaFileList}
                     data={{
                       entityType: 'buy',
@@ -279,7 +279,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   getValueFromEvent={normFile}
                 >
                   <UploadFile
-                    action="api/document/upload"
+                    action="api/file/upload"
                     onSuccess={updatePoaFileList}
                     data={{
                       entityType: 'buy',
@@ -294,7 +294,7 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   getValueFromEvent={normFile}
                 >
                   <UploadFile
-                    action="api/document/upload"
+                    action="api/file/upload"
                     onSuccess={updatePoaFileList}
                     data={{
                       entityType: 'buy',

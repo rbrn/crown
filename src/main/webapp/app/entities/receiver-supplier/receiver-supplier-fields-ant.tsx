@@ -139,7 +139,7 @@ const ReceiverSupplierAntFields: React.FC<ReceiverSupplierFieldsProps> = ({field
         getValueFromEvent={normFile}
       >
         <UploadFile
-          action="api/document/upload"
+          action="api/file/upload"
           onSuccess={updatePoaFileList}
           data={{
             entityType: 'buyer-seller',

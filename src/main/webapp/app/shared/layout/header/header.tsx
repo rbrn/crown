@@ -12,6 +12,9 @@ import { Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from '../menus';
 
 import Auth from 'app/Components/Auth/Auth';
+import { Popover } from 'antd';
+
+import LocateMeComponent from 'app/commonComponents/LocateMe';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -43,7 +46,10 @@ const Header = (props: IHeaderProps) => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
+/* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
+  const content = () => {
+    return (<LocateMeComponent />);
+  }
 
   return (
     // <div id="app-header">
@@ -77,7 +83,12 @@ const Header = (props: IHeaderProps) => {
             <NavItem>
               <Link className='text-dark nav-link' to="/seller-journey">SUPPLY</Link>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
+            <NavItem>
+            <Popover content={content}>
+                <Link className='text-dark nav-link' to="#"> Toronto, United States </Link>
+            </Popover>
+            </NavItem>
+            {/* <UncontrolledDropdown nav inNavbar>
               <DropdownToggle className='text-dark nav-link' nav caret>
                 Toronto, United States
               </DropdownToggle>
@@ -93,7 +104,7 @@ const Header = (props: IHeaderProps) => {
                   Reset
                 </DropdownItem>
               </DropdownMenu>
-            </UncontrolledDropdown>
+            </UncontrolledDropdown> */}
           </Nav>
           <span>
             <Nav>
@@ -103,6 +114,10 @@ const Header = (props: IHeaderProps) => {
               <NavItem>
                 <Link className='text-dark nav-link' to="/support">SUPPORT</Link>
               </NavItem>
+              <NavItem>{props.isAuthenticated && <EntitiesMenu isAdmin={props.isAdmin} />}</NavItem>
+              <NavItem>{props.isAuthenticated && props.isAdmin && <AdminMenu showSwagger={props.isSwaggerEnabled} />}</NavItem>
+              <NavItem><LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} /> </NavItem>
+              <NavItem> <AccountMenu isAuthenticated={props.isAuthenticated} /> </NavItem>
               <NavItem>
                 { <Button className='header-btn shadow rounded'><Link to='/login'>SIGN UP</Link></Button> }
                 {/* <Auth /> */}
