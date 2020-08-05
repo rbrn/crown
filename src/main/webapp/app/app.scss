@@ -56,9 +56,7 @@ a {
 
   .view-container {
     width: 100%;
-    height: calc(100vh - 95px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 100vh;
 
     .card {
       border: none;

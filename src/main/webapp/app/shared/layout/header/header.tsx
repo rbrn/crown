@@ -116,9 +116,9 @@ const Header = (props: IHeaderProps) => {
               </NavItem>
               <NavItem>{props.isAuthenticated && <EntitiesMenu isAdmin={props.isAdmin} />}</NavItem>
               <NavItem>{props.isAuthenticated && props.isAdmin && <AdminMenu showSwagger={props.isSwaggerEnabled} />}</NavItem>
-              <NavItem><LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} /> </NavItem>
               <NavItem> <AccountMenu isAuthenticated={props.isAuthenticated} /> </NavItem>
               <NavItem>
+
                 { <Button className='header-btn shadow rounded'><Link to='/login'>SIGN UP</Link></Button> }
                 {/* <Auth /> */}
               </NavItem>
