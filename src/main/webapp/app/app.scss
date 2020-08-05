@@ -1,6 +1,35 @@
 // Override Boostrap variables
 // Import Bootstrap source files from node_modules
+//@import 'bootstrap-variables';
+//@import '~bootswatch/dist/materia/variables';
 @import 'node_modules/bootstrap/scss/bootstrap';
+// @import '../content/fonts/MONTSERRAT-BOLD.TTF';
+
+@font-face {
+  font-family: 'MONTSERRAT-BOLD';
+  src: url('../content/fonts/MONTSERRAT-BOLD.TTF');
+}
+
+@font-face {
+  font-family: 'NUNITO-REGULAR';
+  src: url('../content/fonts/NUNITO-REGULAR.TTF');
+}
+
+@font-face {
+  font-family: 'MONTSERRAT-REGULAR';
+  src: url('../content/fonts/MONTSERRAT-REGULAR.TTF');
+}
+
+@font-face {
+  font-family: 'SEGOEUI';
+  src: url('../content/fonts/SEGOEUI.TTF');
+}
+// @font-face {
+//     font-family: 'MONTSERRAT-SEMIBOLD';
+//     src: url("../content/fonts/MONTSERRAT-SEMIBOLD");
+// }
+
+//@import '~bootswatch/dist/materia/bootswatch';
 body {
   background: #fafafa;
   margin: 0;
@@ -14,6 +43,7 @@ a {
 * {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+
   &:after,
   &::before {
     -moz-box-sizing: border-box;
@@ -23,20 +53,36 @@ a {
 
 .app-container {
   box-sizing: border-box;
+
   .view-container {
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100vh - 95px);
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 1rem;
+
     .card {
-      padding: 1rem;
+      border: none;
     }
+
     .view-routes {
       height: 100%;
+
       > div {
         height: 100%;
       }
+
+      h2 {
+        padding-top: 20px;
+      }
+
+      .list-container {
+        max-height: calc(100vh - 45px);
+        overflow: auto;
+      }
+    }
+
+    .jh-card {
+      margin-bottom: 50px;
     }
   }
 }
@@ -72,10 +118,12 @@ Custom button styles
   border-color: transparent;
   padding: 0.5rem;
   line-height: 1rem;
+
   &:hover {
     background-color: transparent;
     border-color: transparent;
   }
+
   &:focus {
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -222,6 +270,7 @@ Generic styles
 .no-margin {
   margin: 0px;
 }
+
 @mixin voffset($size) {
   @if $size== '' {
     .voffset {
@@ -310,3 +359,57 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+.get-items-display table * {
+  font-size: x-small;
+}
+
+.cw-btn,
+.btn-primary,
+.ant-form .ant-btn-primary {
+  background-color: #ff7c48;
+  border: none;
+  text-align: left;
+
+  &:hover {
+    background-color: #ff7c48;
+  }
+
+  &:active {
+    background-color: #ff7c48;
+  }
+
+  .btn-img {
+    height: 20px;
+    margin-left: 10px;
+    vertical-align: sub;
+  }
+
+  &.secondary {
+    background-color: #5c4a56;
+
+    &:hover {
+      background-color: #5c4a56;
+    }
+
+    &:active {
+      background-color: #ff7c48;
+    }
+  }
+}
+
+.btn-info {
+  background-color: #5c4a56;
+
+  &:hover {
+    background-color: #5c4a56;
+  }
+
+  &:active {
+    background-color: #ff7c48;
+  }
+}
+
+.padding-all-15 {
+  padding: 15px;
+}

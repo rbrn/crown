@@ -1,0 +1,54 @@
+{
+    "name": "Request",
+    "fields": [
+        {
+            "fieldName": "itemType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "numRequested",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "dailyNeed",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "numinStock",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "daysLeft",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "resource",
+            "otherEntityRelationshipName": "request",
+            "relationshipValidateRules": "required",
+            "relationshipName": "resource",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "requestPoint",
+            "otherEntityRelationshipName": "request",
+            "relationshipName": "requestPoint",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200329233800",
+    "entityTableName": "request",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

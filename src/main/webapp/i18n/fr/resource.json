@@ -1,0 +1,25 @@
+{
+  "crownApp": {
+    "resource": {
+      "home": {
+        "title": "Resources",
+        "createLabel": "Créer un nouveau Resource",
+        "createOrEditLabel": "Créer ou éditer un Resource",
+        "search": "Recherche pour Resource",
+        "notFound": "Aucun Resource trouvé"
+      },
+      "created": "Un nouveau Resource a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Resource avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Resource avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Resource {{ id }} ?"
+      },
+      "detail": {
+        "title": "Resource"
+      },
+      "name": "Name",
+      "notes": "Notes",
+      "supplyPointResource": "Supply Point Resource"
+    }
+  }
+}
