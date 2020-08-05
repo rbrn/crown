@@ -18,8 +18,6 @@ public class ResourceType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private List<String> validTypes = Arrays.asList("N95 face mask","homemade face mask","face shields","protective gowns","boot covers","goggles","swabs","ventilators","gloves","surgical face mask");
-
     @Id
     private String id;
 
@@ -59,10 +57,6 @@ public class ResourceType implements Serializable {
     public ResourceType notes(String notes) {
         this.notes = notes;
         return this;
-    }
-
-    public List<String> getValidTypes() {
-        return validTypes;
     }
 
     public void setNotes(String notes) {
