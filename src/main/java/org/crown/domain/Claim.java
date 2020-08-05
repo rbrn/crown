@@ -1,4 +1,4 @@
-package org.crown.domain;
+package org.crown.domain;git
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
