@@ -61,6 +61,9 @@ public class ResourceTypeResource {
         if (resourceType.getId() != null) {
             throw new BadRequestAlertException("A new resourceType cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (!resourceType.getValidTypes().contains(resourceType.getName())) {
+            throw new BadRequestAlertException("You have entered an invalid resource type", ENTITY_NAME, "novalidresource" );
+        }
         ResourceType result = resourceTypeRepository.save(resourceType);
         return ResponseEntity.created(new URI("/api/resource-types/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

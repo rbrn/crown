@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,6 +17,8 @@ import java.util.Objects;
 public class ResourceType implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private List<String> validTypes = Arrays.asList("N95 face mask","homemade face mask","face shields","protective gowns","boot covers","goggles","swabs","ventilators","gloves","surgical face mask");
 
     @Id
     private String id;
@@ -57,6 +61,10 @@ public class ResourceType implements Serializable {
         return this;
     }
 
+    public List<String> getValidTypes() {
+        return validTypes;
+    }
+
     public void setNotes(String notes) {
         this.notes = notes;
     }
@@ -86,4 +94,5 @@ public class ResourceType implements Serializable {
             ", notes='" + getNotes() + "'" +
             "}";
     }
+
 }
