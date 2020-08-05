@@ -1,0 +1,95 @@
+{
+    "name": "ReceiverResource",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "quantity",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dailyUse",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "postedDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "currentStock",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "expiration",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "notes",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "proofOfFunds",
+            "fieldType": "string"
+        },
+        {
+        	"fieldName": "productInspection",
+        	"fieldType": "Boolean"
+        },
+        {
+        	"fieldName": "productInspectDays",
+        	"fieldType": "Integer"
+        },
+        {
+        	"fieldName": "fundRestrictions",
+        	"fieldType": "String"
+        },
+        {
+        	"fieldName": "fundsAvailable",
+        	"fieldType": "Boolean"
+        },
+        {
+        	"fieldName": "acceptUnpackagedGoods",
+        	"fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "resourceType",
+            "otherEntityRelationshipName": "receiverResource",
+            "relationshipValidateRules": "required",
+            "relationshipName": "resourceType",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "receiverSupplier",
+            "otherEntityRelationshipName": "receiverResource",
+            "relationshipName": "receiver",
+            "otherEntityField": "name"
+        }
+    ],
+    "changelogDate": "20200408051900",
+    "entityTableName": "receiver_resource",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

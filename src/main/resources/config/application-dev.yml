@@ -25,6 +25,12 @@ management:
       enabled: false
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      # comment
+
   profiles:
     active: dev
     include:
@@ -42,21 +48,23 @@ spring:
       indent-output: true
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: ${MONGODB_URI}
       database: crown
-    elasticsearch:
-      properties:
-        path:
-          home: target/elasticsearch
   mail:
-    host: localhost
+    host: smtp.sendgrid.net
     port: 25
-    username:
-    password:
+    username: apikey
+    password: ${MAIL_KEY}
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
     cache: false
+
+awsS3Properties:
+  accesskey: ${ACCESS_KEY}
+  secretkey: ${SECRET_KEY}
+  bucketname: ${BUCKET}
+  region: ${REGION}
 
 server:
   port: 8080

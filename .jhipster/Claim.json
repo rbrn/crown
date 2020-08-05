@@ -1,0 +1,50 @@
+{
+    "name": "Claim",
+    "fields": [
+        {
+            "fieldName": "quantity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "notes",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ClaimStatusEnum",
+            "fieldValues": "PENDING,INREVIEW,ACCEPTED,FORSHIPPING,SHIPPED,DELIVERED"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "receiverResource",
+            "otherEntityRelationshipName": "claim",
+            "relationshipValidateRules": "required",
+            "relationshipName": "receiverResource",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "supplierResource",
+            "otherEntityRelationshipName": "claim",
+            "relationshipValidateRules": "required",
+            "relationshipName": "supplierResource",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20200426102700",
+    "entityTableName": "claim",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "databaseType": "mongodb"
+}
