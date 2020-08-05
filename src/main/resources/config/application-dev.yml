@@ -45,10 +45,10 @@ spring:
       uri: ${MONGODB_URI}
       database: crown
   mail:
-    host: smtp.sendgrid.net
+    host: email-smtp.ca-central-1.amazonaws.com
     port: 25
-    username: apikey
-    password: ${MAIL_KEY}
+    username: ${SES_SMTP_USERNAME}
+    password: ${SES_SMTP_PASSWORD}
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -87,6 +87,7 @@ jhipster:
       # security key (this key should be unique for your application, and kept secret)
       key: 2a84683611374cce7d7e793936e596c1efd64843bf46298bec94cb0147e5576e6163f440a159d97afaa1173b066acaedb8aa
   mail: # specific JHipster mail property, for standard properties see MailProperties
+    from: info@needmoremed.com
     base-url: http://127.0.0.1:8080
   metrics:
     logs: # Reports metrics in the logs
