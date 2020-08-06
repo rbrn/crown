@@ -26,6 +26,11 @@ management:
         enabled: false
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
   devtools:
     restart:
       enabled: false
@@ -44,6 +49,12 @@ spring:
 
   thymeleaf:
     cache: true
+
+awsS3Properties:
+  accesskey: ${ACCESS_KEY}
+  secretkey: ${SECRET_KEY}
+  bucketname: ${BUCKET}
+  region: ${REGION}
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:

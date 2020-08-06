@@ -25,6 +25,11 @@ management:
       enabled: false
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
   profiles:
     active: dev
     include:
@@ -55,10 +60,10 @@ spring:
     cache: false
 
 awsS3Properties:
-  access_key: ${access_key}
-  secret_key: ${secret_key}
-  bucketName: ${bucketName}
-  region: ${region}
+  accesskey: ${ACCESS_KEY}
+  secretkey: ${SECRET_KEY}
+  bucketname: ${BUCKET}
+  region: ${REGION}
 
 server:
   port: 8080

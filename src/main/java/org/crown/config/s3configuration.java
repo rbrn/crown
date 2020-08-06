@@ -12,10 +12,10 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 @Configuration
 public class s3configuration {
-  @Value("${awsS3Properties.access_key}")
+  @Value("${awsS3Properties.accesskey}")
   private String accessKey;
 
-  @Value("${awsS3Properties.secret_key}")
+  @Value("${awsS3Properties.secretkey}")
   private String secretKey;
 
   @Value("${awsS3Properties.region}")
