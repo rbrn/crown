@@ -1,6 +1,10 @@
 // Override Boostrap variables
 // Import Bootstrap source files from node_modules
+//@import 'bootstrap-variables';
+//@import '~bootswatch/dist/materia/variables';
 @import 'node_modules/bootstrap/scss/bootstrap';
+
+//@import '~bootswatch/dist/materia/bootswatch';
 body {
   background: #fafafa;
   margin: 0;
@@ -25,18 +29,27 @@ a {
   box-sizing: border-box;
   .view-container {
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100vh - 95px);
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 1rem;
     .card {
-      padding: 1rem;
+      border: none;
     }
     .view-routes {
       height: 100%;
       > div {
         height: 100%;
       }
+      h2 {
+        padding-top: 20px;
+      }
+      .list-container {
+        max-height: calc(100vh - 45px);
+        overflow: auto;
+      }
+    }
+    .jh-card {
+      margin-bottom: 50px;
     }
   }
 }
@@ -310,3 +323,48 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+.get-items-display table * {
+  font-size: x-small;
+}
+
+.cw-btn,
+.btn-primary,
+.ant-form .ant-btn-primary {
+  background-color: #ff7c48;
+  border: none;
+  text-align: left;
+  &:hover {
+    background-color: #ff7c48;
+  }
+  &:active {
+    background-color: #ff7c48;
+  }
+  .btn-img {
+    height: 20px;
+    margin-left: 10px;
+    vertical-align: sub;
+  }
+  &.secondary {
+    background-color: #5c4a56;
+    &:hover {
+      background-color: #5c4a56;
+    }
+    &:active {
+      background-color: #ff7c48;
+    }
+  }
+}
+.btn-info {
+  background-color: #5c4a56;
+  &:hover {
+    background-color: #5c4a56;
+  }
+  &:active {
+    background-color: #ff7c48;
+  }
+}
+
+.padding-all-15 {
+  padding: 15px;
+}

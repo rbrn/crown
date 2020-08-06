@@ -1,0 +1,56 @@
+{
+  "crownApp": {
+    "receiverSupplier": {
+      "home": {
+        "title": "Buyer/Supplier List",
+        "createLabel": "Create a new Buyer/Supplier",
+        "createOrEditLabel": "Create or edit a Buyer/Supplier",
+        "notFound": "No Buyer/Supplier found"
+      },
+      "created": "A new Buyer/Supplier is created with identifier {{ param }}",
+      "updated": "A Buyer/Supplier is updated with identifier {{ param }}",
+      "deleted": "A Buyer/Supplier is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Buyer/Supplier {{ id }}?"
+      },
+      "detail": {
+        "title": "Buyer/Supplier List"
+      },
+      "name": "Name",
+      "address": "Address",
+      "company": "Company",
+      "email": "Email",
+      "primaryContactName": "Primary Contact Name",
+      "zip": "Zip/Postal Code",
+      "phonenumber": "Phone number",
+      "secondaryPhoneNumber": "Secondary Phone number",
+
+      "city": "City",
+      "state": "State/Province",
+      "country": "Country",
+
+      "isReceiver": "Is Buyer",
+      "isSupplier": "Is Supplier",
+      "hasSterilization": "Has Sterilization",
+
+      "priority": "Priority",
+      "notes": "Notes",
+      "receiverResource": "Request",
+      "supplierResource": "Supply",
+      "orgName": "Organization Name",
+      "orgWebsite": "Organization website",
+      "orgAddress": "Organization Address",
+      "orgDetails": "Organization Details",
+      "contactDetails": "Person of Contact details",
+      "position": "Role/ Title/ Position",
+      "proofOfAssociation": "Proof of Association with the organization such as ID",
+      "proofOfAssociationLink": "Link to organization’s directory or social media link",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "differentDeliveryAddress": "Delivery address is the same as organization address?",
+      "deliveryAddress": "Delivery Address",
+      "differentSellerAddress": "Location of seller is the same as organization address?",
+      "sellerAddress": "Location of seller"
+    }
+  }
+}

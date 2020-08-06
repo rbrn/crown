@@ -1,0 +1,27 @@
+{
+  "crownApp": {
+    "claim": {
+      "home": {
+        "title": "My Open Orders",
+        "createLabel": "Make a new Order",
+        "createOrEditLabel": "Place Order",
+        "notFound": "No Orders found"
+      },
+      "created": "Your order # {{ param }} is confirmed. CROWN INTERNATIONAL team will get in touch with you.",
+      "updated": "A Order is updated with identifier {{ param }}",
+      "deleted": "A Order is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Order {{ id }}?"
+      },
+      "detail": {
+        "title": "My Open Orders"
+      },
+      "quantity": "Quantity",
+      "notes": "Notes",
+      "status": "Status",
+      "receiverResource": "Request",
+      "supplierResource": "Supply",
+      "ApproximatePrice": "Approximate Price"
+    }
+  }
+}

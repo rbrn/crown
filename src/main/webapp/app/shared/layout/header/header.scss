@@ -40,11 +40,15 @@ Navbar styles
 .jh-navbar {
   background-color: #353d47;
   padding: 0.2em 1em;
+  box-shadow: 0px 3px 25px #00000029;
   .profile-image {
     margin: -10px 0px;
     height: 40px;
     width: 40px;
     border-radius: 50%;
+  }
+  .dropdown-item {
+    font-size: 12px;
   }
   .dropdown-item.active,
   .dropdown-item.active:focus,
@@ -62,9 +66,12 @@ Navbar styles
   }
   a.nav-link {
     font-weight: 400;
+    font-size: 12px;
     > span {
       margin-left: 5px;
     }
+    color: #333333;
+    padding: 5px 10px;
   }
   .jh-navbar-toggler {
     color: #ccc;
@@ -86,7 +93,7 @@ Navbar styles
     text-decoration: none;
   }
   .brand-icon {
-    height: 35px;
+    height: auto;
     width: auto;
     display: inline-block;
     img {
@@ -97,7 +104,7 @@ Navbar styles
 
 .brand-title {
   font-size: 24px;
-  color: $header-color;
+  color: black;
   &:hover {
     color: $header-color-hover;
     text-decoration: none;
@@ -110,4 +117,17 @@ Navbar styles
   position: absolute;
   top: 0px;
   z-index: 1031;
+}
+
+.navbar-brand {
+  padding: 0 5px 0 0;
+  border-right: 1px solid #d3d3d3;
+  margin-right: 5px;
+}
+
+.brand-info {
+  width: 150px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
 }

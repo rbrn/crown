@@ -3,6 +3,10 @@ import { Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
+import InventorySupply from 'app/modules/inventory/inventory_supply';
+import InventoryBuy from 'app/modules/inventory/inventory_buy';
+import Welcome from 'app/modules/home/welcome';
+import WholeSalerSearch from 'app/modules/search/wholesaler-search';
 import Register from 'app/modules/account/register/register';
 import Activate from 'app/modules/account/activate/activate';
 import PasswordResetInit from 'app/modules/account/password-reset/init/password-reset-init';
@@ -14,6 +18,10 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
+import Support from "app/modules/home/support";
+import About from "app/modules/home/about";
+import PolicyAndTerms from "app/modules/home/policyAndTerms";
+import UploadDocuments from "app/entities/supplier-resource/buyer-seller-document-component";
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -28,7 +36,15 @@ const Admin = Loadable({
 const Routes = () => (
   <div className="view-routes">
     <Switch>
+      <ErrorBoundaryRoute path="/search" component={WholeSalerSearch} />
+      <ErrorBoundaryRoute path="/welcome" component={Welcome} />
+      <ErrorBoundaryRoute path="/doc" component={UploadDocuments} />
+      <ErrorBoundaryRoute path="/support" component={Support} />
+      <ErrorBoundaryRoute path="/about" component={About} />
+      <ErrorBoundaryRoute path="/policy" component={PolicyAndTerms} />
       <ErrorBoundaryRoute path="/login" component={Login} />
+      <ErrorBoundaryRoute path="/inventory-supply" component={InventorySupply} />
+      <ErrorBoundaryRoute path="/inventory-buy" component={InventoryBuy} />
       <ErrorBoundaryRoute path="/logout" component={Logout} />
       <ErrorBoundaryRoute path="/account/register" component={Register} />
       <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
