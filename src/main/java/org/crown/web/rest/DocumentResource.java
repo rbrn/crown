@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -34,32 +35,39 @@ public class DocumentResource {
         this.s3Client = s3Client;
     }
 
-    @PostMapping("file/upload")
+    @PostMapping("upload/file")
     public FileUploadResponse uploadDocument(@RequestParam("file") MultipartFile file) {
-        try {
-            String[] fileData = s3Client.uploadDocument(UUID.randomUUID().toString(), file);
-            String fileDownloadUri = file.getOriginalFilename() + "_" + fileData[0] + "_" + fileData[1];
+        String[] fileData = new String[]{};
+        String fileDownloadUri = "";
+        try{
+            fileData = s3Client.uploadDocument(UUID.randomUUID().toString(), file);
+            fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/file/download/")
+                .path(fileData[1] + "&")
+                .path(fileData[0])
+                .toUriString();
 
-            return new FileUploadResponse(file.getOriginalFilename(), fileData[1], fileData[0],
-                fileDownloadUri, fileData[2]);
         } catch (IOException e) {
             logger.warn("Error uploading file {}. Error: {}", file.getOriginalFilename(), e.getMessage());
         }
+        if(fileData.length == 0){
+            return new FileUploadResponse();
+        }
 
-        return new FileUploadResponse();
-
+        return new FileUploadResponse(fileData[0], fileDownloadUri, fileData[2]);
     }
 
-    @PostMapping("files/upload")
+    @PostMapping("upload/files")
     public List<FileUploadResponse> uploadDocuments(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
+        List<FileUploadResponse> out = Arrays.asList(files)
             .stream()
             .map(file -> uploadDocument(file))
             .collect(Collectors.toList());
+        return out;
 
     }
 
-    @GetMapping("file/download/{filePath}")
+    @GetMapping("download/{filePath}")
     public ResponseEntity getDocuments(@PathVariable String filePath, HttpServletRequest request) {
         /*
         Not implemented yet. FE has no current use case for this.
@@ -86,8 +94,8 @@ public class DocumentResource {
     @DeleteMapping("/file/{id}")
     public ResponseEntity<Void> deleteObject(@PathVariable String id) {
         logger.debug("REST request to delete s3 document : {}", id);
-        String[] fileInfo = id.split("_");
-        s3Client.deleteDocument(fileInfo[2], fileInfo[1]);
+        String[] fileInfo = id.split("&");
+        s3Client.deleteDocument(fileInfo[0], fileInfo[1]);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "Deleted file", id)).build();
     }
 
