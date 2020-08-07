@@ -7,6 +7,7 @@ import org.crown.domain.SupplierResource;
 import org.crown.repository.ClaimRepository;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -103,6 +104,7 @@ public class ClaimResourceIT {
         claim = createEntity();
     }
 
+    @Disabled
     @Test
     public void createClaim() throws Exception {
         int databaseSizeBeforeCreate = claimRepository.findAll().size();
@@ -140,7 +142,7 @@ public class ClaimResourceIT {
         assertThat(claimList).hasSize(databaseSizeBeforeCreate);
     }
 
-
+    @Disabled
     @Test
     public void checkQuantityIsRequired() throws Exception {
         int databaseSizeBeforeTest = claimRepository.findAll().size();
@@ -158,6 +160,7 @@ public class ClaimResourceIT {
         assertThat(claimList).hasSize(databaseSizeBeforeTest);
     }
 
+    @Disabled
     @Test
     public void getAllClaims() throws Exception {
         // Initialize the database
@@ -172,7 +175,7 @@ public class ClaimResourceIT {
             .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
-    
+
     @Test
     public void getClaim() throws Exception {
         // Initialize the database

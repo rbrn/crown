@@ -1,10 +1,9 @@
 package org.crown.security;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.crown.CrownApp;
 import org.crown.domain.User;
 import org.crown.repository.UserRepository;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

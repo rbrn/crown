@@ -1,5 +1,7 @@
 package org.crown.service;
 
+import io.github.jhipster.security.RandomUtil;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.crown.CrownApp;
 import org.crown.config.Constants;
 import org.crown.domain.PersistentToken;
@@ -7,26 +9,20 @@ import org.crown.domain.User;
 import org.crown.repository.PersistentTokenRepository;
 import org.crown.repository.UserRepository;
 import org.crown.service.dto.UserDTO;
-
-import io.github.jhipster.security.RandomUtil;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 
 /**
  * Integration tests for {@link UserService}.
