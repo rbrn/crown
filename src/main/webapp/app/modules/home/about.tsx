@@ -1,6 +1,8 @@
 import { Image } from 'react-bootstrap';
 import React from 'react';
-import { Col, Row } from 'reactstrap';
+import { Form, Input } from 'antd';
+import { Link } from 'react-router-dom';
+import { Col, Row, Button } from 'reactstrap';
 
 import './welcome.scss';
 
@@ -9,6 +11,17 @@ const container = {
   opacity: 1,
   padding: '50px',
   top: '40px'
+};
+
+const headingFirstText = {
+  font: 'Bold 61px/75px Montserrat',
+  textAlign: 'left' as const,
+  letterSpacing: '0px',
+  color: '#FF7C48',
+  textTransform: 'uppercase' as const,
+  marginBottom: '20px',
+  opacity: 1,
+  lineHeight: '50px'
 };
 
 const headingText = {
@@ -59,11 +72,13 @@ const headingSubText = {
   opacity: 1
 };
 
+const logo = 'content/images/LOGO.png';
+
 const About = props => (
   <div style={container}>
     <Row>
       <Col span={8}>
-        <p style={headingText}>
+        <p style={headingFirstText}>
           KNOW SOMETHING
           <br />
           MORE ABOUT US!
@@ -117,7 +132,7 @@ const About = props => (
           </p>
           <p style={{ color: '#FF7C48', textAlign: 'center' }}>
             <i>
-              <b>MISSION</b> - Medical Supplies For All People, Forever.
+              <b>MISSION - Medical Supplies For All People, Forever.</b>
             </i>
           </p>
           <p>
@@ -246,6 +261,90 @@ const About = props => (
         />
       </Col>
     </Row>
+    <footer className="mt-0 pt-0 my-md-5 pt-0">
+      <div className="row">
+        <div className="col-md-2">
+          {/* <h4>Legal</h4> */}
+          <img src={logo} alt="" className="cw-footer-logo" />
+          <ul className="list-unstyled text-small footer-date">
+            <li>
+              (C) 2020 needmoremed <br />
+              All Rights Reserved
+            </li>
+            <li>designed by bhanuprathap</li>
+          </ul>
+        </div>
+        <div className="col-8 col-md">
+          <h4 className="footer-header">
+            Medical Supplies <br />
+            for All People, Forever
+          </h4>
+
+          <Form name="horizontal_login" layout="inline">
+            <Form.Item
+              className="subscribe"
+              style={{
+                background: 'transparent url("contents/image/Rectangle-34.png")  0% 0% no-repeat padding-box',
+                border: '2px solid #707070',
+                borderRadius: '11px',
+                opacity: 1,
+                width: '215px'
+              }}
+            >
+              <Input placeholder="Email Address" />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{
+                  borderColor: '#FF7C48',
+                  background: '#FF7C48 0% 0% no-repeat padding-box',
+                  borderRadius: '7px',
+                  opacity: 1
+                }}
+              >
+                SUBSCRIBE NOW
+              </Button>
+            </Form.Item>
+          </Form>
+
+          <ul className="list-unstyled text-small row ml-1">
+            <li>
+              <Link className="text-muted text-gray-1 span6 footer-links" to="/about">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link className="text-muted text-gray-1 ml-2 footer-links ml-4" to="/buyer-journey">
+                Request
+              </Link>
+            </li>
+            <li>
+              <Link className="text-muted text-gray-1 ml-2 footer-links ml-4" to="/seller-journey">
+                Supply
+              </Link>
+            </li>
+            <li>
+              <Link className="text-muted text-gray-1 ml-2 footer-links ml-4" to="/support">
+                Support Us
+              </Link>
+            </li>
+            {/* <li><Link className="text-muted text-gray-1" to="/">Another one</Link></li>
+                            <li><Link className="text-muted text-gray-1" to="/">Last time</Link></li> */}
+          </ul>
+        </div>
+
+        <div className="col-md-3 ">
+          <h4 className="text-gray-2 footer-right-heading">Start a conversation</h4>
+          <ul className="list-unstyled text-small footer-right">
+            <li className="text-muted text-gray-1">Email: info@needmoremed.com </li>
+            <li className="text-muted text-gray-1">Address: Toronto, Canada </li>
+            <li className="text-muted text-gray-1">Terms and Policy </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
   </div>
 );
 
