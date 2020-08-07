@@ -204,10 +204,10 @@ describe('Entities reducer tests', () => {
     it('dispatches ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST)
+          type: REQUEST(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST_ALL)
         },
         {
-          type: SUCCESS(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST),
+          type: SUCCESS(ACTION_TYPES.FETCH_RECEIVERSUPPLIER_LIST_ALL),
           payload: resolvedObject
         }
       ];
