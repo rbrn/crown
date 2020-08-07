@@ -28,10 +28,12 @@ public class s3ServiceImpl implements s3Service {
     private Logger logger = LoggerFactory.getLogger(s3ServiceImpl.class);
 
     @Override
-    public String[] uploadDocument(String keyName, MultipartFile multiPartFile) throws IOException {
+    public String[] uploadDocument(String keyName, MultipartFile multiPartFile) {
         logger.debug("Storing file {} to s3", multiPartFile.getOriginalFilename());
         try {
             File file = convertMultiPartFileToFile(multiPartFile);
+            String fileName = cleanFileName(multiPartFile);
+            keyName += "_" + fileName;
             PutObjectResult result = uploadFile(keyName, file);
             String[] fileData = new String[]{keyName, bucketName, result.getETag()};
             file.delete();
@@ -41,6 +43,8 @@ public class s3ServiceImpl implements s3Service {
 
         } catch (AmazonClientException ace) {
             logger.warn("Can't store file in s3. Error message: {}", ace.getMessage());
+        } catch (IOException ioe) {
+            logger.warn("IO exception. Error message: {}", ioe.getMessage());
         }
         return null;
     }
@@ -71,7 +75,14 @@ public class s3ServiceImpl implements s3Service {
 
     @Override
     public void deleteDocument(String bucketName, String keyName) {
-        s3client.deleteObject(bucketName, keyName);
+        try {
+            s3client.deleteObject(bucketName, keyName);
+        } catch (AmazonServiceException ase) {
+            logger.warn("GET request failed. Error message: {}", ase.getErrorMessage());
+        } catch (AmazonClientException ace) {
+            logger.warn("Can't store file in s3. Error message: {}", ace.getMessage());
+        }
+
     }
 
     public File convertMultiPartFileToFile(MultipartFile file) throws IOException {
@@ -84,5 +95,15 @@ public class s3ServiceImpl implements s3Service {
 
     public PutObjectResult uploadFile(String keyName, File file) {
         return s3client.putObject(bucketName, keyName, file);
+    }
+
+    private String cleanFileName(MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        fileName = fileName.replaceAll("'", "");
+        fileName = fileName.replaceAll("’", "");
+        fileName = fileName.replaceAll("\\[", "");
+        fileName = fileName.replaceAll("\\]", "");
+        fileName = fileName.replaceAll(" ", "+");
+        return fileName;
     }
 }
