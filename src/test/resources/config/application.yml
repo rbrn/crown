@@ -21,8 +21,7 @@ spring:
       write-durations-as-timestamps: false
   data:
     mongodb:
-      host: localhost
-      port: 0
+      uri: ${MONGODB_URI}
       database: crown
     elasticsearch:
       properties:
@@ -30,6 +29,9 @@ spring:
           home: target/elasticsearch
   mail:
     host: localhost
+    port: 25
+    username: apikey
+    password: dummy
   main:
     allow-bean-definition-overriding: true
   messages:
@@ -50,6 +52,17 @@ spring:
         size: 1
   thymeleaf:
     mode: HTML
+
+awsS3Properties:
+  accesskey: SAMPLE_ACCESS_KEY
+  secretkey: SAMPLE_SECRET_KEY
+  bucketname: SAMPLE_BUCKET
+  region: eu-central-1
+
+azure:
+  accountName: crownwebapp
+  endpoint: https://test-endpoint.net
+  accountKey: ${AZURE_ACCOUNT_KEY}
 
 server:
   port: 10344
@@ -73,7 +86,7 @@ jhipster:
       port: 5000
       queue-size: 512
   mail:
-    from: test@localhost
+    from: info@needmoremed.com
     base-url: http://127.0.0.1:8080
   security:
     remember-me:

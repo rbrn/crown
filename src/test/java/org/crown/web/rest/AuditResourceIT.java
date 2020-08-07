@@ -9,6 +9,7 @@ import org.crown.security.AuthoritiesConstants;
 
 import org.crown.service.AuditEventService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,7 @@ public class AuditResourceIT {
         auditEvent.setAuditEventDate(SAMPLE_TIMESTAMP);
     }
 
+    @Disabled
     @Test
     public void getAllAudits() throws Exception {
         // Initialize the database
@@ -84,6 +86,7 @@ public class AuditResourceIT {
             .andExpect(jsonPath("$.principal").value(SAMPLE_PRINCIPAL));
     }
 
+    @Disabled
     @Test
     public void getAuditsByDate() throws Exception {
         // Initialize the database
@@ -100,6 +103,7 @@ public class AuditResourceIT {
             .andExpect(jsonPath("$.[*].principal").value(hasItem(SAMPLE_PRINCIPAL)));
     }
 
+    @Disabled
     @Test
     public void getNonExistingAuditsByDate() throws Exception {
         // Initialize the database
@@ -116,6 +120,7 @@ public class AuditResourceIT {
             .andExpect(header().string("X-Total-Count", "0"));
     }
 
+    @Disabled
     @Test
     public void getNonExistingAudit() throws Exception {
         // Get the audit
@@ -123,6 +128,7 @@ public class AuditResourceIT {
             .andExpect(status().isNotFound());
     }
 
+    @Disabled
     @Test
     public void testPersistentAuditEventEquals() throws Exception {
         TestUtil.equalsVerifier(PersistentAuditEvent.class);

@@ -1,14 +1,9 @@
 package org.crown.service;
 
-import org.crown.domain.User;
-
 import io.github.jhipster.config.JHipsterProperties;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
+import org.crown.domain.Claim;
+import org.crown.domain.Support;
+import org.crown.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -19,6 +14,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 /**
  * Service for sending emails.
@@ -34,6 +34,10 @@ public class MailService {
 
     private static final String BASE_URL = "baseUrl";
 
+    private static final String CLAIM = "claim";
+
+    private static final String SUPPORT = "support";
+
     private final JHipsterProperties jHipsterProperties;
 
     private final JavaMailSender javaMailSender;
@@ -43,7 +47,7 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
 
     public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+                       MessageSource messageSource, SpringTemplateEngine templateEngine) {
 
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
@@ -53,20 +57,21 @@ public class MailService {
 
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
-        log.debug("Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
-            isMultipart, isHtml, to, subject, content);
+        String emailFrom = jHipsterProperties.getMail().getFrom();
+        log.debug("Send email[multipart '{}' and html '{}'] from '{}' to '{}' with subject '{}' and content={}",
+            isMultipart, isHtml, emailFrom, to, subject, content);
 
         // Prepare message using a Spring helper
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, StandardCharsets.UTF_8.name());
             message.setTo(to);
-            message.setFrom(jHipsterProperties.getMail().getFrom());
+            message.setFrom(emailFrom);
             message.setSubject(subject);
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);
             log.debug("Sent email to User '{}'", to);
-        }  catch (MailException | MessagingException e) {
+        } catch (MailException | MessagingException e) {
             log.warn("Email could not be sent to user '{}'", to, e);
         }
     }
@@ -87,6 +92,36 @@ public class MailService {
     }
 
     @Async
+    public void sendSupportEmailFromTemplate(Support support, String templateName, String titleKey) {
+        Locale locale = Locale.forLanguageTag("US");
+        Context context = new Context(locale);
+        context.setVariable(SUPPORT, support);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail("crownteaminternational@gmail.com", subject, content, false, true);
+    }
+
+    @Async
+    public void sendClaimEmailFromTemplate(User user, Claim claim, String templateName,
+                                           String otherTemplateName, String titleKey) {
+        if (user.getEmail() == null) {
+            log.debug("Email doesn't exist for user '{}'", user.getLogin());
+            return;
+        }
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable(CLAIM, claim);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String otherContent = templateEngine.process(otherTemplateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
+        sendEmail("crownteaminternational@gmail.com", subject, otherContent, false, true);
+    }
+
+    @Async
     public void sendActivationEmail(User user) {
         log.debug("Sending activation email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/activationEmail", "email.activation.title");
@@ -102,5 +137,18 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendSupportEmail(Support support) {
+        log.debug("Sending email support from '{}'", support.getEmail());
+        sendSupportEmailFromTemplate(support, "mail/supportEmail", "email.support.title");
+    }
+
+    @Async
+    public void sendClaimEmail(User user, Claim claim) {
+        log.debug("Sending email to Crown Admin and '{}'", user.getEmail());
+        sendClaimEmailFromTemplate(user, claim, "mail/claimUserEmail",
+            "mail/claimAdminEmail", "email.claim.title");
     }
 }

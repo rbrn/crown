@@ -26,6 +26,12 @@ management:
         enabled: false
 
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
   devtools:
     restart:
       enabled: false
@@ -33,21 +39,23 @@ spring:
       enabled: false
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: ${MONGODB_URI}
       database: crown
-    jest:
-      uri: http://localhost:9200
-  # see https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-nosql.html#boot-features-connecting-to-elasticsearch-jest
-  elasticsearch:
-    rest:
-      uris: http://localhost:9200
+
   mail:
-    host: localhost
+    host: email-smtp.ca-central-1.amazonaws.com
     port: 25
-    username:
-    password:
+    username: ${SES_SMTP_USERNAME}
+    password: ${SES_SMTP_PASSWORD}
+
   thymeleaf:
     cache: true
+
+awsS3Properties:
+  accesskey: ${ACCESS_KEY}
+  secretkey: ${SECRET_KEY}
+  bucketname: ${BUCKET}
+  region: ${REGION}
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
@@ -94,7 +102,8 @@ jhipster:
       # security key (this key should be unique for your application, and kept secret)
       key: 2a84683611374cce7d7e793936e596c1efd64843bf46298bec94cb0147e5576e6163f440a159d97afaa1173b066acaedb8aa
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://my-server-url-to-change # Modify according to your server's URL
+    from: info@needmoremed.com
+    base-url: https://crown-dev.herokuapp.com # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

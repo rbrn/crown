@@ -7,6 +7,17 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entités",
+        "supplyPoint": "Supply Point",
+        "resource": "Resource",
+        "supplyPointResource": "Supply Point Resource",
+        "delivery": "Delivery",
+        "requestPoint": "Request Point",
+        "request": "Request",
+        "receiverSupplier": "Receiver Supplier",
+        "receiverResource": "Receiver Resource",
+        "supplierResource": "Supplier Resource",
+        "resourceType": "Resource Type",
+        "claim": "Claim",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -6,7 +6,18 @@
       "home": "Home",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
-        "main": "Entities",
+        "main": "My Dashboard",
+        "supplyPoint": "Supply Point",
+        "resource": "Resource",
+        "supplyPointResource": "Supply Point Resource",
+        "delivery": "Delivery",
+        "requestPoint": "Request Point",
+        "request": "Request",
+        "receiverSupplier": "Buyer/Supplier List",
+        "receiverResource": "My Requests",
+        "supplierResource": "My Supplies",
+        "resourceType": "Resource List",
+        "claim": "My Open Orders",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -136,5 +147,13 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "This is your footer"
+  "footer": "This is your footer",
+  "address": {
+    "addressLine1": "Address Line 1",
+    "addressLine2": "Address Line 2",
+    "city": "City",
+    "stateProvinceRegion": "State/Province/Region",
+    "postalCode": "Zip/Postal Code",
+    "country": "Country"
+  }
 }

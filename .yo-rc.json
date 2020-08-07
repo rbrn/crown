@@ -17,7 +17,6 @@
     "databaseType": "mongodb",
     "devDatabaseType": "mongodb",
     "prodDatabaseType": "mongodb",
-    "searchEngine": "elasticsearch",
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
@@ -38,6 +37,12 @@
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": ["en", "fr", "es"],
-    "blueprints": []
+    "blueprints": [],
+    "herokuAppName": "crown-dev",
+    "herokuDeployType": "git",
+    "azureAppServicePlan": "crown-webapp-plan",
+    "azureApplicationInsightsName": "crown-webapp-insights",
+    "azureAppServiceName": "crown-webapp-app-service",
+    "azureAppServiceDeploymentType": "github-action"
   }
 }
