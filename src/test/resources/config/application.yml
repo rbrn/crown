@@ -21,19 +21,17 @@ spring:
       write-durations-as-timestamps: false
   data:
     mongodb:
-      host: localhost
-      port: 0
+      uri: ${MONGODB_URI}
       database: crown
     elasticsearch:
       properties:
         path:
           home: target/elasticsearch
   mail:
-    host: email-smtp.ca-central-1.amazonaws.com
+    host: localhost
     port: 25
-    username: ${SES_SMTP_USERNAME}
-    password: ${SES_SMTP_PASSWORD}
-
+    username: apikey
+    password: dummy
   main:
     allow-bean-definition-overriding: true
   messages:
@@ -55,9 +53,15 @@ spring:
   thymeleaf:
     mode: HTML
 
+awsS3Properties:
+  accesskey: SAMPLE_ACCESS_KEY
+  secretkey: SAMPLE_SECRET_KEY
+  bucketname: SAMPLE_BUCKET
+  region: eu-central-1
+
 azure:
   accountName: crownwebapp
-  endpoint: https://crownwebapp.blob.core.windows.net
+  endpoint: https://test-endpoint.net
   accountKey: ${AZURE_ACCOUNT_KEY}
 
 server:
