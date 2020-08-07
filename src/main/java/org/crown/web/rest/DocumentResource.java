@@ -35,7 +35,7 @@ public class DocumentResource {
         this.s3Client = s3Client;
     }
 
-    @PostMapping("upload/file")
+    @PostMapping("file/upload")
     public FileUploadResponse uploadDocument(@RequestParam("file") MultipartFile file) {
         String[] fileData = new String[]{};
         String fileDownloadUri = "";
@@ -57,7 +57,7 @@ public class DocumentResource {
         return new FileUploadResponse(fileData[0], fileDownloadUri, fileData[2]);
     }
 
-    @PostMapping("upload/files")
+    @PostMapping("files/upload")
     public List<FileUploadResponse> uploadDocuments(@RequestParam("files") MultipartFile[] files) {
         List<FileUploadResponse> out = Arrays.asList(files)
             .stream()
@@ -67,7 +67,7 @@ public class DocumentResource {
 
     }
 
-    @GetMapping("download/{filePath}")
+    @GetMapping("file/download/{filePath}")
     public ResponseEntity getDocuments(@PathVariable String filePath, HttpServletRequest request) {
         /*
         Not implemented yet. FE has no current use case for this.
