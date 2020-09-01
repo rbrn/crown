@@ -1,11 +1,11 @@
 package org.crown.config.dbmigrations;
 
+import com.github.cloudyrock.mongock.ChangeLog;
+import com.github.cloudyrock.mongock.ChangeSet;
 import org.crown.domain.Authority;
+import org.crown.domain.ResourceType;
 import org.crown.domain.User;
 import org.crown.security.AuthoritiesConstants;
-
-import com.github.mongobee.changeset.ChangeLog;
-import com.github.mongobee.changeset.ChangeSet;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.time.Instant;
@@ -90,4 +90,18 @@ public class InitialSetupMigration {
         userUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(userUser);
     }
+
+    @ChangeSet(order = "04", author = "initiator", id = "05-addResourceTypes")
+    public void addResourceTypes(MongoTemplate mongoTemplate) {
+
+        String[] resourceTypeNames = new String[]{"Booties","Face shield","Goggles","Gown","Hand sanitizer","Masks (Homemade)","Mask (N95)","Masks (Surgical)","Swabs","Ventilator"};
+
+        for(String resourceTypeName: resourceTypeNames) {
+            ResourceType resourceType = new ResourceType();
+            resourceType.setName(resourceTypeName);
+            mongoTemplate.save(resourceType);
+        }
+
+    }
+
 }

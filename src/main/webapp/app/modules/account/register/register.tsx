@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { AvForm, AvField, AvCheckboxGroup, AvCheckbox} from 'availity-reactstrap-validation';
 import { Row, Col, Alert, Button } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
+import { useHistory, Link } from "react-router-dom";
 
 export interface IRegisterProps extends StateProps, DispatchProps {}
 
 export const RegisterPage = (props: IRegisterProps) => {
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   useEffect(() => () => props.reset(), []);
 
   const handleValidSubmit = (event, values) => {
     props.handleRegister(values.username, values.email, values.firstPassword, props.currentLocale);
     event.preventDefault();
+    history.push("/login");
   };
 
   const updatePassword = event => setPassword(event.target.value);
+
+
 
   return (
     <div>
@@ -81,26 +86,25 @@ export const RegisterPage = (props: IRegisterProps) => {
                 match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
               }}
             />
+
+            <AvCheckboxGroup
+              validate={{ required: { value: true, errorMessage: 'This Field is Required!' } }}
+              name="terms-and-policy">
+              <div style={{ display: 'inline-flex' }}>
+                <AvCheckbox
+                  label='I have read and agree to the '
+                  validate={{ required: {value: true, errorMessage: 'Required'}}}
+                />
+                &nbsp;
+                <Link to={`/policy`} className="link">Terms and Policy</Link>
+              </div>
+            </AvCheckboxGroup>
+
+
             <Button id="register-submit" color="primary" type="submit">
               <Translate contentKey="register.form.button">Register</Translate>
             </Button>
           </AvForm>
-          <p>&nbsp;</p>
-          <Alert color="warning">
-            <span>
-              <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-            </span>
-            <a className="alert-link">
-              <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-            </a>
-            <span>
-              <Translate contentKey="global.messages.info.authenticated.suffix">
-                , you can try the default accounts:
-                <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-              </Translate>
-            </span>
-          </Alert>
         </Col>
       </Row>
     </div>

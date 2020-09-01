@@ -42,21 +42,22 @@ spring:
       indent-output: true
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: ${MONGODB_URI}
       database: crown
-    elasticsearch:
-      properties:
-        path:
-          home: target/elasticsearch
   mail:
-    host: localhost
+    host: smtp.sendgrid.net
     port: 25
-    username:
-    password:
+    username: apikey
+    password: ${MAIL_KEY}
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
     cache: false
+
+azure:
+  accountName: crownwebapp
+  endpoint: https://crownwebapp.blob.core.windows.net
+  accountKey: ${AZURE_ACCOUNT_KEY}
 
 server:
   port: 8080
