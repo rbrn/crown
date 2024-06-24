@@ -44,7 +44,6 @@ class LoginModal extends React.Component<ILoginModalProps> {
                   placeholder={translate('global.form.username.placeholder')}
                   required
                   errorMessage="Username cannot be empty!"
-                  autoFocus
                 />
                 <AvField
                   name="password"

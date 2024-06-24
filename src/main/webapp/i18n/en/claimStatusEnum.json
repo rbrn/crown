@@ -1,0 +1,13 @@
+{
+  "crownApp": {
+    "ClaimStatusEnum": {
+      "null": "",
+      "PENDING": "PENDING",
+      "INREVIEW": "INREVIEW",
+      "ACCEPTED": "ACCEPTED",
+      "FORSHIPPING": "FORSHIPPING",
+      "SHIPPED": "SHIPPED",
+      "DELIVERED": "DELIVERED"
+    }
+  }
+}

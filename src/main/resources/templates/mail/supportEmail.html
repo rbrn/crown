@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.support.title}">Support Email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}"/>
+</head>
+<body>
+
+<p th:text="#{email.support.greeting}">
+    Dear Crown Admin,
+</p>
+
+<p th:text="#{email.support.message}">Customer Message: </p>
+<p style="padding-left: 20px" th:text="${support.message}"></p>
+
+<p th:text="#{email.support.contact}">Customer contact: </p>
+
+<p style="padding-left: 20px"><span th:text="#{email.support.name}">Name: </span><span th:text="${support.name}"></span></p>
+<p style="padding-left: 20px"><span th:text="#{email.support.email}">Email: </span><span th:text="${support.email}"></span></p>
+<p style="padding-left: 20px" th:if="${support.phoneNumber != null}"><span th:text="#{email.support.phone}">Phone number: </span><span th:text="${support.phoneNumber}"></span></p>
+
+<p>
+    <span th:text="#{email.activation.text2}">Regards, </span>
+    <br/>
+    <em th:text="${support.name}">.</em>
+</p>
+
+</body>
+</html>

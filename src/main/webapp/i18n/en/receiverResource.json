@@ -1,0 +1,37 @@
+{
+  "crownApp": {
+    "receiverResource": {
+      "home": {
+        "title": "My Requests",
+        "createLabel": "Request a  Resource",
+        "createOrEditLabel": "Create or edit a Request",
+        "notFound": "No Request found"
+      },
+      "created": "A new Request is created with identifier {{ param }}",
+      "updated": "A Request is updated with identifier {{ param }}",
+      "deleted": "A Request is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Request {{ id }}?"
+      },
+      "detail": {
+        "title": "My Requests"
+      },
+      "name": "Name",
+      "quantity": "Quantity Requested",
+      "dailyUse": "Daily Use",
+      "postedDate": "Posted Date",
+      "currentStock": "Current Stock",
+      "expiration": "Resource to be delivered before this Date",
+      "notes": "Notes",
+      "resourceType": "Resource Type",
+      "receiver": "Buyer",
+      "zip": "Zip/Postal Code",
+      "productInspection": "Do you require a product inspection?",
+      "productInspectDays": "How many days do you need to inspect product quality?",
+      "fundsAvailable": "Do you have funds to pay for goods?",
+      "acceptUnpackagedGoods": "Are you willing to accept unpackaged goods?",
+      "pof": "Proof of funds",
+      "fundRestrictions": "Fund Terms are Set by Manufacturer and Negotiated, if you have restrictions please place them here "
+    }
+  }
+}

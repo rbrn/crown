@@ -1,0 +1,28 @@
+{
+  "crownApp": {
+    "supplierResource": {
+      "home": {
+        "title": "SupplierResources",
+        "createLabel": "Créer un nouveau Supplier Resource",
+        "createSupplierLabel": "Who is offering this resource",
+        "createReceiverLabel": "Who is requesting this resource",
+        "createOrEditLabel": "Créer ou éditer un Supplier Resource",
+        "search": "Recherche pour Supplier Resource",
+        "notFound": "Aucun Supplier Resource trouvé"
+      },
+      "created": "Un nouveau Supplier Resource a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Supplier Resource avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Supplier Resource avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Supplier Resource {{ id }} ?"
+      },
+      "detail": {
+        "title": "Supplier Resource"
+      },
+      "quantity": "Quantity",
+      "cost": "Cost",
+      "resourceType": "Resource Type",
+      "supplier": "Supplier"
+    }
+  }
+}

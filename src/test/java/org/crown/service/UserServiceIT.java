@@ -5,7 +5,6 @@ import org.crown.config.Constants;
 import org.crown.domain.PersistentToken;
 import org.crown.domain.User;
 import org.crown.repository.PersistentTokenRepository;
-import org.crown.repository.search.UserSearchRepository;
 import org.crown.repository.UserRepository;
 import org.crown.service.dto.UserDTO;
 
@@ -56,13 +55,7 @@ public class UserServiceIT {
     @Autowired
     private UserService userService;
 
-    /**
-     * This repository is mocked in the org.crown.repository.search test package.
-     *
-     * @see org.crown.repository.search.UserSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private UserSearchRepository mockUserSearchRepository;
+
 
     private User user;
 
@@ -176,8 +169,6 @@ public class UserServiceIT {
         users = userRepository.findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(now.minus(3, ChronoUnit.DAYS));
         assertThat(users).isEmpty();
 
-        // Verify Elasticsearch mock
-        verify(mockUserSearchRepository, times(1)).delete(user);
     }
 
     @Test
@@ -192,9 +183,6 @@ public class UserServiceIT {
         userService.removeNotActivatedUsers();
         Optional<User> maybeDbUser = userRepository.findById(dbUser.getId());
         assertThat(maybeDbUser).contains(dbUser);
-
-        // Verify Elasticsearch mock
-        verify(mockUserSearchRepository, never()).delete(user);
     }
 
     private void generateUserToken(User user, String tokenSeries, LocalDate localDate) {

@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -23,13 +22,11 @@ import java.util.Set;
  * A user.
  */
 @org.springframework.data.mongodb.core.mapping.Document(collection = "jhi_user")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "user")
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private String id;
 
     @NotNull

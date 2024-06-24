@@ -1,0 +1,24 @@
+{
+  "crownApp": {
+    "resourceType": {
+      "home": {
+        "title": "Resource List",
+        "createLabel": "Create a new Resource",
+        "createOrEditLabel": "Create or edit a Resource",
+        "search": "Search for Resource",
+        "notFound": "No Resource found"
+      },
+      "created": "A new Resource is created with identifier {{ param }}",
+      "updated": "A Resource is updated with identifier {{ param }}",
+      "deleted": "A Resource is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Resource {{ id }}?"
+      },
+      "detail": {
+        "title": "Resource List"
+      },
+      "name": "Name",
+      "notes": "Notes"
+    }
+  }
+}

@@ -1,8 +1,72 @@
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/CROWNDR-org/crown)
+
 # crown
 
 This application was generated using JHipster 6.8.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.8.0](https://www.jhipster.tech/documentation-archive/v6.8.0).
 
 ## Development
+
+## Prerequisites
+
+NodeJs
+Git
+Java 1.8 - 11
+
+## Steps to setup local dev environment
+
+1. git clone your-forked-repo
+2. Go to project directory where you cloned the repo and run "npm install"
+
+## FRONTEND WITH REMOTE BACKEND
+
+Running the frontend with remote heroku backend
+
+Remote backend link here: https://crown-dev.herokuapp.com
+
+Steps
+
+1. proxy.conf.json replace target and secure with these values
+
+   "target": "https://crown-dev.herokuapp.com",
+   "secure": true,
+
+2) webpack.dev.js replace localhost:8080 with crown-dev.herokuapp.com and should look like this
+   Do not replace BrowserSync configuration: localhost:9060
+
+   target: `http${options.tls ? 's' : ''}://crown-dev.herokuapp.com`,
+   secure: true,
+
+run from the command line
+
+    npm run start-tls
+
+## FRONTEND WITH local backend
+
+run from the command line
+
+Request a password for the crown database from one of the main contributors
+
+set the following environment variable wth name MONGODB_URI with the value below replacing the REPLACEME with the password
+
+mongodb+srv://crown_user:REPLACEME@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+
+Export the variable from command line in linux/macos
+
+export MONGODB_URI=mongodb+srv://crown_user:REPLACEME@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+
+Export the variable in windows
+
+    SET MONGODB_URI=mongodb+srv://crown_user:REPLACEME@cluster0-eagup.azure.mongodb.net/crown?retryWrites=true&w=majority
+
+Start maven java app
+
+    ./mvnw
+
+Start frontend
+
+    npm start
+
+### Packaging as war
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
 

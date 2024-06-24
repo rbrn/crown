@@ -1,0 +1,13 @@
+.welcome {
+  background: url('../../../content/images/welcome-background.svg') no-repeat center top;
+  background-size: cover;
+}
+.welcome-container {
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.welcome-card {
+  padding: 40px;
+}

@@ -1,27 +1,37 @@
-entity SupplyPoint {
+entity ReceiverSupplier {
     name String required unique,
-    address String,
+    address String required,
+    email String required,
     primaryContactName String required,
     zip String required,
-    phonenumber String
+    phonenumber String required,
     latx Float,
     longy Float,
-    city String,
-    state String,
-    isDistributor Boolean,
-    isHealthcare Boolean,
+    city String required,
+    state String required,
+    country String required,
+    npi Integer,
+    isReceiver Boolean,
+    isSupplier Boolean,
     hasSterilization Boolean,
     priority Integer,
+    notes String,
+    tags String,
+}
+
+entity ReceiverResource {
+    name String required,
+    quantity Integer required,
+    dailyUse Integer required,
+    postedDate LocalDate required,
+    currentStock Integer,
+    expiration LocalDate,
     notes String
 }
-entity Resource {
-	name String required,
-	notes String
-}
-entity SupplyPointResource {
-    numRequested Integer,
-    canProduce Integer,
-    numinStock Integer
+
+entity SupplierResource {
+    quantity Integer required,
+    cost Integer required,
 }
 
 entity Delivery {
@@ -30,14 +40,40 @@ entity Delivery {
 	notes String
 }
 
-relationship OneToMany {
-    SupplyPoint{resourceLocation} to SupplyPointResource{supplypoint}
+entity ResourceType {
+    name String required,
+    notes String
+}
+
+entity Claim {
+    quantity Integer required,
+    notes String,
+}
+
+relationship OneToOne {
+    ReceiverResource{resourceType(name) required} to ResourceType
+}
+
+relationship OneToOne {
+    SupplierResource{resourceType(name) required} to ResourceType
+}
+
+relationship OneToOne {
+    Claim{receiverResource required} to ReceiverResource
+}
+
+relationship OneToOne {
+    Claim{supplierResource required} to SupplierResource
 }
 
 relationship OneToMany {
-    SupplyPointResource{resource} to Resource
+     ReceiverSupplier{receiverResource(name)} to ReceiverResource{receiver(name)}
 }
+
+relationship OneToMany {
+     ReceiverSupplier{supplierResource(name)} to SupplierResource{supplier(name)}
+}
+
 
 // Set pagination options
-paginate SupplyPoint, Resource, SupplyPointResource with infinite-scroll
-
+paginate ReceiverSupplier, ReceiverResource, SupplierResource, Delivery, ResourceType with infinite-scroll
